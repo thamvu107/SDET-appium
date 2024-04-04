@@ -8,8 +8,8 @@ public class LaunchAppTest {
     public static void main(String[] args) {
 
         // DesiredCaps
-        AppiumDriver appiumDriver = DriverFactory.getDriver(Platform.ANDROID);
-        appiumDriver.quit();
+//        AppiumDriver appiumDriver = DriverFactory.getDriver(Platform.ANDROID);
+//        appiumDriver.quit();
     }
 
 }
