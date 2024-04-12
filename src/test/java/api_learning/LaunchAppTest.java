@@ -1,15 +1,14 @@
 package api_learning;
 
 import driver.DriverFactory;
-import driver.Platform;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.remote.MobilePlatform;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 
 public class LaunchAppTest {
     public static void main(String[] args) {
 
-        // DesiredCaps
-        AppiumDriver appiumDriver = DriverFactory.getDriver(Platform.ANDROID);
-        appiumDriver.quit();
+        AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
+        service.start();
     }
-
 }
