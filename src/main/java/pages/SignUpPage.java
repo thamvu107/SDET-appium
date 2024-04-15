@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static io.appium.java_client.AppiumBy.accessibilityId;
-import static io.appium.java_client.AppiumBy.androidUIAutomator;
+import static io.appium.java_client.AppiumBy.id;
 import static java.time.Duration.ofSeconds;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
@@ -18,8 +18,9 @@ public class SignUpPage {
     private final By password = accessibilityId("input-password");
     private final By confirmPassword = accessibilityId("input-repeat-password");
     private final By signUpBtn = accessibilityId("button-SIGN UP");
-    private final By message = androidUIAutomator("new UiSelector().resourceId(\"android:id/message\")");
-    private final By okBtn = androidUIAutomator("new UiSelector().resourceId(\"android:id/button1\")");
+    private final By message = id("android:id/message");
+
+    private final By okBtn = id("android:id/button1");
     private final WebDriverWait wait;
 
     public SignUpPage(final AndroidDriver driver) {
