@@ -20,7 +20,8 @@ public class NarrowDownSearchingScope {
             appiumDriver.findElement(formsBtnLoc).click();
 
             WebDriverWait wait = new WebDriverWait(appiumDriver, Duration.ofSeconds(15L));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.androidUIAutomator("new UiSelector(). textContains(\"Form components\")")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    AppiumBy.androidUIAutomator("new UiSelector(). textContains(\"Form components\")")));
 
             // Swipe up before interacting
             Dimension windowSize = appiumDriver.manage().window().getSize();
