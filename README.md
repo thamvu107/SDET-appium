@@ -1,14 +1,7 @@
 # Appium Project with Java
 Learn Appium with Java
-# Prerequisites Installation steps
-1. Java Development Kit 112.
-2. IntelliJ
-3. Appium server
-4. Android Studio
-5. Setup Emulator with Android Studio
-6. Appium Inspector
-
-show device list
-emulator -list-avds
-start a device
-emulator @Pixel_5_API_34
+# Tech Stack
+- Java 17 LTS
+- Appium 2.0 (latest)
+- Appium Java Client 9.2.2 (latest)
+- TestNG 7.10.1
