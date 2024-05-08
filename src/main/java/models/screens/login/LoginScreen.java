@@ -28,11 +28,6 @@ public class LoginScreen extends BaseScreen {
         super(driver);
     }
 
-//    protected SuccessDialog dialogComponent() {
-//
-//        return new SuccessDialog(driver);
-//    }
-
     protected WebElement loginScreenElement() {
 
         return driver.findElement(loginScreenLoc);
@@ -47,7 +42,7 @@ public class LoginScreen extends BaseScreen {
         return driver.findElement(signupTabLoc);
     }
 
-    protected WebElement emailFieldElement(AppiumDriver driver) {
+    protected WebElement emailFieldElement() {
         return driver.findElement(emailInputLoc);
     }
 
@@ -73,47 +68,29 @@ public class LoginScreen extends BaseScreen {
         return this;
     }
 
-    public LoginScreen verifyLoginScreenDisplay() {
+    public void displayLoginScreen() {
 
         Assert.assertTrue(loginScreenElement().isDisplayed());
 
-        return this;
     }
 
-    protected LoginScreen clickOnSingInTab() {
+    protected SignInScreen clickOnSingInTab() {
         loginTabElement().click();
 
+        return new SignInScreen(driver);
+    }
+
+
+    protected LoginScreen displaySignInForm() {
+
         return this;
     }
+
 
     protected LoginScreen clickOnSingUpTab() {
         signupTabElement().click();
 
         return this;
     }
-//
-//    protected void inputEmail(String userName) {
-//
-//        emailFieldElement().clear();
-//        emailFieldElement().sendKeys(userName);
-//    }
-//
-//    protected void inputPassword(String password) {
-//
-//        passwordFieldElement().clear();
-//        passwordFieldElement().sendKeys(password);
-//    }
-//
-//    protected void seeInvalidEmailMessage(String expectMessage) {
-//
-//        String actualMessage = invalidEmailLabelElement().getText();
-//        Assert.assertEquals(actualMessage, expectMessage);
-//    }
-//
-//    protected void seeInvalidPasswordMessage(String expectMessage) {
-//
-//        String actualMessage = invalidPasswordLabelElement().getText();
-//        Assert.assertEquals(actualMessage, expectMessage);
-//    }
 
 }

@@ -27,7 +27,7 @@ public class DialogComponent extends BaseScreen {
     private final By iosDialogLocator = className("XCUIElementTypeAlert");
 
     private final By iosDialogTitleLoc = iOSNsPredicateString("name == \"Success\" AND label == \"Success\" AND value == \"Success\"");
-    private final By iosDialogMessageLoc = accessibilityId("You successfully signed up!");
+    private final By iosDialogMessageLoc = accessibilityId("You are logged in!");
     private final By iosDialogButtonLoc = accessibilityId("OK");
 
     // Mapping
@@ -48,7 +48,6 @@ public class DialogComponent extends BaseScreen {
     public DialogComponent(AppiumDriver driver) {
         super(driver);
 
-//        this.driver = driver;
         elementMapping = new ElementLocatorMapper(driver);
 
     }
