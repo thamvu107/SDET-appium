@@ -1,7 +1,7 @@
 package practice;
 
 import driverFactory.Driver;
-import driverFactory.capabilities.IOSCapabilities;
+import driverFactory.capabilities.AndroidCapabilities;
 import io.appium.java_client.AppiumDriver;
 import models.commponents.dialog.DialogComponent;
 import models.screens.login.LoginScreen;
@@ -25,10 +25,10 @@ public class SignInTest extends BaseTest {
     @BeforeClass
     public void setUpLoginPage() {
         // Android
-        //DriverUtils.driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
+        DriverUtils.driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
 
         // iOS
-        DriverUtils.driver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
+        //DriverUtils.driver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
         this.driver = DriverUtils.driver;
 
         new LoginScreen(driver)
@@ -36,7 +36,7 @@ public class SignInTest extends BaseTest {
                 .displayLoginScreen();
     }
 
-    @Test
+    @Test(priority = 1)
     public void loginInWithCorrectCredential() {
 
         new SignInScreen(this.driver)
@@ -50,17 +50,15 @@ public class SignInTest extends BaseTest {
                 .isDisappearedDialog();
     }
 
-
-//    @Test(priority = 1)
-//    public void loginInWithIncorrectCredentials() {
-//        new SignInScreen(this.driver).inputEmail("tham.qa")
-//                .inputPassword("1020")
-//                .clickOnLoginButton();
-//        .seeInvalidEmailMessage(LoginScreenConstants.INVALID_EMAIL_MESSAGE);
-//        loginScreen.seeInvalidPasswordMessage(LoginScreenConstants.INVALID_PASSWORD_MESSAGE);
-//    }
-
     @Test(priority = 2)
+    public void loginInWithIncorrectCredentials() {
+        new SignInScreen(this.driver)
+                .inputEmail(INVALID_EMAIL)
+                .inputPassword(INVALID_PASSWORD)
+                .clickOnLoginButton()
+                .seeInvalidEmailMessage(INVALID_EMAIL_MESSAGE)
+                .seeInvalidPasswordMessage(INVALID_PASSWORD_MESSAGE);
+    }
 
     @AfterClass
     public void tearDown() {

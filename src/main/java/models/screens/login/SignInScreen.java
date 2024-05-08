@@ -37,11 +37,12 @@ public class SignInScreen extends LoginScreen {
         return this;
     }
 
-    public void clickOnLoginButton() {
+    public SignInScreen clickOnLoginButton() {
 
         // TODO: On smaller screens there could be a possibility that the button is not shown
-
         signInButtonElement().click();
+
+        return this;
     }
 
     public SignInScreen seeInvalidEmailMessage(String expectMessage) {
@@ -52,12 +53,10 @@ public class SignInScreen extends LoginScreen {
         return this;
     }
 
-    public SignInScreen seeInvalidPasswordMessage(String expectMessage) {
+    public void seeInvalidPasswordMessage(String expectMessage) {
 
         String actualMessage = invalidPasswordLabelElement().getText();
         Assert.assertEquals(actualMessage, expectMessage);
-
-        return this;
     }
 
 

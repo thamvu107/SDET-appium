@@ -59,8 +59,6 @@ public class DialogComponent extends BaseScreen {
 
     private WebElement dialogTitle() {
 
-        // ElementHandler elementHandler = new ElementHandler(this.driver);
-
         return elementMapping.findElement(dialogTitleLocMap);
     }
 
@@ -76,7 +74,7 @@ public class DialogComponent extends BaseScreen {
 
     public DialogComponent seeDialog(String expectedTitle, String expectedMessage) {
 
-        //verifyDialogTitle(expectedTitle);
+        verifyDialogTitle(expectedTitle);
         verifyDialogMessage(expectedMessage);
 
         return this;
