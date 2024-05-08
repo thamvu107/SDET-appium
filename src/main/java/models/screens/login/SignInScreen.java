@@ -23,8 +23,8 @@ public class SignInScreen extends LoginScreen {
 
     public SignInScreen inputEmail(String email) {
 
-        emailFieldElement(driver).clear();
-        emailFieldElement(driver).sendKeys(email);
+        emailFieldElement().clear();
+        emailFieldElement().sendKeys(email);
 
         return this;
     }
