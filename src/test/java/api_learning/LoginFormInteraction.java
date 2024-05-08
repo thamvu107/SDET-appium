@@ -1,16 +1,18 @@
 package api_learning;
 
-import driver.DriverFactory;
+import driverFactory.Driver;
+import driverFactory.capabilities.AndroidCapabilities;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.remote.MobilePlatform;
-import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
+import static constants.AndroidConstants.APP_PACKAGE;
+
 public class LoginFormInteraction {
 
     /*
@@ -20,7 +22,8 @@ public class LoginFormInteraction {
      */
     public static void main(String[] args) {
 
-        AppiumDriver appiumDriver = DriverFactory.getDriver(MobilePlatform.ANDROID);
+//        AppiumDriver appiumDriver = DriverFactory.getDriver(MobilePlatform.ANDROID);
+        AppiumDriver appiumDriver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
         try {
             // Login Action
             // By navLoginBtnLoc = By.xpath("//android.widget.Button[@content-desc='Login']");
@@ -65,5 +68,6 @@ public class LoginFormInteraction {
         }
 
         appiumDriver.quit();
+        Driver.clearApp(APP_PACKAGE);
     }
 }

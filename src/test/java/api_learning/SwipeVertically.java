@@ -17,8 +17,8 @@ import java.util.Collections;
 
 public class SwipeVertically {
     public static void main(String[] args) {
-        AppiumDriver appiumDriver = DriverFactory.getDriver(MobilePlatform.ANDROID);
-        try{
+        AppiumDriver appiumDriver = DriverFactory.getMobileDriver(MobilePlatform.ANDROID);
+        try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");
             By activeBtnLoc = AppiumBy.accessibilityId("button-Active");
 

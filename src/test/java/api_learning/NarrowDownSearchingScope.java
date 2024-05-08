@@ -13,7 +13,7 @@ import java.time.Duration;
 
 public class NarrowDownSearchingScope {
     public static void main(String[] args) {
-        AppiumDriver appiumDriver = DriverFactory.getDriver(MobilePlatform.ANDROID);
+        AppiumDriver appiumDriver = DriverFactory.getMobileDriver(MobilePlatform.ANDROID);
         try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");
 
