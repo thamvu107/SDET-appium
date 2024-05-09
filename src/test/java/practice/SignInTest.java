@@ -45,7 +45,7 @@ public class SignInTest extends BaseTest {
                 .clickOnLoginButton();
 
         new DialogComponent(this.driver)
-                .seeDialog(SUCCESS_TITLE, SUCCESS_MESSAGE)
+                .seeDialog(SIGN_IN_DIALOG_TITLE, SIGN_IN_DIALOG_MESSAGE)
                 .clickOnOkButton()
                 .isDisappearedDialog();
     }
