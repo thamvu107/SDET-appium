@@ -20,24 +20,9 @@ public class ElementLocatorMapper {
         this.driver = driver;
     }
 
-//    public WebElement findElement(Map<Platforms, By> locatorMap) {
-//        By elementLocator = locatorMap.get(Platforms.valueOf(getCurrentPlatform()));
-//
-//        return this.driver.findElement(elementLocator);
-//    }
-//
-//    public List<WebElement> findElements(Map<Platforms, By> locatorMap) {
-//
-//        By elementLocator = locatorMap.get(Platforms.valueOf(getCurrentPlatform()));
-//
-//        return this.driver.findElements(elementLocator);
-//    }
-
     public WebElement findElement(Map<MobilePlatform, By> locatorMap) {
-        By elementLocator = locatorMap.get(MobilePlatform.valueOf(getCurrentPlatform()));
 
-        System.out.println(locatorMap);
-        System.out.println(elementLocator);
+        By elementLocator = locatorMap.get(MobilePlatform.valueOf(getCurrentPlatform()));
 
         return this.driver.findElement(elementLocator);
     }

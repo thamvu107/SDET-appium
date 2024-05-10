@@ -11,8 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static constants.AndroidConstants.APP_PACKAGE;
-
 public class LoginFormInteraction {
 
     /*
@@ -68,6 +66,6 @@ public class LoginFormInteraction {
         }
 
         appiumDriver.quit();
-        Driver.clearApp(APP_PACKAGE);
+        //Driver.clearApp(APP_PACKAGE);
     }
 }

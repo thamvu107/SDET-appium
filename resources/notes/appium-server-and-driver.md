@@ -23,7 +23,11 @@
     - appium driver update xcuitest
 
 - Updating driver list:
-    - appium driver list --updates
+    - `appium driver list --updates`:
+        - by default Appium will not let you update a driver across a major version boundary, to keep you safe from
+          breaking changes.
+    - `appium driver update --unsafe`
+        - --unsafe you are forcing the update of the Appium driver without strict safety checks.
 
 - Uninstall a driver:
     - `appium driver uninstall <driver name>`

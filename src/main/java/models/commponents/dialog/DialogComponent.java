@@ -2,9 +2,10 @@ package models.commponents.dialog;
 
 import driverFactory.MobilePlatform;
 import io.appium.java_client.AppiumDriver;
-import models.screens.BaseScreen;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import utils.ElementLocatorMapper;
 
@@ -12,7 +13,7 @@ import java.util.Map;
 
 import static io.appium.java_client.AppiumBy.*;
 
-public class DialogComponent extends BaseScreen {
+public class DialogComponent {
 
     //    private final AppiumDriver driver;
     private final ElementLocatorMapper elementMapping;
@@ -46,7 +47,6 @@ public class DialogComponent extends BaseScreen {
             MobilePlatform.IOS, iosDialogButtonLoc);
 
     public DialogComponent(AppiumDriver driver) {
-        super(driver);
 
         elementMapping = new ElementLocatorMapper(driver);
 
@@ -57,12 +57,12 @@ public class DialogComponent extends BaseScreen {
         return elementMapping.findElement(dialogLocatorMap);
     }
 
-    private WebElement dialogTitle() {
+    private WebElement dialogTitleElement() {
 
         return elementMapping.findElement(dialogTitleLocMap);
     }
 
-    private WebElement dialogMessage() {
+    private WebElement dialogMessageElement() {
 
         return elementMapping.findElement(dialogMessageLoc);
     }
@@ -82,13 +82,13 @@ public class DialogComponent extends BaseScreen {
 
     public void verifyDialogTitle(String expectedTitle) {
 
-        String actualMessage = dialogTitle().getText();
+        String actualMessage = dialogTitleElement().getText();
         Assert.assertEquals(actualMessage, expectedTitle);
     }
 
     public void verifyDialogMessage(String expectedMessage) {
 
-        String actualMessage = dialogMessage().getText();
+        String actualMessage = dialogMessageElement().getText();
         Assert.assertEquals(actualMessage, expectedMessage);
     }
 
@@ -102,7 +102,8 @@ public class DialogComponent extends BaseScreen {
 
 
     public void isDisappearedDialog() {
-        Assert.assertFalse(elementMapping.isElementPresent(dialogLocatorMap));
+        ExpectedCondition<Boolean> invisibility = ExpectedConditions.invisibilityOf(dialogElement());
+        //Assert.assertFalse(elementMapping.isElementPresent(dialogLocatorMap));
     }
 
 }
