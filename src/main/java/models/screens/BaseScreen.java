@@ -17,26 +17,29 @@ public class BaseScreen {
 
     protected ElementLocatorMapper elementHandler;
 
+    protected BottomNavComponent bottomNavComponent;
+
     protected BaseScreen(final AppiumDriver driver) {
         this.driver = driver;
         elementHandler = new ElementLocatorMapper(this.driver);
+        bottomNavComponent = new BottomNavComponent(this.driver);
     }
 
-    protected BottomNavComponent bottomNavComponent() {
-        return new BottomNavComponent(driver);
-    }
+//    protected BottomNavComponent bottomNavComponent() {
+//        return new BottomNavComponent(this.driver);
+//    }
 
     protected void waitForVisibility(WebElement element) {
 
         //TODO : custom wait
 
-        WebDriverWait wait = new WebDriverWait(driver, ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));
+        WebDriverWait wait = new WebDriverWait(this.driver, ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     protected void waitForInvisibility(WebElement element) {
 
-        WebDriverWait wait = new WebDriverWait(driver, ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));
+        WebDriverWait wait = new WebDriverWait(this.driver, ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));
         wait.until(ExpectedConditions.invisibilityOf(element));
 
     }

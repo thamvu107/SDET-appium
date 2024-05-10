@@ -21,14 +21,18 @@ public class AndroidCapabilities {
                 .setDeviceName(DEVICE_NAME)
                 .setAvd(ADV)
                 .setAvdLaunchTimeout(ADV_TIMEOUT)
-                //.setApp(appFile.getPath())
                 .setAppPackage(APP_PACKAGE)
                 .setAppActivity(APP_ACTIVITY)
                 .setFullReset(false)
                 .setNoReset(false)
+                .clearDeviceLogsOnStart()
+//                .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH_TIME)
                 .setUiautomator2ServerLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
                 .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT);
-        caps.setCapability("appium:settings[ignoreUnimportantViews]", true);
+        caps.setCapability("–session-override", true);
+//        caps.setCapability("clearDeviceLogsOnStart", true);
+//        caps.setCapability("hideKeyboard", true);
+//        caps.setCapability("autoLaunch", true);
 
         return caps;
     }

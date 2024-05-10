@@ -82,32 +82,34 @@ public class LoginScreen extends BaseScreen {
 
     public LoginScreen clickOnLoginNav() {
 
-        bottomNavComponent().loginNav().click();
+        bottomNavComponent.clickOnLoginNav();
 
         return this;
     }
 
-    public void displayLoginScreen() {
+    public LoginScreen displayLoginScreen() {
 
         Assert.assertTrue(loginScreenElement().isDisplayed());
 
+        return this;
     }
 
-    protected SignInScreen clickOnSingInTab() {
+    public SignInScreen clickOnSingInTab() {
         loginTabElement().click();
 
         return new SignInScreen(driver);
     }
 
-    protected LoginScreen displaySignInForm() {
+    public LoginScreen displaySignInForm() {
 
         return this;
     }
 
-    protected LoginScreen clickOnSingUpTab() {
+    public SignUpScreen clickOnSingUpTab() {
+
         signupTabElement().click();
 
-        return this;
+        return new SignUpScreen(driver);
     }
 
 }

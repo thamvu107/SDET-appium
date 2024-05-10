@@ -2,51 +2,45 @@ package practice;
 
 import driverFactory.Driver;
 import driverFactory.capabilities.AndroidCapabilities;
-import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
-import models.screens.login.SignInScreen;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import models.commponents.dialog.DialogComponent;
+import models.screens.login.LoginScreen;
+import models.screens.login.SignUpScreen;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
+import static constants.Screens.SignUpConstants.*;
 
 public class SignUpTest extends BaseTest {
 
-//    private LoginScreen loginScreen;
-
-    private SignInScreen signInScreen;
+    private AppiumDriver driver;
+    private SignUpScreen signUpScreen;
 
     @BeforeClass
-    public void setUpLoginPage() {
-//        DriverFactory.startAppiumServer();
-        AppiumDriver driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
+    public void setUpSignUpPage() {
+        // Android
+        this.driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
 
-        signInScreen = new SignInScreen(driver);
-        signInScreen.clickOnLoginNav();
+        // iOS
+        //this.driver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
+
+        signUpScreen = new LoginScreen(driver)
+                .clickOnLoginNav()
+                .displayLoginScreen()
+                .clickOnSingUpTab();
     }
 
     @Test
-    public void signUpWithValidAccount() {
-//        SignUpComponent signUpComponent = loginScreen.signUpComponent()
-//                .inputEmail("tham.qa@gmail.com")
-//                .inputPassword("MyPassword1020")
-//                .clickOnSignUpBtn();
-
-        //signInScreen.inputEmail();
+    public void signUpWithCorrectCredentials() {
+        signUpScreen.inputEmail(SIGN_UP_EMAIL)
+                .inputPassword(SIGN_UP_PASSWORD)
+                .inputRepeatPassword(SIGN_UP_PASSWORD)
+                .clickOnSignUpButton();
 
 
-        // Wait for the dialog displayed
-        By dialogMsgLoc = AppiumBy.id("android:id/message");
-        By dialogBtnLoc = AppiumBy.id("android:id/button1");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15L));
-        WebElement dialogMsgEle = wait.until(ExpectedConditions.visibilityOfElementLocated(dialogMsgLoc));
-        System.out.printf("Dialog msg: %s\n", dialogMsgEle.getText());
-        driver.findElement(dialogBtnLoc).click();
-
-
+        new DialogComponent(this.driver)
+                .seeDialog(SIGN_UP_DIALOG_TITLE, SIGN_UP_DIALOG_MESSAGE)
+                .clickOnOkButton()
+                .isDisappearedDialog();
     }
 }

@@ -10,7 +10,6 @@ import org.openqa.selenium.By;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import utils.DriverUtils;
 
 import static constants.Screens.SignInConstants.*;
 import static io.appium.java_client.AppiumBy.accessibilityId;
@@ -20,18 +19,17 @@ public class SignInTest extends BaseTest {
     private final By passwordInputLoc = accessibilityId("input-password");
     private SignInScreen signInScreen;
     private AppiumDriver driver;
-    //    private LoginScreen loginScreen;
+    private LoginScreen loginScreen;
 
     @BeforeClass
     public void setUpLoginPage() {
         // Android
-        DriverUtils.driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
+        this.driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
 
         // iOS
         //DriverUtils.driver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
-        this.driver = DriverUtils.driver;
 
-        new LoginScreen(driver)
+        loginScreen = new LoginScreen(driver)
                 .clickOnLoginNav()
                 .displayLoginScreen();
     }
@@ -63,7 +61,7 @@ public class SignInTest extends BaseTest {
     @AfterClass
     public void tearDown() {
 
-        Driver.quitDriver(driver);
+        Driver.quitDriver(this.driver);
     }
 
 }

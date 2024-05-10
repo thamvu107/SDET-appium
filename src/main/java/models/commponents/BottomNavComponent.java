@@ -20,7 +20,7 @@ public class BottomNavComponent {
 
     public WebElement homeNav() {
 
-        return driver.findElement(homeNavLoc);
+        return this.driver.findElement(homeNavLoc);
     }
 
     public WebElement webNav() {
@@ -36,5 +36,10 @@ public class BottomNavComponent {
     public WebElement swipeNav() {
 
         return driver.findElement(swipeNavLoc);
+    }
+
+    public void clickOnLoginNav() {
+
+        loginNav().click();
     }
 }

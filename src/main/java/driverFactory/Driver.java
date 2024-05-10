@@ -14,7 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import static constants.ServerConstants.*;
-import static constants.WaitConstant.SHORT_IMPLICIT_WAIT;
+import static constants.WaitConstant.LONG_IMPLICIT_WAIT;
 import static java.time.Duration.ofMillis;
 
 public class Driver {
@@ -89,7 +89,7 @@ public class Driver {
     public static void waitDriverSession(AppiumDriver driver) {
         driver.manage()
                 .timeouts()
-                .implicitlyWait(ofMillis(SHORT_IMPLICIT_WAIT));
+                .implicitlyWait(ofMillis(LONG_IMPLICIT_WAIT));
     }
 
     public static void stopServer() {
@@ -97,8 +97,13 @@ public class Driver {
     }
 
     public static void quitDriver(AppiumDriver driver) {
-        if (driver != null) {
-            driver.quit();
+        try {
+            System.out.println(driver);
+            if (driver != null) {
+                driver.quit();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -88,6 +88,7 @@ adb commands:
     - `adb kill-server`
 - Install an app
     - `adb install [apk_path]`
+    - `adb -s device-udid install [apk_path]`
 - Run app:
     - `adb shell am start -n com.app.name/com.app.name.LaunchActivity`
     - `adb shell am start -n com.wdiodemoapp/com.wdiodemoapp.MainActivity`
