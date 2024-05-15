@@ -1,12 +1,12 @@
 package models.screens.login;
 
-import driverFactory.MobilePlatform;
+import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import models.screens.BaseScreen;
+import models.screens.alert.AlertScreen;
+import models.screens.alert.SignUpAlertScreen;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-import utils.ElementLocatorMapper;
 
 import java.util.Map;
 
@@ -15,36 +15,35 @@ import static org.openqa.selenium.By.xpath;
 
 // MAIN INTERACTION METHODS
 public class LoginScreen extends BaseScreen {
+    // TODO: Separate android locator and ios locator to 2 files.
 
     // Scope 01: Keep the selector
+    // Android:
     protected final By loginScreenLoc = accessibilityId("Login-screen"); // android + ios
     protected final By loginTabLoc = accessibilityId("button-login-container"); // android + ios
     protected final By signupTabLoc = accessibilityId("button-sign-up-container"); // android + ios
     protected final By emailInputLoc = accessibilityId("input-email");
     protected final By passwordInputLoc = accessibilityId("input-password");
-    // Android:
     protected final By androidInvalidEmailLabelLocator = xpath("//android.widget.TextView[@text='Please enter a valid email address']");
-
-    // TODO: Separate android locator and ios locator to 2 files.
     protected final By androidInvalidPasswordLabelLocator = xpath("//android.widget.TextView[@text=\"Please enter at least 8 characters\"]");
+
     // IOS:
     protected final By iosInvalidEmailLabelLocator = accessibilityId("Please enter a valid email address");
     protected final By iosInvalidPasswordLabelLocator = accessibilityId("Please enter at least 8 characters");
-    private final ElementLocatorMapper elementMapping;
+
     // Mapping
-    private final Map<MobilePlatform, By> invalidEmailLabelLocatorMap = Map.of(
-            MobilePlatform.ANDROID, androidInvalidEmailLabelLocator,
-            MobilePlatform.IOS, iosInvalidEmailLabelLocator);
-    private final Map<MobilePlatform, By> invalidPasswordLabelLocatorMap = Map.of(
-            MobilePlatform.ANDROID, androidInvalidPasswordLabelLocator,
-            MobilePlatform.IOS, iosInvalidPasswordLabelLocator);
+    private final Map<Platform, By> invalidEmailLabelLocatorMap = Map.of(
+            Platform.ANDROID, androidInvalidEmailLabelLocator,
+            Platform.IOS, iosInvalidEmailLabelLocator);
+    private final Map<Platform, By> invalidPasswordLabelLocatorMap = Map.of(
+            Platform.ANDROID, androidInvalidPasswordLabelLocator,
+            Platform.IOS, iosInvalidPasswordLabelLocator);
 
 
     // Scope 02: Constructor to POM_AdvancedConcept.md the appiumDriver
     public LoginScreen(final AppiumDriver driver) {
 
         super(driver);
-        elementMapping = new ElementLocatorMapper(driver);
     }
 
     protected WebElement loginScreenElement() {
@@ -58,10 +57,12 @@ public class LoginScreen extends BaseScreen {
     }
 
     protected WebElement signupTabElement() {
+
         return driver.findElement(signupTabLoc);
     }
 
     protected WebElement emailFieldElement() {
+
         return driver.findElement(emailInputLoc);
     }
 
@@ -72,12 +73,13 @@ public class LoginScreen extends BaseScreen {
 
     protected WebElement invalidEmailLabelElement() {
 
-        return elementMapping.findElement(invalidEmailLabelLocatorMap);
+        return driver.findElement(mobileActions.getLocatorIsMappedCurrentPlatform(invalidEmailLabelLocatorMap));
     }
 
     protected WebElement invalidPasswordLabelElement() {
 
-        return elementMapping.findElement(invalidPasswordLabelLocatorMap);
+
+        return driver.findElement(mobileActions.getLocatorIsMappedCurrentPlatform(invalidPasswordLabelLocatorMap));
     }
 
     public LoginScreen clickOnLoginNav() {
@@ -87,23 +89,20 @@ public class LoginScreen extends BaseScreen {
         return this;
     }
 
-    public LoginScreen displayLoginScreen() {
+    public LoginScreen verifyLoginScreenDisplayed() {
 
-        Assert.assertTrue(loginScreenElement().isDisplayed());
+        mobileActions.waitUntilVisibilityOfElementLocated(loginScreenLoc);
 
         return this;
     }
 
     public SignInScreen clickOnSingInTab() {
+
         loginTabElement().click();
 
         return new SignInScreen(driver);
     }
 
-    public LoginScreen displaySignInForm() {
-
-        return this;
-    }
 
     public SignUpScreen clickOnSingUpTab() {
 
@@ -112,4 +111,7 @@ public class LoginScreen extends BaseScreen {
         return new SignUpScreen(driver);
     }
 
+    public AlertScreen switchToAlert() {
+        return new SignUpAlertScreen(driver);
+    }
 }

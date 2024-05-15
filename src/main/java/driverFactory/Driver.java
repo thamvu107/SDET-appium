@@ -4,10 +4,12 @@ import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
+import io.appium.java_client.internal.CapabilityHelpers;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
@@ -71,7 +73,7 @@ public class Driver {
         AppiumDriver driver = new AndroidDriver(serverURL, caps);
 
         // Global Implicit Wait - applied for WHOLE appiumDriver session
-        waitDriverSession(driver);
+        implicitWaitDriverSession(driver);
 
         return driver;
     }
@@ -81,15 +83,22 @@ public class Driver {
         AppiumDriver driver = new IOSDriver(serverURL, caps);
 
         // Global Implicit Wait - applied for WHOLE appiumDriver session
-        waitDriverSession(driver);
+        implicitWaitDriverSession(driver);
 
         return driver;
     }
 
-    public static void waitDriverSession(AppiumDriver driver) {
+    public static void implicitWaitDriverSession(AppiumDriver driver) {
         driver.manage()
                 .timeouts()
                 .implicitlyWait(ofMillis(LONG_IMPLICIT_WAIT));
+    }
+
+    public static String getCurrentPlatform(AppiumDriver driver) {
+
+        Capabilities caps = driver.getCapabilities();
+
+        return CapabilityHelpers.getCapability(caps, "platformName", String.class);
     }
 
     public static void stopServer() {

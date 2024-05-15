@@ -1,7 +1,7 @@
 package practice;
 
 import driverFactory.Driver;
-import driverFactory.capabilities.AndroidCapabilities;
+import driverFactory.capabilities.IOSCapabilities;
 import io.appium.java_client.AppiumDriver;
 import models.commponents.dialog.DialogComponent;
 import models.screens.login.LoginScreen;
@@ -24,33 +24,35 @@ public class SignInTest extends BaseTest {
     @BeforeClass
     public void setUpLoginPage() {
         // Android
-        this.driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
+        //driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
 
         // iOS
-        //DriverUtils.driver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
+        driver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
 
-        loginScreen = new LoginScreen(driver)
+        new LoginScreen(driver)
                 .clickOnLoginNav()
-                .displayLoginScreen();
+                .verifyLoginScreenDisplayed();
     }
 
     @Test(priority = 1)
     public void loginInWithCorrectCredential() {
 
-        new SignInScreen(this.driver)
+        new SignInScreen(driver)
                 .inputEmail(SIGN_IN_EMAIL)
                 .inputPassword(SIGN_IN_PASSWORD)
                 .clickOnLoginButton();
 
-        new DialogComponent(this.driver)
-                .seeDialog(SIGN_IN_DIALOG_TITLE, SIGN_IN_DIALOG_MESSAGE)
+        new DialogComponent(driver)
+                .isDisplayedDialog()
+                .verifyDialogTitle(SIGN_IN_DIALOG_TITLE)
+                .verifyDialogMessage(SIGN_IN_DIALOG_MESSAGE)
                 .clickOnOkButton()
                 .isDisappearedDialog();
     }
 
     @Test(priority = 2)
     public void loginInWithIncorrectCredentials() {
-        new SignInScreen(this.driver)
+        new SignInScreen(driver)
                 .inputEmail(INVALID_EMAIL)
                 .inputPassword(INVALID_PASSWORD)
                 .clickOnLoginButton()
@@ -61,7 +63,7 @@ public class SignInTest extends BaseTest {
     @AfterClass
     public void tearDown() {
 
-        Driver.quitDriver(this.driver);
+        Driver.quitDriver(driver);
     }
 
 }

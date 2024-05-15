@@ -50,7 +50,7 @@ public class DriverFactory {
         }
 
         // Global Implicit Wait - applied for WHOLE appiumDriver session
-        waitDriverSession(appiumDriver);
+        implicitWaitDriverSession(appiumDriver);
 
         return appiumDriver;
     }
@@ -88,12 +88,12 @@ public class DriverFactory {
         }
 
         // Global Implicit Wait - applied for WHOLE appiumDriver session
-        waitDriverSession(appiumDriver);
+        implicitWaitDriverSession(appiumDriver);
 
         return appiumDriver;
     }
 
-    public static void waitDriverSession(AppiumDriver driver) {
+    public static void implicitWaitDriverSession(AppiumDriver driver) {
         driver.manage()
                 .timeouts()
                 .implicitlyWait(ofMillis(SHORT_IMPLICIT_WAIT));

@@ -12,9 +12,9 @@ public class IOSCapabilities {
                 .setDeviceName(DEVICE_NAME)
                 .setPlatformName(PLATFORM_VERSION)
                 .setUdid(UDID)
+                .setPlatformVersion("17.4")
                 .setBundleId(BUNDLEID)
                 .clearSystemFiles();
-        caps.setCapability("setting[ignoreUNimportantViews]", true);
 //        caps.setCapability("–session-override", true);
 
 

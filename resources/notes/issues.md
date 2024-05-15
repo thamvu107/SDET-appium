@@ -8,6 +8,8 @@
         - Stop the appium server and execute this:
             - `adb uninstall io.appium.uiautomator2.server`
             - `adb uninstall io.appium.uiautomator2.server.test`
+            - `adb uninstall io.appium.unlock`
+            - `adb uninstall io.appium.settings`
 - [Detail problem link](https://discuss.appium.io/t/selenium-webdriverexception-org-openqa-selenium-webdriverexception-an-unknown-server-side-error-occurred-while-processing-the-command-original-error-could-not-proxy-command-to-remote-server-original-error-error-socket-hang-up/29257/7)
 
 
@@ -15,7 +17,7 @@
     - **Solutions**:
         - Update emulator to increase RAM (3-4GB) + ( 1-2 GB RAM will be unstable and slow)
         - Clear Storages
-        - Cool boot
+        - Cold boot
 
 - **Issue 3**: `Compatibility matrix of Appium Java Client and Selenium Client`
     - New versions of Selenium 4 libraries are published they are pulled transitively as Appium Java Client dependencies
@@ -59,6 +61,7 @@
       </dependencies>```
     - If the updating Selenium version is happened conflict => Then follow steps below to resolve:
         - Remove all packages under .m2>repository
+        - `mvn clean package -DskipTests`
         - Run command line: `mvn clean install -U -DskipTests=true`
         - Reload maven project & Resolved Maven packages (Download packages)
         - Rebuild project
