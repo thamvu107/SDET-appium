@@ -73,7 +73,7 @@ public class Driver {
         AppiumDriver driver = new AndroidDriver(serverURL, caps);
 
         // Global Implicit Wait - applied for WHOLE appiumDriver session
-        waitDriverSession(driver);
+        implicitWaitDriverSession(driver);
 
         return driver;
     }
@@ -83,12 +83,12 @@ public class Driver {
         AppiumDriver driver = new IOSDriver(serverURL, caps);
 
         // Global Implicit Wait - applied for WHOLE appiumDriver session
-        waitDriverSession(driver);
+        implicitWaitDriverSession(driver);
 
         return driver;
     }
 
-    public static void waitDriverSession(AppiumDriver driver) {
+    public static void implicitWaitDriverSession(AppiumDriver driver) {
         driver.manage()
                 .timeouts()
                 .implicitlyWait(ofMillis(LONG_IMPLICIT_WAIT));
