@@ -1,1 +1,1 @@
-https://gist.github.com/
+https://gist.github.com/ - add long log/code then create a link to share

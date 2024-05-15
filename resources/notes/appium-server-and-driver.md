@@ -19,8 +19,8 @@
     - `appium driver list`
 
 - Updating a driver:
-    - appium driver update <driver name>
-    - appium driver update xcuitest
+    - `appium driver update <driver name>`
+    - `appium driver update xcuitest`
 
 - Updating driver list:
     - `appium driver list --updates`:
