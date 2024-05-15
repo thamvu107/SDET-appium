@@ -2,7 +2,6 @@ package practice;
 
 import driverFactory.Driver;
 import driverFactory.capabilities.AndroidCapabilities;
-import models.screens.login.LoginScreen;
 import models.screens.login.SignUpScreen;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -11,7 +10,6 @@ import static constants.Screens.SignUpConstants.*;
 
 public class SignUpTest extends BaseTest {
 
-    private LoginScreen loginScreen;
     private SignUpScreen signUpScreen;
 
     @BeforeClass
@@ -19,7 +17,7 @@ public class SignUpTest extends BaseTest {
         // Android
         driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
 
-        // iOS
+//        iOS
 //        driver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
 
         signUpScreen = new SignUpScreen(driver)
@@ -36,10 +34,10 @@ public class SignUpTest extends BaseTest {
                 .inputPassword(SIGN_UP_PASSWORD)
                 .inputRepeatPassword(SIGN_UP_PASSWORD)
                 .clickOnSignUpButton()
-                .switchToAlert()
+                .switchToSignUpAlert()
                 .verifyAlertPresent()
-                .verifyDialogTitle(SIGN_UP_DIALOG_TITLE)
-                .verifyDialogMessage(SIGN_UP_DIALOG_MESSAGE)
+                .verifyAlertTitle(SIGN_UP_DIALOG_TITLE)
+                .verifyAlertMessage(SIGN_UP_DIALOG_MESSAGE)
                 .clickOnOkButton()
                 .verifyAlertDisappeared();
     }

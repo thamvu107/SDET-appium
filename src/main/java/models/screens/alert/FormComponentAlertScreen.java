@@ -38,7 +38,7 @@ public class FormComponentAlertScreen extends AlertScreen {
     }
 
     @Override
-    public AlertScreen verifyDialogTitle(String expectedTitle) {
+    public AlertScreen verifyAlertTitle(String expectedTitle) {
         return null;
     }
 }

@@ -19,26 +19,22 @@ public class SignInAlertScreen extends AlertScreen {
         super(driver);
     }
 
-    private final Map<Platform, By> dialogTitleLocMap = Map.of(
+    private final Map<Platform, By> alertTitleLocatorMap = Map.of(
             Platform.ANDROID, androidAlertTitleLoc,
             Platform.IOS, iosAlertTitleLoc);
 
-    private final Map<Platform, By> dialogMessageLocMap = Map.of(
+    private final Map<Platform, By> alertMessageLocatorMap = Map.of(
             Platform.ANDROID, androidAlertMessageLoc,
             Platform.IOS, iosAlertMessageLoc);
 
     @Override
     protected WebElement dialogTitleElement() {
-        return null;
+        return mobileActions.findElement(alertTitleLocatorMap);
     }
 
     @Override
     protected WebElement dialogMessageElement() {
-        return null;
+        return mobileActions.findElement(alertMessageLocatorMap);
     }
 
-    @Override
-    public AlertScreen verifyDialogTitle(String expectedTitle) {
-        return null;
-    }
 }

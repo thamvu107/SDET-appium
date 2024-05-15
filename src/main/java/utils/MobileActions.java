@@ -74,21 +74,6 @@ public class MobileActions {
         return driver.findElement(locator);
     }
 
-    public WebElement waitElementLocatedAndFindElement(Map<Platform, By> locatorMap) {
-
-        By locator = locatorMap.get(Platform.valueOf(currentPlatform));
-        this.waitElementLocatedVisibility(locator);
-
-        return driver.findElement(locator);
-    }
-
-    public By getLocatorIsMappedCurrentPlatform(Map<Platform, By> locatorMap) {
-
-        Require.nonNull("Locator", locatorMap);
-
-        return locatorMap.get(Platform.valueOf(currentPlatform));
-    }
-
     public boolean isElementPresent(By locator) {
 
         List<WebElement> elements = driver.findElements(locator);
@@ -153,6 +138,20 @@ public class MobileActions {
     public void setText(WebElement element, String value) {
         element.clear();
         element.sendKeys(value);
+    }
+
+    public WebElement findElement(Map<Platform, By> locatorMap) {
+
+        By locator = locatorMap.get(Platform.valueOf(currentPlatform));
+
+        return driver.findElement(locator);
+    }
+
+    public By getLocatorIsMappedCurrentPlatform(Map<Platform, By> locatorMap) {
+
+        Require.nonNull("Locator", locatorMap);
+
+        return locatorMap.get(Platform.valueOf(currentPlatform));
     }
 
     public boolean isTitleCorrect(WebElement element, String title) {

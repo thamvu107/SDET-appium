@@ -3,7 +3,7 @@ package models.screens.login;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import models.screens.BaseScreen;
-import models.screens.alert.AlertScreen;
+import models.screens.alert.SignInAlertScreen;
 import models.screens.alert.SignUpAlertScreen;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -111,7 +111,13 @@ public class LoginScreen extends BaseScreen {
         return new SignUpScreen(driver);
     }
 
-    public AlertScreen switchToAlert() {
+    public SignUpAlertScreen switchToSignUpAlert() {
+
         return new SignUpAlertScreen(driver);
+    }
+
+    public SignInAlertScreen switchToSignInAlert() {
+
+        return new SignInAlertScreen(driver);
     }
 }
