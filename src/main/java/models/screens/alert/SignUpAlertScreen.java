@@ -31,13 +31,13 @@ public class SignUpAlertScreen extends AlertScreen {
     @Override
     protected WebElement dialogTitleElement() {
 
-        return mobileActions.waitElementLocatedAndFindElement(alertTitleLocatorMap);
+        return mobileActions.findElement(alertTitleLocatorMap);
     }
 
     @Override
     protected WebElement dialogMessageElement() {
 
-        return mobileActions.waitElementLocatedAndFindElement(alertMessageLocatorMap);
+        return mobileActions.findElement(alertMessageLocatorMap);
     }
 
 }

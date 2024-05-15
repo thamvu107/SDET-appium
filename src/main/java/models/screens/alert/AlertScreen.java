@@ -15,8 +15,6 @@ import static io.appium.java_client.AppiumBy.*;
 public abstract class AlertScreen extends BaseScreen {
 
     // TODO: Separate locators by platform file.
-    private final String android = String.valueOf(Platform.ANDROID);
-    private final String ios = String.valueOf(Platform.IOS);
 
     // Android
     protected final By androidAlertLoc = id("android:id/content");
@@ -44,7 +42,7 @@ public abstract class AlertScreen extends BaseScreen {
 
     protected WebElement dialogElement() {
 
-        return mobileActions.waitElementLocatedAndFindElement(alertLocatorMap);
+        return mobileActions.findElement(alertLocatorMap);
     }
 
     protected abstract WebElement dialogTitleElement();
@@ -53,7 +51,7 @@ public abstract class AlertScreen extends BaseScreen {
 
     protected WebElement okButtonElement() {
 
-        return mobileActions.waitElementLocatedAndFindElement(alertOkButtonLocatorMap);
+        return mobileActions.findElement(alertOkButtonLocatorMap);
     }
 
     public AlertScreen verifyAlertPresent() {
@@ -63,7 +61,9 @@ public abstract class AlertScreen extends BaseScreen {
         return this;
     }
 
-    public AlertScreen verifyDialogTitle(String expectedTitle) {
+    public AlertScreen verifyAlertTitle(String expectedTitle) {
+
+        System.out.println(dialogTitleElement());
 
         String actualMessage = dialogTitleElement().getText();
         Assert.assertEquals(actualMessage, expectedTitle);
@@ -71,7 +71,7 @@ public abstract class AlertScreen extends BaseScreen {
         return this;
     }
 
-    public AlertScreen verifyDialogMessage(String expectedMessage) {
+    public AlertScreen verifyAlertMessage(String expectedMessage) {
 
         String actualMessage = dialogMessageElement().getText();
         Assert.assertEquals(actualMessage, expectedMessage);

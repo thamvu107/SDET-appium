@@ -2,7 +2,6 @@ package models.screens.login;
 
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
-import models.commponents.dialog.DialogComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -11,7 +10,6 @@ public class SignInScreen extends LoginScreen {
 
 
     private final By signInButtonLocator = AppiumBy.accessibilityId("button-LOGIN");
-    private DialogComponent successSignInDialog;
 
     public SignInScreen(AppiumDriver driver) {
         super(driver);
@@ -22,8 +20,11 @@ public class SignInScreen extends LoginScreen {
         return this.driver.findElement(signInButtonLocator);
     }
 
-    public SignInScreen isSignInFormDisplayed() {
-        //TODO add logic here
+    public SignInScreen verifySignInFormDisplayed() {
+
+        mobileActions.waitUntilVisibilityOfElementLocated(signInButtonLocator);
+        mobileActions.verifyElementDisplayed(emailInputLoc);
+        mobileActions.verifyElementDisplayed(passwordInputLoc);
 
         return this;
     }
@@ -52,7 +53,7 @@ public class SignInScreen extends LoginScreen {
         return this;
     }
 
-    public SignInScreen seeInvalidEmailMessage(String expectMessage) {
+    public SignInScreen verifyInvalidEmailMessage(String expectMessage) {
 
         String actualMessage = invalidEmailLabelElement().getText();
         Assert.assertEquals(actualMessage, expectMessage);
@@ -60,7 +61,7 @@ public class SignInScreen extends LoginScreen {
         return this;
     }
 
-    public void seeInvalidPasswordMessage(String expectMessage) {
+    public void verifyInvalidPasswordMessage(String expectMessage) {
 
         String actualMessage = invalidPasswordLabelElement().getText();
         Assert.assertEquals(actualMessage, expectMessage);
