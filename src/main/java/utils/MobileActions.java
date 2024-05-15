@@ -60,13 +60,13 @@ public class MobileActions {
     public void waitUntilVisibilityOfElementLocated(By Locator) {
 
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(Locator));
-        Assert.assertNotNull(element, "Element is visibility");
+        Assert.assertNotNull(element, "Element is not visibility");
     }
 
     public void waitUntilInVisibilityOfElementLocated(By Locator) {
 
         boolean element = wait.until(ExpectedConditions.invisibilityOfElementLocated(Locator));
-        Assert.assertTrue(element, "Element is invisibility");
+        Assert.assertTrue(element, "Element is visibility");
     }
 
     public WebElement waitElementLocatedAndFindElement(By locator) {
