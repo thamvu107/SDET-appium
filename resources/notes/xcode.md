@@ -3,7 +3,7 @@
 Xcode > Preferences > Location
 Select Xcode path: `/Applications/Xcode.app/Contents/Developer`
 
-- Check xcode vesion
+- Check xcode version
     - `xcodebuild -version`
 - Using simctl:
     - `xcrun simctl help`
@@ -23,8 +23,13 @@ Select Xcode path: `/Applications/Xcode.app/Contents/Developer`
       com.apple.CoreSimulator.SimRuntime.iOS-13-4`-
 - Open simulator:
     - `xcrun simctl boot "Device Name"`
+- `open -a Simulator --args -CurentDeviceUDID {UUID}`
 - Open app:
-    - `open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/`
+  - `open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/`
+- Install app
+  - `xcrun simctl install <YOUR-DEVICE-ID> <PATH-TO-APPLICATION-BUNDLE>`
+- Launch app on siumlator;
+  - `xcrun simctl launch <YOUR-DEVICE-ID> <BUNDLE-ID-OF-APP-BUNDLE>`
 - Shutdown simulator:
     - `xcrun simctl shutdown UUID`
 - Erase Simulator:
@@ -43,7 +48,7 @@ Select Xcode path: `/Applications/Xcode.app/Contents/Developer`
     - `xcrun simctl launch booted test.CLI`
 - Terminator app inside simulator
     - `xcrun simctl terminate booted test.CLI`
-- Add photo/Video to similator
+- Add photo/Video to simulator
     - `xcrun simctl addmedia booted ~/Desktop/name.png`
 - Screenshot of simulator
     - `xcrun simctl io booted screenshot screen.png`

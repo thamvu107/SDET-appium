@@ -1,6 +1,6 @@
 package driverFactory;
 
-public enum MobilePlatform {
+public enum Platform {
     ANDROID,
     IOS
 }

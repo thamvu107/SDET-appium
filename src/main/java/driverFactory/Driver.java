@@ -4,10 +4,12 @@ import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
+import io.appium.java_client.internal.CapabilityHelpers;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
@@ -90,6 +92,13 @@ public class Driver {
         driver.manage()
                 .timeouts()
                 .implicitlyWait(ofMillis(LONG_IMPLICIT_WAIT));
+    }
+
+    public static String getCurrentPlatform(AppiumDriver driver) {
+
+        Capabilities caps = driver.getCapabilities();
+
+        return CapabilityHelpers.getCapability(caps, "platformName", String.class);
     }
 
     public static void stopServer() {

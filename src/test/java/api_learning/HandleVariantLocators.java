@@ -2,13 +2,13 @@ package api_learning;
 
 import driver.Platforms;
 import driverFactory.Driver;
-import driverFactory.MobilePlatform;
+import driverFactory.Platform;
 import driverFactory.capabilities.AndroidCapabilities;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import utils.ElementLocatorMapper;
+import utils.LocatorMapper;
 
 import java.util.Map;
 
@@ -18,9 +18,9 @@ public class HandleVariantLocators {
             Platforms.IOS, AppiumBy.accessibilityId("try-to-have-difference-here")
     );
 
-    private static final Map<MobilePlatform, By> navloginButtonLocatorMap = Map.of(
-            MobilePlatform.ANDROID, AppiumBy.accessibilityId("Login"),
-            MobilePlatform.IOS, AppiumBy.accessibilityId("try-to-have-difference-here")
+    private static final Map<Platform, By> navloginButtonLocatorMap = Map.of(
+            Platform.ANDROID, AppiumBy.accessibilityId("Login"),
+            Platform.IOS, AppiumBy.accessibilityId("try-to-have-difference-here")
     );
     private static final By emailFieldLoc = AppiumBy.accessibilityId("input-email");
     private static final By passwordLoc = AppiumBy.accessibilityId("input-password");
@@ -33,9 +33,9 @@ public class HandleVariantLocators {
 
 
         try {
-            ElementLocatorMapper elementHandler = new ElementLocatorMapper(appiumDriver);
+            LocatorMapper elementHandler = new LocatorMapper(appiumDriver);
 //            WebElement navLoginBtnEle = elementHandler.findElement(navloginBtnLocMap);
-            WebElement navLoginBtnEle = elementHandler.findMobileElement(navloginButtonLocatorMap);
+            WebElement navLoginBtnEle = elementHandler.findElement(navloginButtonLocatorMap);
             navLoginBtnEle.click();
 
             WebElement emailFieldEle = appiumDriver.findElement(emailFieldLoc);

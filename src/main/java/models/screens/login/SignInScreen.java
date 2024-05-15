@@ -9,6 +9,7 @@ import org.testng.Assert;
 
 public class SignInScreen extends LoginScreen {
 
+
     private final By signInButtonLocator = AppiumBy.accessibilityId("button-LOGIN");
     private DialogComponent successSignInDialog;
 
@@ -19,6 +20,12 @@ public class SignInScreen extends LoginScreen {
     private WebElement signInButtonElement() {
 
         return this.driver.findElement(signInButtonLocator);
+    }
+
+    public SignInScreen isSignInFormDisplayed() {
+        //TODO add logic here
+
+        return this;
     }
 
     public SignInScreen inputEmail(String email) {

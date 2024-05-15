@@ -38,7 +38,7 @@ Desired Capability:
         "automationName": "XCUITest",
         "platformVersion": "17.4",
         "deviceName": "iPhone 15",
-        "app": "/Users/tham/Code/appium/src/test/resrources/apps/wdiodemoapp.app",
+        "app": "AppPath",
         "setting[ignoreUNimportantViews]": true
         }
       }
@@ -49,7 +49,7 @@ Desired Capability:
     {
        "platformName": "iOS",
         "automationName": "XCUITest",
-        "udid": "499D9A97-32D0-4993-9994-950EEECB7BAA",
+        "udid": "UUID",
         "bundleId": "org.reactjs.native.example.wdiodemoapp",
        "setting[ignoreUNimportantViews]": true
      }
@@ -118,17 +118,3 @@ Why we use Maven Framework
 - Build Lifecycle Management ( validate, compile, package, verify. install, deploy)
 - Support CI/CD
 - Parallel Execution
-
-  if (devicePlatform.contains("fullReset")) { // uninstall and install client
-  System.out.println("  Driver DO FULL-RESET");
-  capabilities.setCapability(MobileCapabilityType.FULL_RESET, true);
-  capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
-  } else if (devicePlatform.contains("fastReset")) { // clears cache and settings without reinstall
-  System.out.println("  Driver DO FAST-RESET");
-  capabilities.setCapability(MobileCapabilityType.FULL_RESET, false);
-  capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
-  } else { // just start client
-  System.out.println("  Driver DO NORMAL start");
-  capabilities.setCapability(MobileCapabilityType.FULL_RESET, false);
-  capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
-  }
