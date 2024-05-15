@@ -1,7 +1,7 @@
 package practice;
 
 import driverFactory.Driver;
-import driverFactory.capabilities.AndroidCapabilities;
+import driverFactory.capabilities.IOSCapabilities;
 import models.screens.login.SignUpScreen;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -15,10 +15,10 @@ public class SignUpTest extends BaseTest {
     @BeforeClass
     public void setUpSignUpPage() {
         // Android
-        driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
+//        driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
 
 //        iOS
-//        driver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
+        driver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
 
         signUpScreen = new SignUpScreen(driver)
                 .clickOnLoginNav()

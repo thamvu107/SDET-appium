@@ -15,21 +15,23 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+import static constants.WaitConstant.POLLING_EVERY;
+import static constants.WaitConstant.SHORT_FLUENT_WAIT;
+
 public class MobileActions {
     private final AppiumDriver driver;
     private final WebDriverWait wait;
     FluentWait<AppiumDriver> fluentWait;
-    private static String currentPlatform;
+    private final String currentPlatform;
 
 
     public MobileActions(AppiumDriver driver) {
         this.driver = driver;
-        currentPlatform = Driver.getCurrentPlatform(driver);
+        this.currentPlatform = Driver.getCurrentPlatform(driver);
         this.wait = new WebDriverWait(driver, Duration.ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));
-        //this.fluentWait = new WebDriverWait(driver, Duration.ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));
-        fluentWait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofMillis(10000))
-                .pollingEvery(Duration.ofMillis(100))
+        this.fluentWait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofMillis(SHORT_FLUENT_WAIT))
+                .pollingEvery(Duration.ofMillis(POLLING_EVERY))
                 .ignoring(NoSuchElementException.class);
     }
 
