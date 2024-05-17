@@ -5,14 +5,16 @@ import models.screens.alert.AlertScreen;
 import models.screens.alert.SignUpAlertScreen;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import static io.appium.java_client.AppiumBy.accessibilityId;
 
 public class SignUpScreen extends LoginScreen {
 //    private AppiumDriver driver;
 
-    private final By repeatPasswordLocator = accessibilityId("input-repeat-password"); // android + ios
-    private final By signUpButtonLocator = accessibilityId("button-SIGN UP"); // android + ios
+    private final By repeatPasswordLocator = accessibilityId("input-repeat-password");
+    private final By signUpButtonLocator = accessibilityId("button-SIGN UP");
+    private final By invalidRepeatPasswordLocator = accessibilityId("Please enter the same password");
 
     public SignUpScreen(AppiumDriver driver) {
         super(driver);
@@ -26,6 +28,11 @@ public class SignUpScreen extends LoginScreen {
     private WebElement signUpButtonElement() {
 
         return driver.findElement(signUpButtonLocator);
+    }
+
+    private WebElement invalidRepeatPasswordElement() {
+
+        return driver.findElement(invalidRepeatPasswordLocator);
     }
 
     public SignUpScreen verifySignUpFormDisplayed() {
@@ -65,6 +72,13 @@ public class SignUpScreen extends LoginScreen {
         signUpButtonElement().click();
 
         return this;
+    }
+
+    public void verifyInvalidRepeatPasswordMessage(String expectMessage) {
+
+        String actualMessage = invalidRepeatPasswordElement().getText();
+        Assert.assertEquals(actualMessage, expectMessage);
+
     }
 
     public AlertScreen SwitchToAlert() {

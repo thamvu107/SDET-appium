@@ -87,8 +87,8 @@ public abstract class AlertScreen extends BaseScreen {
     }
 
     public void verifyAlertDisappeared() {
-        mobileActions.assertAlertHasDisappeared(driver, Duration.ofMillis(2000));
-    }
 
+        mobileActions.assertAlertHasDisappeared(driver, Duration.ofMillis(500));
+    }
 
 }
