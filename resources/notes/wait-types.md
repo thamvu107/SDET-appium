@@ -5,6 +5,7 @@ Waiting strategies:
 2. Implicit Wait:
     - Implicit waits provide a global wait time for elements to be available.
     - Only for finding elements. Server-side retry modulated by the implicit wait timeout.
+    - maximum 10 seconds ()
 3. Explicit Wait:
     - Explicit waits offer more precise synchronization by waiting for specific conditions to be met.
     - Can wait for any kind of state. Client-side retry typical suiting built-in or custom expected condition.

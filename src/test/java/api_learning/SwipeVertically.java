@@ -1,9 +1,9 @@
 package api_learning;
 
-import driver.DriverFactory;
+import driver.Platforms;
+import driverFactory.Driver;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.remote.MobilePlatform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Pause;
@@ -17,7 +17,8 @@ import java.util.Collections;
 
 public class SwipeVertically {
     public static void main(String[] args) {
-        AppiumDriver appiumDriver = DriverFactory.getMobileDriver(MobilePlatform.ANDROID);
+//        AppiumDriver appiumDriver = DriverFactory.getMobileDriver(MobilePlatform.IOS);
+        AppiumDriver appiumDriver = Driver.getDriver(Platforms.ANDROID);
         try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");
             By activeBtnLoc = AppiumBy.accessibilityId("button-Active");

@@ -40,3 +40,5 @@ How to Launch Emulator Automatically:
 - Capability to use:
     - `adv`
     - `advLaunchTimeout`
+- cold boot emulator:
+    - `emulator -avd Pixel_4_API_30 -no-snapshot-load`

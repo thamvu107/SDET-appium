@@ -1,7 +1,6 @@
 package practice;
 
 import driverFactory.Driver;
-import driverFactory.capabilities.IOSCapabilities;
 import io.appium.java_client.AppiumDriver;
 import models.screens.login.SignInScreen;
 import org.testng.annotations.AfterClass;
@@ -15,11 +14,6 @@ public class SignInTest extends BaseTest {
 
     @BeforeClass
     public void setUpLoginPage() {
-        // Android
-        //driver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
-
-        // iOS
-        driver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
 
         new SignInScreen(driver)
                 .clickOnLoginNav()

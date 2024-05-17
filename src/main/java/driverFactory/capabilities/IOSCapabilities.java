@@ -10,13 +10,11 @@ public class IOSCapabilities {
         // TODO: handle to read caps value from config file
         XCUITestOptions caps = new XCUITestOptions()
                 .setDeviceName(DEVICE_NAME)
-                .setPlatformName(PLATFORM_VERSION)
                 .setUdid(UDID)
-                .setPlatformVersion("17.4")
+                .setPlatformVersion(PLATFORM_VERSION)
                 .setBundleId(BUNDLEID)
                 .clearSystemFiles();
-//        caps.setCapability("–session-override", true);
-
+        caps.setCapability("–session-override", true);
 
         return caps;
     }
