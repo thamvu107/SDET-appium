@@ -14,12 +14,13 @@ import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import server.ServerConfig;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import static constants.ServerConstants.*;
-import static constants.WaitConstant.LONG_IMPLICIT_WAIT;
+import static constants.WaitConstant.SHORT_IMPLICIT_WAIT;
 import static java.time.Duration.ofMillis;
 
 public class Driver {
@@ -32,7 +33,7 @@ public class Driver {
     public static void startAppiumServer() {
         service = new AppiumServiceBuilder()
                 .withIPAddress(LOCAL_SERVER_IP)
-                .usingPort(LOCAL_SERVER_PORT)
+                .usingPort(SERVER_PORT)
                 .withTimeout(SERVER_START_TIMEOUT)
                 .build();
         service.start();
@@ -40,12 +41,12 @@ public class Driver {
 //        return service;
     }
 
-    public static URL getServerUrl() {
+    public static URL getServerUrl(ServerConfig serverConfig) {
+
         URL localServerUrl;
         try {
-//            localServerUrl = new URL(String.format("http://%s:%d", LOCAL_SERVER_IP, LOCAL_SERVER_PORT));
-            //localServerUrl = new URL("http://" + LOCAL_SERVER_IP + LOCAL_SERVER_PORT);
-            localServerUrl = new URL("http://localhost:4723");
+            //localServerUrl = new URL("http://localhost:4723");
+            localServerUrl = new URL(String.format("http://%s:%d", serverConfig.getServerIP(), serverConfig.getPort()));
 
         } catch (MalformedURLException e) {
             throw new RuntimeException("Failed to construct the Appium server URL", e);
@@ -54,15 +55,15 @@ public class Driver {
         return localServerUrl;
     }
 
-    public static AppiumDriver createDriver(DesiredCapabilities caps) {
+    public static AppiumDriver createDriver(ServerConfig serverConfig, DesiredCapabilities caps) {
         AppiumDriver driver = null;
 
         switch (caps.getPlatformName().toString().toLowerCase()) {
             case "android":
-                driver = new AndroidDriver(getServerUrl(), caps);
+                driver = new AndroidDriver(getServerUrl(serverConfig), caps);
                 break;
             case "ios":
-                driver = new IOSDriver(getServerUrl(), caps);
+                driver = new IOSDriver(getServerUrl(serverConfig), caps);
                 break;
             default:
                 throw new PlatformNotSupportException("Platform is not supported");
@@ -91,19 +92,32 @@ public class Driver {
         return driver;
     }
 
-    public static AppiumDriver getDriver(Platforms platform) {
+    public static AppiumDriver getDriver(ServerConfig serverConfig, Platforms platform) {
 
-        AppiumDriver androidDriver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
-        AppiumDriver iosDriver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
+        URL serverUrl = Driver.getServerUrl(serverConfig);
 
-        return (platform == Platforms.ANDROID) ? androidDriver : iosDriver;
+        AppiumDriver driver = null;
 
+        switch (platform) {
+            case ANDROID:
+                UiAutomator2Options opts = serverConfig.getServerIP().equals(LOCAL_SERVER_IP) ? AndroidCapabilities.getLocalCaps() : AndroidCapabilities.getRemoteCaps();
+                driver = Driver.createDriver(serverUrl, opts);
+                break;
+            case IOS:
+                serverUrl = Driver.getServerUrl(new ServerConfig(LOCAL_SERVER_IP, SERVER_PORT)); // Force local URL since not yet config remote env for ios
+                driver = Driver.createDriver(serverUrl, IOSCapabilities.getLocalCaps());
+                break;
+            default:
+                throw new PlatformNotSupportException("Platform is not supported");
+        }
+
+        return driver;
     }
 
     public static void implicitWaitDriverSession(AppiumDriver driver) {
         driver.manage()
                 .timeouts()
-                .implicitlyWait(ofMillis(LONG_IMPLICIT_WAIT));
+                .implicitlyWait(ofMillis(SHORT_IMPLICIT_WAIT));
     }
 
     public static String getCurrentPlatform(AppiumDriver driver) {

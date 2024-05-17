@@ -4,8 +4,14 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import server.ServerConfig;
 
-public class AppiumServerUtils {
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import static constants.ServerConstants.*;
+
+public class ServerUtils {
     private static AppiumDriverLocalService service;
     public AppiumDriver driver;
 
@@ -19,6 +25,30 @@ public class AppiumServerUtils {
 
         service = AppiumDriverLocalService.buildService(builder);
         service.start();
+    }
+
+    public static URL getServerURL(ServerConfig config) {
+        try {
+            return new URL("http", config.getServerIP(), config.getPort(), "");
+        } catch (MalformedURLException e) {
+            throw new IllegalArgumentException("Invalid server server config");
+        }
+    }
+
+    public static URL localServerURL() {
+
+        ServerConfig config = new ServerConfig(LOCAL_SERVER_IP, SERVER_PORT);
+
+        return getServerURL(config);
+
+    }
+
+    public static URL remoteServerURL() {
+
+        ServerConfig config = new ServerConfig(REMOTE_SERVER_IP, SERVER_PORT);
+
+        return getServerURL(config);
+
     }
 
 

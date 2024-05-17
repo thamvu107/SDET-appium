@@ -8,8 +8,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import server.ServerConfig;
 
 import java.time.Duration;
+
+import static constants.ServerConstants.LOCAL_SERVER_IP;
+import static constants.ServerConstants.SERVER_PORT;
 
 public class LoginFormInteraction {
 
@@ -21,7 +25,8 @@ public class LoginFormInteraction {
     public static void main(String[] args) {
 
 //        AppiumDriver appiumDriver = DriverFactory.getDriver(MobilePlatform.ANDROID);
-        AppiumDriver appiumDriver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
+        ServerConfig serverConfig = new ServerConfig(LOCAL_SERVER_IP, SERVER_PORT);
+        AppiumDriver appiumDriver = Driver.createDriver(Driver.getServerUrl(serverConfig), AndroidCapabilities.getLocalCaps());
         try {
             // Login Action
             // By navLoginBtnLoc = By.xpath("//android.widget.Button[@content-desc='Login']");
