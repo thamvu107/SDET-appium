@@ -54,16 +54,16 @@ public abstract class AlertScreen extends BaseScreen {
         return mobileActions.findElement(alertOkButtonLocatorMap);
     }
 
-    public AlertScreen verifyAlertPresent() {
+    public AlertScreen verifyAlertPresent(String expectedTitle, String expectedMessage) {
 
         Assert.assertTrue(mobileActions.isAlertPresent());
+        this.verifyAlertTitle(expectedTitle);
+        this.verifyAlertMessage(expectedMessage);
 
         return this;
     }
 
     public AlertScreen verifyAlertTitle(String expectedTitle) {
-
-        System.out.println(dialogTitleElement());
 
         String actualMessage = dialogTitleElement().getText();
         Assert.assertEquals(actualMessage, expectedTitle);

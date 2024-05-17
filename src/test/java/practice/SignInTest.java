@@ -37,9 +37,7 @@ public class SignInTest extends BaseTest {
                 .inputPassword(SIGN_IN_PASSWORD)
                 .clickOnLoginButton()
                 .switchToSignInAlert()
-                .verifyAlertPresent()
-                .verifyAlertTitle(SIGN_IN_DIALOG_TITLE)
-                .verifyAlertMessage(SIGN_IN_DIALOG_MESSAGE)
+                .verifyAlertPresent(SIGN_IN_DIALOG_TITLE, SIGN_IN_DIALOG_MESSAGE)
                 .clickOnOkButton()
                 .verifyAlertDisappeared();
     }
