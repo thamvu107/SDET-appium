@@ -29,9 +29,9 @@ public class AndroidCapabilities {
                 .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH_TIME)
                 .setUiautomator2ServerLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
                 .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT);
-        caps.setCapability("–session-override", true);
+        caps.setCapability("--session-override", true);
         caps.setCapability("clearDeviceLogsOnStart", true);
-//        caps.setCapability("ignoreUnimportantViews", true);
+        caps.setCapability("clearSystemFiles", true);
 //        caps.setCapability("autoLaunch", true);
 
         return caps;
@@ -49,7 +49,7 @@ public class AndroidCapabilities {
                 .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH_TIME)
                 .setUiautomator2ServerLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
                 .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT);
-        caps.setCapability("–session-override", true);
+        caps.setCapability("--session-override", true);
         caps.setCapability("clearDeviceLogsOnStart", true);
 
         return caps;
