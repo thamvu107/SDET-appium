@@ -1,31 +1,38 @@
 package practice;
 
-import driverFactory.Driver;
-import io.appium.java_client.AppiumDriver;
+import models.screens.login.LoginScreen;
 import models.screens.login.SignInScreen;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static constants.Screens.SignInConstants.*;
 
 public class SignInTest extends BaseTest {
-    private AppiumDriver driver;
+
+    private SignInScreen signInScreen;
 
     @BeforeClass
-    public void setUpLoginPage() {
+    public void beforeClass() {
 
-        new SignInScreen(driver)
+        new LoginScreen(driver)
                 .clickOnLoginNav()
-                .verifyLoginScreenDisplayed()
+                .verifyLoginScreenDisplayed();
+    }
+
+
+    @BeforeMethod
+    public void beforeMethod() {
+
+        signInScreen = new SignInScreen(driver)
                 .clickOnSingInTab()
                 .verifySignInFormDisplayed();
     }
 
-    @Test(priority = 1)
+    @Test
     public void loginInWithCorrectCredential() {
 
-        new SignInScreen(driver)
+        signInScreen
                 .inputEmail(SIGN_IN_EMAIL)
                 .inputPassword(SIGN_IN_PASSWORD)
                 .clickOnLoginButton()
@@ -37,20 +44,14 @@ public class SignInTest extends BaseTest {
                 .verifyAlertDisappeared();
     }
 
-    @Test(priority = 2)
+    @Test
     public void loginInWithIncorrectCredentials() {
-        new SignInScreen(driver)
+        signInScreen
                 .inputEmail(INVALID_EMAIL)
                 .inputPassword(INVALID_PASSWORD)
                 .clickOnLoginButton()
                 .verifyInvalidEmailMessage(INVALID_EMAIL_MESSAGE)
                 .verifyInvalidPasswordMessage(INVALID_PASSWORD_MESSAGE);
-    }
-
-    @AfterClass
-    public void tearDown() {
-
-        Driver.quitDriver(driver);
     }
 
 }

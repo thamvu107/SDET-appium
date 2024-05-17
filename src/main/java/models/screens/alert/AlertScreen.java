@@ -45,6 +45,7 @@ public abstract class AlertScreen extends BaseScreen {
         return mobileActions.findElement(alertLocatorMap);
     }
 
+
     protected abstract WebElement dialogTitleElement();
 
     protected abstract WebElement dialogMessageElement();

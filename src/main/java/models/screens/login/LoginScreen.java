@@ -116,6 +116,7 @@ public class LoginScreen extends BaseScreen {
         return new SignUpAlertScreen(driver);
     }
 
+
     public SignInAlertScreen switchToSignInAlert() {
 
         return new SignInAlertScreen(driver);
