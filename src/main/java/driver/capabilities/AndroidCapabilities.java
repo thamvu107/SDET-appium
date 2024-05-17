@@ -10,8 +10,8 @@ public class AndroidCapabilities {
         // Capabilities
         UiAutomator2Options caps = new UiAutomator2Options()
                 .setPlatformVersion(PLATFORM_VERSION)
-                .setDeviceName(DEVICE_NAME)
-                .setAvd(ADV)
+                .setDeviceName(LOCAL_DEVICE_NAME)
+                .setAvd(LOCAL_ADV)
                 .setAvdLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
                 .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT)
                 .setAppPackage(APP_PACKAGE)

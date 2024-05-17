@@ -8,9 +8,13 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import server.ServerConfig;
 import utils.LocatorMapper;
 
 import java.util.Map;
+
+import static constants.ServerConstants.LOCAL_SERVER_IP;
+import static constants.ServerConstants.SERVER_PORT;
 
 public class HandleVariantLocators {
     private static final Map<Platforms, By> navloginBtnLocMap = Map.of(
@@ -29,7 +33,8 @@ public class HandleVariantLocators {
     public static void main(String[] args) {
 
 //        AppiumDriver appiumDriver = DriverFactory.getDriver(Platforms.ANDROID);
-        AppiumDriver appiumDriver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
+        ServerConfig serverConfig = new ServerConfig(LOCAL_SERVER_IP, SERVER_PORT);
+        AppiumDriver appiumDriver = Driver.createDriver(Driver.getServerUrl(serverConfig), AndroidCapabilities.getLocalCaps());
 
 
         try {

@@ -41,7 +41,6 @@ public class MobileActions {
 
     public void waitElementLocatedVisibility(By locator) {
 
-        //TODO : custom wait
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 

@@ -10,12 +10,16 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import server.ServerConfig;
 
 import java.time.Duration;
 
+import static constants.ServerConstants.REMOTE_SERVER_IP;
+import static constants.ServerConstants.SERVER_PORT;
+
 public abstract class BaseTest {
 
-    protected static AppiumDriver driver;
+    protected AppiumDriver driver;
     protected static WebDriverWait wait;
     protected static FluentWait<AppiumDriver> fluentWait;
 //    protected static FluentWait<AppiumDriver> wait;
@@ -23,10 +27,8 @@ public abstract class BaseTest {
     @BeforeClass
     public void setUpAppium() {
 
-        driver = Driver.getDriver(Platforms.IOS);
-
+        driver = Driver.getDriver(new ServerConfig(REMOTE_SERVER_IP, SERVER_PORT), Platforms.ANDROID);
         wait = new WebDriverWait(driver, Duration.ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));
-
         fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofMillis(7000))
                 .pollingEvery(Duration.ofMillis(10))
@@ -38,7 +40,6 @@ public abstract class BaseTest {
     @AfterClass
     public void tearDown() {
         Driver.quitDriver(driver);
-//        Driver.stopServer();
     }
 
 }

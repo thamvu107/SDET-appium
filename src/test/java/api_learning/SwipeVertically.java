@@ -11,14 +11,19 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import server.ServerConfig;
 
 import java.time.Duration;
 import java.util.Collections;
 
+import static constants.ServerConstants.REMOTE_SERVER_IP;
+import static constants.ServerConstants.SERVER_PORT;
+
 public class SwipeVertically {
     public static void main(String[] args) {
+
 //        AppiumDriver appiumDriver = DriverFactory.getMobileDriver(MobilePlatform.IOS);
-        AppiumDriver appiumDriver = Driver.getDriver(Platforms.ANDROID);
+        AppiumDriver appiumDriver = Driver.getDriver(new ServerConfig(REMOTE_SERVER_IP, SERVER_PORT), Platforms.ANDROID);
         try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");
             By activeBtnLoc = AppiumBy.accessibilityId("button-Active");
