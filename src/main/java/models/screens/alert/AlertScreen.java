@@ -45,7 +45,6 @@ public abstract class AlertScreen extends BaseScreen {
         return mobileActions.findElement(alertLocatorMap);
     }
 
-
     protected abstract WebElement dialogTitleElement();
 
     protected abstract WebElement dialogMessageElement();
@@ -88,8 +87,8 @@ public abstract class AlertScreen extends BaseScreen {
     }
 
     public void verifyAlertDisappeared() {
-        mobileActions.assertAlertHasDisappeared(driver, Duration.ofMillis(2000));
-    }
 
+        mobileActions.assertAlertHasDisappeared(driver, Duration.ofMillis(500));
+    }
 
 }
