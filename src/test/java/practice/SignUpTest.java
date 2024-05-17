@@ -35,9 +35,7 @@ public class SignUpTest extends BaseTest {
                 .inputRepeatPassword(SIGN_UP_PASSWORD)
                 .clickOnSignUpButton()
                 .switchToSignUpAlert()
-                .verifyAlertPresent()
-                .verifyAlertTitle(SIGN_UP_DIALOG_TITLE)
-                .verifyAlertMessage(SIGN_UP_DIALOG_MESSAGE)
+                .verifyAlertPresent(SIGN_UP_DIALOG_TITLE, SIGN_UP_DIALOG_MESSAGE)
                 .clickOnOkButton()
                 .verifyAlertDisappeared();
     }
