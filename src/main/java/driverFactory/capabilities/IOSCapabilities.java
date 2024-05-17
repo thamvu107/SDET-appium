@@ -14,7 +14,7 @@ public class IOSCapabilities {
                 .setPlatformVersion(PLATFORM_VERSION)
                 .setBundleId(BUNDLEID)
                 .clearSystemFiles();
-        caps.setCapability("–session-override", true);
+        caps.setCapability("--session-override", true);
 
         return caps;
     }
@@ -28,7 +28,7 @@ public class IOSCapabilities {
                 .setPlatformVersion(PLATFORM_VERSION)
                 .setBundleId(BUNDLEID)
                 .clearSystemFiles();
-        caps.setCapability("–session-override", true);
+        caps.setCapability("--session-override", true);
 
         return caps;
     }

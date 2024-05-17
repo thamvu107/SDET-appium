@@ -28,7 +28,7 @@ public class MobileActions {
     public MobileActions(AppiumDriver driver) {
         this.driver = driver;
         this.currentPlatform = Driver.getCurrentPlatform(driver);
-        this.wait = new WebDriverWait(driver, Duration.ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));
+        this.wait = new WebDriverWait(driver, Duration.ofMillis(WaitConstant.EXPLICIT_WAIT));
         this.fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofMillis(SHORT_FLUENT_WAIT))
                 .pollingEvery(Duration.ofMillis(POLLING_EVERY))
@@ -44,6 +44,12 @@ public class MobileActions {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    public void waitUntilVisibilityOfElementLocated(By Locator) {
+
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(Locator));
+        Assert.assertNotNull(element, "Wait until visibility of element located");
+    }
+
     public void waitElementVisibility(WebElement element) {
 
         //TODO : custom wait
@@ -56,21 +62,17 @@ public class MobileActions {
 
     }
 
-    public void waitUntilVisibilityOfElementLocated(By Locator) {
-
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(Locator));
-        Assert.assertNotNull(element, "Element is not visibility");
-    }
 
     public void waitUntilInVisibilityOfElementLocated(By Locator) {
 
         boolean element = wait.until(ExpectedConditions.invisibilityOfElementLocated(Locator));
-        Assert.assertTrue(element, "Element is visibility");
+        Assert.assertTrue(element, "Wait until invisibility of element located");
     }
 
     public WebElement waitElementLocatedAndFindElement(By locator) {
 
-        this.waitElementLocatedVisibility(locator);
+        //this.waitElementLocatedVisibility(locator);
+        this.waitUntilVisibilityOfElementLocated(locator);
 
         return driver.findElement(locator);
     }
