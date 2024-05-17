@@ -1,5 +1,8 @@
 package driverFactory;
 
+import driver.Platforms;
+import driverFactory.capabilities.AndroidCapabilities;
+import driverFactory.capabilities.IOSCapabilities;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -86,6 +89,15 @@ public class Driver {
         implicitWaitDriverSession(driver);
 
         return driver;
+    }
+
+    public static AppiumDriver getDriver(Platforms platform) {
+
+        AppiumDriver androidDriver = Driver.createDriver(Driver.getServerUrl(), AndroidCapabilities.getCaps());
+        AppiumDriver iosDriver = Driver.createDriver(Driver.getServerUrl(), IOSCapabilities.getCaps());
+
+        return (platform == Platforms.ANDROID) ? androidDriver : iosDriver;
+
     }
 
     public static void implicitWaitDriverSession(AppiumDriver driver) {

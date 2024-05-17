@@ -1,6 +1,7 @@
 package practice;
 
 import constants.WaitConstant;
+import driver.Platforms;
 import driverFactory.Driver;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.NoSuchElementException;
@@ -21,6 +22,8 @@ public abstract class BaseTest {
 
     @BeforeClass
     public void setUpAppium() {
+
+        driver = Driver.getDriver(Platforms.IOS);
 
         wait = new WebDriverWait(driver, Duration.ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));
 
