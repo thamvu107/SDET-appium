@@ -91,7 +91,7 @@ public class LoginScreen extends BaseScreen {
 
     public LoginScreen verifyLoginScreenDisplayed() {
 
-        mobileActions.waitUntilVisibilityOfElementLocated(loginScreenLoc);
+        mobileActions.waitVisibilityOfElementLocated(loginScreenLoc);
 
         return this;
     }
