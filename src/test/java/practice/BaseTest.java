@@ -14,7 +14,7 @@ import server.ServerConfig;
 
 import java.time.Duration;
 
-import static constants.ServerConstants.REMOTE_SERVER_IP;
+import static constants.ServerConstants.LOCAL_SERVER_IP;
 import static constants.ServerConstants.SERVER_PORT;
 
 public abstract class BaseTest {
@@ -22,12 +22,11 @@ public abstract class BaseTest {
     protected AppiumDriver driver;
     protected static WebDriverWait wait;
     protected static FluentWait<AppiumDriver> fluentWait;
-//    protected static FluentWait<AppiumDriver> wait;
 
     @BeforeClass
     public void setUpAppium() {
 
-        driver = Driver.getDriver(new ServerConfig(REMOTE_SERVER_IP, SERVER_PORT), Platforms.ANDROID);
+        driver = Driver.getDriver(new ServerConfig(LOCAL_SERVER_IP, SERVER_PORT), Platforms.ANDROID);
         wait = new WebDriverWait(driver, Duration.ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));
         fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofMillis(7000))

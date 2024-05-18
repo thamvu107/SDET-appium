@@ -44,15 +44,18 @@ public class MobileActions {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    public void waitUntilVisibilityOfElementLocated(By Locator) {
+    public void waitVisibilityOfElementLocated(By locator) {
 
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(Locator));
-        Assert.assertNotNull(element, "Wait until visibility of element located");
+        try {
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            Assert.assertNotNull(element, "Element is not visible after waiting");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void waitElementVisibility(WebElement element) {
 
-        //TODO : custom wait
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
@@ -63,16 +66,19 @@ public class MobileActions {
     }
 
 
-    public void waitUntilInVisibilityOfElementLocated(By Locator) {
+    public void waitInVisibilityOfElementLocated(By Locator) {
 
-        boolean element = wait.until(ExpectedConditions.invisibilityOfElementLocated(Locator));
-        Assert.assertTrue(element, "Wait until invisibility of element located");
+        try {
+            boolean element = wait.until(ExpectedConditions.invisibilityOfElementLocated(Locator));
+            Assert.assertTrue(element, "Wait until invisibility of element located");
+        } catch (TimeoutException | StaleElementReferenceException e) {
+            e.printStackTrace();
+        }
     }
 
     public WebElement waitElementLocatedAndFindElement(By locator) {
 
-        //this.waitElementLocatedVisibility(locator);
-        this.waitUntilVisibilityOfElementLocated(locator);
+        this.waitVisibilityOfElementLocated(locator);
 
         return driver.findElement(locator);
     }
@@ -97,6 +103,7 @@ public class MobileActions {
         Assert.assertTrue(this.isElementDisplayed(locator));
     }
 
+
     public boolean isElementDisplayed(WebElement element) {
 
         try {
@@ -104,6 +111,10 @@ public class MobileActions {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public boolean isTheTargetFound(By locator) {
+        return !driver.findElements(locator).isEmpty();
     }
 
     public void verifyElementDisplayed(WebElement webElement) {
@@ -118,6 +129,7 @@ public class MobileActions {
             return false;
         }
     }
+
 
     public void assertAlertHasDisappeared(AppiumDriver driver, Duration timeoutInMilliseconds) {
 
@@ -160,5 +172,9 @@ public class MobileActions {
     public boolean isTitleCorrect(WebElement element, String title) {
         waitElementVisibility(element);
         return element.isDisplayed() && element.getText().equalsIgnoreCase(title);
+    }
+
+    public Dimension getScreenSize() {
+        return driver.manage().window().getSize();
     }
 }

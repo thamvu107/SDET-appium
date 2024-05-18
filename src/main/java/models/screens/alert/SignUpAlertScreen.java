@@ -32,7 +32,7 @@ public class SignUpAlertScreen extends AlertScreen {
     protected WebElement dialogTitleElement() {
 
         By locator = mobileActions.getLocatorIsMappedCurrentPlatform(alertTitleLocatorMap);
-        mobileActions.waitUntilVisibilityOfElementLocated(locator);
+        mobileActions.waitVisibilityOfElementLocated(locator);
 
         return mobileActions.findElement(alertTitleLocatorMap);
     }

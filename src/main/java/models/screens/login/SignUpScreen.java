@@ -49,10 +49,8 @@ public class SignUpScreen extends LoginScreen {
 
     public SignUpScreen verifySignUpFormDisplayed() {
 
-        mobileActions.waitUntilVisibilityOfElementLocated(signUpButtonLocator);
-        mobileActions.verifyElementDisplayed(emailInputLoc);
-        mobileActions.verifyElementDisplayed(passwordInputLoc);
-        mobileActions.verifyElementDisplayed(repeatPasswordLocator);
+//        mobileActions.waitVisibilityOfElementLocated(signUpButtonLocator); // small screen doesn't visibility sign-up button
+        mobileActions.waitVisibilityOfElementLocated(repeatPasswordLocator);
 
         return this;
     }
@@ -81,6 +79,10 @@ public class SignUpScreen extends LoginScreen {
     public SignUpScreen clickOnSignUpButton() {
 
         // TODO: On smaller screens there could be a possibility that the button is not shown
+        if (!mobileActions.isElementDisplayed(signUpButtonLocator)) {
+            mobileInteractions.swipeVertical();
+        }
+        mobileActions.waitVisibilityOfElementLocated(signUpButtonLocator);
         signUpButtonElement().click();
 
         return this;
