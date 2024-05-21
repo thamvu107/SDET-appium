@@ -1,9 +1,9 @@
 package api_learning;
 
-import driver.Platforms;
 import driverFactory.Driver;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
+import mobildeDevices.MobileFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Pause;
@@ -11,32 +11,31 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import server.ServerConfig;
 
 import java.time.Duration;
 import java.util.Collections;
 
-import static constants.ServerConstants.REMOTE_SERVER_IP;
-import static constants.ServerConstants.SERVER_PORT;
-
 public class SwipeVertically {
     public static void main(String[] args) {
 
-//        AppiumDriver appiumDriver = DriverFactory.getMobileDriver(MobilePlatform.IOS);
-        AppiumDriver appiumDriver = Driver.getDriver(new ServerConfig(REMOTE_SERVER_IP, SERVER_PORT), Platforms.ANDROID);
+        AppiumDriver driver;
+
+//        driver = DriverFactory.getMobileDriver(MobilePlatform.IOS);
+        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
+
         try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");
             By activeBtnLoc = AppiumBy.accessibilityId("button-Active");
 
             // Navigate to [Forms] screen
-            appiumDriver.findElement(formsBtnLoc).click();
+            driver.findElement(formsBtnLoc).click();
 
             // Make sure we are on the target screen before swiping up/down/left/right/any direction
-            WebDriverWait wait = new WebDriverWait(appiumDriver, Duration.ofSeconds(15L));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15L));
             wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.androidUIAutomator("new UiSelector(). textContains(\"Form components\")")));
 
             // Swipe up before interacting
-            Dimension windowSize = appiumDriver.manage().window().getSize();
+            Dimension windowSize = driver.manage().window().getSize();
             int screenHeight = windowSize.getHeight();
             int screenWidth = windowSize.getWidth();
             int startX = 50 * screenHeight / 100;
@@ -56,10 +55,10 @@ public class SwipeVertically {
                     .addAction(pointerInput.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
             // Ask appium server to perform the sequence
-            appiumDriver.perform(Collections.singletonList(sequence));
+            driver.perform(Collections.singletonList(sequence));
 
             // Interact with element on the screen
-            appiumDriver.findElement(activeBtnLoc).click();
+            driver.findElement(activeBtnLoc).click();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,7 +69,7 @@ public class SwipeVertically {
         } catch (Exception ignored) {
         }
 
-        appiumDriver.quit();
+        driver.quit();
     }
 
 

@@ -1,6 +1,5 @@
 package utils;
 
-import constants.WaitConstant;
 import driverFactory.Driver;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
@@ -15,8 +14,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
-import static constants.WaitConstant.POLLING_EVERY;
-import static constants.WaitConstant.SHORT_FLUENT_WAIT;
+import static constants.WaitConstant.*;
 
 public class MobileActions {
     private final AppiumDriver driver;
@@ -28,7 +26,7 @@ public class MobileActions {
     public MobileActions(AppiumDriver driver) {
         this.driver = driver;
         this.currentPlatform = Driver.getCurrentPlatform(driver);
-        this.wait = new WebDriverWait(driver, Duration.ofMillis(WaitConstant.EXPLICIT_WAIT));
+        this.wait = new WebDriverWait(driver, Duration.ofMillis(EXPLICIT_WAIT));
         this.fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofMillis(SHORT_FLUENT_WAIT))
                 .pollingEvery(Duration.ofMillis(POLLING_EVERY))

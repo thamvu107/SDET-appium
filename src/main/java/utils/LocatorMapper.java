@@ -25,7 +25,6 @@ public class LocatorMapper {
 
         By elementLocator = locatorMap.get(Platform.valueOf(currentPlatform));
 
-
         return this.driver.findElement(elementLocator);
     }
 

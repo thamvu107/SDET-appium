@@ -3,18 +3,14 @@ package api_learning;
 import driver.Platforms;
 import driverFactory.Driver;
 import driverFactory.Platform;
-import driverFactory.capabilities.AndroidCapabilities;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
+import mobildeDevices.MobileFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import server.ServerConfig;
 import utils.LocatorMapper;
 
 import java.util.Map;
-
-import static constants.ServerConstants.LOCAL_SERVER_IP;
-import static constants.ServerConstants.SERVER_PORT;
 
 public class HandleVariantLocators {
     private static final Map<Platforms, By> navloginBtnLocMap = Map.of(
@@ -24,7 +20,7 @@ public class HandleVariantLocators {
 
     private static final Map<Platform, By> navloginButtonLocatorMap = Map.of(
             Platform.ANDROID, AppiumBy.accessibilityId("Login"),
-            Platform.IOS, AppiumBy.accessibilityId("try-to-have-difference-here")
+            Platform.IOS, AppiumBy.accessibilityId("Login")
     );
     private static final By emailFieldLoc = AppiumBy.accessibilityId("input-email");
     private static final By passwordLoc = AppiumBy.accessibilityId("input-password");
@@ -32,27 +28,23 @@ public class HandleVariantLocators {
 
     public static void main(String[] args) {
 
-//        AppiumDriver appiumDriver = DriverFactory.getDriver(Platforms.ANDROID);
-        ServerConfig serverConfig = new ServerConfig(LOCAL_SERVER_IP, SERVER_PORT);
-        AppiumDriver appiumDriver = Driver.createDriver(Driver.getServerUrl(serverConfig), AndroidCapabilities.getLocalCaps());
-
+        AppiumDriver driver = Driver.getLocalServerDriver(MobileFactory.getIOSsMobile());
 
         try {
-            LocatorMapper elementHandler = new LocatorMapper(appiumDriver);
-//            WebElement navLoginBtnEle = elementHandler.findElement(navloginBtnLocMap);
+            LocatorMapper elementHandler = new LocatorMapper(driver);
             WebElement navLoginBtnEle = elementHandler.findElement(navloginButtonLocatorMap);
             navLoginBtnEle.click();
 
-            WebElement emailFieldEle = appiumDriver.findElement(emailFieldLoc);
+            WebElement emailFieldEle = driver.findElement(emailFieldLoc);
             emailFieldEle.clear();
             emailFieldEle.sendKeys("teo@sth.com");
 
             // Input password
-            WebElement passwordEle = appiumDriver.findElement(passwordLoc);
+            WebElement passwordEle = driver.findElement(passwordLoc);
             passwordEle.sendKeys("12345678");
 
             // Click on Login Btn
-            WebElement loginBtnEle = appiumDriver.findElement(loginBtnLoc);
+            WebElement loginBtnEle = driver.findElement(loginBtnLoc);
             loginBtnEle.click();
 
             // Debug purpose only
@@ -61,6 +53,6 @@ public class HandleVariantLocators {
             e.printStackTrace();
         }
 
-        appiumDriver.quit();
+        driver.quit();
     }
 }

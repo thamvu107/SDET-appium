@@ -1,9 +1,9 @@
 package api_learning;
 
-import driver.DriverFactory;
+import driverFactory.Driver;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.remote.MobilePlatform;
+import mobildeDevices.MobileFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,18 +13,22 @@ import java.time.Duration;
 
 public class NarrowDownSearchingScope {
     public static void main(String[] args) {
-        AppiumDriver appiumDriver = DriverFactory.getMobileDriver(MobilePlatform.ANDROID);
+        AppiumDriver driver;
+
+//        driver = DriverFactory.getMobileDriver(MobilePlatform.ANDROID);
+        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
+
         try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");
 
-            appiumDriver.findElement(formsBtnLoc).click();
+            driver.findElement(formsBtnLoc).click();
 
-            WebDriverWait wait = new WebDriverWait(appiumDriver, Duration.ofSeconds(15L));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15L));
             wait.until(ExpectedConditions.visibilityOfElementLocated(
                     AppiumBy.androidUIAutomator("new UiSelector(). textContains(\"Form components\")")));
 
             // Swipe up before interacting
-            Dimension windowSize = appiumDriver.manage().window().getSize();
+            Dimension windowSize = driver.manage().window().getSize();
             int screenHeight = windowSize.getHeight();
             int screenWidth = windowSize.getWidth();
             int startX = 50 * screenHeight / 100;

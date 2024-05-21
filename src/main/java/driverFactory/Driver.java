@@ -1,22 +1,19 @@
 package driverFactory;
 
-import driver.Platforms;
 import driverFactory.capabilities.AndroidCapabilities;
 import driverFactory.capabilities.IOSCapabilities;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.internal.CapabilityHelpers;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.options.XCUITestOptions;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import mobildeDevices.Mobile;
 import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import server.ServerConfig;
+import utils.ServerUtils;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import static constants.ServerConstants.*;
@@ -41,74 +38,38 @@ public class Driver {
 //        return service;
     }
 
-    public static URL getServerUrl(ServerConfig serverConfig) {
+    public static AppiumDriver getLocalServerDriver(Mobile mobile) {
 
-        URL localServerUrl;
+        return getDriver(new ServerConfig(LOCAL_SERVER_IP, SERVER_PORT), mobile);
+    }
+
+    public static AppiumDriver getRemoteServerDriver(Mobile mobile) {
+
+        return getDriver(new ServerConfig(REMOTE_SERVER_IP, SERVER_PORT), mobile);
+    }
+
+    public static AppiumDriver getDriver(ServerConfig server, Mobile mobile) {
+
+        AppiumDriver driver = null;
+        URL serverURL = ServerUtils.getServerURL(server);
+
         try {
-            //localServerUrl = new URL("http://localhost:4723");
-            localServerUrl = new URL(String.format("http://%s:%d", serverConfig.getServerIP(), serverConfig.getPort()));
 
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Failed to construct the Appium server URL", e);
-        }
+            switch (mobile.getPlatformName()) {
+                case ANDROID:
+                    driver = new AndroidDriver(serverURL, AndroidCapabilities.getAndroidCaps(mobile));
+                    break;
+                case IOS:
+                    driver = new IOSDriver(serverURL, IOSCapabilities.getIOSCaps(mobile));
+                    break;
+                default:
+                    throw new PlatformNotSupportException("Platform " + mobile.getPlatformName() + " is not supported");
+            }
 
-        return localServerUrl;
-    }
+            implicitWaitDriverSession(driver);
 
-    public static AppiumDriver createDriver(ServerConfig serverConfig, DesiredCapabilities caps) {
-        AppiumDriver driver = null;
-
-        switch (caps.getPlatformName().toString().toLowerCase()) {
-            case "android":
-                driver = new AndroidDriver(getServerUrl(serverConfig), caps);
-                break;
-            case "ios":
-                driver = new IOSDriver(getServerUrl(serverConfig), caps);
-                break;
-            default:
-                throw new PlatformNotSupportException("Platform is not supported");
-        }
-
-        return driver;
-    }
-
-    public static AppiumDriver createDriver(URL serverURL, UiAutomator2Options caps) {
-
-        AppiumDriver driver = new AndroidDriver(serverURL, caps);
-
-        // Global Implicit Wait - applied for WHOLE appiumDriver session
-        implicitWaitDriverSession(driver);
-
-        return driver;
-    }
-
-    public static AppiumDriver createDriver(URL serverURL, XCUITestOptions caps) {
-
-        AppiumDriver driver = new IOSDriver(serverURL, caps);
-
-        // Global Implicit Wait - applied for WHOLE appiumDriver session
-        implicitWaitDriverSession(driver);
-
-        return driver;
-    }
-
-    public static AppiumDriver getDriver(ServerConfig serverConfig, Platforms platform) {
-
-        URL serverUrl = Driver.getServerUrl(serverConfig);
-
-        AppiumDriver driver = null;
-
-        switch (platform) {
-            case ANDROID:
-                UiAutomator2Options opts = serverConfig.getServerIP().equals(LOCAL_SERVER_IP) ? AndroidCapabilities.getLocalCaps() : AndroidCapabilities.getRemoteCaps();
-                driver = Driver.createDriver(serverUrl, opts);
-                break;
-            case IOS:
-                serverUrl = Driver.getServerUrl(new ServerConfig(LOCAL_SERVER_IP, SERVER_PORT)); // Force local URL since not yet config remote env for ios
-                driver = Driver.createDriver(serverUrl, IOSCapabilities.getLocalCaps());
-                break;
-            default:
-                throw new PlatformNotSupportException("Platform is not supported");
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
 
         return driver;
@@ -127,9 +88,6 @@ public class Driver {
         return CapabilityHelpers.getCapability(caps, "platformName", String.class);
     }
 
-    public static void stopServer() {
-        service.stop();
-    }
 
     public static void quitDriver(AppiumDriver driver) {
         try {
@@ -153,4 +111,9 @@ public class Driver {
             e.printStackTrace();
         }
     }
+
+    public static void stopServer() {
+        service.stop();
+    }
+
 }

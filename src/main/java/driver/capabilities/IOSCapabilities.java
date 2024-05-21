@@ -8,9 +8,9 @@ public class IOSCapabilities {
     public static XCUITestOptions setCapabilities() {
 
         XCUITestOptions caps = new XCUITestOptions()
-                .setDeviceName(DEVICE_NAME)
-                .setPlatformName(PLATFORM_VERSION)
-                .setUdid(UDID)
+                .setDeviceName(SIMULATOR_DEVICE_NAME)
+                .setPlatformName(SIMULATOR_PLATFORM_VERSION)
+                .setUdid(SIMULATOR_UDID)
                 .setPlatformVersion("17.4")
                 .setBundleId(BUNDLEID)
                 .clearSystemFiles();

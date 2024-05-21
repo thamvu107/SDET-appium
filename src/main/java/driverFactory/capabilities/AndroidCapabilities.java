@@ -1,57 +1,63 @@
 package driverFactory.capabilities;
 
 import io.appium.java_client.android.options.UiAutomator2Options;
-
-import java.io.File;
+import mobildeDevices.Mobile;
+import mobildeDevices.android.AndroidPhysicalMobile;
+import mobildeDevices.android.Emulator;
 
 import static constants.AndroidConstants.*;
 
+public class AndroidCapabilities implements SetPlatformVersion {
 
-public class AndroidCapabilities {
-    //private static final File app = new File(ClassLoader.getSystemResource(APP_FILE_NAME).getFile());
-    private static final File apkPath = new File(System.getProperty("user.dir") + "/src/test/resources/apps");
-    private static final File appFile = new File(apkPath, APP_FILE_NAME);
+    public static UiAutomator2Options getAndroidCaps(Mobile mobile) {
 
-    public static UiAutomator2Options getLocalCaps() {
+        return (mobile instanceof Emulator) ? getEmulatorCaps((Emulator) mobile) : getPhysicalDeviceCaps((AndroidPhysicalMobile) mobile);
+    }
 
-        // TODO: handle to read caps value from config file
-        // Capabilities
+    public static UiAutomator2Options getEmulatorCaps(Emulator mobile) {
+
         UiAutomator2Options caps = new UiAutomator2Options()
-                .setPlatformVersion(PLATFORM_VERSION)
-                .setDeviceName(LOCAL_DEVICE_NAME)
-                .setAvd(LOCAL_ADV)
-                .setAvdLaunchTimeout(ADV_TIMEOUT)
+                .setDeviceName(mobile.getDeviceName())
+                .setAvd(mobile.getAdv())
+                .setAvdLaunchTimeout(mobile.getAdvTimeout())
                 .setAppPackage(APP_PACKAGE)
                 .setAppActivity(APP_ACTIVITY)
-                .setFullReset(false)
-                .setNoReset(false)
-                .clearDeviceLogsOnStart()
                 .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH_TIME)
                 .setUiautomator2ServerLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
-                .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT);
+                .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT)
+                .setFullReset(false)
+                .setNoReset(false)
+                .clearDeviceLogsOnStart();
+
+        // Capabilities
         caps.setCapability("--session-override", true);
-        caps.setCapability("clearDeviceLogsOnStart", true);
         caps.setCapability("clearSystemFiles", true);
-//        caps.setCapability("autoLaunch", true);
+
+        SetPlatformVersion.setPlatformVersion(mobile, caps);
 
         return caps;
     }
 
-    public static UiAutomator2Options getRemoteCaps() {
+    public static UiAutomator2Options getPhysicalDeviceCaps(AndroidPhysicalMobile mobile) {
 
         // Capabilities
         UiAutomator2Options caps = new UiAutomator2Options()
-                .setDeviceName(REMOTE_DEVICE_NAME)
+                .setDeviceName(mobile.getDeviceName())
+                .setUdid(mobile.getUdid())
                 .setAppPackage(APP_PACKAGE)
                 .setAppActivity(APP_ACTIVITY)
-                .setFullReset(false)
-                .setNoReset(false)
                 .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH_TIME)
                 .setUiautomator2ServerLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
-                .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT);
+                .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT)
+                .setFullReset(false)
+                .setNoReset(false);
+
         caps.setCapability("--session-override", true);
         caps.setCapability("clearDeviceLogsOnStart", true);
 
+        SetPlatformVersion.setPlatformVersion(mobile, caps);
+
         return caps;
     }
+
 }

@@ -1,21 +1,21 @@
 package api_learning;
 
-import driver.Platforms;
 import driverFactory.Driver;
 import io.appium.java_client.AppiumDriver;
+import mobildeDevices.MobileFactory;
+import mobildeDevices.android.Emulator;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.PointerInput.Kind;
 import org.openqa.selenium.interactions.PointerInput.MouseButton;
 import org.openqa.selenium.interactions.Sequence;
-import server.ServerConfig;
 import utils.MobileActions;
 
 import java.time.Duration;
 
-import static constants.ServerConstants.LOCAL_SERVER_IP;
-import static constants.ServerConstants.SERVER_PORT;
+import static constants.AndroidConstants.AVD;
+import static constants.AndroidConstants.AVD_DEVICE_NAME;
 import static java.time.Duration.ofMillis;
 import static org.openqa.selenium.interactions.PointerInput.Origin.viewport;
 
@@ -23,14 +23,17 @@ public class SwipeExplore {
     public static AppiumDriver driver;
 
     public static void main(String[] args) {
-        driver = Driver.getDriver(new ServerConfig(LOCAL_SERVER_IP, SERVER_PORT), Platforms.IOS);
+
+        Emulator mobile = new Emulator(AVD_DEVICE_NAME, AVD);
+
+//        driver = DriverFactory.getMobileDriver(MobilePlatform.IOS);
+        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
+
         MobileActions mobileActions = new MobileActions(driver);
 
         // Swipe up before interacting
         swipeVertical(mobileActions);
         swipeVertical2();
-
-
     }
 
     private static void swipeVertical(MobileActions mobileActions) {
