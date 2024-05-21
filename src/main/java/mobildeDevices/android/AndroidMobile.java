@@ -1,8 +1,9 @@
-package mobildeDevices;
+package mobildeDevices.android;
 
 import driverFactory.Platform;
 import lombok.Getter;
 import lombok.Setter;
+import mobildeDevices.Mobile;
 
 @Setter
 @Getter

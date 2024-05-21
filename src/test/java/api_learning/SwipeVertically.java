@@ -21,7 +21,7 @@ public class SwipeVertically {
         AppiumDriver driver;
 
 //        driver = DriverFactory.getMobileDriver(MobilePlatform.IOS);
-        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidPhysicalMobile());
+        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
 
         try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");

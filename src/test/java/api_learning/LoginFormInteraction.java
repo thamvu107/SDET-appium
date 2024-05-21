@@ -23,7 +23,7 @@ public class LoginFormInteraction {
         AppiumDriver driver;
 
 //      driver = DriverFactory.getDriver(MobilePlatform.ANDROID);
-        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidPhysicalMobile());
+        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
 
         try {
             // Login Action

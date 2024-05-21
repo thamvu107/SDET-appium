@@ -1,17 +1,17 @@
 package driverFactory;
 
-import driverFactory.capabilities.CapabilitiesManager;
+import driverFactory.capabilities.AndroidCapabilities;
+import driverFactory.capabilities.IOSCapabilities;
+import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.internal.CapabilityHelpers;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.options.XCUITestOptions;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import mobildeDevices.Mobile;
-import mobildeDevices.PhysicalMobile;
 import org.openqa.selenium.Capabilities;
+import server.ServerConfig;
 import utils.ServerUtils;
 
 import java.net.URL;
@@ -27,7 +27,6 @@ public class Driver {
     private Driver() {
     }
 
-
     public static void startAppiumServer() {
         service = new AppiumServiceBuilder()
                 .withIPAddress(LOCAL_SERVER_IP)
@@ -41,51 +40,37 @@ public class Driver {
 
     public static AppiumDriver getLocalServerDriver(Mobile mobile) {
 
-        AppiumDriver driver = null;
-        URL serverURL = ServerUtils.getLocalServerURL();
-        Capabilities caps = CapabilitiesManager.getCaps(mobile);
-
-        if (caps instanceof UiAutomator2Options) {
-            driver = createAndroidDriver(serverURL, caps);
-
-        } else if (caps instanceof XCUITestOptions) {
-            driver = createIOSDriver(serverURL, caps);
-        } else {
-            throw new IllegalArgumentException("Unsupported capabilities type: " + caps.getClass().getName());
-        }
-
-        return driver;
+        return getDriver(new ServerConfig(LOCAL_SERVER_IP, SERVER_PORT), mobile);
     }
 
-    public static AppiumDriver getRemoteServerDriver(PhysicalMobile mobile) {
+    public static AppiumDriver getRemoteServerDriver(Mobile mobile) {
+
+        return getDriver(new ServerConfig(REMOTE_SERVER_IP, SERVER_PORT), mobile);
+    }
+
+    public static AppiumDriver getDriver(ServerConfig server, Mobile mobile) {
 
         AppiumDriver driver = null;
-        URL serverURL = ServerUtils.getRemoteServerURL();
-        Capabilities caps = CapabilitiesManager.getCaps(mobile);
+        URL serverURL = ServerUtils.getServerURL(server);
 
-        if (caps instanceof UiAutomator2Options) {
-            driver = createAndroidDriver(serverURL, caps);
+        try {
+
+            switch (mobile.getPlatformName()) {
+                case ANDROID:
+                    driver = new AndroidDriver(serverURL, AndroidCapabilities.getAndroidCaps(mobile));
+                    break;
+                case IOS:
+                    driver = new IOSDriver(serverURL, IOSCapabilities.getIOSCaps(mobile));
+                    break;
+                default:
+                    throw new PlatformNotSupportException("Platform " + mobile.getPlatformName() + " is not supported");
+            }
+
+            implicitWaitDriverSession(driver);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
-
-        return driver;
-    }
-
-    public static AppiumDriver createAndroidDriver(URL serverURL, Capabilities caps) {
-
-        AppiumDriver driver = new AndroidDriver(serverURL, caps);
-
-        // Global Implicit Wait - applied for WHOLE appiumDriver session
-        implicitWaitDriverSession(driver);
-
-        return driver;
-    }
-
-    public static AppiumDriver createIOSDriver(URL serverURL, Capabilities caps) {
-
-        AppiumDriver driver = new IOSDriver(serverURL, caps);
-
-        // Global Implicit Wait - applied for WHOLE appiumDriver session
-        implicitWaitDriverSession(driver);
 
         return driver;
     }
@@ -103,9 +88,6 @@ public class Driver {
         return CapabilityHelpers.getCapability(caps, "platformName", String.class);
     }
 
-    public static void stopServer() {
-        service.stop();
-    }
 
     public static void quitDriver(AppiumDriver driver) {
         try {
@@ -129,4 +111,9 @@ public class Driver {
             e.printStackTrace();
         }
     }
+
+    public static void stopServer() {
+        service.stop();
+    }
+
 }

@@ -22,7 +22,7 @@ public abstract class BaseTest {
     @BeforeClass
     public void setUpAppium() {
 
-        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidPhysicalMobile());
+        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
 
         // TODO: separate wait to utils
         wait = new WebDriverWait(driver, Duration.ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));

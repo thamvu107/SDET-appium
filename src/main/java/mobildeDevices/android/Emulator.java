@@ -1,4 +1,4 @@
-package mobildeDevices;
+package mobildeDevices.android;
 
 import lombok.Getter;
 

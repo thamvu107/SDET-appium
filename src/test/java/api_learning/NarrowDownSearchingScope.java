@@ -16,7 +16,7 @@ public class NarrowDownSearchingScope {
         AppiumDriver driver;
 
 //        driver = DriverFactory.getMobileDriver(MobilePlatform.ANDROID);
-        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidPhysicalMobile());
+        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
 
         try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");

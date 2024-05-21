@@ -2,8 +2,8 @@ package api_learning;
 
 import driverFactory.Driver;
 import io.appium.java_client.AppiumDriver;
-import mobildeDevices.Emulator;
 import mobildeDevices.MobileFactory;
+import mobildeDevices.android.Emulator;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
@@ -27,7 +27,7 @@ public class SwipeExplore {
         Emulator mobile = new Emulator(AVD_DEVICE_NAME, AVD);
 
 //        driver = DriverFactory.getMobileDriver(MobilePlatform.IOS);
-        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidPhysicalMobile());
+        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
 
         MobileActions mobileActions = new MobileActions(driver);
 
