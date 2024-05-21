@@ -1,6 +1,7 @@
 package driverFactory.capabilities;
 
 import io.appium.java_client.ios.options.XCUITestOptions;
+import mobildeDevices.IOSMobile;
 
 import static constants.IOSConstants.*;
 
@@ -19,13 +20,13 @@ public class IOSCapabilities {
         return caps;
     }
 
-    public static XCUITestOptions getRemoteCaps() {
+    public static XCUITestOptions getIOSCaps(IOSMobile mobile) {
 
-        // TODO: replace remote cap body after setting remote server (Now still keep local cap body)
+        // TODO: handle to read caps value from config file
         XCUITestOptions caps = new XCUITestOptions()
-                .setDeviceName(DEVICE_NAME)
-                .setUdid(UDID)
-                .setPlatformVersion(PLATFORM_VERSION)
+                .setDeviceName(mobile.getDeviceName())
+                .setUdid(mobile.getUdid())
+                .setPlatformVersion(mobile.getPlatformVersion())
                 .setBundleId(BUNDLEID)
                 .clearSystemFiles();
         caps.setCapability("--session-override", true);

@@ -72,3 +72,7 @@
         - Check time to connect app under test -> If time isn't enough connect then need to increase wait time ( app
           launch, server timeout ,...)
         - ...
+- **Issue 5:** emulator crash: `emulator -list-advs` => `Storing crashdata in`
+    - **Solution**:
+        - https://developer.android.com/studio/emulator_archive
+        - https://developer.android.com/studio/releases/emulator

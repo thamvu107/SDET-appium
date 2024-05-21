@@ -35,7 +35,7 @@ public class ServerUtils {
         }
     }
 
-    public static URL localServerURL() {
+    public static URL getLocalServerURL() {
 
         ServerConfig config = new ServerConfig(LOCAL_SERVER_IP, SERVER_PORT);
 
@@ -43,7 +43,7 @@ public class ServerUtils {
 
     }
 
-    public static URL remoteServerURL() {
+    public static URL getRemoteServerURL() {
 
         ServerConfig config = new ServerConfig(REMOTE_SERVER_IP, SERVER_PORT);
 
@@ -55,4 +55,5 @@ public class ServerUtils {
     public void stopServer() {
         service.stop();
     }
+
 }

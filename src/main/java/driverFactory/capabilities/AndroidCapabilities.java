@@ -1,16 +1,13 @@
 package driverFactory.capabilities;
 
 import io.appium.java_client.android.options.UiAutomator2Options;
-
-import java.io.File;
+import mobildeDevices.Emulator;
+import mobildeDevices.Mobile;
 
 import static constants.AndroidConstants.*;
 
 
 public class AndroidCapabilities {
-    //private static final File app = new File(ClassLoader.getSystemResource(APP_FILE_NAME).getFile());
-    private static final File apkPath = new File(System.getProperty("user.dir") + "/src/test/resources/apps");
-    private static final File appFile = new File(apkPath, APP_FILE_NAME);
 
     public static UiAutomator2Options getLocalCaps() {
 
@@ -18,8 +15,8 @@ public class AndroidCapabilities {
         // Capabilities
         UiAutomator2Options caps = new UiAutomator2Options()
                 .setPlatformVersion(PLATFORM_VERSION)
-                .setDeviceName(LOCAL_DEVICE_NAME)
-                .setAvd(LOCAL_ADV)
+                .setDeviceName(AVD_DEVICE_NAME)
+                .setAvd(AVD)
                 .setAvdLaunchTimeout(ADV_TIMEOUT)
                 .setAppPackage(APP_PACKAGE)
                 .setAppActivity(APP_ACTIVITY)
@@ -32,7 +29,6 @@ public class AndroidCapabilities {
         caps.setCapability("--session-override", true);
         caps.setCapability("clearDeviceLogsOnStart", true);
         caps.setCapability("clearSystemFiles", true);
-//        caps.setCapability("autoLaunch", true);
 
         return caps;
     }
@@ -41,7 +37,7 @@ public class AndroidCapabilities {
 
         // Capabilities
         UiAutomator2Options caps = new UiAutomator2Options()
-                .setDeviceName(REMOTE_DEVICE_NAME)
+                .setUdid(ANDROID_MOBILE_UUID)
                 .setAppPackage(APP_PACKAGE)
                 .setAppActivity(APP_ACTIVITY)
                 .setFullReset(false)
@@ -54,4 +50,54 @@ public class AndroidCapabilities {
 
         return caps;
     }
+
+    public static UiAutomator2Options getEmulatorCaps(Mobile mobile) {
+
+        Emulator emulator = (Emulator) mobile;
+
+        UiAutomator2Options caps = new UiAutomator2Options()
+                .setDeviceName(emulator.getDeviceName())
+                .setAvd(emulator.getAdv())
+                .setAvdLaunchTimeout(emulator.getAdvTimeout())
+                .setAppPackage(APP_PACKAGE)
+                .setAppActivity(APP_ACTIVITY)
+                .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH_TIME)
+                .setUiautomator2ServerLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
+                .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT)
+                .setFullReset(false)
+                .setNoReset(false)
+                .clearDeviceLogsOnStart();
+
+        // Set platform version if available
+        if (emulator.getPlatformVersion() != null) {
+            caps.setPlatformVersion(emulator.getPlatformVersion());
+        }
+
+        // Capabilities
+        caps.setCapability("--session-override", true);
+        caps.setCapability("clearSystemFiles", true);
+
+        return caps;
+    }
+
+
+    public static UiAutomator2Options getPhysicalDeviceCaps(Mobile mobile) {
+
+        // Capabilities
+        UiAutomator2Options caps = new UiAutomator2Options()
+                .setDeviceName(mobile.getDeviceName())
+                .setUdid(mobile.getUdid())
+                .setAppPackage(APP_PACKAGE)
+                .setAppActivity(APP_ACTIVITY)
+                .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH_TIME)
+                .setUiautomator2ServerLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
+                .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT)
+                .setFullReset(false)
+                .setNoReset(false);
+        caps.setCapability("--session-override", true);
+        caps.setCapability("clearDeviceLogsOnStart", true);
+
+        return caps;
+    }
+
 }

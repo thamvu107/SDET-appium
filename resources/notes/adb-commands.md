@@ -13,6 +13,8 @@ adb commands:
 - adb android debug bridge
 - List connected devices
     - `adb devices`
+- Connect device:
+    - `adb connect ***wifi.ip.address***:5555`
 - If a device is connected start the adb sever to be able to interact with the device
     - `adb start-server`
     - `adb kill-server`
