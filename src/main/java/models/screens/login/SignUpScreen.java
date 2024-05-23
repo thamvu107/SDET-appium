@@ -42,36 +42,36 @@ public class SignUpScreen extends LoginScreen {
 
     private WebElement invalidRepeatPasswordElement() {
 
-        By locator = mobileActions.getLocatorIsMappedCurrentPlatform(invalidRepeatPasswordLocatorMap);
+        By locator = mobileInteractions.getLocatorIsMappedCurrentPlatform(invalidRepeatPasswordLocatorMap);
 
-        return mobileActions.waitElementLocatedAndFindElement(locator);
+        return mobileInteractions.waitElementLocatedAndFindElement(locator);
     }
 
     public SignUpScreen verifySignUpFormDisplayed() {
 
 //        mobileActions.waitVisibilityOfElementLocated(signUpButtonLocator); // small screen doesn't visibility sign-up button
-        mobileActions.waitVisibilityOfElementLocated(repeatPasswordLocator);
+        mobileInteractions.waitVisibilityOfElementLocated(repeatPasswordLocator);
 
         return this;
     }
 
     public SignUpScreen inputEmail(String email) {
 
-        mobileActions.setText(emailFieldElement(), email);
+        mobileInteractions.setText(emailFieldElement(), email);
 
         return this;
     }
 
     public SignUpScreen inputPassword(String password) {
 
-        mobileActions.setText(passwordFieldElement(), password);
+        mobileInteractions.setText(passwordFieldElement(), password);
 
         return this;
     }
 
     public SignUpScreen inputRepeatPassword(String repeatPassword) {
 
-        mobileActions.setText(repeatPasswordElement(), repeatPassword);
+        mobileInteractions.setText(repeatPasswordElement(), repeatPassword);
 
         return this;
     }
@@ -79,10 +79,10 @@ public class SignUpScreen extends LoginScreen {
     public SignUpScreen clickOnSignUpButton() {
 
         // TODO: On smaller screens there could be a possibility that the button is not shown
-        if (!mobileActions.isElementDisplayed(signUpButtonLocator)) {
+        if (!mobileInteractions.isElementDisplayed(signUpButtonLocator)) {
             mobileInteractions.swipeVertical();
         }
-        mobileActions.waitVisibilityOfElementLocated(signUpButtonLocator);
+        mobileInteractions.waitVisibilityOfElementLocated(signUpButtonLocator);
         signUpButtonElement().click();
 
         return this;
