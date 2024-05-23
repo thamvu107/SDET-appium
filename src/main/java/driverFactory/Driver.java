@@ -13,12 +13,12 @@ import mobildeDevices.Mobile;
 import org.openqa.selenium.Capabilities;
 import server.ServerConfig;
 import utils.ServerUtils;
+import utils.WaitUtils;
 
 import java.net.URL;
 
 import static constants.ServerConstants.*;
 import static constants.WaitConstant.SHORT_IMPLICIT_WAIT;
-import static java.time.Duration.ofMillis;
 
 public class Driver {
 
@@ -66,19 +66,14 @@ public class Driver {
                     throw new PlatformNotSupportException("Platform " + mobile.getPlatformName() + " is not supported");
             }
 
-            implicitWaitDriverSession(driver);
+            WaitUtils wait = new WaitUtils(driver);
+            wait.setImplicitWait(SHORT_IMPLICIT_WAIT);
 
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
 
         return driver;
-    }
-
-    public static void implicitWaitDriverSession(AppiumDriver driver) {
-        driver.manage()
-                .timeouts()
-                .implicitlyWait(ofMillis(SHORT_IMPLICIT_WAIT));
     }
 
     public static String getCurrentPlatform(AppiumDriver driver) {

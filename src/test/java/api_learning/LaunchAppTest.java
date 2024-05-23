@@ -9,11 +9,11 @@ public class LaunchAppTest {
         AppiumDriver driver;
 
 //      driver = DriverFactory.getMobileDriver(MobilePlatform.ANDROID);
-//        driver = Driver.getRemoteServerDriver(MobileFactory.getAndroidPhysicalMobile());
+        driver = Driver.getRemoteServerDriver(MobileFactory.getAndroidMobile());
 //        driver = Driver.getLocalServerDriver(MobileFactory.getEmulator());
 //        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
 //        driver = Driver.getLocalServerDriver(MobileFactory.getSimulator());
-        driver = Driver.getLocalServerDriver(MobileFactory.getIOSsMobile());
+//        driver = Driver.getLocalServerDriver(MobileFactory.getIOSsMobile());
 
         driver.quit();
     }
