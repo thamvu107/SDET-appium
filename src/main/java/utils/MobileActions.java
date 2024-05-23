@@ -14,7 +14,8 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
-import static constants.WaitConstant.*;
+import static constants.WaitConstant.POLLING_EVERY;
+import static constants.WaitConstant.SHORT_FLUENT_WAIT;
 
 public class MobileActions {
     private final AppiumDriver driver;
@@ -26,11 +27,9 @@ public class MobileActions {
     public MobileActions(AppiumDriver driver) {
         this.driver = driver;
         this.currentPlatform = Driver.getCurrentPlatform(driver);
-        this.wait = new WebDriverWait(driver, Duration.ofMillis(EXPLICIT_WAIT));
-        this.fluentWait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofMillis(SHORT_FLUENT_WAIT))
-                .pollingEvery(Duration.ofMillis(POLLING_EVERY))
-                .ignoring(NoSuchElementException.class);
+        WaitUtils waitUtils = new WaitUtils(driver);
+        this.wait = waitUtils.explicitWait();
+        fluentWait = waitUtils.fluentWait(SHORT_FLUENT_WAIT, POLLING_EVERY);
     }
 
     public void waitElementPressAble(WebElement element) {

@@ -1,17 +1,16 @@
 package practice;
 
-import constants.WaitConstant;
 import driverFactory.Driver;
 import io.appium.java_client.AppiumDriver;
 import mobildeDevices.MobileFactory;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import utils.WaitUtils;
 
-import java.time.Duration;
+import static constants.WaitConstant.POLLING_EVERY;
+import static constants.WaitConstant.SHORT_FLUENT_WAIT;
 
 public abstract class BaseTest {
 
@@ -22,21 +21,15 @@ public abstract class BaseTest {
     @BeforeClass
     public void setUpAppium() {
 
-        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
+        this.driver = Driver.getLocalServerDriver(MobileFactory.getSimulator());
 
-        // TODO: separate wait to utils
-        wait = new WebDriverWait(driver, Duration.ofMillis(WaitConstant.SHORT_EXPLICIT_WAIT));
-        fluentWait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofMillis(7000))
-                .pollingEvery(Duration.ofMillis(10))
-                .ignoring(NoSuchElementException.class)
-                .ignoring(TimeoutException.class);
-
+        WaitUtils waitUtils = new WaitUtils(driver);
+        wait = waitUtils.explicitWait();
+        fluentWait = waitUtils.fluentWait(SHORT_FLUENT_WAIT, POLLING_EVERY);
     }
 
     @AfterClass
     public void tearDown() {
         Driver.quitDriver(driver);
     }
-
 }
