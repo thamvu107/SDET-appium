@@ -42,7 +42,7 @@ public abstract class AlertScreen extends BaseScreen {
 
     protected WebElement dialogElement() {
 
-        return mobileActions.findElement(alertLocatorMap);
+        return mobileInteractions.findElement(alertLocatorMap);
     }
 
     protected abstract WebElement dialogTitleElement();
@@ -51,12 +51,12 @@ public abstract class AlertScreen extends BaseScreen {
 
     protected WebElement okButtonElement() {
 
-        return mobileActions.findElement(alertOkButtonLocatorMap);
+        return mobileInteractions.findElement(alertOkButtonLocatorMap);
     }
 
     public AlertScreen verifyAlertPresent(String expectedTitle, String expectedMessage) {
 
-        Assert.assertTrue(mobileActions.isAlertPresent());
+        Assert.assertTrue(mobileInteractions.isAlertPresent());
         this.verifyAlertTitle(expectedTitle);
         this.verifyAlertMessage(expectedMessage);
 
@@ -88,7 +88,7 @@ public abstract class AlertScreen extends BaseScreen {
 
     public void verifyAlertDisappeared() {
 
-        mobileActions.assertAlertHasDisappeared(driver, Duration.ofMillis(500));
+        mobileInteractions.assertAlertHasDisappeared(driver, Duration.ofMillis(500));
     }
 
 }

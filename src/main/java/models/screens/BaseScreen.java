@@ -6,7 +6,6 @@ import io.appium.java_client.AppiumDriver;
 import models.commponents.BottomNavComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.LocatorMapper;
-import utils.MobileActions;
 import utils.MobileInteractions;
 
 import static java.time.Duration.ofMillis;
@@ -17,7 +16,6 @@ public class BaseScreen {
     protected WebDriverWait wait;
     protected LocatorMapper locatorMapper;
     protected BottomNavComponent bottomNavComponent;
-    protected MobileActions mobileActions;
 
     protected MobileInteractions mobileInteractions;
     protected static String currentPlatform;
@@ -29,7 +27,6 @@ public class BaseScreen {
         currentPlatform = Driver.getCurrentPlatform(driver);
         this.wait = new WebDriverWait(this.driver, ofMillis(WaitConstant.LONG_EXPLICIT_WAIT));
         this.bottomNavComponent = new BottomNavComponent(this.driver);
-        this.mobileActions = new MobileActions(driver);
         this.mobileInteractions = new MobileInteractions(driver);
 
     }

@@ -10,7 +10,7 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.PointerInput.Kind;
 import org.openqa.selenium.interactions.PointerInput.MouseButton;
 import org.openqa.selenium.interactions.Sequence;
-import utils.MobileActions;
+import utils.MobileInteractions;
 
 import java.time.Duration;
 
@@ -29,15 +29,15 @@ public class SwipeExplore {
 //        driver = DriverFactory.getMobileDriver(MobilePlatform.IOS);
         driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
 
-        MobileActions mobileActions = new MobileActions(driver);
+        MobileInteractions mobileInteraction = new MobileInteractions(driver);
 
         // Swipe up before interacting
-        swipeVertical(mobileActions);
+        swipeVertical(mobileInteraction);
         swipeVertical2();
     }
 
-    private static void swipeVertical(MobileActions mobileActions) {
-        Dimension screenSize = mobileActions.getScreenSize();
+    private static void swipeVertical(MobileInteractions mobileInteraction) {
+        Dimension screenSize = mobileInteraction.getScreenSize();
         int screenWidth = screenSize.getWidth();
         int screenHeight = screenSize.getHeight();
 

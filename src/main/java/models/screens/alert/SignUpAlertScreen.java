@@ -31,16 +31,16 @@ public class SignUpAlertScreen extends AlertScreen {
     @Override
     protected WebElement dialogTitleElement() {
 
-        By locator = mobileActions.getLocatorIsMappedCurrentPlatform(alertTitleLocatorMap);
-        mobileActions.waitVisibilityOfElementLocated(locator);
+        By locator = mobileInteractions.getLocatorIsMappedCurrentPlatform(alertTitleLocatorMap);
+        mobileInteractions.waitVisibilityOfElementLocated(locator);
 
-        return mobileActions.findElement(alertTitleLocatorMap);
+        return mobileInteractions.findElement(alertTitleLocatorMap);
     }
 
     @Override
     protected WebElement dialogMessageElement() {
 
-        return mobileActions.findElement(alertMessageLocatorMap);
+        return mobileInteractions.findElement(alertMessageLocatorMap);
     }
 
 }

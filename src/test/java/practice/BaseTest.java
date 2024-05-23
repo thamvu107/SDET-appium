@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import utils.MobileInteractions;
 import utils.WaitUtils;
 
 import static constants.WaitConstant.POLLING_EVERY;
@@ -17,6 +18,7 @@ public abstract class BaseTest {
     protected AppiumDriver driver;
     protected static WebDriverWait wait;
     protected static FluentWait<AppiumDriver> fluentWait;
+    protected MobileInteractions mobileInteractions;
 
     @BeforeClass
     public void setUpAppium() {
