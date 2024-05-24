@@ -173,8 +173,8 @@ public class MobileInteractions {
         return locatorMap.get(currentPlatform);
     }
 
-    public boolean isTitleCorrect(WebElement element, String title) {
-        waitElementVisibility(element);
+    public boolean isTextDisplayedCorrect(WebElement element, String title) {
+//        waitElementVisibility(element);
         return element.isDisplayed() && element.getText().equalsIgnoreCase(title);
     }
 
