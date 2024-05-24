@@ -11,4 +11,7 @@ public interface WaitConstant {
 
     long SHORT_FLUENT_WAIT = 5000L;
     long POLLING_EVERY = 100L;
+    long SHORT_PAUSE = 250;
+    long PAUSE = 300;
+    long MOVE = 400;
 }

@@ -20,10 +20,11 @@ public abstract class BaseTest {
     protected static FluentWait<AppiumDriver> fluentWait;
     protected MobileInteractions mobileInteractions;
 
+
     @BeforeClass
     public void setUpAppium() {
 
-        this.driver = Driver.getLocalServerDriver(MobileFactory.getSimulator());
+        this.driver = Driver.getLocalServerDriver(MobileFactory.getSmallEmulator());
 
         WaitUtils waitUtils = new WaitUtils(driver);
         wait = waitUtils.explicitWait();
@@ -34,4 +35,6 @@ public abstract class BaseTest {
     public void tearDown() {
         Driver.quitDriver(driver);
     }
+
+
 }

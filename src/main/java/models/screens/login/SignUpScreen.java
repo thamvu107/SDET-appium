@@ -5,6 +5,7 @@ import io.appium.java_client.AppiumDriver;
 import models.screens.alert.AlertScreen;
 import models.screens.alert.SignUpAlertScreen;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -80,7 +81,18 @@ public class SignUpScreen extends LoginScreen {
 
         // TODO: On smaller screens there could be a possibility that the button is not shown
         if (!mobileInteractions.isElementDisplayed(signUpButtonLocator)) {
-            mobileInteractions.swipeVertical();
+
+            int screenWidth = mobileInteractions.getScreenWith();
+            int screenHeight = mobileInteractions.getScreenHeight();
+
+            int x = screenWidth / 2;
+            int startY = (int) (screenHeight * 0.80);
+            int endY = (int) (screenHeight * 0.20);
+
+            Point startPoint = new Point(x, startY);
+            Point endPoint = new Point(x, endY);
+
+            mobileInteractions.swipeVertical(startPoint, endPoint);
         }
         mobileInteractions.waitVisibilityOfElementLocated(signUpButtonLocator);
         signUpButtonElement().click();

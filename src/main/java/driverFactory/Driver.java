@@ -1,6 +1,6 @@
 package driverFactory;
 
-import driverFactory.capabilities.AndroidCapabilities;
+import driverFactory.capabilities.CapabilityFactory;
 import driverFactory.capabilities.IOSCapabilities;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
@@ -57,7 +57,7 @@ public class Driver {
 
             switch (mobile.getPlatformName()) {
                 case ANDROID:
-                    driver = new AndroidDriver(serverURL, AndroidCapabilities.getAndroidCaps(mobile));
+                    driver = new AndroidDriver(serverURL, CapabilityFactory.getAndroidCaps(mobile));
                     break;
                 case IOS:
                     driver = new IOSDriver(serverURL, IOSCapabilities.getIOSCaps(mobile));
@@ -76,13 +76,23 @@ public class Driver {
         return driver;
     }
 
-    public static String getCurrentPlatform(AppiumDriver driver) {
+
+//    public static String getCurrentPlatform(AppiumDriver driver) {
+//
+//        Capabilities caps = driver.getCapabilities();
+//
+//        return CapabilityHelpers.getCapability(caps, "platformName", String.class);
+//    }
+
+
+    public static Platform getCurrentPlatform(AppiumDriver driver) {
 
         Capabilities caps = driver.getCapabilities();
 
-        return CapabilityHelpers.getCapability(caps, "platformName", String.class);
-    }
+        String platformName = CapabilityHelpers.getCapability(caps, "platformName", String.class);
 
+        return Platform.valueOf(platformName.toUpperCase());
+    }
 
     public static void quitDriver(AppiumDriver driver) {
         try {

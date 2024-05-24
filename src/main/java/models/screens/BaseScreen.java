@@ -2,6 +2,7 @@ package models.screens;
 
 import constants.WaitConstant;
 import driverFactory.Driver;
+import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import models.commponents.BottomNavComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,7 +19,8 @@ public class BaseScreen {
     protected BottomNavComponent bottomNavComponent;
 
     protected MobileInteractions mobileInteractions;
-    protected static String currentPlatform;
+    //    protected static String currentPlatform;
+    protected static Platform currentPlatform;
 
 
     protected BaseScreen(final AppiumDriver driver) {
