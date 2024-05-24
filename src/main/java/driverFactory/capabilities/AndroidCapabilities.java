@@ -1,18 +1,12 @@
 package driverFactory.capabilities;
 
 import io.appium.java_client.android.options.UiAutomator2Options;
-import mobildeDevices.Mobile;
 import mobildeDevices.android.AndroidPhysicalMobile;
 import mobildeDevices.android.Emulator;
 
 import static constants.AndroidConstants.*;
 
 public class AndroidCapabilities implements SetPlatformVersion {
-
-    public static UiAutomator2Options getAndroidCaps(Mobile mobile) {
-
-        return (mobile instanceof Emulator) ? getEmulatorCaps((Emulator) mobile) : getPhysicalDeviceCaps((AndroidPhysicalMobile) mobile);
-    }
 
     public static UiAutomator2Options getEmulatorCaps(Emulator mobile) {
 

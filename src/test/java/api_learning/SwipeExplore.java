@@ -58,7 +58,6 @@ public class SwipeExplore {
                 .addAction(pointerInput.createPointerMove(ofMillis(250), viewport(), x, endY))
                 .addAction(pointerInput.createPointerUp(MouseButton.LEFT.asArg()));
 
-
     }
 
     private static void swipeVertical2() {

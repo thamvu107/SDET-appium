@@ -18,8 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static constants.WaitConstant.POLLING_EVERY;
-import static constants.WaitConstant.SHORT_FLUENT_WAIT;
+import static constants.WaitConstant.*;
 import static java.time.Duration.ofMillis;
 import static org.openqa.selenium.interactions.PointerInput.Origin.viewport;
 
@@ -27,7 +26,8 @@ public class MobileInteractions {
     private final AppiumDriver driver;
     private final WebDriverWait wait;
     FluentWait<AppiumDriver> fluentWait;
-    private final String currentPlatform;
+    //    private final String currentPlatform;
+    private final Platform currentPlatform;
 
     public MobileInteractions(AppiumDriver driver) {
         this.driver = driver;
@@ -35,28 +35,6 @@ public class MobileInteractions {
         WaitUtils waitUtils = new WaitUtils(driver);
         this.wait = waitUtils.explicitWait();
         fluentWait = waitUtils.fluentWait(SHORT_FLUENT_WAIT, POLLING_EVERY);
-    }
-
-    public void swipeVertical() {
-
-        Dimension screenSize = this.getScreenSize();
-        int screenWidth = screenSize.getWidth();
-        int screenHeight = screenSize.getHeight();
-
-        int x = screenWidth / 2;
-        int startY = (int) (screenHeight * 0.80);
-        int endY = (int) (screenHeight * 0.20);
-
-        PointerInput pointerInput = new PointerInput(PointerInput.Kind.TOUCH, "finger1");
-
-        Sequence sequence = new Sequence(pointerInput, 1)
-                .addAction(pointerInput.createPointerMove(Duration.ZERO, viewport(), x, startY))
-                .addAction(pointerInput.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(new Pause(pointerInput, ofMillis(250)))
-                .addAction(pointerInput.createPointerMove(ofMillis(250), viewport(), x, endY))
-                .addAction(pointerInput.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
-
-        driver.perform(Collections.singletonList(sequence));
     }
 
     public void waitElementPressAble(WebElement element) {
@@ -181,7 +159,8 @@ public class MobileInteractions {
 
     public WebElement findElement(Map<driverFactory.Platform, By> locatorMap) {
 
-        By locator = locatorMap.get(driverFactory.Platform.valueOf(currentPlatform));
+//        By locator = locatorMap.get(driverFactory.Platform.valueOf(currentPlatform));
+        By locator = locatorMap.get(currentPlatform);
 
         return driver.findElement(locator);
     }
@@ -190,7 +169,8 @@ public class MobileInteractions {
 
         Require.nonNull("Locator", locatorMap);
 
-        return locatorMap.get(Platform.valueOf(currentPlatform));
+//        return locatorMap.get(Platform.valueOf(currentPlatform));
+        return locatorMap.get(currentPlatform);
     }
 
     public boolean isTitleCorrect(WebElement element, String title) {
@@ -201,4 +181,55 @@ public class MobileInteractions {
     public Dimension getScreenSize() {
         return driver.manage().window().getSize();
     }
+
+    public int getScreenWith() {
+        return this.getScreenSize().getWidth();
+    }
+
+    public int getScreenHeight() {
+        return this.getScreenSize().getHeight();
+
+    }
+
+    public void swipeVertical(Point start, Point end) {
+
+        PointerInput pointerInput = new PointerInput(PointerInput.Kind.TOUCH, "finger1");
+
+        Sequence sequence = new Sequence(pointerInput, 1)
+                .addAction(pointerInput.createPointerMove(Duration.ZERO, viewport(), start.x, start.y))
+                .addAction(pointerInput.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+                .addAction(new Pause(pointerInput, ofMillis(SHORT_PAUSE)))
+                .addAction(pointerInput.createPointerMove(ofMillis(MOVE), viewport(), end.x, end.y))
+                .addAction(pointerInput.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        driver.perform(Collections.singletonList(sequence));
+    }
+
+    public void openNotificationPanel() {
+
+        manageNotificationPanel(true);
+    }
+
+    public void closeNotificationPanel() {
+
+        manageNotificationPanel(false);
+    }
+
+    public void manageNotificationPanel(boolean display) {
+
+        MobileInteractions mobileInteractions = new MobileInteractions(driver);
+        int screenWidth = mobileInteractions.getScreenWith();
+        int screenHeight = mobileInteractions.getScreenHeight();
+
+        int x = screenWidth / 2;
+        int topY = 0;
+        int bottomY = screenHeight / 2;
+
+        Point startPoint = display ? new Point(x, topY) : new Point(x, bottomY);
+        Point endPoint = display ? new Point(x, bottomY) : new Point(x, topY);
+
+        mobileInteractions.swipeVertical(startPoint, endPoint);
+    }
+
+
 }

@@ -12,7 +12,8 @@ import java.util.Map;
 
 public class LocatorMapper {
     private final AppiumDriver driver;
-    private final String currentPlatform;
+    //    private final String currentPlatform;
+    private final Platform currentPlatform;
 
     // TODO: try the way handle Element mapper.
 
@@ -23,14 +24,16 @@ public class LocatorMapper {
 
     public WebElement findElement(Map<Platform, By> locatorMap) {
 
-        By elementLocator = locatorMap.get(Platform.valueOf(currentPlatform));
+//        By elementLocator = locatorMap.get(Platform.valueOf(currentPlatform));
+        By elementLocator = locatorMap.get(currentPlatform);
 
         return this.driver.findElement(elementLocator);
     }
 
     public List<WebElement> findElements(Map<Platform, By> locatorMap) {
 
-        By elementLocator = locatorMap.get(Platform.valueOf(currentPlatform));
+//        By elementLocator = locatorMap.get(Platform.valueOf(currentPlatform));
+        By elementLocator = locatorMap.get(currentPlatform);
 
         return this.driver.findElements(elementLocator);
     }
@@ -40,7 +43,8 @@ public class LocatorMapper {
 
         Require.nonNull("Locator", locatorMap);
 
-        return locatorMap.get(Platform.valueOf(currentPlatform));
+//        return locatorMap.get(Platform.valueOf(currentPlatform));
+        return locatorMap.get(currentPlatform);
     }
 
     /* Check if an element is existed by its locator */
