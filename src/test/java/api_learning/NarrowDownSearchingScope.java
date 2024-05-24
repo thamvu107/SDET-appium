@@ -11,10 +11,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
+import org.testng.Assert;
 import utils.MobileInteractions;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +24,9 @@ import static io.appium.java_client.AppiumBy.iOSNsPredicateString;
 
 public class NarrowDownSearchingScope {
     public static void main(String[] args) {
-        // TODO: Simulator notification
+        final String NOTIFICATION_TITLE = "Appium Settings";
+        final String NOTIFICATION_MESSAGE = "Keep this service running, so Appium for Android can properly interact with several system APIs";
+
         AppiumDriver driver;
 
 //        driver = DriverFactory.getMobileDriver(MobilePlatform.ANDROID);
@@ -32,15 +34,15 @@ public class NarrowDownSearchingScope {
 
         try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");
-
+            MobileInteractions interactions = new MobileInteractions(driver);
+            interactions.waitVisibilityOfElementLocated(formsBtnLoc);
             driver.findElement(formsBtnLoc).click();
 
+            // TODO: Simulator notification
             Map<Platform, By> formComponentLocatorMap = Map.of(
                     Platform.ANDROID, androidUIAutomator("new UiSelector(). textContains(\"Form components\")"),
                     Platform.IOS, iOSNsPredicateString("name == \"Form components\" AND label == \"Form components\" AND value == \"Form components\"")
             );
-
-            MobileInteractions interactions = new MobileInteractions(driver);
 
             By formComponentLoc = interactions.getLocatorIsMappedCurrentPlatform(formComponentLocatorMap);
             interactions.waitVisibilityOfElementLocated(formComponentLoc);
@@ -57,19 +59,28 @@ public class NarrowDownSearchingScope {
 //            By notificationTitleLoc = AppiumBy.id("android:id/app_name_text");
 //            By notificationTitleLoc = AppiumBy.androidUIAutomator("new UiSelector().resourceId(\"android:id/app_name_text\")");
             By notificationTitleLoc = AppiumBy.id("android:id/title");
+            By notificationMessageLoc = AppiumBy.id("android:id/big_text");
 
             List<WebElement> notificationEleList = driver.findElements(notificationLoc);
 
-            List<String> notificationTitles = new ArrayList<>();
+            if (notificationEleList.isEmpty()) {
+                Assert.fail("No notifications found");
+            }
+
+            boolean notificationFound = false;
             for (WebElement notificationEle : notificationEleList) {
 
                 // Narrow down searching scope
                 WebElement notificationTitleEle = notificationEle.findElement(notificationTitleLoc);
+                WebElement notificationMessageEle = notificationEle.findElement(notificationMessageLoc);
                 String notificationTitleText = notificationTitleEle.getText();
-                notificationTitles.add(notificationTitleText);
-                System.out.println(notificationTitles);
+                String notificationMessageText = notificationMessageEle.getText();
+                if (notificationTitleText.equalsIgnoreCase(NOTIFICATION_TITLE) && notificationMessageText.equalsIgnoreCase(NOTIFICATION_MESSAGE)) {
+                    notificationFound = true;
+                    break;
+                }
             }
-            mobileInteractions.closeNotificationPanel();
+            Assert.assertTrue(notificationFound);
 
         } catch (Exception e) {
             e.printStackTrace();
