@@ -12,6 +12,8 @@ import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import utils.MobileInteractions;
 
 import java.time.Duration;
@@ -23,18 +25,22 @@ import static io.appium.java_client.AppiumBy.androidUIAutomator;
 import static io.appium.java_client.AppiumBy.iOSNsPredicateString;
 
 public class NarrowDownSearchingScope {
-    public static void main(String[] args) {
+
+    @Test
+    public void narrowDownSearchingScope() {
         final String NOTIFICATION_TITLE = "Appium Settings";
         final String NOTIFICATION_MESSAGE = "Keep this service running, so Appium for Android can properly interact with several system APIs";
 
         AppiumDriver driver;
 
+
 //        driver = DriverFactory.getMobileDriver(MobilePlatform.ANDROID);
         driver = Driver.getLocalServerDriver(MobileFactory.getEmulator());
+        MobileInteractions interactions = new MobileInteractions(driver);
+        boolean notificationFound = false;
 
         try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");
-            MobileInteractions interactions = new MobileInteractions(driver);
             interactions.waitVisibilityOfElementLocated(formsBtnLoc);
             driver.findElement(formsBtnLoc).click();
 
@@ -55,6 +61,8 @@ public class NarrowDownSearchingScope {
             By notificationLoc = AppiumBy.id("com.android.systemui:id/expanded");
 //            By notificationLoc = AppiumBy.androidUIAutomator(" new UiSelector().resourceId(\"com.android.systemui:id/expanded\")");
 
+            interactions.waitVisibilityOfElementLocated(notificationLoc);
+
             // TODO: handle app_name_text
 //            By notificationTitleLoc = AppiumBy.id("android:id/app_name_text");
 //            By notificationTitleLoc = AppiumBy.androidUIAutomator("new UiSelector().resourceId(\"android:id/app_name_text\")");
@@ -66,16 +74,14 @@ public class NarrowDownSearchingScope {
             if (notificationEleList.isEmpty()) {
                 Assert.fail("No notifications found");
             }
+            SoftAssert sortAssert = new SoftAssert();
 
-            boolean notificationFound = false;
             for (WebElement notificationEle : notificationEleList) {
 
                 // Narrow down searching scope
                 WebElement notificationTitleEle = notificationEle.findElement(notificationTitleLoc);
                 WebElement notificationMessageEle = notificationEle.findElement(notificationMessageLoc);
-                String notificationTitleText = notificationTitleEle.getText();
-                String notificationMessageText = notificationMessageEle.getText();
-                if (notificationTitleText.equalsIgnoreCase(NOTIFICATION_TITLE) && notificationMessageText.equalsIgnoreCase(NOTIFICATION_MESSAGE)) {
+                if (interactions.isTextDisplayedCorrect(notificationTitleEle, NOTIFICATION_TITLE) && interactions.isTextDisplayedCorrect(notificationMessageEle, NOTIFICATION_MESSAGE)) {
                     notificationFound = true;
                     break;
                 }
@@ -83,7 +89,11 @@ public class NarrowDownSearchingScope {
             Assert.assertTrue(notificationFound);
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            Assert.fail("No notifications found");
+
+        } finally {
+            interactions.closeNotificationPanel();
         }
     }
 
