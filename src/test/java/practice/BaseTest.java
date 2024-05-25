@@ -24,17 +24,17 @@ public abstract class BaseTest {
     @BeforeClass
     public void setUpAppium() {
 
-        this.driver = Driver.getLocalServerDriver(MobileFactory.getSmallEmulator());
+        this.driver = Driver.getLocalServerDriver(MobileFactory.getEmulator());
 
         WaitUtils waitUtils = new WaitUtils(driver);
         wait = waitUtils.explicitWait();
         fluentWait = waitUtils.fluentWait(SHORT_FLUENT_WAIT, POLLING_EVERY);
+        mobileInteractions = new MobileInteractions(this.driver);
     }
 
     @AfterClass
     public void tearDown() {
         Driver.quitDriver(driver);
     }
-
 
 }
