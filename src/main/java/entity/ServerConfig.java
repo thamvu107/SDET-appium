@@ -10,7 +10,6 @@ import java.net.URL;
 @Setter
 public class ServerConfig {
 
-
     private String ip;
 
     private int port;

@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeClass;
 import utils.MobileInteractions;
 import utils.WaitUtils;
 
-import static devices.MobileFactory.getEmulator;
+import static devices.MobileFactory.getAndroidMobile;
 
 public abstract class BaseTest {
 
@@ -29,8 +29,8 @@ public abstract class BaseTest {
 
 //        this.driver = DriverFactory.getLocalServerDriver(MobileFactory.getEmulator());
         driverProvider = new DriverProvider();
-        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
-        driver = driverProvider.getLocalServerDriver(caps);
+        Capabilities caps = CapabilityFactory.getCaps(getAndroidMobile());
+        driver = driverProvider.getRemoteServerDriver(caps);
 
         WaitUtils waitUtils = new WaitUtils(driver);
         wait = waitUtils.explicitWait();
