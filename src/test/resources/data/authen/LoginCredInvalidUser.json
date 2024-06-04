@@ -1,10 +1,6 @@
 [
   {
-    "username": "tham.vu",
-    "password": "12345678"
-  },
-  {
-    "username": "tham",
-    "password": "12345678"
+    "email": "tham.vu",
+    "password": "123456"
   }
 ]

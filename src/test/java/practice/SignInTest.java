@@ -31,7 +31,7 @@ public class SignInTest extends BaseTest {
                 .verifySignInFormDisplayed();
     }
 
-    @Test(dataProvider = "loginCredValidData", dataProviderClass = UserCredData.class)
+    @Test(dataProvider = "loginCredValidUser", dataProviderClass = UserCredData.class)
     public void loginInWithCorrectCredential(User loginCred) {
 
         signInScreen
@@ -44,11 +44,11 @@ public class SignInTest extends BaseTest {
                 .verifyAlertDisappeared();
     }
 
-    @Test
-    public void loginInWithIncorrectCredentials() {
+    @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = UserCredData.class)
+    public void loginInWithIncorrectCredentials(User loginCred) {
         signInScreen
-                .inputEmail(INVALID_EMAIL)
-                .inputPassword(INVALID_PASSWORD)
+                .inputEmail(loginCred.getEmail())
+                .inputPassword(loginCred.getPassword())
                 .clickOnLoginButton()
                 .verifyInvalidEmailMessage(INVALID_EMAIL_MESSAGE)
                 .verifyInvalidPasswordMessage(INVALID_PASSWORD_MESSAGE);
