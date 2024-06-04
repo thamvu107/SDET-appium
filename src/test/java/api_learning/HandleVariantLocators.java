@@ -4,12 +4,12 @@ import driver.Platforms;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import driverFactory.Platform;
+import helpers.LocatorMapperHelper;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebElement;
-import utils.LocatorMapper;
 
 import java.util.Map;
 
@@ -36,7 +36,7 @@ public class HandleVariantLocators {
         driver = driverProvider.getLocalServerDriver(caps);
 
         try {
-            LocatorMapper elementHandler = new LocatorMapper(driver);
+            LocatorMapperHelper elementHandler = new LocatorMapperHelper(driver);
             WebElement navLoginBtnEle = elementHandler.findElement(navloginButtonLocatorMap);
             navLoginBtnEle.click();
 

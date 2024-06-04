@@ -73,13 +73,13 @@ public class LoginScreen extends BaseScreen {
 
     protected WebElement invalidEmailLabelElement() {
 
-        return driver.findElement(mobileInteractions.getLocatorIsMappedCurrentPlatform(invalidEmailLabelLocatorMap));
+        return driver.findElement(mobileInteractionHelper.getLocatorIsMappedCurrentPlatform(invalidEmailLabelLocatorMap));
     }
 
     protected WebElement invalidPasswordLabelElement() {
 
 
-        return driver.findElement(mobileInteractions.getLocatorIsMappedCurrentPlatform(invalidPasswordLabelLocatorMap));
+        return driver.findElement(mobileInteractionHelper.getLocatorIsMappedCurrentPlatform(invalidPasswordLabelLocatorMap));
     }
 
     public LoginScreen clickOnLoginNav() {
@@ -91,7 +91,7 @@ public class LoginScreen extends BaseScreen {
 
     public LoginScreen verifyLoginScreenDisplayed() {
 
-        mobileInteractions.waitVisibilityOfElementLocated(loginScreenLoc);
+        mobileInteractionHelper.waitVisibilityOfElementLocated(loginScreenLoc);
 
         return this;
     }

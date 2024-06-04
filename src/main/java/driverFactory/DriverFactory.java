@@ -2,12 +2,12 @@ package driverFactory;
 
 import constants.WaitConstants;
 import exceptions.PlatformNotSupportException;
+import helpers.WaitHelper;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.internal.CapabilityHelpers;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.Capabilities;
-import utils.WaitUtils;
 
 import java.net.URL;
 
@@ -48,7 +48,7 @@ public class DriverFactory {
                     throw new PlatformNotSupportException("Platform " + caps.getPlatformName() + " is not supported");
             }
 
-            WaitUtils wait = new WaitUtils(driver);
+            WaitHelper wait = new WaitHelper(driver);
             wait.setImplicitWait(WaitConstants.SHORT_IMPLICIT_WAIT);
 
         } catch (Exception e) {

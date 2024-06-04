@@ -1,11 +1,11 @@
-package utils;
+package helpers;
 
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.internal.CapabilityHelpers;
 import org.openqa.selenium.Capabilities;
 
-public class PlatformUtil {
+public class PlatformHelper {
     public Platform getCurrentPlatform(AppiumDriver driver) {
 
         Capabilities caps = driver.getCapabilities();

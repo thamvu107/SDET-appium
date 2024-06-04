@@ -1,14 +1,13 @@
 package practice;
 
-import dataProvider.userData.LoginCredData;
+import constants.SignInConstants;
+import dataProvider.signIn.LoginCredData;
 import entity.LoginCred;
 import models.screens.login.LoginScreen;
 import models.screens.login.SignInScreen;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import static constants.Screens.SignInConstants.*;
 
 public class SignInTest extends BaseTest {
 
@@ -39,7 +38,7 @@ public class SignInTest extends BaseTest {
                 .inputPassword(loginCred.getPassword())
                 .clickOnLoginButton()
                 .switchToSignInAlert()
-                .verifyAlertPresent(SIGN_IN_DIALOG_TITLE, SIGN_IN_DIALOG_MESSAGE)
+                .verifyAlertPresent(SignInConstants.SIGN_IN_DIALOG_TITLE, SignInConstants.SIGN_IN_DIALOG_MESSAGE)
                 .clickOnOkButton()
                 .verifyAlertDisappeared();
     }
@@ -50,8 +49,28 @@ public class SignInTest extends BaseTest {
                 .inputEmail(loginCred.getEmail())
                 .inputPassword(loginCred.getPassword())
                 .clickOnLoginButton()
-                .verifyInvalidEmailMessage(INVALID_EMAIL_MESSAGE)
-                .verifyInvalidPasswordMessage(INVALID_PASSWORD_MESSAGE);
+                .verifyInvalidEmailMessage(SignInConstants.INVALID_EMAIL_MESSAGE)
+                .verifyInvalidPasswordMessage(SignInConstants.INVALID_PASSWORD_MESSAGE);
+    }
+
+    @Test(dataProvider = "loginCredInvalidEmail", dataProviderClass = LoginCredData.class)
+    public void loginInWithIncorrectEmail(LoginCred loginCred) {
+        signInScreen
+                .inputEmail(loginCred.getEmail())
+                .inputPassword(loginCred.getPassword())
+                .clickOnLoginButton()
+                .verifyInvalidEmailMessage(SignInConstants.INVALID_EMAIL_MESSAGE);
+    }
+
+
+    @Test(dataProvider = "loginCredInvalidPassword", dataProviderClass = LoginCredData.class)
+    public void loginInWithIncorrectPassword(LoginCred loginCred) {
+        signInScreen
+                .inputEmail(loginCred.getEmail())
+                .inputPassword(loginCred.getPassword())
+                .clickOnLoginButton()
+                .verifyInvalidPasswordMessage(SignInConstants.INVALID_PASSWORD_MESSAGE);
+
     }
 
 }

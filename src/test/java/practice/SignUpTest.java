@@ -1,14 +1,13 @@
 package practice;
 
-import dataProvider.userData.SignUpCredData;
+import constants.SignUpConstants;
+import dataProvider.signUp.SignUpCredData;
 import entity.SignUpCred;
 import models.screens.login.LoginScreen;
 import models.screens.login.SignUpScreen;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import static constants.Screens.SignUpConstants.*;
 
 public class SignUpTest extends BaseTest {
 
@@ -37,18 +36,30 @@ public class SignUpTest extends BaseTest {
                 .inputRepeatPassword(signupCred.getPassword())
                 .clickOnSignUpButton()
                 .switchToSignUpAlert()
-                .verifyAlertPresent(SIGN_UP_DIALOG_TITLE, SIGN_UP_DIALOG_MESSAGE)
+                .verifyAlertPresent(SignUpConstants.SIGN_UP_DIALOG_TITLE, SignUpConstants.SIGN_UP_DIALOG_MESSAGE)
                 .clickOnOkButton()
                 .verifyAlertDisappeared();
     }
 
     @Test(dataProvider = "signUpCredInvalidUser", dataProviderClass = SignUpCredData.class)
-    void signUpWithInvalidRepeatPassWord(SignUpCred signUpCred) {
+    public void signUpWithInvalidUser(SignUpCred signUpCred) {
         signUpScreen
                 .inputEmail(signUpCred.getEmail())
                 .inputPassword(signUpCred.getPassword())
                 .inputRepeatPassword(signUpCred.getRepeatPassword())
                 .clickOnSignUpButton()
-                .verifyInvalidRepeatPasswordMessage(INCORRECT_REPEAT_PASSWORD_MESSAGE);
+                .verifyInvalidEmailMessage(SignUpConstants.INVALID_EMAIL_MESSAGE)
+                .verifyInvalidPasswordMessage(SignUpConstants.INVALID_PASSWORD_MESSAGE)
+                .verifyInvalidRepeatPasswordMessage(SignUpConstants.INCORRECT_REPEAT_PASSWORD_MESSAGE);
+    }
+
+    @Test(dataProvider = "signUpCredInvalidRepeatPassword", dataProviderClass = SignUpCredData.class)
+    public void signUpWithInvalidRepeatPassWord(SignUpCred signUpCred) {
+        signUpScreen
+                .inputEmail(signUpCred.getEmail())
+                .inputPassword(signUpCred.getPassword())
+                .inputRepeatPassword(signUpCred.getRepeatPassword())
+                .clickOnSignUpButton()
+                .verifyInvalidRepeatPasswordMessage(SignUpConstants.INCORRECT_REPEAT_PASSWORD_MESSAGE);
     }
 }

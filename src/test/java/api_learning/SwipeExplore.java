@@ -2,6 +2,7 @@ package api_learning;
 
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
+import helpers.MobileInteractionHelper;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
@@ -10,7 +11,6 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.PointerInput.Kind;
 import org.openqa.selenium.interactions.PointerInput.MouseButton;
 import org.openqa.selenium.interactions.Sequence;
-import utils.MobileInteractions;
 
 import java.time.Duration;
 
@@ -29,7 +29,7 @@ public class SwipeExplore {
         DriverProvider driverProvider = new DriverProvider();
         Capabilities caps = CapabilityFactory.getCaps(getEmulator());
         driver = driverProvider.getLocalServerDriver(caps);
-        MobileInteractions mobileInteraction = new MobileInteractions(driver);
+        MobileInteractionHelper mobileInteraction = new MobileInteractionHelper(driver);
 
         // Swipe up before interacting
         swipeVertical(mobileInteraction);
@@ -38,7 +38,7 @@ public class SwipeExplore {
         driver.quit();
     }
 
-    private static void swipeVertical(MobileInteractions mobileInteraction) {
+    private static void swipeVertical(MobileInteractionHelper mobileInteraction) {
         Dimension screenSize = mobileInteraction.getScreenSize();
         int screenWidth = screenSize.getWidth();
         int screenHeight = screenSize.getHeight();

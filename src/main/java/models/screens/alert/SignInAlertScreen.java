@@ -29,15 +29,15 @@ public class SignInAlertScreen extends AlertScreen {
 
     @Override
     protected WebElement dialogTitleElement() {
-        By locator = mobileInteractions.getLocatorIsMappedCurrentPlatform(alertTitleLocatorMap);
-        mobileInteractions.waitVisibilityOfElementLocated(locator);
+        By locator = mobileInteractionHelper.getLocatorIsMappedCurrentPlatform(alertTitleLocatorMap);
+        mobileInteractionHelper.waitVisibilityOfElementLocated(locator);
 
-        return mobileInteractions.findElement(alertTitleLocatorMap);
+        return mobileInteractionHelper.findElement(alertTitleLocatorMap);
     }
 
     @Override
     protected WebElement dialogMessageElement() {
-        return mobileInteractions.findElement(alertMessageLocatorMap);
+        return mobileInteractionHelper.findElement(alertMessageLocatorMap);
     }
 
 }

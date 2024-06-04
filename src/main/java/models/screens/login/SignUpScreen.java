@@ -43,47 +43,47 @@ public class SignUpScreen extends LoginScreen {
 
     private WebElement invalidRepeatPasswordElement() {
 
-        By locator = mobileInteractions.getLocatorIsMappedCurrentPlatform(invalidRepeatPasswordLocatorMap);
+        By locator = mobileInteractionHelper.getLocatorIsMappedCurrentPlatform(invalidRepeatPasswordLocatorMap);
 
-        return mobileInteractions.waitElementLocatedAndFindElement(locator);
+        return mobileInteractionHelper.waitElementLocatedAndFindElement(locator);
     }
 
     public SignUpScreen verifySignUpFormDisplayed() {
 
 //        mobileActions.waitVisibilityOfElementLocated(signUpButtonLocator); // small screen doesn't visibility sign-up button
-        mobileInteractions.waitVisibilityOfElementLocated(repeatPasswordLocator);
+        mobileInteractionHelper.waitVisibilityOfElementLocated(repeatPasswordLocator);
 
         return this;
     }
 
     public SignUpScreen inputEmail(String email) {
 
-        mobileInteractions.setText(emailFieldElement(), email);
+        mobileInteractionHelper.setText(emailFieldElement(), email);
 
         return this;
     }
 
     public SignUpScreen inputPassword(String password) {
 
-        mobileInteractions.setText(passwordFieldElement(), password);
+        mobileInteractionHelper.setText(passwordFieldElement(), password);
 
         return this;
     }
 
     public SignUpScreen inputRepeatPassword(String repeatPassword) {
 
-        mobileInteractions.setText(repeatPasswordElement(), repeatPassword);
+        mobileInteractionHelper.setText(repeatPasswordElement(), repeatPassword);
 
         return this;
     }
 
     public SignUpScreen clickOnSignUpButton() {
 
-        // TODO: On smaller screens there could be a possibility that the button is not shown
-        if (!mobileInteractions.isElementDisplayed(signUpButtonLocator)) {
+        // TODO: On smaller screenTextConstants there could be a possibility that the button is not shown
+        if (!mobileInteractionHelper.isElementDisplayed(signUpButtonLocator)) {
 
-            int screenWidth = mobileInteractions.getScreenWith();
-            int screenHeight = mobileInteractions.getScreenHeight();
+            int screenWidth = mobileInteractionHelper.getScreenWith();
+            int screenHeight = mobileInteractionHelper.getScreenHeight();
 
             int x = screenWidth / 2;
             int startY = (int) (screenHeight * 0.80);
@@ -92,10 +92,26 @@ public class SignUpScreen extends LoginScreen {
             Point startPoint = new Point(x, startY);
             Point endPoint = new Point(x, endY);
 
-            mobileInteractions.swipeVertical(startPoint, endPoint);
+            mobileInteractionHelper.swipeVertical(startPoint, endPoint);
         }
-        mobileInteractions.waitVisibilityOfElementLocated(signUpButtonLocator);
+        mobileInteractionHelper.waitVisibilityOfElementLocated(signUpButtonLocator);
         signUpButtonElement().click();
+
+        return this;
+    }
+
+    public SignUpScreen verifyInvalidEmailMessage(String expectMessage) {
+
+        String actualMessage = invalidEmailLabelElement().getText();
+        Assert.assertEquals(actualMessage, expectMessage);
+
+        return this;
+    }
+
+    public SignUpScreen verifyInvalidPasswordMessage(String expectMessage) {
+
+        String actualMessage = invalidPasswordLabelElement().getText();
+        Assert.assertEquals(actualMessage, expectMessage);
 
         return this;
     }

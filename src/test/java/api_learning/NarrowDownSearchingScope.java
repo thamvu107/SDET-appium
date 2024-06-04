@@ -23,25 +23,25 @@ public class NarrowDownSearchingScope extends BaseTest {
 
         try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");
-            mobileInteractions.waitVisibilityOfElementLocated(formsBtnLoc);
+            mobileInteractionHelper.waitVisibilityOfElementLocated(formsBtnLoc);
             driver.findElement(formsBtnLoc).click();
 
             Map<Platform, By> formComponentLocatorMap = Map.of(
                     Platform.ANDROID, androidUIAutomator("new UiSelector(). textContains(\"Form components\")"),
                     Platform.IOS, iOSNsPredicateString("name == \"Form components\" AND label == \"Form components\" AND value == \"Form components\"")
             );
-            By formComponentLoc = mobileInteractions.getLocatorIsMappedCurrentPlatform(formComponentLocatorMap);
-            mobileInteractions.waitVisibilityOfElementLocated(formComponentLoc);
+            By formComponentLoc = mobileInteractionHelper.getLocatorIsMappedCurrentPlatform(formComponentLocatorMap);
+            mobileInteractionHelper.waitVisibilityOfElementLocated(formComponentLoc);
 
-            mobileInteractions.openNotificationPanel();
+            mobileInteractionHelper.openNotificationPanel();
 
             // TODO: Simulator notification
             Map<Platform, By> notificationLocatorMap = Map.of(
                     Platform.ANDROID, id("com.android.systemui:id/expanded"),
                     Platform.IOS, id("com.android.systemui:id/expanded")
             );
-            By notificationLoc = mobileInteractions.getLocatorIsMappedCurrentPlatform(notificationLocatorMap);
-            mobileInteractions.waitVisibilityOfElementLocated(notificationLoc);
+            By notificationLoc = mobileInteractionHelper.getLocatorIsMappedCurrentPlatform(notificationLocatorMap);
+            mobileInteractionHelper.waitVisibilityOfElementLocated(notificationLoc);
 
 
             // TODO: handle app_name_text
@@ -51,16 +51,16 @@ public class NarrowDownSearchingScope extends BaseTest {
                     Platform.ANDROID, id("android:id/title"),
                     Platform.IOS, id("android:id/title")
             );
-            By notificationTitleLoc = mobileInteractions.getLocatorIsMappedCurrentPlatform(notificationTitleLocatorMap);
-            mobileInteractions.waitVisibilityOfElementLocated(notificationTitleLoc);
+            By notificationTitleLoc = mobileInteractionHelper.getLocatorIsMappedCurrentPlatform(notificationTitleLocatorMap);
+            mobileInteractionHelper.waitVisibilityOfElementLocated(notificationTitleLoc);
 
 
             Map<Platform, By> notificationMessageLocatorMap = Map.of(
                     Platform.ANDROID, id("android:id/big_text"),
                     Platform.IOS, id("android:id/big_text")
             );
-            By notificationMessageLoc = mobileInteractions.getLocatorIsMappedCurrentPlatform(notificationMessageLocatorMap);
-            mobileInteractions.waitVisibilityOfElementLocated(notificationMessageLoc);
+            By notificationMessageLoc = mobileInteractionHelper.getLocatorIsMappedCurrentPlatform(notificationMessageLocatorMap);
+            mobileInteractionHelper.waitVisibilityOfElementLocated(notificationMessageLoc);
 
 
             List<WebElement> notificationEleList = driver.findElements(notificationLoc);
@@ -74,7 +74,7 @@ public class NarrowDownSearchingScope extends BaseTest {
                 WebElement notificationTitleEle = notificationEle.findElement(notificationTitleLoc);
                 WebElement notificationMessageEle = notificationEle.findElement(notificationMessageLoc);
                 System.out.println("a");
-                if (mobileInteractions.isTextDisplayedCorrect(notificationTitleEle, NOTIFICATION_TITLE) && mobileInteractions.isTextDisplayedCorrect(notificationMessageEle, NOTIFICATION_MESSAGE)) {
+                if (mobileInteractionHelper.isTextDisplayedCorrect(notificationTitleEle, NOTIFICATION_TITLE) && mobileInteractionHelper.isTextDisplayedCorrect(notificationMessageEle, NOTIFICATION_MESSAGE)) {
                     notificationFound = true;
                     break;
                 }
@@ -86,7 +86,7 @@ public class NarrowDownSearchingScope extends BaseTest {
             e.printStackTrace();
 
         } finally {
-            mobileInteractions.closeNotificationPanel();
+            mobileInteractionHelper.closeNotificationPanel();
         }
     }
 

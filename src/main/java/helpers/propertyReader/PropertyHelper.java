@@ -1,12 +1,12 @@
-package dataProvider;
+package helpers.propertyReader;
 
-public class PropertyController {
+public class PropertyHelper {
 
-    private final ConfigFileReader propertyReader;
+    private final ConfigFileReaderHelper propertyReader;
 
-    public PropertyController(String filePath) {
+    public PropertyHelper(String filePath) {
         System.out.println(filePath);
-        this.propertyReader = new ConfigFileReader(filePath);
+        this.propertyReader = new ConfigFileReaderHelper(filePath);
     }
 
     public String getStringProperty(String propertyName) {

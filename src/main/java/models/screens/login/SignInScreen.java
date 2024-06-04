@@ -22,9 +22,9 @@ public class SignInScreen extends LoginScreen {
 
     public SignInScreen verifySignInFormDisplayed() {
 
-        mobileInteractions.waitVisibilityOfElementLocated(signInButtonLocator);
-        mobileInteractions.verifyElementDisplayed(emailInputLoc);
-        mobileInteractions.verifyElementDisplayed(passwordInputLoc);
+        mobileInteractionHelper.waitVisibilityOfElementLocated(signInButtonLocator);
+        mobileInteractionHelper.verifyElementDisplayed(emailInputLoc);
+        mobileInteractionHelper.verifyElementDisplayed(passwordInputLoc);
 
         return this;
     }
@@ -47,7 +47,7 @@ public class SignInScreen extends LoginScreen {
 
     public SignInScreen clickOnLoginButton() {
 
-        // TODO: On smaller screens there could be a possibility that the button is not shown
+        // TODO: On smaller screenTextConstants there could be a possibility that the button is not shown
         signInButtonElement().click();
 
         return this;

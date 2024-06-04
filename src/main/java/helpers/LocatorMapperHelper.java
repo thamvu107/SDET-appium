@@ -1,4 +1,4 @@
-package utils;
+package helpers;
 
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
@@ -9,16 +9,16 @@ import org.openqa.selenium.internal.Require;
 import java.util.List;
 import java.util.Map;
 
-public class LocatorMapper {
+public class LocatorMapperHelper {
     private final AppiumDriver driver;
     //    private final String currentPlatform;
     private final Platform currentPlatform;
 
     // TODO: try the way handle Element mapper.
 
-    public LocatorMapper(AppiumDriver driver) {
+    public LocatorMapperHelper(AppiumDriver driver) {
         this.driver = driver;
-        this.currentPlatform = new PlatformUtil().getCurrentPlatform(this.driver);
+        this.currentPlatform = new PlatformHelper().getCurrentPlatform(this.driver);
     }
 
     public WebElement findElement(Map<Platform, By> locatorMap) {
