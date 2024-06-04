@@ -1,6 +1,6 @@
 package driverFactory.capabilities;
 
-import mobildeDevices.Mobile;
+import devices.Mobile;
 import org.openqa.selenium.MutableCapabilities;
 
 public interface SetPlatformVersion {

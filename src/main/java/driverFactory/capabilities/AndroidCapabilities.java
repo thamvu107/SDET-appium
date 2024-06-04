@@ -1,17 +1,19 @@
 package driverFactory.capabilities;
 
+import constants.android.AndroidAppSetting;
+import constants.android.AndroidDriverSetting;
+import devices.android.AndroidPhysicalMobile;
+import devices.android.Emulator;
 import io.appium.java_client.android.options.UiAutomator2Options;
-import mobildeDevices.android.AndroidPhysicalMobile;
-import mobildeDevices.android.Emulator;
 
-import static constants.AndroidConstants.*;
 
-public class AndroidCapabilities implements SetPlatformVersion {
+public class AndroidCapabilities extends UiAutomator2Options implements AndroidAppSetting, AndroidDriverSetting {
 
     public static UiAutomator2Options getEmulatorCaps(Emulator mobile) {
 
         UiAutomator2Options caps = new UiAutomator2Options()
                 .setDeviceName(mobile.getDeviceName())
+                .setPlatformVersion(mobile.getPlatformVersion())
                 .setAvd(mobile.getAdv())
                 .setAvdLaunchTimeout(mobile.getAdvTimeout())
                 .setAppPackage(APP_PACKAGE)
@@ -23,16 +25,17 @@ public class AndroidCapabilities implements SetPlatformVersion {
                 .setNoReset(false)
                 .clearDeviceLogsOnStart();
 
-        // Capabilities
-        caps.setCapability("--session-override", true);
         caps.setCapability("clearSystemFiles", true);
+        // not going to run your tests in parallel
+//        caps.setCapability("--session-override", true);
 
-        SetPlatformVersion.setPlatformVersion(mobile, caps);
+        // TODO: platform version value is null then it remove cap options
+//        SetPlatformVersion.setPlatformVersion(mobile, caps);
 
         return caps;
     }
 
-    public static UiAutomator2Options getPhysicalDeviceCaps(AndroidPhysicalMobile mobile) {
+    public static UiAutomator2Options getRealMobileCaps(AndroidPhysicalMobile mobile) {
 
         // Capabilities
         UiAutomator2Options caps = new UiAutomator2Options()
@@ -46,7 +49,6 @@ public class AndroidCapabilities implements SetPlatformVersion {
                 .setFullReset(false)
                 .setNoReset(false);
 
-        caps.setCapability("--session-override", true);
         caps.setCapability("clearDeviceLogsOnStart", true);
 
         SetPlatformVersion.setPlatformVersion(mobile, caps);

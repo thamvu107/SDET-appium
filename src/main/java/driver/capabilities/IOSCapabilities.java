@@ -1,10 +1,11 @@
 package driver.capabilities;
 
+import constants.ios.IOSAppSetting;
 import io.appium.java_client.ios.options.XCUITestOptions;
 
-import static constants.IOSConstants.*;
+import static constants.IOSDeviceConstants.*;
 
-public class IOSCapabilities {
+public class IOSCapabilities implements IOSAppSetting {
     public static XCUITestOptions setCapabilities() {
 
         XCUITestOptions caps = new XCUITestOptions()

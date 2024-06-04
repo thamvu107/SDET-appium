@@ -1,34 +1,39 @@
 package api_learning;
 
 import driver.Platforms;
-import driverFactory.Driver;
+import driverFactory.CapabilityFactory;
+import driverFactory.DriverProvider;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
-import mobildeDevices.MobileFactory;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebElement;
 import utils.LocatorMapper;
 
 import java.util.Map;
 
-public class HandleVariantLocators {
-    private static final Map<Platforms, By> navloginBtnLocMap = Map.of(
-            Platforms.ANDROID, AppiumBy.accessibilityId("Login"),
-            Platforms.IOS, AppiumBy.accessibilityId("try-to-have-difference-here")
-    );
+import static devices.MobileFactory.getEmulator;
 
-    private static final Map<Platform, By> navloginButtonLocatorMap = Map.of(
-            Platform.ANDROID, AppiumBy.accessibilityId("Login"),
-            Platform.IOS, AppiumBy.accessibilityId("Login")
-    );
+public class HandleVariantLocators {
+    private static final Map<Platforms, By> navloginBtnLocMap = Map.of(Platforms.ANDROID, AppiumBy.accessibilityId("Login"), Platforms.IOS, AppiumBy.accessibilityId("try-to-have-difference-here"));
+
+    private static final Map<Platform, By> navloginButtonLocatorMap = Map.of(Platform.ANDROID, AppiumBy.accessibilityId("Login"), Platform.IOS, AppiumBy.accessibilityId("Login"));
     private static final By emailFieldLoc = AppiumBy.accessibilityId("input-email");
     private static final By passwordLoc = AppiumBy.accessibilityId("input-password");
     private static final By loginBtnLoc = AppiumBy.accessibilityId("button-LOGIN");
 
+    public static DriverProvider driverProvider;
+    public static AppiumDriver driver;
+
     public static void main(String[] args) {
 
-        AppiumDriver driver = Driver.getLocalServerDriver(MobileFactory.getIOSsMobile());
+//        AppiumDriver driver = DriverFactory.getLocalServerDriver(MobileFactory.getIOSsMobile());
+//        AppiumDriver driver = DriverFactory.getLocalServerDriver(CapabilityFactory.getCaps(getEmulator()));
+
+        driverProvider = new DriverProvider();
+        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+        driver = driverProvider.getLocalServerDriver(caps);
 
         try {
             LocatorMapper elementHandler = new LocatorMapper(driver);

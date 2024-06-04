@@ -1,14 +1,13 @@
 package driverFactory.capabilities;
 
+import constants.ios.IOSAppSetting;
+import devices.ios.IOSPhysicalMobile;
+import devices.ios.Simulator;
 import io.appium.java_client.ios.options.XCUITestOptions;
-import mobildeDevices.Mobile;
-import mobildeDevices.ios.IOSMobile;
 
-import static constants.IOSConstants.BUNDLEID;
+public class IOSCapabilities extends XCUITestOptions implements IOSAppSetting {
 
-public class IOSCapabilities {
-
-    public static XCUITestOptions getIOSCaps(IOSMobile mobile) {
+    public static XCUITestOptions getSimulatorCaps(Simulator mobile) {
 
         // TODO: handle to read caps value from config file
         XCUITestOptions caps = new XCUITestOptions()
@@ -22,7 +21,7 @@ public class IOSCapabilities {
         return caps;
     }
 
-    public static XCUITestOptions getIOSCaps(Mobile mobile) {
+    public static XCUITestOptions getRealMobileCaps(IOSPhysicalMobile mobile) {
 
         XCUITestOptions caps = new XCUITestOptions()
                 .setDeviceName(mobile.getDeviceName())

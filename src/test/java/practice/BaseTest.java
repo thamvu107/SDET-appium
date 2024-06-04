@@ -1,8 +1,10 @@
 package practice;
 
-import driverFactory.Driver;
+import constants.WaitConstants;
+import driverFactory.CapabilityFactory;
+import driverFactory.DriverProvider;
 import io.appium.java_client.AppiumDriver;
-import mobildeDevices.MobileFactory;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
@@ -10,8 +12,7 @@ import org.testng.annotations.BeforeClass;
 import utils.MobileInteractions;
 import utils.WaitUtils;
 
-import static constants.WaitConstant.POLLING_EVERY;
-import static constants.WaitConstant.SHORT_FLUENT_WAIT;
+import static devices.MobileFactory.getEmulator;
 
 public abstract class BaseTest {
 
@@ -20,21 +21,26 @@ public abstract class BaseTest {
     protected static FluentWait<AppiumDriver> fluentWait;
     protected MobileInteractions mobileInteractions;
 
+    DriverProvider driverProvider;
+
 
     @BeforeClass
     public void setUpAppium() {
 
-        this.driver = Driver.getLocalServerDriver(MobileFactory.getEmulator());
+//        this.driver = DriverFactory.getLocalServerDriver(MobileFactory.getEmulator());
+        driverProvider = new DriverProvider();
+        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+        driver = driverProvider.getLocalServerDriver(caps);
 
         WaitUtils waitUtils = new WaitUtils(driver);
         wait = waitUtils.explicitWait();
-        fluentWait = waitUtils.fluentWait(SHORT_FLUENT_WAIT, POLLING_EVERY);
+        fluentWait = waitUtils.fluentWait(WaitConstants.SHORT_FLUENT_WAIT, WaitConstants.POLLING_EVERY);
         mobileInteractions = new MobileInteractions(this.driver);
     }
 
     @AfterClass
     public void tearDown() {
-        Driver.quitDriver(driver);
+        driverProvider.quitDriver(driver);
     }
 
 }

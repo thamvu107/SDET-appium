@@ -1,15 +1,17 @@
 package driver.capabilities;
 
+import constants.android.AndroidAppSetting;
+import constants.android.AndroidDriverSetting;
 import io.appium.java_client.android.options.UiAutomator2Options;
 
-import static constants.AndroidConstants.*;
+import static constants.AndroidDeviceConstants.*;
 
-public class AndroidCapabilities {
+public class AndroidCapabilities implements AndroidAppSetting, AndroidDriverSetting {
     public static UiAutomator2Options setCapabilities() {
 
         // Capabilities
         UiAutomator2Options caps = new UiAutomator2Options()
-                .setPlatformVersion(PLATFORM_VERSION)
+                .setPlatformVersion(ADV_PLATFORM_VERSION)
                 .setDeviceName(AVD_DEVICE_NAME)
                 .setAvd(AVD)
                 .setAvdLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)

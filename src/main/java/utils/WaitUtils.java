@@ -1,5 +1,6 @@
 package utils;
 
+import constants.WaitConstants;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -8,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static constants.WaitConstant.*;
 
 public class WaitUtils {
 
@@ -23,15 +23,15 @@ public class WaitUtils {
     }
 
     public WebDriverWait shortExplicitWait() {
-        return new WebDriverWait(driver, Duration.ofMillis(SHORT_EXPLICIT_WAIT));
+        return new WebDriverWait(driver, Duration.ofMillis(WaitConstants.SHORT_EXPLICIT_WAIT));
     }
 
     public WebDriverWait explicitWait() {
-        return new WebDriverWait(driver, Duration.ofMillis(EXPLICIT_WAIT));
+        return new WebDriverWait(driver, Duration.ofMillis(WaitConstants.EXPLICIT_WAIT));
     }
 
     public WebDriverWait longExplicitWait() {
-        return new WebDriverWait(driver, Duration.ofMillis(LONG_EXPLICIT_WAIT));
+        return new WebDriverWait(driver, Duration.ofMillis(WaitConstants.LONG_EXPLICIT_WAIT));
     }
 
     public FluentWait<AppiumDriver> fluentWait(long timeout, long polling) {

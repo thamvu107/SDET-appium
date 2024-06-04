@@ -1,5 +1,6 @@
 package driver;
 
+import constants.WaitConstants;
 import driver.capabilities.AndroidDesiredCapabilities;
 import driver.capabilities.IOSCapabilities;
 import exceptions.PlatformNotSupportException;
@@ -10,7 +11,6 @@ import io.appium.java_client.ios.IOSDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static constants.WaitConstant.SHORT_IMPLICIT_WAIT;
 import static java.time.Duration.ofMillis;
 
 /**
@@ -96,6 +96,6 @@ public class DriverFactory {
     public static void implicitWaitDriverSession(AppiumDriver driver) {
         driver.manage()
                 .timeouts()
-                .implicitlyWait(ofMillis(SHORT_IMPLICIT_WAIT));
+                .implicitlyWait(ofMillis(WaitConstants.SHORT_IMPLICIT_WAIT));
     }
 }

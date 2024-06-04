@@ -1,9 +1,9 @@
 package api_learning;
 
-import driverFactory.Driver;
+import driverFactory.CapabilityFactory;
+import driverFactory.DriverProvider;
 import io.appium.java_client.AppiumDriver;
-import mobildeDevices.MobileFactory;
-import mobildeDevices.android.Emulator;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
@@ -14,26 +14,28 @@ import utils.MobileInteractions;
 
 import java.time.Duration;
 
-import static constants.AndroidConstants.AVD;
-import static constants.AndroidConstants.AVD_DEVICE_NAME;
+import static devices.MobileFactory.getEmulator;
 import static java.time.Duration.ofMillis;
 import static org.openqa.selenium.interactions.PointerInput.Origin.viewport;
 
 public class SwipeExplore {
-    public static AppiumDriver driver;
 
     public static void main(String[] args) {
-
-        Emulator mobile = new Emulator(AVD_DEVICE_NAME, AVD);
+        AppiumDriver driver;
 
 //        driver = DriverFactory.getMobileDriver(MobilePlatform.IOS);
-        driver = Driver.getLocalServerDriver(MobileFactory.getAndroidMobile());
+//        driver = DriverFactory.getLocalServerDriver(CapabilityFactory.getCaps(getEmulator()));
 
+        DriverProvider driverProvider = new DriverProvider();
+        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+        driver = driverProvider.getLocalServerDriver(caps);
         MobileInteractions mobileInteraction = new MobileInteractions(driver);
 
         // Swipe up before interacting
         swipeVertical(mobileInteraction);
-        swipeVertical2();
+        swipeVertical2(driver);
+
+        driver.quit();
     }
 
     private static void swipeVertical(MobileInteractions mobileInteraction) {
@@ -60,7 +62,7 @@ public class SwipeExplore {
 
     }
 
-    private static void swipeVertical2() {
+    private static void swipeVertical2(AppiumDriver driver) {
         Dimension windowSize = driver.manage().window().getSize();
         int screenHeight = windowSize.getHeight();
         int screenWidth = windowSize.getWidth();
