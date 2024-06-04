@@ -1,4 +1,4 @@
-package utils;
+package helpers;
 
 import constants.WaitConstants;
 import driverFactory.Platform;
@@ -21,20 +21,20 @@ import java.util.Map;
 import static java.time.Duration.ofMillis;
 import static org.openqa.selenium.interactions.PointerInput.Origin.viewport;
 
-public class MobileInteractions {
+public class MobileInteractionHelper {
     private final AppiumDriver driver;
     private final WebDriverWait wait;
     FluentWait<AppiumDriver> fluentWait;
     //    private final String currentPlatform;
     private final Platform currentPlatform;
 
-    public MobileInteractions(AppiumDriver driver) {
+    public MobileInteractionHelper(AppiumDriver driver) {
         this.driver = driver;
-        this.currentPlatform = new PlatformUtil().getCurrentPlatform(this.driver);
+        this.currentPlatform = new PlatformHelper().getCurrentPlatform(this.driver);
 
-        WaitUtils waitUtils = new WaitUtils(driver);
-        this.wait = waitUtils.explicitWait();
-        fluentWait = waitUtils.fluentWait(WaitConstants.SHORT_FLUENT_WAIT, WaitConstants.POLLING_EVERY);
+        WaitHelper waitHelper = new WaitHelper(driver);
+        this.wait = waitHelper.explicitWait();
+        fluentWait = waitHelper.fluentWait(WaitConstants.SHORT_FLUENT_WAIT, WaitConstants.POLLING_EVERY);
     }
 
     public void waitElementPressAble(WebElement element) {
@@ -220,9 +220,9 @@ public class MobileInteractions {
 
     public void manageNotificationPanel(boolean display) {
 
-        MobileInteractions mobileInteractions = new MobileInteractions(driver);
-        int screenWidth = mobileInteractions.getScreenWith();
-        int screenHeight = mobileInteractions.getScreenHeight();
+        MobileInteractionHelper mobileInteractionHelper = new MobileInteractionHelper(driver);
+        int screenWidth = mobileInteractionHelper.getScreenWith();
+        int screenHeight = mobileInteractionHelper.getScreenHeight();
 
         int x = screenWidth / 2;
         int topY = 0;
@@ -231,7 +231,7 @@ public class MobileInteractions {
         Point startPoint = display ? new Point(x, topY) : new Point(x, bottomY);
         Point endPoint = display ? new Point(x, bottomY) : new Point(x, topY);
 
-        mobileInteractions.swipeVertical(startPoint, endPoint);
+        mobileInteractionHelper.swipeVertical(startPoint, endPoint);
     }
 
 

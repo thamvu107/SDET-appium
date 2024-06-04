@@ -3,11 +3,11 @@ package api_learning;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import driverFactory.Platform;
+import helpers.MobileInteractionHelper;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Point;
-import utils.MobileInteractions;
 
 import java.util.Map;
 
@@ -41,13 +41,13 @@ public class SwipeVertically {
             driver.findElement(formsBtnLoc).click();
 
             // Make sure we are on the target screen before swiping up/down/left/right/any direction
-            MobileInteractions interactions = new MobileInteractions(driver);
+            MobileInteractionHelper interactions = new MobileInteractionHelper(driver);
             By formComponentLoc = interactions.getLocatorIsMappedCurrentPlatform(formComponentLocatorMap);
             interactions.waitVisibilityOfElementLocated(formComponentLoc);
 
-            MobileInteractions mobileInteractions = new MobileInteractions(driver);
-            int screenWidth = mobileInteractions.getScreenWith();
-            int screenHeight = mobileInteractions.getScreenHeight();
+            MobileInteractionHelper mobileInteractionHelper = new MobileInteractionHelper(driver);
+            int screenWidth = mobileInteractionHelper.getScreenWith();
+            int screenHeight = mobileInteractionHelper.getScreenHeight();
             int x = screenWidth / 2;
             int startY = (int) (screenHeight * 0.80);
             int endY = (int) (screenHeight * 0.20);

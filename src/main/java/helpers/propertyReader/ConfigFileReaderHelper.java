@@ -1,4 +1,4 @@
-package dataProvider;
+package helpers.propertyReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-public class ConfigFileReader {
+public class ConfigFileReaderHelper {
     private final Map<String, String> props;
     private final String fileName;
 
-    public ConfigFileReader(String filePath) {
+    public ConfigFileReaderHelper(String filePath) {
         this.fileName = filePath;
         System.out.println(this.fileName);
         this.props = Collections.unmodifiableMap(loadProperties());
@@ -32,7 +32,7 @@ public class ConfigFileReader {
     private Map<String, String> loadProperties() {
         System.out.println(fileName);
 
-        try (InputStream inputStream = ConfigFileReader.class.getClassLoader().getResourceAsStream(fileName)//PropertyReader.class.getClassLoader().getResourceAsStream(filePath)
+        try (InputStream inputStream = ConfigFileReaderHelper.class.getClassLoader().getResourceAsStream(fileName)
         ) {
             validateFile(inputStream);
             Properties tempProps = new Properties();
