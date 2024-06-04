@@ -1,7 +1,7 @@
 package practice;
 
-import dataProvider.userData.UserCredData;
-import entity.User;
+import dataProvider.userData.LoginCredData;
+import entity.LoginCred;
 import models.screens.login.LoginScreen;
 import models.screens.login.SignInScreen;
 import org.testng.annotations.BeforeClass;
@@ -31,8 +31,8 @@ public class SignInTest extends BaseTest {
                 .verifySignInFormDisplayed();
     }
 
-    @Test(dataProvider = "loginCredValidUser", dataProviderClass = UserCredData.class)
-    public void loginInWithCorrectCredential(User loginCred) {
+    @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class)
+    public void loginInWithCorrectCredential(LoginCred loginCred) {
 
         signInScreen
                 .inputEmail(loginCred.getEmail())
@@ -44,8 +44,8 @@ public class SignInTest extends BaseTest {
                 .verifyAlertDisappeared();
     }
 
-    @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = UserCredData.class)
-    public void loginInWithIncorrectCredentials(User loginCred) {
+    @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = LoginCredData.class)
+    public void loginInWithIncorrectCredentials(LoginCred loginCred) {
         signInScreen
                 .inputEmail(loginCred.getEmail())
                 .inputPassword(loginCred.getPassword())

@@ -2,25 +2,25 @@ package dataProvider.userData;
 
 import constants.FilePathConstants;
 import dataProvider.DataObjectBuilder;
-import entity.User;
+import entity.LoginCred;
 import org.testng.annotations.DataProvider;
 
 import java.nio.file.Path;
 
-public class UserCredData {
+public class LoginCredData {
     @DataProvider(name = "loginCredValidUser")
-    public User[] loginCredValidUser() {
+    public LoginCred[] loginCredValidUser() {
 
         Path loginCredDataPath = Path.of(FilePathConstants.LOGIN_CRED_VALID_USER_JSON);
 
-        return DataObjectBuilder.buildDataObject(loginCredDataPath, User[].class);
+        return DataObjectBuilder.buildDataObject(loginCredDataPath, LoginCred[].class);
     }
 
     @DataProvider(name = "loginCredInvalidUser")
-    public User[] loginCredInvalidUser() {
+    public LoginCred[] loginCredInvalidUser() {
 
         Path loginCredDataPath = Path.of(FilePathConstants.LOGIN_CRED_INVALID_USER_JSON);
 
-        return DataObjectBuilder.buildDataObject(loginCredDataPath, User[].class);
+        return DataObjectBuilder.buildDataObject(loginCredDataPath, LoginCred[].class);
     }
 }

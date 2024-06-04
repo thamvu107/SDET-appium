@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    private String email;
-    private String password;
+public class LoginCred {
+    protected String email;
+    protected String password;
 
     @Override
     public String toString() {
