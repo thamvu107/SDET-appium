@@ -76,3 +76,6 @@
     - **Solution**:
         - https://developer.android.com/studio/emulator_archive
         - https://developer.android.com/studio/releases/emulator
+- Issue 6: Gson already is a dependency in java-client ( java-client.pom) but it is only runtime scope. that is why the
+  code using Gson will not compile
+    - Solution: add dependency into myfile.pom with same version ( to void conflict version) and add scope to compile

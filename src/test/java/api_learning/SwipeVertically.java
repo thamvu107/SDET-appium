@@ -1,24 +1,30 @@
 package api_learning;
 
-import driverFactory.Driver;
+import driverFactory.CapabilityFactory;
+import driverFactory.DriverProvider;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
-import mobildeDevices.MobileFactory;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Point;
 import utils.MobileInteractions;
 
 import java.util.Map;
 
+import static devices.MobileFactory.getEmulator;
 import static io.appium.java_client.AppiumBy.*;
 
 public class SwipeVertically {
+
     public static void main(String[] args) {
 
         AppiumDriver driver;
 
 //        driver = DriverFactory.getMobileDriver(MobilePlatform.IOS);
-        driver = Driver.getLocalServerDriver(MobileFactory.getSmallEmulator());
+//        driver = DriverFactory.getLocalServerDriver(MobileFactory.getSmallEmulator());
+        DriverProvider driverProvider = new DriverProvider();
+        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+        driver = driverProvider.getLocalServerDriver(caps);
 
         try {
             By formsBtnLoc = accessibilityId("Forms");

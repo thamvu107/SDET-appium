@@ -1,6 +1,6 @@
 package utils;
 
-import driverFactory.Driver;
+import constants.WaitConstants;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.*;
@@ -8,6 +8,7 @@ import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.internal.Require;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,10 +16,8 @@ import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
-import static constants.WaitConstant.*;
 import static java.time.Duration.ofMillis;
 import static org.openqa.selenium.interactions.PointerInput.Origin.viewport;
 
@@ -31,10 +30,11 @@ public class MobileInteractions {
 
     public MobileInteractions(AppiumDriver driver) {
         this.driver = driver;
-        this.currentPlatform = Driver.getCurrentPlatform(driver);
+        this.currentPlatform = new PlatformUtil().getCurrentPlatform(this.driver);
+
         WaitUtils waitUtils = new WaitUtils(driver);
         this.wait = waitUtils.explicitWait();
-        fluentWait = waitUtils.fluentWait(SHORT_FLUENT_WAIT, POLLING_EVERY);
+        fluentWait = waitUtils.fluentWait(WaitConstants.SHORT_FLUENT_WAIT, WaitConstants.POLLING_EVERY);
     }
 
     public void waitElementPressAble(WebElement element) {
@@ -85,12 +85,14 @@ public class MobileInteractions {
         return driver.findElement(locator);
     }
 
-    public boolean isElementPresent(By locator) {
-
-        List<WebElement> elements = driver.findElements(locator);
-
-        return !elements.isEmpty();
+    public <T> void waitUntil(ExpectedCondition<T> conditionToBe) {
+        try {
+            wait.until(conditionToBe);
+        } catch (Exception e) {
+            throw e;
+        }
     }
+
 
     public boolean isElementDisplayed(By locator) {
 
@@ -115,7 +117,8 @@ public class MobileInteractions {
         }
     }
 
-    public boolean isTheTargetFound(By locator) {
+    public boolean isElementPresent(By locator) {
+
         return !driver.findElements(locator).isEmpty();
     }
 
@@ -198,8 +201,8 @@ public class MobileInteractions {
         Sequence sequence = new Sequence(pointerInput, 1)
                 .addAction(pointerInput.createPointerMove(Duration.ZERO, viewport(), start.x, start.y))
                 .addAction(pointerInput.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(new Pause(pointerInput, ofMillis(SHORT_PAUSE)))
-                .addAction(pointerInput.createPointerMove(ofMillis(MOVE), viewport(), end.x, end.y))
+                .addAction(new Pause(pointerInput, ofMillis(WaitConstants.SHORT_PAUSE)))
+                .addAction(pointerInput.createPointerMove(ofMillis(WaitConstants.MOVE), viewport(), end.x, end.y))
                 .addAction(pointerInput.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         driver.perform(Collections.singletonList(sequence));

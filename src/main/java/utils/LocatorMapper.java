@@ -1,6 +1,5 @@
 package utils;
 
-import driverFactory.Driver;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
@@ -19,7 +18,7 @@ public class LocatorMapper {
 
     public LocatorMapper(AppiumDriver driver) {
         this.driver = driver;
-        this.currentPlatform = Driver.getCurrentPlatform(driver);
+        this.currentPlatform = new PlatformUtil().getCurrentPlatform(this.driver);
     }
 
     public WebElement findElement(Map<Platform, By> locatorMap) {

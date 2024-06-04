@@ -1,5 +1,7 @@
 package practice;
 
+import dataProvider.userData.UserCredData;
+import entity.User;
 import models.screens.login.LoginScreen;
 import models.screens.login.SignInScreen;
 import org.testng.annotations.BeforeClass;
@@ -29,12 +31,12 @@ public class SignInTest extends BaseTest {
                 .verifySignInFormDisplayed();
     }
 
-    @Test
-    public void loginInWithCorrectCredential() {
+    @Test(dataProvider = "loginCredValidData", dataProviderClass = UserCredData.class)
+    public void loginInWithCorrectCredential(User loginCred) {
 
         signInScreen
-                .inputEmail(SIGN_IN_EMAIL)
-                .inputPassword(SIGN_IN_PASSWORD)
+                .inputEmail(loginCred.getEmail())
+                .inputPassword(loginCred.getPassword())
                 .clickOnLoginButton()
                 .switchToSignInAlert()
                 .verifyAlertPresent(SIGN_IN_DIALOG_TITLE, SIGN_IN_DIALOG_MESSAGE)

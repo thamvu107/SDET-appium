@@ -1,13 +1,13 @@
 package models.screens;
 
-import constants.WaitConstant;
-import driverFactory.Driver;
+import constants.WaitConstants;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import models.commponents.BottomNavComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.LocatorMapper;
 import utils.MobileInteractions;
+import utils.PlatformUtil;
 
 import static java.time.Duration.ofMillis;
 
@@ -20,14 +20,14 @@ public class BaseScreen {
 
     protected MobileInteractions mobileInteractions;
     //    protected static String currentPlatform;
-    protected static Platform currentPlatform;
+    protected Platform currentPlatform;
 
 
     protected BaseScreen(final AppiumDriver driver) {
 
         this.driver = driver;
-        currentPlatform = Driver.getCurrentPlatform(driver);
-        this.wait = new WebDriverWait(this.driver, ofMillis(WaitConstant.LONG_EXPLICIT_WAIT));
+        this.currentPlatform = new PlatformUtil().getCurrentPlatform(this.driver);
+        this.wait = new WebDriverWait(this.driver, ofMillis(WaitConstants.LONG_EXPLICIT_WAIT));
         this.bottomNavComponent = new BottomNavComponent(this.driver);
         this.mobileInteractions = new MobileInteractions(driver);
 
