@@ -33,21 +33,4 @@ public class DataObjectBuilder {
         }
     }
 
-    // Explore
-
-//    public static void main(String[] args) {
-//
-//        Path invalidPath = Path.of("src/test/resources/data/authen/LoginCredInvalidUser.json");
-//        Path validPath = Path.of("src/test/resources/data/authen/LoginCredValidUser.json");
-//
-//
-//        LoginCred[] invalidCred = buildDataObject(invalidPath, LoginCred[].class);
-//        LoginCred[] validCred = buildDataObject(validPath, LoginCred[].class);
-//
-//        System.out.println(Arrays.toString(invalidCred));
-//        System.out.println(Arrays.toString(validCred));
-//
-//
-//    }
-
 }

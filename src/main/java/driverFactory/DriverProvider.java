@@ -1,5 +1,6 @@
 package driverFactory;
 
+import constants.FilePathConstants;
 import dataProvider.DataObjectBuilder;
 import entity.ServerConfig;
 import io.appium.java_client.AppiumDriver;
@@ -24,16 +25,17 @@ public class DriverProvider {
     }
 
     private URL getLocalServerURL() {
+
         ServerConfig server = new ServerConfig("127.0.0.1", 4723);
         return server.getServerURL();
     }
 
     private URL getRemoteServerURL() {
 
-        Path serverConfigurePath = Path.of("src/test/resources/data/serverConfigure/RemoteServer.json");
+        Path serverConfigurePath = Path.of(FilePathConstants.REMOTE_SERVER_CONFIG_JSON);
         ServerConfig serverConfig = DataObjectBuilder.buildDataObject(serverConfigurePath, ServerConfig.class);
-        ServerConfig server = new ServerConfig(serverConfig.getIp(), serverConfig.getPort());
-        return server.getServerURL();
+
+        return serverConfig.getServerURL();
     }
 
     private AppiumDriver createDriver(URL serverURL, Capabilities caps) {
