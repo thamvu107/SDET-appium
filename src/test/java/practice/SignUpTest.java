@@ -1,5 +1,7 @@
 package practice;
 
+import dataProvider.userData.SignUpCredData;
+import entity.SignUpCred;
 import models.screens.login.LoginScreen;
 import models.screens.login.SignUpScreen;
 import org.testng.annotations.BeforeClass;
@@ -27,12 +29,12 @@ public class SignUpTest extends BaseTest {
                 .verifySignUpFormDisplayed();
     }
 
-    @Test
-    public void signUpWithCorrectCredentials() {
+    @Test(dataProvider = "signUpCredValidUser", dataProviderClass = SignUpCredData.class)
+    public void signUpWithCorrectCredentials(SignUpCred signupCred) {
         signUpScreen
-                .inputEmail(SIGN_UP_EMAIL)
-                .inputPassword(SIGN_UP_PASSWORD)
-                .inputRepeatPassword(SIGN_UP_PASSWORD)
+                .inputEmail(signupCred.getEmail())
+                .inputPassword(signupCred.getPassword())
+                .inputRepeatPassword(signupCred.getPassword())
                 .clickOnSignUpButton()
                 .switchToSignUpAlert()
                 .verifyAlertPresent(SIGN_UP_DIALOG_TITLE, SIGN_UP_DIALOG_MESSAGE)
@@ -40,12 +42,12 @@ public class SignUpTest extends BaseTest {
                 .verifyAlertDisappeared();
     }
 
-    @Test
-    void signUpWithInvalidRepeatPassWord() {
+    @Test(dataProvider = "signUpCredInvalidUser", dataProviderClass = SignUpCredData.class)
+    void signUpWithInvalidRepeatPassWord(SignUpCred signUpCred) {
         signUpScreen
-                .inputEmail(SIGN_UP_EMAIL)
-                .inputPassword(SIGN_UP_PASSWORD)
-                .inputRepeatPassword(INCORRECT_REPEAT_PASSWORD)
+                .inputEmail(signUpCred.getEmail())
+                .inputPassword(signUpCred.getPassword())
+                .inputRepeatPassword(signUpCred.getRepeatPassword())
                 .clickOnSignUpButton()
                 .verifyInvalidRepeatPasswordMessage(INCORRECT_REPEAT_PASSWORD_MESSAGE);
     }
