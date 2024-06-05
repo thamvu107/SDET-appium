@@ -1,13 +1,13 @@
-package models.screens.login;
+package pageObjects.screens.login;
 
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
-import models.screens.alert.AlertScreen;
-import models.screens.alert.SignUpAlertScreen;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import pageObjects.screens.alert.AlertScreen;
+import pageObjects.screens.alert.SignUpAlertScreen;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package practice;
+package testCases;
 
 import constants.WaitConstants;
 import driverFactory.CapabilityFactory;
