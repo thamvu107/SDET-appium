@@ -1,4 +1,4 @@
-package models.screens.alert;
+package pageObjects.screens.alert;
 
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;

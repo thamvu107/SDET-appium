@@ -1,4 +1,4 @@
-package models.screens;
+package pageObjects.screens;
 
 import io.appium.java_client.AppiumDriver;
 

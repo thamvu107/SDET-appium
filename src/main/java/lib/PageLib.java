@@ -1,11 +1,11 @@
 package lib;
 
 import io.appium.java_client.AppiumDriver;
-import models.screens.alert.AlertScreen;
-import models.screens.alert.SignInAlertScreen;
-import models.screens.login.LoginScreen;
-import models.screens.login.SignInScreen;
-import models.screens.login.SignUpScreen;
+import pageObjects.screens.alert.AlertScreen;
+import pageObjects.screens.alert.SignInAlertScreen;
+import pageObjects.screens.login.LoginScreen;
+import pageObjects.screens.login.SignInScreen;
+import pageObjects.screens.login.SignUpScreen;
 
 public class PageLib {
     private final AppiumDriver driver;

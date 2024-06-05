@@ -1,4 +1,4 @@
-package models.commponents;
+package pageObjects.commponents;
 
 import helpers.MobileInteractionHelper;
 import io.appium.java_client.AppiumDriver;

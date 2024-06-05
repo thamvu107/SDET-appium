@@ -1,5 +1,4 @@
-package models.screens.alert;
-
+package pageObjects.screens.alert;
 
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
@@ -11,11 +10,12 @@ import java.util.Map;
 import static io.appium.java_client.AppiumBy.accessibilityId;
 import static io.appium.java_client.AppiumBy.iOSNsPredicateString;
 
-public class SignInAlertScreen extends AlertScreen {
-    private final By iosAlertTitleLoc = iOSNsPredicateString("name == \"Success\" AND label == \"Success\" AND value == \"Success\"");
-    private final By iosAlertMessageLoc = accessibilityId("You are logged in!");
+public class SignUpAlertScreen extends AlertScreen {
 
-    public SignInAlertScreen(AppiumDriver driver) {
+    private final By iosAlertTitleLoc = iOSNsPredicateString("name == \"Signed Up!\" AND label == \"Signed Up!\" AND value == \"Signed Up!\"");
+    private final By iosAlertMessageLoc = accessibilityId("You successfully signed up!");
+
+    public SignUpAlertScreen(AppiumDriver driver) {
         super(driver);
     }
 
@@ -27,8 +27,10 @@ public class SignInAlertScreen extends AlertScreen {
             Platform.ANDROID, androidAlertMessageLoc,
             Platform.IOS, iosAlertMessageLoc);
 
+
     @Override
     protected WebElement dialogTitleElement() {
+
         By locator = mobileInteractionHelper.getLocatorIsMappedCurrentPlatform(alertTitleLocatorMap);
         mobileInteractionHelper.waitVisibilityOfElementLocated(locator);
 
@@ -37,6 +39,7 @@ public class SignInAlertScreen extends AlertScreen {
 
     @Override
     protected WebElement dialogMessageElement() {
+
         return mobileInteractionHelper.findElement(alertMessageLocatorMap);
     }
 

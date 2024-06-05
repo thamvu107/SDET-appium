@@ -1,4 +1,4 @@
-package models.screens;
+package pageObjects.screens;
 
 import constants.WaitConstants;
 import driverFactory.Platform;
@@ -6,8 +6,8 @@ import helpers.LocatorMapperHelper;
 import helpers.MobileInteractionHelper;
 import helpers.PlatformHelper;
 import io.appium.java_client.AppiumDriver;
-import models.commponents.BottomNavComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObjects.commponents.BottomNavComponent;
 
 import static java.time.Duration.ofMillis;
 

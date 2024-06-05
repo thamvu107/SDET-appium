@@ -1,11 +1,11 @@
-package models.screens.alert;
+package pageObjects.screens.alert;
 
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
-import models.screens.BaseScreen;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import pageObjects.screens.BaseScreen;
 
 import java.time.Duration;
 import java.util.Map;
