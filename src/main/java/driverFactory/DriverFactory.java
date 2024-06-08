@@ -1,6 +1,6 @@
 package driverFactory;
 
-import Utils.WaitUtil;
+import utils.WaitUtil;
 import constants.WaitConstants;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;

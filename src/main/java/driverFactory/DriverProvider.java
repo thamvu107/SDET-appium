@@ -1,6 +1,6 @@
 package driverFactory;
 
-import Utils.DataObjectBuilderUtil;
+import utils.DataObjectBuilderUtil;
 import constants.filePaths.ServerConfigPathConstants;
 import entity.ServerConfig;
 import io.appium.java_client.AppiumDriver;

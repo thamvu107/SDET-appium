@@ -1,11 +1,11 @@
-package Utils.gestures;
+package utils.gestures.swipe;
 
-import Utils.ScreenSize;
 import constants.WaitConstants;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
+import utils.ScreenSize;
 
 import java.time.Duration;
 import java.util.Collections;

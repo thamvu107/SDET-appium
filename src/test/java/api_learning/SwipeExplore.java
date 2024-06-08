@@ -1,7 +1,7 @@
 package api_learning;
 
-import Utils.ScreenSize;
-import Utils.gestures.MobileInteractions;
+import utils.ScreenSize;
+import utils.gestures.MobileInteractions;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import io.appium.java_client.AppiumDriver;

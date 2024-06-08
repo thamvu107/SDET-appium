@@ -1,7 +1,7 @@
 package testCases;
 
-import Utils.WaitUtil;
-import Utils.gestures.MobileInteractions;
+import utils.WaitUtil;
+import utils.gestures.MobileInteractions;
 import constants.WaitConstants;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;

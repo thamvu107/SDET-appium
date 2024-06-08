@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 import constants.WaitConstants;
 import io.appium.java_client.AppiumDriver;

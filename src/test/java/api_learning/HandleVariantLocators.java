@@ -1,6 +1,6 @@
 package api_learning;
 
-import Utils.LocatorMapperUtils;
+import utils.LocatorMapperUtils;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import driverFactory.Platform;

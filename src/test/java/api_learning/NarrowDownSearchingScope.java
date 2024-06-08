@@ -1,7 +1,5 @@
 package api_learning;
 
-import Utils.NotificationUtils;
-import Utils.gestures.SwipeInBottomHalfScreen;
 import driverFactory.Platform;
 import exceptions.SwipeUpException;
 import io.appium.java_client.AppiumBy;
@@ -10,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import testCases.BaseTest;
+import utils.NotificationUtils;
+import utils.gestures.swipe.SwipeHalfBottomScreen;
 
 import java.util.List;
 import java.util.Map;
@@ -87,7 +87,7 @@ public class NarrowDownSearchingScope extends BaseTest {
             Assert.assertTrue(notificationFound);
             notificationHelper.closeNotificationPanel();
 
-            SwipeInBottomHalfScreen swipe = new SwipeInBottomHalfScreen(driver);
+            SwipeHalfBottomScreen swipe = new SwipeHalfBottomScreen(driver);
             swipe.swipeUp();
 
 
