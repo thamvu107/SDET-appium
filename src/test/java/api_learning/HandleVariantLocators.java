@@ -1,10 +1,10 @@
 package api_learning;
 
-import driver.Platforms;
+import Utils.LocatorMapperUtils;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import driverFactory.Platform;
-import helpers.LocatorMapperHelper;
+import enums.Platforms;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
@@ -36,7 +36,7 @@ public class HandleVariantLocators {
         driver = driverProvider.getLocalServerDriver(caps);
 
         try {
-            LocatorMapperHelper elementHandler = new LocatorMapperHelper(driver);
+            LocatorMapperUtils elementHandler = new LocatorMapperUtils(driver);
             WebElement navLoginBtnEle = elementHandler.findElement(navloginButtonLocatorMap);
             navLoginBtnEle.click();
 

@@ -1,4 +1,4 @@
-package helpers;
+package Utils;
 
 
 import com.google.gson.Gson;
@@ -11,7 +11,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.Objects;
 
-public class DataObjectBuilderHelper {
+public class DataObjectBuilderUtil {
     private static final Gson gson = new Gson();
 
     public static <T> T buildDataObject(Path relativeFilePath, Class<T> dataType) {
@@ -19,7 +19,7 @@ public class DataObjectBuilderHelper {
         Objects.requireNonNull(relativeFilePath, "The relative file path must not be null");
         Objects.requireNonNull(dataType, "The testData type must not be null");
 
-        Path absoluteFilePath = new PathHelper(relativeFilePath).getAbsolutePath();
+        Path absoluteFilePath = new PathUtil(relativeFilePath).getAbsolutePath();
 
         try (Reader reader = Files.newBufferedReader(absoluteFilePath)) {
             return gson.fromJson(reader, dataType);

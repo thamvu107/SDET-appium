@@ -11,9 +11,10 @@ public final class WaitConstants {
 
     public static final long SHORT_FLUENT_WAIT = 5000L;
     public static final long POLLING_EVERY = 100L;
-    public static final long SHORT_PAUSE = 250L;
-    public static final long PAUSE = 300L;
-    public static final long MOVE = 400L;
+    public static final long SHORT_PAUSE = 100L;
+    public static final long PAUSE = 150L;
+    public static final long FAST_MOVE = 180L;
+    public static final long MOVE = 250L;
 
     // Private constructor to prevent instantiation
     private WaitConstants() {

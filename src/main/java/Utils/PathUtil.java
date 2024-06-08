@@ -1,4 +1,4 @@
-package helpers;
+package Utils;
 
 import lombok.Getter;
 
@@ -6,12 +6,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Getter
-public class PathHelper {
+public class PathUtil {
 
     private final Path rootPath;
     private final Path relativePath;
 
-    public PathHelper(Path relativePath) {
+    public PathUtil(Path relativePath) {
         this.relativePath = relativePath;
         this.rootPath = Paths.get(System.getProperty("user.dir"));
     }

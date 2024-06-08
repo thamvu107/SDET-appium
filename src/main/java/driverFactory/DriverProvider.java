@@ -1,8 +1,8 @@
 package driverFactory;
 
+import Utils.DataObjectBuilderUtil;
 import constants.filePaths.ServerConfigPathConstants;
 import entity.ServerConfig;
-import helpers.DataObjectBuilderHelper;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.Capabilities;
 
@@ -33,7 +33,7 @@ public class DriverProvider {
     private URL getRemoteServerURL() {
 
         Path serverConfigurePath = Path.of(ServerConfigPathConstants.REMOTE_SERVER_CONFIG_JSON);
-        ServerConfig serverConfig = DataObjectBuilderHelper.buildDataObject(serverConfigurePath, ServerConfig.class);
+        ServerConfig serverConfig = DataObjectBuilderUtil.buildDataObject(serverConfigurePath, ServerConfig.class);
 
         return serverConfig.getServerURL();
     }

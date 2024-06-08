@@ -1,12 +1,11 @@
-package helpers;
+package Utils.gestures;
 
+import Utils.PlatformUtil;
+import Utils.WaitUtil;
 import constants.WaitConstants;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Pause;
-import org.openqa.selenium.interactions.PointerInput;
-import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.internal.Require;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,24 +14,20 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Map;
 
-import static java.time.Duration.ofMillis;
-import static org.openqa.selenium.interactions.PointerInput.Origin.viewport;
-
-public class MobileInteractionHelper {
+public class MobileInteractions {
     private final AppiumDriver driver;
     private final WebDriverWait wait;
     FluentWait<AppiumDriver> fluentWait;
     //    private final String currentPlatform;
     private final Platform currentPlatform;
 
-    public MobileInteractionHelper(AppiumDriver driver) {
+    public MobileInteractions(AppiumDriver driver) {
         this.driver = driver;
-        this.currentPlatform = new PlatformHelper().getCurrentPlatform(this.driver);
+        this.currentPlatform = new PlatformUtil().getCurrentPlatform(this.driver);
 
-        WaitHelper waitHelper = new WaitHelper(driver);
+        WaitUtil waitHelper = new WaitUtil(driver);
         this.wait = waitHelper.explicitWait();
         fluentWait = waitHelper.fluentWait(WaitConstants.SHORT_FLUENT_WAIT, WaitConstants.POLLING_EVERY);
     }
@@ -192,46 +187,6 @@ public class MobileInteractionHelper {
     public int getScreenHeight() {
         return this.getScreenSize().getHeight();
 
-    }
-
-    public void swipeVertical(Point start, Point end) {
-
-        PointerInput pointerInput = new PointerInput(PointerInput.Kind.TOUCH, "finger1");
-
-        Sequence sequence = new Sequence(pointerInput, 1)
-                .addAction(pointerInput.createPointerMove(Duration.ZERO, viewport(), start.x, start.y))
-                .addAction(pointerInput.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(new Pause(pointerInput, ofMillis(WaitConstants.SHORT_PAUSE)))
-                .addAction(pointerInput.createPointerMove(ofMillis(WaitConstants.MOVE), viewport(), end.x, end.y))
-                .addAction(pointerInput.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
-
-        driver.perform(Collections.singletonList(sequence));
-    }
-
-    public void openNotificationPanel() {
-
-        manageNotificationPanel(true);
-    }
-
-    public void closeNotificationPanel() {
-
-        manageNotificationPanel(false);
-    }
-
-    public void manageNotificationPanel(boolean display) {
-
-        MobileInteractionHelper mobileInteractionHelper = new MobileInteractionHelper(driver);
-        int screenWidth = mobileInteractionHelper.getScreenWith();
-        int screenHeight = mobileInteractionHelper.getScreenHeight();
-
-        int x = screenWidth / 2;
-        int topY = 0;
-        int bottomY = screenHeight / 2;
-
-        Point startPoint = display ? new Point(x, topY) : new Point(x, bottomY);
-        Point endPoint = display ? new Point(x, bottomY) : new Point(x, topY);
-
-        mobileInteractionHelper.swipeVertical(startPoint, endPoint);
     }
 
 

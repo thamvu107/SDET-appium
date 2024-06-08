@@ -1,4 +1,4 @@
-package driver;
+package enums;
 
 public enum Platforms {
     ANDROID,

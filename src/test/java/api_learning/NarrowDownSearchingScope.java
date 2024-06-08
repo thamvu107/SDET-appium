@@ -1,6 +1,9 @@
 package api_learning;
 
+import Utils.NotificationUtils;
+import Utils.gestures.SwipeInBottomHalfScreen;
 import driverFactory.Platform;
+import exceptions.SwipeUpException;
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -21,6 +24,8 @@ public class NarrowDownSearchingScope extends BaseTest {
         final String NOTIFICATION_MESSAGE = "Keep this service running, so Appium for Android can properly interact with several system APIs";
         boolean notificationFound = false;
 
+        NotificationUtils notificationHelper = new NotificationUtils(driver);
+
         try {
             By formsBtnLoc = AppiumBy.accessibilityId("Forms");
             mobileInteractionHelper.waitVisibilityOfElementLocated(formsBtnLoc);
@@ -33,7 +38,8 @@ public class NarrowDownSearchingScope extends BaseTest {
             By formComponentLoc = mobileInteractionHelper.getLocatorIsMappedCurrentPlatform(formComponentLocatorMap);
             mobileInteractionHelper.waitVisibilityOfElementLocated(formComponentLoc);
 
-            mobileInteractionHelper.openNotificationPanel();
+
+            notificationHelper.openNotificationPanel();
 
             // TODO: Simulator notification
             Map<Platform, By> notificationLocatorMap = Map.of(
@@ -73,20 +79,25 @@ public class NarrowDownSearchingScope extends BaseTest {
                 // Narrow down searching scope
                 WebElement notificationTitleEle = notificationEle.findElement(notificationTitleLoc);
                 WebElement notificationMessageEle = notificationEle.findElement(notificationMessageLoc);
-                System.out.println("a");
                 if (mobileInteractionHelper.isTextDisplayedCorrect(notificationTitleEle, NOTIFICATION_TITLE) && mobileInteractionHelper.isTextDisplayedCorrect(notificationMessageEle, NOTIFICATION_MESSAGE)) {
                     notificationFound = true;
                     break;
                 }
             }
             Assert.assertTrue(notificationFound);
+            notificationHelper.closeNotificationPanel();
+
+            SwipeInBottomHalfScreen swipe = new SwipeInBottomHalfScreen(driver);
+            swipe.swipeUp();
+
+
+        } catch (SwipeUpException ex) {
+            ex.printStackTrace();
 
         } catch (Exception e) {
             Assert.fail("No notifications found " + e.getMessage());
             e.printStackTrace();
 
-        } finally {
-            mobileInteractionHelper.closeNotificationPanel();
         }
     }
 

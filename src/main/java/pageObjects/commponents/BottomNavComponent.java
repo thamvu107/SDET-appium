@@ -1,6 +1,6 @@
 package pageObjects.commponents;
 
-import helpers.MobileInteractionHelper;
+import Utils.gestures.MobileInteractions;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -14,12 +14,12 @@ public class BottomNavComponent {
     private final static By swipeNavLoc = accessibilityId("Swipe");
     private final AppiumDriver driver;
 
-    private final MobileInteractionHelper mobileInteraction;
+    private final MobileInteractions mobileInteraction;
 
     public BottomNavComponent(AppiumDriver driver) {
 
         this.driver = driver;
-        this.mobileInteraction = new MobileInteractionHelper(this.driver);
+        this.mobileInteraction = new MobileInteractions(this.driver);
     }
 
     public WebElement homeNavEl() {

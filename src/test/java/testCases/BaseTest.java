@@ -1,10 +1,10 @@
 package testCases;
 
+import Utils.WaitUtil;
+import Utils.gestures.MobileInteractions;
 import constants.WaitConstants;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
-import helpers.MobileInteractionHelper;
-import helpers.WaitHelper;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -19,7 +19,7 @@ public abstract class BaseTest {
     protected AppiumDriver driver;
     protected static WebDriverWait wait;
     protected static FluentWait<AppiumDriver> fluentWait;
-    protected MobileInteractionHelper mobileInteractionHelper;
+    protected MobileInteractions mobileInteractionHelper;
 
     DriverProvider driverProvider;
 
@@ -32,10 +32,10 @@ public abstract class BaseTest {
         Capabilities caps = CapabilityFactory.getCaps(getEmulator());
         driver = driverProvider.getLocalServerDriver(caps);
 
-        WaitHelper waitHelper = new WaitHelper(driver);
+        WaitUtil waitHelper = new WaitUtil(driver);
         wait = waitHelper.explicitWait();
         fluentWait = waitHelper.fluentWait(WaitConstants.SHORT_FLUENT_WAIT, WaitConstants.POLLING_EVERY);
-        mobileInteractionHelper = new MobileInteractionHelper(this.driver);
+        mobileInteractionHelper = new MobileInteractions(this.driver);
     }
 
     @AfterClass

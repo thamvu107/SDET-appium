@@ -1,9 +1,10 @@
 package pageObjects.screens.login;
 
+import Utils.gestures.SwipeVertically;
+import constants.WaitConstants;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import pageObjects.screens.alert.AlertScreen;
@@ -82,17 +83,9 @@ public class SignUpScreen extends LoginScreen {
         // TODO: On smaller screenTextConstants there could be a possibility that the button is not shown
         if (!mobileInteractionHelper.isElementDisplayed(signUpButtonLocator)) {
 
-            int screenWidth = mobileInteractionHelper.getScreenWith();
-            int screenHeight = mobileInteractionHelper.getScreenHeight();
+            SwipeVertically swipeVertically = new SwipeVertically(driver, 0.5, 0.2, 0.8, WaitConstants.FAST_MOVE);
 
-            int x = screenWidth / 2;
-            int startY = (int) (screenHeight * 0.80);
-            int endY = (int) (screenHeight * 0.20);
-
-            Point startPoint = new Point(x, startY);
-            Point endPoint = new Point(x, endY);
-
-            mobileInteractionHelper.swipeVertical(startPoint, endPoint);
+            swipeVertically.swipeUp();
         }
         mobileInteractionHelper.waitVisibilityOfElementLocated(signUpButtonLocator);
         signUpButtonElement().click();
