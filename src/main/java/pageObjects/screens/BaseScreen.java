@@ -1,8 +1,8 @@
 package pageObjects.screens;
 
-import Utils.LocatorMapperUtils;
-import Utils.PlatformUtil;
-import Utils.gestures.MobileInteractions;
+import utils.LocatorMapperUtils;
+import utils.PlatformUtil;
+import utils.gestures.MobileInteractions;
 import constants.WaitConstants;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;

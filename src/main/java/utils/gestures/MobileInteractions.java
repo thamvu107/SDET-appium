@@ -1,7 +1,7 @@
-package Utils.gestures;
+package utils.gestures;
 
-import Utils.PlatformUtil;
-import Utils.WaitUtil;
+import utils.PlatformUtil;
+import utils.WaitUtil;
 import constants.WaitConstants;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;

@@ -1,13 +1,13 @@
-package Utils;
+package utils;
 
-import Utils.gestures.SwipeInTopHalfScreen;
 import io.appium.java_client.AppiumDriver;
+import utils.gestures.swipe.SwipeHalfTopScreen;
 
 public class NotificationUtils {
-    SwipeInTopHalfScreen swipe;
+    SwipeHalfTopScreen swipe;
 
     public NotificationUtils(AppiumDriver driver) {
-        swipe = new SwipeInTopHalfScreen(driver);
+        swipe = new SwipeHalfTopScreen(driver);
     }
 
     public void openNotificationPanel() {

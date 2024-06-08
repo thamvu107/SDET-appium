@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.Alert;

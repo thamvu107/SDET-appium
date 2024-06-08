@@ -2,7 +2,7 @@ package testCases;
 
 import dataProvider.signIn.LoginCredData;
 import entity.LoginCred;
-import Utils.AlertHelper;
+import utils.AlertHelper;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;

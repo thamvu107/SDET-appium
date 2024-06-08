@@ -1,6 +1,6 @@
 package dataProvider.signUp;
 
-import Utils.DataObjectBuilderUtil;
+import utils.DataObjectBuilderUtil;
 import constants.filePaths.SignUpCredPathConstants;
 import entity.SignUpCred;
 import org.testng.annotations.DataProvider;

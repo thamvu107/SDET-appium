@@ -1,4 +1,4 @@
-package Utils.propertyReader;
+package utils.propertyReader;
 
 import java.io.IOException;
 import java.io.InputStream;

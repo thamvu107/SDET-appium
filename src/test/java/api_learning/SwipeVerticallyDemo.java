@@ -1,13 +1,13 @@
 package api_learning;
 
-import Utils.gestures.MobileInteractions;
-import Utils.gestures.SwipeVertically;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
+import utils.gestures.MobileInteractions;
+import utils.gestures.swipe.SwipeVertically;
 
 import java.util.Map;
 

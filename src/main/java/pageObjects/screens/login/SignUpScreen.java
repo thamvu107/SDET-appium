@@ -1,6 +1,5 @@
 package pageObjects.screens.login;
 
-import Utils.gestures.SwipeVertically;
 import constants.WaitConstants;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
@@ -9,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import pageObjects.screens.alert.AlertScreen;
 import pageObjects.screens.alert.SignUpAlertScreen;
+import utils.gestures.swipe.SwipeVertically;
 
 import java.util.Map;
 

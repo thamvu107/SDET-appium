@@ -1,4 +1,4 @@
-package Utils.gestures;
+package utils.gestures.swipe;
 
 import enums.SwipeVerticalDirection;
 import exceptions.SwipeDownException;
