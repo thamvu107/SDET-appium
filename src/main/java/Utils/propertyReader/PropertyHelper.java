@@ -1,4 +1,4 @@
-package helpers.propertyReader;
+package Utils.propertyReader;
 
 public class PropertyHelper {
 

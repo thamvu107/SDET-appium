@@ -1,8 +1,8 @@
 package dataProvider.signIn;
 
+import Utils.DataObjectBuilderUtil;
 import constants.filePaths.LoginCredPathConstants;
 import entity.LoginCred;
-import helpers.DataObjectBuilderHelper;
 import org.testng.annotations.DataProvider;
 
 import java.nio.file.Path;
@@ -13,7 +13,7 @@ public class LoginCredData {
 
         Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_VALID_USER_JSON);
 
-        return DataObjectBuilderHelper.buildDataObject(loginCredDataPath, LoginCred[].class);
+        return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
     }
 
     @DataProvider(name = "loginCredInvalidUser")
@@ -21,7 +21,7 @@ public class LoginCredData {
 
         Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_INVALID_USER_JSON);
 
-        return DataObjectBuilderHelper.buildDataObject(loginCredDataPath, LoginCred[].class);
+        return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
     }
 
     @DataProvider(name = "loginCredInvalidEmail")
@@ -29,7 +29,7 @@ public class LoginCredData {
 
         Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_INVALID_EMAIL_JSON);
 
-        return DataObjectBuilderHelper.buildDataObject(loginCredDataPath, LoginCred[].class);
+        return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
     }
 
     @DataProvider(name = "loginCredInvalidPassword")
@@ -37,7 +37,7 @@ public class LoginCredData {
 
         Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_INVALID_PASSWORD_JSON);
 
-        return DataObjectBuilderHelper.buildDataObject(loginCredDataPath, LoginCred[].class);
+        return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
     }
 
 }

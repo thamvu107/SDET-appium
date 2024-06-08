@@ -3,6 +3,7 @@ package driver;
 import constants.WaitConstants;
 import driver.capabilities.AndroidDesiredCapabilities;
 import driver.capabilities.IOSCapabilities;
+import enums.Platforms;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;

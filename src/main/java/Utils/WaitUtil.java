@@ -1,4 +1,4 @@
-package helpers;
+package Utils;
 
 import constants.WaitConstants;
 import io.appium.java_client.AppiumDriver;
@@ -10,11 +10,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 
-public class WaitHelper {
+public class WaitUtil {
 
     private final AppiumDriver driver;
 
-    public WaitHelper(AppiumDriver driver) {
+    public WaitUtil(AppiumDriver driver) {
         this.driver = driver;
     }
 
