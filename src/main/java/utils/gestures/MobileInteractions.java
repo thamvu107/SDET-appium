@@ -1,7 +1,5 @@
 package utils.gestures;
 
-import utils.PlatformUtil;
-import utils.WaitUtil;
 import constants.WaitConstants;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
@@ -12,6 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import utils.PlatformUtil;
+import utils.WaitUtil;
 
 import java.time.Duration;
 import java.util.Map;
@@ -172,7 +172,7 @@ public class MobileInteractions {
     }
 
     public boolean isTextDisplayedCorrect(WebElement element, String title) {
-//        waitElementVisibility(element);
+        waitElementVisibility(element);
         return element.isDisplayed() && element.getText().equalsIgnoreCase(title);
     }
 

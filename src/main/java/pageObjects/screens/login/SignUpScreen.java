@@ -1,6 +1,5 @@
 package pageObjects.screens.login;
 
-import constants.WaitConstants;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
@@ -8,10 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import pageObjects.screens.alert.AlertScreen;
 import pageObjects.screens.alert.SignUpAlertScreen;
-import utils.gestures.swipe.SwipeVertically;
+import utils.gestures.swipe.vertical.SwipeVertically;
 
 import java.util.Map;
 
+import static constants.SwipeConstants.FAST_MOVE;
 import static io.appium.java_client.AppiumBy.accessibilityId;
 import static org.openqa.selenium.By.xpath;
 
@@ -44,36 +44,36 @@ public class SignUpScreen extends LoginScreen {
 
     private WebElement invalidRepeatPasswordElement() {
 
-        By locator = mobileInteractionHelper.getLocatorIsMappedCurrentPlatform(invalidRepeatPasswordLocatorMap);
+        By locator = mobileInteractions.getLocatorIsMappedCurrentPlatform(invalidRepeatPasswordLocatorMap);
 
-        return mobileInteractionHelper.waitElementLocatedAndFindElement(locator);
+        return mobileInteractions.waitElementLocatedAndFindElement(locator);
     }
 
     public SignUpScreen verifySignUpFormDisplayed() {
 
 //        mobileActions.waitVisibilityOfElementLocated(signUpButtonLocator); // small screen doesn't visibility sign-up button
-        mobileInteractionHelper.waitVisibilityOfElementLocated(repeatPasswordLocator);
+        mobileInteractions.waitVisibilityOfElementLocated(repeatPasswordLocator);
 
         return this;
     }
 
     public SignUpScreen inputEmail(String email) {
 
-        mobileInteractionHelper.setText(emailFieldElement(), email);
+        mobileInteractions.setText(emailFieldElement(), email);
 
         return this;
     }
 
     public SignUpScreen inputPassword(String password) {
 
-        mobileInteractionHelper.setText(passwordFieldElement(), password);
+        mobileInteractions.setText(passwordFieldElement(), password);
 
         return this;
     }
 
     public SignUpScreen inputRepeatPassword(String repeatPassword) {
 
-        mobileInteractionHelper.setText(repeatPasswordElement(), repeatPassword);
+        mobileInteractions.setText(repeatPasswordElement(), repeatPassword);
 
         return this;
     }
@@ -81,13 +81,13 @@ public class SignUpScreen extends LoginScreen {
     public SignUpScreen clickOnSignUpButton() {
 
         // TODO: On smaller screenTextConstants there could be a possibility that the button is not shown
-        if (!mobileInteractionHelper.isElementDisplayed(signUpButtonLocator)) {
+        if (!mobileInteractions.isElementDisplayed(signUpButtonLocator)) {
 
-            SwipeVertically swipeVertically = new SwipeVertically(driver, 0.5, 0.2, 0.8, WaitConstants.FAST_MOVE);
+            SwipeVertically swipeVertically = new SwipeVertically(driver, 0.5f, 0.2f, 0.8f, FAST_MOVE);
 
             swipeVertically.swipeUp();
         }
-        mobileInteractionHelper.waitVisibilityOfElementLocated(signUpButtonLocator);
+        mobileInteractions.waitVisibilityOfElementLocated(signUpButtonLocator);
         signUpButtonElement().click();
 
         return this;

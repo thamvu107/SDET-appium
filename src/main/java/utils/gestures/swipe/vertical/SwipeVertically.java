@@ -1,10 +1,11 @@
-package utils.gestures.swipe;
+package utils.gestures.swipe.vertical;
 
 import enums.SwipeVerticalDirection;
-import exceptions.SwipeDownException;
-import exceptions.SwipeUpException;
-import exceptions.SwipeVerticallyException;
+import exceptions.swipe.vertical.SwipeDownException;
+import exceptions.swipe.vertical.SwipeUpException;
+import exceptions.swipe.vertical.SwipeVerticallyException;
 import io.appium.java_client.AppiumDriver;
+import utils.gestures.swipe.Swipe;
 
 public class SwipeVertically extends Swipe {
 
@@ -17,9 +18,7 @@ public class SwipeVertically extends Swipe {
         this.anchor = this.calculateAnchor();
         this.topY = this.calculateSmallCoordinate();
         this.bottomY = this.calculateLargeCoordinate();
-
     }
-
 
     public SwipeVertically(AppiumDriver driver, long duration) {
 
@@ -30,7 +29,7 @@ public class SwipeVertically extends Swipe {
 
     }
 
-    public SwipeVertically(AppiumDriver driver, double anchorPercentage, double topPercent, double bottomPercent, long duration) {
+    public SwipeVertically(AppiumDriver driver, float anchorPercentage, float topPercent, float bottomPercent, long duration) {
 
         super(driver, anchorPercentage, topPercent, bottomPercent, duration);
         this.anchor = this.calculateAnchor();
@@ -40,66 +39,51 @@ public class SwipeVertically extends Swipe {
 
     @Override
     protected int calculateAnchor() {
-        return (int) (screenSize.getWidth() * anchorPercent);
+        return Math.round(screenSize.getWidth() * anchorPercent);
     }
 
     @Override
     protected int calculateSmallCoordinate() {
-        return (int) (screenSize.getHeight() * smallerPercent);
+        return Math.round(screenSize.getHeight() * smallerPercent);
     }
 
     @Override
     protected int calculateLargeCoordinate() {
-        return (int) (screenSize.getHeight() * largerPercent);
+        return Math.round(screenSize.getHeight() * largerPercent);
     }
 
     public void swipeUp() {
-
-        this.startCoordinate = bottomY;
-        this.endCoordinate = topY;
-        performSwipe(SwipeVerticalDirection.UP, anchor, this.startCoordinate, this.endCoordinate, duration);
+        performVerticalSwipe(SwipeVerticalDirection.UP);
     }
 
     public void swipeDown() {
-
-        startCoordinate = topY;
-        endCoordinate = bottomY;
-        performSwipe(SwipeVerticalDirection.DOWN, anchor, startCoordinate, endCoordinate, duration);
+        performVerticalSwipe(SwipeVerticalDirection.DOWN);
     }
 
-    private void performSwipe(SwipeVerticalDirection direction, int anchor, int startYCoordinate, int endYCoordinate, long duration) {
+    private void performVerticalSwipe(SwipeVerticalDirection direction) {
 
-        validateYCoordinates(direction, startYCoordinate, endYCoordinate);
-        swipe(anchor, startYCoordinate, anchor, endYCoordinate, duration);
+        setYCoordinates(direction);
+        swipe(anchor, this.startCoordinate, anchor, this.endCoordinate, moveDuration, pauseDuration);
     }
 
-    private void validateYCoordinates(SwipeVerticalDirection direction, int startCoordinate, int endCoordinate) {
+    private void setYCoordinates(SwipeVerticalDirection direction) {
         switch (direction) {
             case UP:
+                this.startCoordinate = bottomY;
+                this.endCoordinate = topY;
                 if (startCoordinate <= endCoordinate) {
                     throw new SwipeUpException("The start percentage should be greater than the end percentage. Start: " + startCoordinate + ", End: " + endCoordinate);
                 }
                 break;
             case DOWN:
+                this.startCoordinate = topY;
+                this.endCoordinate = bottomY;
                 if (startCoordinate >= endCoordinate) {
                     throw new SwipeDownException("The start percentage should be less than the end percentage. Start: " + startCoordinate + ", End: " + endCoordinate);
                 }
                 break;
             default:
-                throw new SwipeVerticallyException("Unknown swipe direction: " + direction);
+                throw new SwipeVerticallyException("Unsupported swipe direction: " + direction);
         }
     }
-
-//
-//    protected int calculateAnchor() {
-//        return (int) (screenSize.getWidth() * anchorPercent);
-//    }
-//
-//    protected int calculateStartCoordinate() {
-//        return (int) (screenSize.getHeight() * smallerPercent);
-//    }
-//
-//    protected int calculateEndCoordinate() {
-//        return (int) (screenSize.getHeight() * largerPercent);
-//    }
 }

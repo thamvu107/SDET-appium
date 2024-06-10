@@ -1,12 +1,13 @@
-package utils.gestures.swipe;
+package utils.gestures.swipe.vertical;
 
-import constants.WaitConstants;
 import io.appium.java_client.AppiumDriver;
+
+import static constants.SwipeConstants.FAST_MOVE;
 
 public class SwipeHalfBottomScreen extends SwipeVertically {
 
     public SwipeHalfBottomScreen(AppiumDriver driver) {
-        super(driver, 0.5, 0.5, 1, WaitConstants.FAST_MOVE);
+        super(driver, 0.5f, 0.5f, 1, FAST_MOVE);
     }
 
 }
