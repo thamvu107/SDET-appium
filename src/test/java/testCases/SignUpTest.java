@@ -2,16 +2,16 @@ package testCases;
 
 import dataProvider.signUp.SignUpCredData;
 import entity.SignUpCred;
-import utils.AlertHelper;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import testFlows.SignUpFlow;
+import utils.AlertHelper;
 
 import static constants.LoginScreenConstants.INVALID_EMAIL_MESSAGE;
 import static constants.LoginScreenConstants.INVALID_PASSWORD_MESSAGE;
-import static constants.SignUpConstants.*;
+import static constants.SignUpScreenConstants.*;
 
 public class SignUpTest extends BaseTest {
 

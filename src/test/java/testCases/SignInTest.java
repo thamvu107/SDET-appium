@@ -2,17 +2,17 @@ package testCases;
 
 import dataProvider.signIn.LoginCredData;
 import entity.LoginCred;
-import utils.AlertHelper;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import testFlows.SignInFlow;
+import utils.AlertHelper;
 
 import static constants.LoginScreenConstants.INVALID_EMAIL_MESSAGE;
 import static constants.LoginScreenConstants.INVALID_PASSWORD_MESSAGE;
-import static constants.SignInConstants.SIGN_IN_DIALOG_MESSAGE;
-import static constants.SignInConstants.SIGN_IN_DIALOG_TITLE;
+import static constants.SignInScreenConstants.SIGN_IN_DIALOG_MESSAGE;
+import static constants.SignInScreenConstants.SIGN_IN_DIALOG_TITLE;
 
 public class SignInTest extends BaseTest {
     private SignInFlow signInFlow;

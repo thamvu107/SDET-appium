@@ -7,7 +7,7 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import utils.gestures.MobileInteractions;
-import utils.gestures.swipe.SwipeVertically;
+import utils.gestures.swipe.vertical.SwipeVertically;
 
 import java.util.Map;
 

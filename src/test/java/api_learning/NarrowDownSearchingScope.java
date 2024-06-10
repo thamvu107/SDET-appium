@@ -1,7 +1,7 @@
 package api_learning;
 
 import driverFactory.Platform;
-import exceptions.SwipeUpException;
+import exceptions.swipe.vertical.SwipeUpException;
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -9,7 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import testCases.BaseTest;
 import utils.NotificationUtils;
-import utils.gestures.swipe.SwipeHalfBottomScreen;
+import utils.gestures.swipe.vertical.SwipeHalfBottomScreen;
 
 import java.util.List;
 import java.util.Map;

@@ -1,7 +1,7 @@
 package utils;
 
 import io.appium.java_client.AppiumDriver;
-import utils.gestures.swipe.SwipeHalfTopScreen;
+import utils.gestures.swipe.vertical.SwipeHalfTopScreen;
 
 public class NotificationUtils {
     SwipeHalfTopScreen swipe;
