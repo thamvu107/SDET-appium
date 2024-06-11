@@ -1,37 +1,39 @@
 package pageObjects.screens;
 
-import constants.WaitConstants;
 import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.commponents.BottomNavComponent;
 import pageObjects.screens.login.LoginScreen;
-import utils.LocatorMapperUtils;
+import utils.AssertUtils;
+import utils.ElementUtils;
+import utils.InteractionUtils;
 import utils.PlatformUtil;
-import utils.gestures.MobileInteractions;
-
-import static java.time.Duration.ofMillis;
 
 public class BaseScreen {
 
     protected AppiumDriver driver;
-    protected WebDriverWait wait;
-    protected LocatorMapperUtils locatorMapperHelper;
+    //    protected WebDriverWait wait;
+//    protected WaitUtils waitUtils;
+//    protected LocatorMapperUtils locatorMapperHelper;
     protected BottomNavComponent bottomNavComponent;
 
-    protected MobileInteractions mobileInteractions;
-    //    protected static String currentPlatform;
+    protected ElementUtils elementUtils;
+
+    protected InteractionUtils interactionUtils;
     protected Platform currentPlatform;
+    protected AssertUtils assertUtils;
 
 
     public BaseScreen(AppiumDriver driver) {
 
         this.driver = driver;
         this.currentPlatform = new PlatformUtil().getCurrentPlatform(this.driver);
-        this.wait = new WebDriverWait(this.driver, ofMillis(WaitConstants.LONG_EXPLICIT_WAIT));
+//        this.waitUtils = new WaitUtils(driver);
+//        this.wait = waitUtils.explicitWait();
+        this.elementUtils = new ElementUtils(driver);
+        this.interactionUtils = new InteractionUtils(driver);
+        this.assertUtils = new AssertUtils(driver);
         this.bottomNavComponent = new BottomNavComponent(this.driver);
-        this.mobileInteractions = new MobileInteractions(driver);
 
     }
 
@@ -51,7 +53,4 @@ public class BaseScreen {
         return bottomNavComponent.clickOnSwipeNav();
     }
 
-    protected boolean isTitleCorrect(WebElement element, String expectedTitle) {
-        return mobileInteractions.isTextDisplayedCorrect(element, expectedTitle);
-    }
 }

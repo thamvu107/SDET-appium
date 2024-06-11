@@ -1,6 +1,5 @@
 package testCases;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.screens.SwipeScreen;
@@ -16,13 +15,9 @@ public class SwipeTest extends BaseTest {
     public void beforeMethod() {
         swipeScreen = new SwipeScreen(driver);
         swipeScreen.goToSwipeScreen()
-                .verifySwipeScreenTitle(SWIPE_SCREEN_TITLE);
-    }
-
-    @Test
-    public void seeCarouselTest() {
-
-        Assert.assertTrue(swipeScreen.isCarouselDisplayed(), "The carousel is not displayed");
+                .verifySwipeScreenDisplayed()
+                .verifySwipeScreenTitle(SWIPE_SCREEN_TITLE)
+                .verifyCarouselDisplayed();
     }
 
     @Test

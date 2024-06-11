@@ -44,36 +44,36 @@ public class SignUpScreen extends LoginScreen {
 
     private WebElement invalidRepeatPasswordElement() {
 
-        By locator = mobileInteractions.getLocatorIsMappedCurrentPlatform(invalidRepeatPasswordLocatorMap);
+        By locator = elementUtils.getLocatorIsMappedCurrentPlatform(invalidRepeatPasswordLocatorMap);
 
-        return mobileInteractions.waitElementLocatedAndFindElement(locator);
+        return elementUtils.waitForFindingElement(locator);
     }
 
     public SignUpScreen verifySignUpFormDisplayed() {
 
 //        mobileActions.waitVisibilityOfElementLocated(signUpButtonLocator); // small screen doesn't visibility sign-up button
-        mobileInteractions.waitVisibilityOfElementLocated(repeatPasswordLocator);
+        elementUtils.waitForFindingElement(repeatPasswordLocator);
 
         return this;
     }
 
     public SignUpScreen inputEmail(String email) {
 
-        mobileInteractions.setText(emailFieldElement(), email);
+        interactionUtils.setText(emailFieldElement(), email);
 
         return this;
     }
 
     public SignUpScreen inputPassword(String password) {
 
-        mobileInteractions.setText(passwordFieldElement(), password);
+        interactionUtils.setText(passwordFieldElement(), password);
 
         return this;
     }
 
     public SignUpScreen inputRepeatPassword(String repeatPassword) {
 
-        mobileInteractions.setText(repeatPasswordElement(), repeatPassword);
+        interactionUtils.setText(repeatPasswordElement(), repeatPassword);
 
         return this;
     }
@@ -81,13 +81,12 @@ public class SignUpScreen extends LoginScreen {
     public SignUpScreen clickOnSignUpButton() {
 
         // TODO: On smaller screenTextConstants there could be a possibility that the button is not shown
-        if (!mobileInteractions.isElementDisplayed(signUpButtonLocator)) {
+        if (!elementUtils.isElementDisplayed(signUpButtonLocator)) {
 
             SwipeVertically swipeVertically = new SwipeVertically(driver, 0.5f, 0.2f, 0.8f, FAST_MOVE);
-
             swipeVertically.swipeUp();
         }
-        mobileInteractions.waitVisibilityOfElementLocated(signUpButtonLocator);
+        elementUtils.waitForFindingElement(signUpButtonLocator);
         signUpButtonElement().click();
 
         return this;

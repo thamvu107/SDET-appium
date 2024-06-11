@@ -1,7 +1,5 @@
 package api_learning;
 
-import utils.ScreenSize;
-import utils.gestures.MobileInteractions;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import io.appium.java_client.AppiumDriver;
@@ -12,6 +10,8 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.PointerInput.Kind;
 import org.openqa.selenium.interactions.PointerInput.MouseButton;
 import org.openqa.selenium.interactions.Sequence;
+import utils.InteractionUtils;
+import utils.ScreenSizeUtils;
 
 import java.awt.*;
 import java.time.Duration;
@@ -21,7 +21,7 @@ import static java.time.Duration.ofMillis;
 import static org.openqa.selenium.interactions.PointerInput.Origin.viewport;
 
 public class SwipeExplore {
-    private static ScreenSize screenSize;
+    private static ScreenSizeUtils screenSize;
 
 
     public static void main(String[] args) {
@@ -34,20 +34,19 @@ public class SwipeExplore {
 
         Capabilities caps = CapabilityFactory.getCaps(getEmulator());
         driver = driverProvider.getLocalServerDriver(caps);
-        MobileInteractions mobileInteraction = new MobileInteractions(driver);
-        screenSize = new ScreenSize(driver);
+        InteractionUtils mobileInteraction = new InteractionUtils(driver);
+        screenSize = new ScreenSizeUtils(driver);
         // Swipe up before interacting
-        swipeVertical(mobileInteraction);
+        swipeVertical();
         swipeVertical2(driver);
 
         driver.quit();
     }
 
-    private static void swipeVertical(MobileInteractions mobileInteraction) {
+    private static void swipeVertical() {
 
-        Dimension screenSize = mobileInteraction.getScreenSize();
-        int screenWidth = SwipeExplore.screenSize.getWidth();
-        int screenHeight = SwipeExplore.screenSize.getHeight();
+        int screenWidth = screenSize.getWidth();
+        int screenHeight = screenSize.getHeight();
 
 
         System.out.printf("%d x %d \n", screenWidth, screenHeight);

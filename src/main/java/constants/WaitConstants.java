@@ -5,7 +5,7 @@ public final class WaitConstants {
     // Time constants in milliseconds
     public static final long LONG_IMPLICIT_WAIT = 15000L;
     public static final long SHORT_IMPLICIT_WAIT = 10000L;
-    public static final long LONG_EXPLICIT_WAIT = 15000L;
+    public static final long LONG_EXPLICIT_WAIT = 20000L;
     public static final long EXPLICIT_WAIT = 10000L;
     public static final long SHORT_EXPLICIT_WAIT = 7000L;
 
