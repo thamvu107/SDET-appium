@@ -27,7 +27,7 @@ public class SwipeTest extends BaseTest {
 
     @Test
     public void swipe5Time() {
-        swipeScreen.swipeMultiTime(SWIPE_MULTI_TIME);
+        swipeScreen.swipeLeftCarouselMultiTime(SWIPE_MULTI_TIME);
     }
 
 }

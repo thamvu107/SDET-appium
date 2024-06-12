@@ -5,6 +5,7 @@ import exceptions.swipe.horizontal.SwipeHorizontalException;
 import exceptions.swipe.horizontal.SwipeLeftException;
 import exceptions.swipe.horizontal.SwipeRightException;
 import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.WebElement;
 import utils.gestures.swipe.Swipe;
 
 public class SwipeHorizontal extends Swipe {
@@ -16,10 +17,9 @@ public class SwipeHorizontal extends Swipe {
         calculateCoordinates();
     }
 
-    private void calculateCoordinates() {
-        this.anchor = this.calculateAnchor();
-        this.leftX = this.calculateSmallCoordinate();
-        this.rightX = this.calculateLargeCoordinate();
+    public SwipeHorizontal(AppiumDriver driver, WebElement wrapper) {
+        super(driver, wrapper);
+        calculateCoordinates();
     }
 
     public SwipeHorizontal(AppiumDriver driver, long duration) {
@@ -34,24 +34,25 @@ public class SwipeHorizontal extends Swipe {
 
     @Override
     protected int calculateAnchor() {
-        return Math.round(screenSize.getHeight() * anchorPercent);
+        return location.getY() + Math.round(dimension.getHeight() * anchorPercent);
     }
 
     @Override
     protected int calculateSmallCoordinate() {
-        return Math.round(screenSize.getWidth() * smallerPercent);
+        return location.getX() + Math.round(dimension.getWidth() * smallerPercent);
     }
 
     @Override
     protected int calculateLargeCoordinate() {
-        return Math.round(screenSize.getWidth() * largerPercent);
+        return location.getX() + Math.round(dimension.getWidth() * largerPercent);
     }
 
-    public void swipeToLeft() {
+
+    public void swipeLeft() {
         performHorizontalSwipe(SwipeHorizontalDirection.LEFT);
     }
 
-    public void swipeToRight() {
+    public void swipeRight() {
         performHorizontalSwipe(SwipeHorizontalDirection.RIGHT);
     }
 
@@ -81,5 +82,12 @@ public class SwipeHorizontal extends Swipe {
             default:
                 throw new SwipeHorizontalException("Unsupported swipe direction: " + direction);
         }
+    }
+
+
+    private void calculateCoordinates() {
+        this.anchor = this.calculateAnchor();
+        this.leftX = this.calculateSmallCoordinate();
+        this.rightX = this.calculateLargeCoordinate();
     }
 }

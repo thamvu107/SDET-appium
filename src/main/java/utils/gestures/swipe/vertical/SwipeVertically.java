@@ -5,6 +5,7 @@ import exceptions.swipe.vertical.SwipeDownException;
 import exceptions.swipe.vertical.SwipeUpException;
 import exceptions.swipe.vertical.SwipeVerticallyException;
 import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.WebElement;
 import utils.gestures.swipe.Swipe;
 
 public class SwipeVertically extends Swipe {
@@ -19,6 +20,15 @@ public class SwipeVertically extends Swipe {
         this.topY = this.calculateSmallCoordinate();
         this.bottomY = this.calculateLargeCoordinate();
     }
+
+    public SwipeVertically(AppiumDriver driver, WebElement wrapper) {
+
+        super(driver, wrapper);
+        this.anchor = this.calculateAnchor();
+        this.topY = this.calculateSmallCoordinate();
+        this.bottomY = this.calculateLargeCoordinate();
+    }
+
 
     public SwipeVertically(AppiumDriver driver, long duration) {
 
@@ -39,17 +49,17 @@ public class SwipeVertically extends Swipe {
 
     @Override
     protected int calculateAnchor() {
-        return Math.round(screenSize.getWidth() * anchorPercent);
+        return location.getX() + Math.round(dimension.getWidth() * anchorPercent);
     }
 
     @Override
     protected int calculateSmallCoordinate() {
-        return Math.round(screenSize.getHeight() * smallerPercent);
+        return location.getY() + Math.round(dimension.getHeight() * smallerPercent);
     }
 
     @Override
     protected int calculateLargeCoordinate() {
-        return Math.round(screenSize.getHeight() * largerPercent);
+        return location.getY() + Math.round(dimension.getHeight() * largerPercent);
     }
 
     public void swipeUp() {
