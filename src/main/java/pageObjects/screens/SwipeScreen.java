@@ -18,36 +18,36 @@ public class SwipeScreen extends BaseScreen {
         super(driver);
     }
 
-    private WebElement swipeScreenElement() {
-        return driver.findElement(swipeScreenLoc);
-    }
+    private WebElement carouselContainerEl() {
 
-    private WebElement carouselContainerElement() {
-        return driver.findElement(carouselContainerLoc);
+        return elementUtils.waitForElementToBeVisible(carouselContainerLoc);
     }
 
     private WebElement swipeTitleEl() {
         return driver.findElement(swipeTitleLoc);
     }
 
+    public SwipeScreen verifySwipeScreenDisplayed() {
 
-    public SwipeScreen verifySwipeScreenTitle(String expectTitle) {
-        boolean isScreenTitleCorrect = isTitleCorrect(swipeTitleEl(), expectTitle);
-        Assert.assertTrue(isScreenTitleCorrect, "The title does not match");
+        Assert.assertTrue(elementUtils.isElementDisplayed(swipeScreenLoc));
         return this;
     }
 
-    public boolean isCarouselDisplayed() {
-        return mobileInteractions.isElementPresent(carouselContainerLoc);
+    public SwipeScreen verifySwipeScreenTitle(String expectTitle) {
+        Assert.assertTrue(elementUtils.isTextDisplayedCorrect(swipeTitleEl(), expectTitle));
+        return this;
+    }
+
+    public SwipeScreen verifyCarouselDisplayed() {
+        Assert.assertTrue(elementUtils.isElementDisplayed(carouselContainerEl()), "The carousel is not displayed");
+        return this;
     }
 
     public SwipeScreen swipeLeftCarouselMultiTime(int swipeTime) {
-
-        SwipeHorizontal swipeHorizontal = new SwipeHorizontal(driver, carouselContainerElement());
+        SwipeHorizontal swipeHorizontal = new SwipeHorizontal(driver, carouselContainerEl());
         for (int swipeCounter = 0; swipeCounter < swipeTime; swipeCounter++) {
             swipeHorizontal.swipeLeft();
         }
-
         return this;
     }
 }

@@ -4,7 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import lombok.Getter;
 import org.openqa.selenium.Dimension;
 
-public class ScreenSize {
+public class ScreenSizeUtils {
     private final AppiumDriver driver;
 
     @Getter
@@ -15,7 +15,7 @@ public class ScreenSize {
     @Getter
     private final int height;
 
-    public ScreenSize(AppiumDriver driver) {
+    public ScreenSizeUtils(AppiumDriver driver) {
 
         this.driver = driver;
         synchronized (driver) {

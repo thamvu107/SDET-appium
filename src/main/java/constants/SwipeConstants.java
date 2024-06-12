@@ -6,7 +6,7 @@ public class SwipeConstants {
     public static final float DEFAULT_LARGER_PERCENT = 0.8f;
 
     public static final long FIRST_PAUSE = 200L;
-    public static final long SHORT_PAUSE = 600L;
+    public static final long SHORT_PAUSE = 500L;
     public static final long MAX_PAUSE = 2400L;
     public static final long PAUSE = 150L;
     public static final long FAST_MOVE = 180L;

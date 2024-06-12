@@ -22,9 +22,9 @@ public class SignInScreen extends LoginScreen {
 
     public SignInScreen verifySignInFormDisplayed() {
 
-        mobileInteractions.waitVisibilityOfElementLocated(signInButtonLocator);
-        mobileInteractions.verifyElementDisplayed(emailInputLoc);
-        mobileInteractions.verifyElementDisplayed(passwordInputLoc);
+        elementUtils.waitForFindingElement(signInButtonLocator);
+        elementUtils.waitForFindingElement(emailInputLoc);
+        elementUtils.waitForFindingElement(passwordInputLoc);
 
         return this;
     }

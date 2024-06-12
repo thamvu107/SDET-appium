@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
-import utils.ScreenSize;
+import utils.ScreenSizeUtils;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -48,10 +48,10 @@ public abstract class Swipe {
         setWrapperDimension();
     }
 
-    public Swipe(AppiumDriver driver, long duration) {
+    public Swipe(AppiumDriver driver, long moveDurationInMillis) {
         setDriver(driver);
         setDefaultPercents();
-        setMoveDuration(duration);
+        setMoveDuration(moveDurationInMillis);
         setPauseDuration(SHORT_PAUSE);
         setLocation();
         setWrapperDimension();
@@ -66,18 +66,18 @@ public abstract class Swipe {
         setWrapperDimension();
     }
 
-    public Swipe(AppiumDriver driver, float anchorPercent, float smallerPercent, float largerPercent, long duration) {
+    public Swipe(AppiumDriver driver, float anchorPercent, float smallerPercent, float largerPercent, long moveDurationInMillis) {
         setDriver(driver);
         setSmallerPercent(smallerPercent);
         setLargerPercent(largerPercent);
         setAnchorPercent(anchorPercent);
-        setMoveDuration(duration);
+        setMoveDuration(moveDurationInMillis);
         setPauseDuration(SHORT_PAUSE);
         setLocation();
         setWrapperDimension();
     }
 
-    protected void swipe(int startX, int startY, int endX, int endY, long moveDuration, long pauseDuration) {
+    protected void swipe(int startX, int startY, int endX, int endY, long moveDurationInMillis, long pauseDurationInMillis) {
 
         PointerInput pointerInput = new PointerInput(PointerInput.Kind.TOUCH, "finger1");
 
@@ -85,9 +85,9 @@ public abstract class Swipe {
                 .addAction(pointerInput.createPointerMove(Duration.ZERO, viewport(), startX, startY))
                 .addAction(pointerInput.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
                 .addAction(new Pause(pointerInput, ofMillis(FIRST_PAUSE)))
-                .addAction(pointerInput.createPointerMove(ofMillis(moveDuration), viewport(), endX, endY))
+                .addAction(pointerInput.createPointerMove(ofMillis(moveDurationInMillis), viewport(), endX, endY))
                 .addAction(pointerInput.createPointerUp(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(new Pause(pointerInput, ofMillis(pauseDuration)));
+                .addAction(new Pause(pointerInput, ofMillis(pauseDurationInMillis)));
 
         driver.perform(Collections.singletonList(swipe));
     }
@@ -140,7 +140,7 @@ public abstract class Swipe {
 
 
     private void setWrapperDimension() {
-        this.dimension = this.wrapperElement == null ? new ScreenSize(this.driver).getDimension() : this.wrapperElement.getSize();
+        this.dimension = this.wrapperElement == null ? new ScreenSizeUtils(this.driver).getDimension() : this.wrapperElement.getSize();
     }
 
     private void setLocation() {

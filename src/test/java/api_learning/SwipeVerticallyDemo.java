@@ -6,7 +6,7 @@ import driverFactory.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
-import utils.gestures.MobileInteractions;
+import utils.ElementUtils;
 import utils.gestures.swipe.vertical.SwipeVertically;
 
 import java.util.Map;
@@ -38,9 +38,9 @@ public class SwipeVerticallyDemo {
             driver.findElement(formsBtnLoc).click();
 
             // Make sure we are on the target screen before swiping up/down/left/right/any direction
-            MobileInteractions interactions = new MobileInteractions(driver);
-            By formComponentLoc = interactions.getLocatorIsMappedCurrentPlatform(formComponentLocatorMap);
-            interactions.waitVisibilityOfElementLocated(formComponentLoc);
+            ElementUtils elementUtils = new ElementUtils(driver);
+            By formComponentLoc = elementUtils.getLocatorIsMappedCurrentPlatform(formComponentLocatorMap);
+            new ElementUtils(driver).waitForFindingElement(formComponentLoc);
 
             SwipeVertically swipeVertically = new SwipeVertically(driver);
 

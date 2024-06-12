@@ -22,13 +22,13 @@ public class SwipeHorizontal extends Swipe {
         calculateCoordinates();
     }
 
-    public SwipeHorizontal(AppiumDriver driver, long duration) {
-        super(driver, duration);
+    public SwipeHorizontal(AppiumDriver driver, long moveDurationInMillis) {
+        super(driver, moveDurationInMillis);
         calculateCoordinates();
     }
 
-    public SwipeHorizontal(AppiumDriver driver, float anchorPercent, float smallerPercent, float largerPercent, long duration) {
-        super(driver, anchorPercent, smallerPercent, largerPercent, duration);
+    public SwipeHorizontal(AppiumDriver driver, float anchorPercent, float smallerPercent, float largerPercent, long moveDurationInMillis) {
+        super(driver, anchorPercent, smallerPercent, largerPercent, moveDurationInMillis);
         calculateCoordinates();
     }
 
@@ -83,7 +83,6 @@ public class SwipeHorizontal extends Swipe {
                 throw new SwipeHorizontalException("Unsupported swipe direction: " + direction);
         }
     }
-
 
     private void calculateCoordinates() {
         this.anchor = this.calculateAnchor();

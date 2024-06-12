@@ -5,7 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pageObjects.screens.SwipeScreen;
 import pageObjects.screens.login.LoginScreen;
-import utils.gestures.MobileInteractions;
+import utils.ElementUtils;
+import utils.InteractionUtils;
 
 import static io.appium.java_client.AppiumBy.accessibilityId;
 
@@ -16,37 +17,40 @@ public class BottomNavComponent {
     private final static By formsNavLoc = accessibilityId("Forms");
     private final static By swipeNavLoc = accessibilityId("Swipe");
     private final AppiumDriver driver;
+    private final ElementUtils elementUtils;
 
-    private final MobileInteractions mobileInteractions;
+    private final InteractionUtils mobileInteractions;
 
     public BottomNavComponent(AppiumDriver driver) {
 
         this.driver = driver;
-        this.mobileInteractions = new MobileInteractions(this.driver);
+        this.elementUtils = new ElementUtils(this.driver);
+        this.mobileInteractions = new InteractionUtils(this.driver);
     }
 
     public WebElement homeNavEl() {
 
-        return mobileInteractions.waitElementLocatedAndFindElement(homeNavLoc);
+        return elementUtils.waitForFindingElement(homeNavLoc);
     }
 
     public WebElement webNavEl() {
 
-        return mobileInteractions.waitElementLocatedAndFindElement(webViewNavLoc);
+        return elementUtils.waitForFindingElement(webViewNavLoc);
     }
 
     public WebElement loginNavEl() {
 
-        return mobileInteractions.waitElementLocatedAndFindElement(loginNavLoc);
+        return elementUtils.waitForFindingElement(loginNavLoc);
     }
 
     public WebElement formsNavEl() {
-        return mobileInteractions.waitElementLocatedAndFindElement(formsNavLoc);
+
+        return elementUtils.waitForFindingElement(formsNavLoc);
     }
 
     public WebElement swipeNavEl() {
 
-        return mobileInteractions.waitElementLocatedAndFindElement(swipeNavLoc);
+        return elementUtils.waitForFindingElement(swipeNavLoc);
     }
 
     public LoginScreen clickOnLoginNav() {
