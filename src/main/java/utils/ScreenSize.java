@@ -8,7 +8,7 @@ public class ScreenSize {
     private final AppiumDriver driver;
 
     @Getter
-    private final Dimension screenSize;
+    public final Dimension dimension;
 
     @Getter
     private final int width;
@@ -19,9 +19,9 @@ public class ScreenSize {
 
         this.driver = driver;
         synchronized (driver) {
-            this.screenSize = driver.manage().window().getSize();
-            this.width = screenSize.getWidth();
-            this.height = screenSize.getHeight();
+            this.dimension = driver.manage().window().getSize();
+            this.width = dimension.getWidth();
+            this.height = dimension.getHeight();
         }
     }
 }

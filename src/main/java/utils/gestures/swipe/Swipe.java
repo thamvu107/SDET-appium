@@ -1,6 +1,9 @@
 package utils.gestures.swipe;
 
 import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
@@ -18,7 +21,9 @@ public abstract class Swipe {
     protected AppiumDriver driver;
     protected long moveDuration;
     protected long pauseDuration;
-    protected ScreenSize screenSize;
+    protected WebElement wrapperElement;
+    protected Point location;
+    protected Dimension dimension;
     protected float anchorPercent;
     protected float smallerPercent;
     protected float largerPercent;
@@ -27,38 +32,49 @@ public abstract class Swipe {
     protected int endCoordinate;
 
     public Swipe(AppiumDriver driver) {
-        this.driver = driver;
+        setDriver(driver);
         setDefaultPercents();
-        setMoveDuration(FAST_MOVE);
-        setPauseDuration(SHORT_PAUSE);
-        this.screenSize = new ScreenSize(this.driver);
+        setDefaultDurations();
+        setLocation();
+        setWrapperDimension();
+    }
+
+    public Swipe(AppiumDriver driver, WebElement wrapperElement) {
+        setDriver(driver);
+        setDefaultPercents();
+        setDefaultDurations();
+        setWrapperElement(wrapperElement);
+        setLocation();
+        setWrapperDimension();
     }
 
     public Swipe(AppiumDriver driver, long duration) {
-        this.driver = driver;
+        setDriver(driver);
         setDefaultPercents();
         setMoveDuration(duration);
         setPauseDuration(SHORT_PAUSE);
-        this.screenSize = new ScreenSize(this.driver);
+        setLocation();
+        setWrapperDimension();
     }
 
     public Swipe(AppiumDriver driver, long moveDuration, long pauseDuration) {
-        this.driver = driver;
+        setDriver(driver);
         setDefaultPercents();
         setMoveDuration(moveDuration);
         setPauseDuration(pauseDuration);
-        this.screenSize = new ScreenSize(this.driver);
+        setLocation();
+        setWrapperDimension();
     }
 
     public Swipe(AppiumDriver driver, float anchorPercent, float smallerPercent, float largerPercent, long duration) {
-
-        this.driver = driver;
+        setDriver(driver);
         setSmallerPercent(smallerPercent);
         setLargerPercent(largerPercent);
         setAnchorPercent(anchorPercent);
         setMoveDuration(duration);
         setPauseDuration(SHORT_PAUSE);
-        this.screenSize = new ScreenSize(this.driver);
+        setLocation();
+        setWrapperDimension();
     }
 
     protected void swipe(int startX, int startY, int endX, int endY, long moveDuration, long pauseDuration) {
@@ -73,14 +89,28 @@ public abstract class Swipe {
                 .addAction(pointerInput.createPointerUp(PointerInput.MouseButton.LEFT.asArg()))
                 .addAction(new Pause(pointerInput, ofMillis(pauseDuration)));
 
-
         driver.perform(Collections.singletonList(swipe));
+    }
+
+    private void setDriver(AppiumDriver driver) {
+        validateNotNull(driver, "AppiumDriver must not be null");
+        this.driver = driver;
     }
 
     private void setDefaultPercents() {
         setAnchorPercent(DEFAULT_ANCHOR_PERCENT);
         setSmallerPercent(DEFAULT_SMALL_PERCENT);
         setLargerPercent(DEFAULT_LARGER_PERCENT);
+    }
+
+    private void setDefaultDurations() {
+        setMoveDuration(FAST_MOVE);
+        setPauseDuration(SHORT_PAUSE);
+    }
+
+    private void setWrapperElement(WebElement wrapper) {
+        validateNotNull(wrapper, "Wrapper element must not be null");
+        this.wrapperElement = wrapper;
     }
 
     private void setSmallerPercent(float smallerPercent) {
@@ -108,13 +138,23 @@ public abstract class Swipe {
         this.pauseDuration = duration;
     }
 
+
+    private void setWrapperDimension() {
+        this.dimension = this.wrapperElement == null ? new ScreenSize(this.driver).getDimension() : this.wrapperElement.getSize();
+    }
+
+    private void setLocation() {
+
+        this.location = this.wrapperElement == null ? new Point(0, 0) : this.wrapperElement.getLocation();
+    }
+
     protected void validateSwipePercentCoordinates(float percent) {
         if (percent < 0 || percent > 1) {
             throw new IllegalArgumentException("Swipe percentage must be between 0 and 1 inclusive. Given percentage: " + percent);
         }
     }
 
-    private void validateMoveDuration(float duration) {
+    private void validateMoveDuration(long duration) {
         if (duration <= 0) {
             throw new IllegalArgumentException("Move duration must be positive.");
         }
@@ -123,12 +163,18 @@ public abstract class Swipe {
         }
     }
 
-    private void validatePauseDuration(float duration) {
+    private void validatePauseDuration(long duration) {
         if (duration <= 0) {
             throw new IllegalArgumentException("Pause duration must be positive.");
         }
         if (duration >= MAX_PAUSE) {
             throw new IllegalArgumentException(String.format("Pause duration is too long. Maximum allowed is" + MAX_PAUSE));
+        }
+    }
+
+    private void validateNotNull(Object param, String message) {
+        if (param == null) {
+            throw new IllegalArgumentException(message);
         }
     }
 

@@ -41,11 +41,11 @@ public class SwipeScreen extends BaseScreen {
         return mobileInteractions.isElementPresent(carouselContainerLoc);
     }
 
-    public SwipeScreen swipeMultiTime(int swipeTime) {
+    public SwipeScreen swipeLeftCarouselMultiTime(int swipeTime) {
 
-        SwipeHorizontal swipeHorizontal = new SwipeHorizontal(driver, 1000L);
+        SwipeHorizontal swipeHorizontal = new SwipeHorizontal(driver, carouselContainerElement());
         for (int swipeCounter = 0; swipeCounter < swipeTime; swipeCounter++) {
-            swipeHorizontal.swipeToLeft();
+            swipeHorizontal.swipeLeft();
         }
 
         return this;
