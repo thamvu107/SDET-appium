@@ -56,6 +56,24 @@ public class SwipeHorizontal extends Swipe {
         performHorizontalSwipe(SwipeHorizontalDirection.RIGHT);
     }
 
+    public void swipeLeft(int swipeTimes) {
+        swipeMultiTimes(SwipeHorizontalDirection.LEFT, swipeTimes);
+    }
+
+    public void swipeRight(int swipeTimes) {
+        swipeMultiTimes(SwipeHorizontalDirection.RIGHT, swipeTimes);
+    }
+
+    private void swipeMultiTimes(SwipeHorizontalDirection direction, int swipeTime) {
+        for (int swipeCounter = 0; swipeCounter < swipeTime; swipeCounter++) {
+            if (direction == SwipeHorizontalDirection.LEFT) {
+                swipeRight();
+            } else {
+                swipeRight();
+            }
+        }
+    }
+
     private void performHorizontalSwipe(SwipeHorizontalDirection direction) {
         setXCoordinates(direction);
         swipe(startCoordinate, anchor, endCoordinate, anchor, moveDuration, pauseDuration);

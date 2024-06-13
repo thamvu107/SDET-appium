@@ -4,8 +4,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.screens.SwipeScreen;
 
-import static constants.SwipeScreenConstants.SWIPE_MULTI_TIME;
-import static constants.SwipeScreenConstants.SWIPE_SCREEN_TITLE;
+import static constants.SwipeScreenConstants.*;
 
 
 public class SwipeTest extends BaseTest {
@@ -21,8 +20,24 @@ public class SwipeTest extends BaseTest {
     }
 
     @Test
-    public void swipe5Time() {
-        swipeScreen.swipeLeftCarouselMultiTime(SWIPE_MULTI_TIME);
+    public void swipeLeftMultiTimes() {
+        swipeScreen.swipeLeft(SWIPE_MULTI_TIME);
     }
 
+    @Test
+    public void swipeRightMultiTimes() {
+
+        swipeScreen.swipeRight(SWIPE_MULTI_TIME);
+    }
+
+    @Test
+    public void swipeLeftToTargetCard() {
+        swipeScreen.verifyTheTargetCardIsFound(SWIPE_LEFT_TARGET_CARD_TITLE, MAX_SWIPE_TIMES);
+    }
+
+
+    @Test
+    public void swipeRightToTargetCard() {
+        swipeScreen.swipeLeftToTargetCard(SWIPE_RIGHT_TARGET_CARD_TITLE, MAX_SWIPE_TIMES);
+    }
 }

@@ -2,12 +2,14 @@ package utils;
 
 import driverFactory.Platform;
 import exceptions.WaitForConditionException;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.internal.Require;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
 import java.util.Map;
 
 public class ElementUtils {
@@ -63,13 +65,6 @@ public class ElementUtils {
         }
     }
 
-    public WebElement findElement(Map<Platform, By> locatorMap) {
-
-        By locator = locatorMap.get(currentPlatform);
-
-        return driver.findElement(locator);
-    }
-
     public WebElement waitForElementToBeVisible(By locator) {
 
         try {
@@ -88,6 +83,24 @@ public class ElementUtils {
         } catch (Exception e) {
             throw new RuntimeException(
                     String.format("An unexpected error occurred while waiting for element to be visible: %s", locator), e);
+        }
+    }
+
+    public List<WebElement> waitForElementsToBeVisible(By locator) {
+        try {
+            return waitUtils.explicitWait()
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<WebElement> waitForElementsToBeVisible(By parent, By locator) {
+        try {
+            return waitUtils.explicitWait()
+                    .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent, locator));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -158,6 +171,33 @@ public class ElementUtils {
         }
     }
 
+
+    public WebElement findElement(Map<Platform, By> locatorMap) {
+
+        By locator = locatorMap.get(currentPlatform);
+
+        return driver.findElement(locator);
+    }
+
+    public List<WebElement> findElementsByIdPrefix(String idPrefix) {
+        By locator = AppiumBy.androidUIAutomator(
+                "new UiSelector().resourceIdMatches(\"^" + idPrefix + ".*\")");
+
+        List<WebElement> elements = driver.findElements(locator);
+
+        for (WebElement element : elements) {
+            System.out.println("Found element with ID: " + element.getAttribute("resource-id"));
+        }
+
+        return elements;
+    }
+
+    private static int extractNumericPart(String element) {
+        // Assuming the numeric part is at the end of the string
+        String numericPart = element.substring(element.lastIndexOf('_') + 1, element.lastIndexOf('_') + 2);
+        return Integer.parseInt(numericPart);
+    }
+
     public Alert waitForAlertIsPresent(WebDriver driver, long timeoutInMillis) {
         try {
             return waitUtils.createWebDriverWait(timeoutInMillis)
@@ -219,7 +259,12 @@ public class ElementUtils {
     }
 
     public boolean isTextDisplayedCorrect(WebElement element, String title) {
-        return element.isDisplayed() && element.getText().equalsIgnoreCase(title);
+        return element.isDisplayed() && element.getText().trim().equalsIgnoreCase(title);
+    }
+
+    public boolean waitForTextPresentInElement(By locator, String text) {
+        return waitUtils.explicitWait()
+                .until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
     }
 
     private <T> T waitForCondition(ExpectedCondition<T> condition) {

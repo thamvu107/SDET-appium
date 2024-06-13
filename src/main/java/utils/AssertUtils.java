@@ -17,15 +17,6 @@ public class AssertUtils {
         this.waitUtils = new WaitUtils(driver);
     }
 
-
-    public boolean isScreenTitleDisplayedCorrect(WebElement element, String expectedTitle) {
-        return elementUtils.isTextDisplayedCorrect(element, expectedTitle);
-    }
-
-    public void verifyScreenTitleDisplayedCorrect(WebElement element, String expectedTitle) {
-        Assert.assertTrue(elementUtils.isTextDisplayedCorrect(element, expectedTitle));
-    }
-
     public void verifyElementDisplayed(By locator) {
         Assert.assertTrue(elementUtils.isElementDisplayed(locator));
     }
