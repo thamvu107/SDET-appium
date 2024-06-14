@@ -46,6 +46,9 @@ public class LoginScreen extends BaseScreen {
         super(driver);
     }
 
+    protected By invalidEmailLabelLoc = elementUtils.getLocatorIsMappedCurrentPlatform(invalidEmailLabelLocatorMap);
+    protected By invalidPasswordLabelLoc = elementUtils.getLocatorIsMappedCurrentPlatform(invalidPasswordLabelLocatorMap);
+
     protected WebElement loginScreenElement() {
 
         return driver.findElement(loginScreenLoc);
@@ -53,33 +56,32 @@ public class LoginScreen extends BaseScreen {
 
     protected WebElement loginTabElement() {
 
-        return driver.findElement(loginTabLoc);
+        return elementUtils.waitForElementTobeClickable(loginTabLoc);
     }
 
     protected WebElement signupTabElement() {
 
-        return driver.findElement(signupTabLoc);
+        return elementUtils.waitForElementTobeClickable(signupTabLoc);
     }
 
     protected WebElement emailFieldElement() {
 
-        return driver.findElement(emailInputLoc);
+        return elementUtils.waitForElementTobeClickable(emailInputLoc);
     }
 
     protected WebElement passwordFieldElement() {
 
-        return driver.findElement(passwordInputLoc);
+        return elementUtils.waitForElementTobeClickable(passwordInputLoc);
     }
 
     protected WebElement invalidEmailLabelElement() {
 
-        return driver.findElement(elementUtils.getLocatorIsMappedCurrentPlatform(invalidEmailLabelLocatorMap));
+        return elementUtils.waitForElementTobeClickable(invalidEmailLabelLoc);
     }
 
     protected WebElement invalidPasswordLabelElement() {
 
-
-        return driver.findElement(elementUtils.getLocatorIsMappedCurrentPlatform(invalidPasswordLabelLocatorMap));
+        return elementUtils.waitForFindingElement(invalidPasswordLabelLoc);
     }
 
     public LoginScreen goToLoginScreen() {

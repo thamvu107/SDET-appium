@@ -86,8 +86,8 @@ public abstract class Swipe {
                 .addAction(pointerInput.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
                 .addAction(new Pause(pointerInput, ofMillis(FIRST_PAUSE)))
                 .addAction(pointerInput.createPointerMove(ofMillis(moveDurationInMillis), viewport(), endX, endY))
-                .addAction(pointerInput.createPointerUp(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(new Pause(pointerInput, ofMillis(pauseDurationInMillis)));
+                .addAction(pointerInput.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+//                .addAction(new Pause(pointerInput, ofMillis(pauseDurationInMillis)));
 
         driver.perform(Collections.singletonList(swipe));
     }

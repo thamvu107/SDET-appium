@@ -1,6 +1,5 @@
-package api_learning;
+package learning;
 
-import utils.LocatorMapperUtils;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import driverFactory.Platform;
@@ -10,6 +9,7 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebElement;
+import utils.LocatorMapperUtils;
 
 import java.util.Map;
 

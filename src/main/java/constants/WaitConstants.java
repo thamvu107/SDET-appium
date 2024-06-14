@@ -3,12 +3,12 @@ package constants;
 public final class WaitConstants {
 
     // Time constants in milliseconds
-    public static final long LONG_IMPLICIT_WAIT = 15000L;
-    public static final long SHORT_IMPLICIT_WAIT = 10000L;
+    // implicit is global then it should be small value
+    public static final long LONG_IMPLICIT_WAIT = 5000L;
+    public static final long SHORT_IMPLICIT_WAIT = 2000L;
     public static final long LONG_EXPLICIT_WAIT = 20000L;
-    public static final long EXPLICIT_WAIT = 10000L;
-    public static final long SHORT_EXPLICIT_WAIT = 7000L;
-
+    public static final long EXPLICIT_WAIT = 15000L;
+    public static final long SHORT_EXPLICIT_WAIT = 5000L;
     public static final long SHORT_FLUENT_WAIT = 5000L;
     public static final long POLLING_EVERY = 100L;
 

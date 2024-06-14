@@ -50,7 +50,7 @@ public class BottomNavComponent {
 
     public WebElement swipeNavEl() {
 
-        return elementUtils.waitForFindingElement(swipeNavLoc);
+        return elementUtils.waitForElementToBeVisible(swipeNavLoc);
     }
 
     public LoginScreen clickOnLoginNav() {

@@ -1,4 +1,4 @@
-package api_learning;
+package learning;
 
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
