@@ -67,7 +67,7 @@ public class SwipeHorizontal extends Swipe {
     private void swipeMultiTimes(SwipeHorizontalDirection direction, int swipeTime) {
         for (int swipeCounter = 0; swipeCounter < swipeTime; swipeCounter++) {
             if (direction == SwipeHorizontalDirection.LEFT) {
-                swipeRight();
+                swipeLeft();
             } else {
                 swipeRight();
             }

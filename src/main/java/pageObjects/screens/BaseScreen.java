@@ -12,9 +12,7 @@ import utils.PlatformUtil;
 public class BaseScreen {
 
     protected AppiumDriver driver;
-    //    protected WebDriverWait wait;
-//    protected WaitUtils waitUtils;
-//    protected LocatorMapperUtils locatorMapperHelper;
+    //    protected LocatorMapperUtils locatorMapperHelper;
     protected BottomNavComponent bottomNavComponent;
 
     protected ElementUtils elementUtils;
@@ -25,11 +23,11 @@ public class BaseScreen {
 
 
     public BaseScreen(AppiumDriver driver) {
-
+        if (driver == null) {
+            throw new IllegalArgumentException("Driver cannot be null");
+        }
         this.driver = driver;
         this.currentPlatform = new PlatformUtil().getCurrentPlatform(this.driver);
-//        this.waitUtils = new WaitUtils(driver);
-//        this.wait = waitUtils.explicitWait();
         this.elementUtils = new ElementUtils(driver);
         this.interactionUtils = new InteractionUtils(driver);
         this.assertUtils = new AssertUtils(driver);

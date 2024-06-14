@@ -1,4 +1,4 @@
-package api_learning;
+package learning;
 
 import constants.WaitConstants;
 import driverFactory.CapabilityFactory;
@@ -114,7 +114,6 @@ public class NarrowDownSearchingScope {
             List<WebElement> notificationEleList = driver.findElements(notificationLoc);
 
             Assert.assertFalse(notificationEleList.isEmpty(), "No notifications found");
-            System.out.println("1");
 
             for (WebElement notificationEle : notificationEleList) {
 
