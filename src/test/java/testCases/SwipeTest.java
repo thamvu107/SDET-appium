@@ -1,19 +1,14 @@
 package testCases;
 
 import base.BaseTest;
-import driverFactory.CapabilityFactory;
-import driverFactory.DriverProvider;
-import org.openqa.selenium.Capabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageObjects.screens.HomeScreen;
 import pageObjects.screens.SwipeScreen;
 
 import static constants.SwipeScreenConstants.*;
 import static constants.WaitConstants.SHORT_EXPLICIT_WAIT;
-import static devices.MobileFactory.getEmulator;
 
 public class SwipeTest extends BaseTest {
     protected SwipeScreen swipeScreen;
@@ -21,12 +16,8 @@ public class SwipeTest extends BaseTest {
     @BeforeClass
     public void setupSwipeTestClass() {
         try {
-            driverProvider = new DriverProvider();
-            Capabilities caps = CapabilityFactory.getCaps(getEmulator());
-            driver = driverProvider.getLocalServerDriver(caps);
-            homeScreen = new HomeScreen(driver);
-            homeScreen.verifyAppLaunched();
-            swipeScreen = new SwipeScreen(driver);
+            swipeScreen = homeScreen.goToSwipeScreen();
+            //swipeScreen = new SwipeScreen(driver);
         } catch (Exception e) {
             throw new RuntimeException("Setup failed: " + e.getMessage(), e);
         }
@@ -40,8 +31,8 @@ public class SwipeTest extends BaseTest {
 
     @AfterMethod
     public void afterMethod() {
-        swipeScreen.swipeRightToCard(FIRST_CARD_TITLE, MAX_SWIPE_TIMES);
-//        swipeScreen.goToTheFirstCard(MAX_SWIPE_TIMES);
+//        swipeScreen.swipeRightToCard(FIRST_CARD_TITLE, MAX_SWIPE_TIMES);
+        swipeScreen.goToTheFirstCard(MAX_SWIPE_TIMES, SHORT_EXPLICIT_WAIT);
 //        swipeScreen.swipeRight(MAX_SWIPE_TIMES);
     }
 
@@ -58,13 +49,14 @@ public class SwipeTest extends BaseTest {
 
     @Test
     public void swipeToFirstCard() {
-        swipeScreen.goToTheFirstCard(MAX_SWIPE_TIMES)
-                .verifyFirsCard(FIRST_CARD_TITLE, FIRST_CARD_DESCRIPTION);
+        System.out.println("swipeToFirstCard ----------------");
+        swipeScreen.goToTheFirstCard(MAX_SWIPE_TIMES, SHORT_EXPLICIT_WAIT)
+                .verifyCardContent(FIRST_CARD_TITLE, FIRST_CARD_DESCRIPTION);
     }
 
     @Test
     public void swipeToLastCard() {
         swipeScreen.goToLastCard(MAX_SWIPE_TIMES, SHORT_EXPLICIT_WAIT)
-                .verifyLastCard(LAST_CARD_TITLE, "");
+                .verifyCardContent(LAST_CARD_TITLE, LAST_CARD_DESCRIPTION);
     }
 }

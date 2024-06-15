@@ -6,7 +6,6 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Optional;
 import utils.gestures.swipe.horizontal.SwipeHorizontal;
 
 import java.util.List;
@@ -19,13 +18,19 @@ public class SwipeScreen extends BaseScreen {
     private final By swipeScreenLoc = AppiumBy.accessibilityId("Swipe-screen");
     private final By carouselContainerLoc = AppiumBy.accessibilityId("Carousel");
     private final By swipeScreenTitleLoc = AppiumBy.androidUIAutomator("new UiSelector(). textContains(\"Swipe horizontal\")");
-    private final By currentCardLoc = AppiumBy.xpath("(//android.view.ViewGroup[@content-desc=\"card\"])[1]");
-    //    private final By currentCardTitleLoc = AppiumBy.xpath("(//android.view.ViewGroup[@content-desc=\"card\"])[1]");
-//    private final By firstCardLoc = AppiumBy.androidUIAutomator("new UiSelector(). textContains(\"FULLY OPEN SOURCE\")");
-    private final By firstCardLoc = AppiumBy.androidUIAutomator("new UiSelector().resourceIdMatches(\"__CAROUSEL_ITEM_0_READY__\")");
-    private final By lastCardLoc = AppiumBy.accessibilityId("card");
 
+    //    private final By currentCardLoc = AppiumBy.xpath("(//android.view.ViewGroup[@content-desc=\"card\"])[1]");
+    private final By currentCardLoc = AppiumBy.accessibilityId("card");
+
+    private final By firstCardWrapperLoc = AppiumBy.androidUIAutomator("new UiSelector().resourceId(\"__CAROUSEL_ITEM_0_READY__\")");
+
+    //private final By firstCardLoc = AppiumBy.androidUIAutomator("new UiSelector(). textContains(\"FULLY OPEN SOURCE\")");
+    //NOTE: The requested id selector does not have a package name prefix.
+    //private final By firstCardWrapperLoc = AppiumBy.id("__CAROUSEL_ITEM_0_READY__");
+    private final By lastCardWrapperLoc = AppiumBy.androidUIAutomator("new UiSelector().resourceId(\"__CAROUSEL_ITEM_5_READY__\")");
     private final By currentCardTitleLoc = AppiumBy.xpath("//android.view.ViewGroup[@content-desc='slideTextContainer'][1]//android.widget.TextView[1]");
+    private final By currentCardDescriptionLoc = AppiumBy.xpath("//android.view.ViewGroup[@content-desc='slideTextContainer'][1]//android.widget.TextView[2]");
+    SwipeHorizontal swipeHorizontal = new SwipeHorizontal(driver, carouselContainerEl());
 
     public SwipeScreen(AppiumDriver driver) {
         super(driver);
@@ -36,20 +41,34 @@ public class SwipeScreen extends BaseScreen {
         return elementUtils.waitForElementToBeVisible(carouselContainerLoc, LONG_EXPLICIT_WAIT);
     }
 
+    private WebElement firstCardEl() {
+        return elementUtils.waitForFindingElement(firstCardWrapperLoc, SHORT_EXPLICIT_WAIT);
+    }
+
+    private WebElement firstCardTitleEl() {
+        return firstCardEl().findElement(firstCardWrapperLoc);
+    }
+
+
     private WebElement currentCardEl() {
-        return elementUtils.waitForFindingElement(currentCardLoc, SHORT_EXPLICIT_WAIT);
+        try {
+            return elementUtils.waitForFindingElement(currentCardLoc, SHORT_EXPLICIT_WAIT);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private WebElement currentCardTitleEl() {
-        return getCurrentCardTitleEl(currentCardEl());
+        return currentCardEl().findElement(currentCardTitleLoc);
     }
 
-    private WebElement getCurrentCardTitleEl(WebElement currentCardEl) {
-        return currentCardEl.findElement(currentCardTitleLoc);
+    private WebElement currentCardDescriptionEl() {
+        return currentCardEl().findElement(currentCardDescriptionLoc);
     }
+
 
     private WebElement lastCardEl() {
-        return elementUtils.waitForFindingElement(lastCardLoc);
+        return elementUtils.waitForFindingElement(lastCardWrapperLoc);
     }
 
     public SwipeScreen verifySwipeScreenDisplayed() {
@@ -94,17 +113,27 @@ public class SwipeScreen extends BaseScreen {
         return swipeToElement(SwipeHorizontalDirection.RIGHT, cardLoc, maxSwipeTime);
     }
 
+
+    public boolean swipeLeftToElement(WebElement targetEl, int maxSwipeTime) {
+        return swipeToElement(SwipeHorizontalDirection.LEFT, targetEl, maxSwipeTime);
+    }
+
+    public boolean swipeRightToElement(WebElement targetEl, int maxSwipeTime) {
+        return swipeToElement(SwipeHorizontalDirection.RIGHT, targetEl, maxSwipeTime);
+
+    }
+
     private boolean swipeToElement(SwipeHorizontalDirection direction, String targetTitle, int maxSwipeTime) {
 
-        SwipeHorizontal swipeHorizontal = new SwipeHorizontal(driver, carouselContainerEl());
+//        SwipeHorizontal swipeHorizontal = new SwipeHorizontal(driver, carouselContainerEl());
         WebElement currentCardEl;
         WebElement currentCardTitleEl;
         boolean isTargetFound = false;
 
         for (int swipeCounter = 0; swipeCounter < maxSwipeTime; swipeCounter++) {
             horizontalSwipe(swipeHorizontal, direction);
-            currentCardEl = getCardEl(currentCardLoc);
-            currentCardTitleEl = getCurrentCardTitleEl(currentCardEl);
+            currentCardEl = getCurrentCardEl(currentCardLoc);
+            currentCardTitleEl = currentCardEl.findElement(currentCardTitleLoc);
             if (elementUtils.isTextDisplayedCorrect(currentCardTitleEl, targetTitle)) {
                 isTargetFound = true;
                 break;
@@ -113,7 +142,7 @@ public class SwipeScreen extends BaseScreen {
         return isTargetFound;
     }
 
-    private WebElement getCardEl(By locator) {
+    private WebElement getCurrentCardEl(By locator) {
 
         List<WebElement> elements = elementUtils.waitForElementsToBeVisible(carouselContainerLoc, locator);
         if (elements.isEmpty()) {
@@ -124,12 +153,28 @@ public class SwipeScreen extends BaseScreen {
 
     private boolean swipeToElement(SwipeHorizontalDirection direction, By targetLoc, int maxSwipeTime) {
 
-        SwipeHorizontal swipeHorizontal = new SwipeHorizontal(driver, carouselContainerEl());
+//        SwipeHorizontal swipeHorizontal = new SwipeHorizontal(driver, carouselContainerEl());
         boolean isTargetFound = false;
 
         for (int swipeCounter = 0; swipeCounter < maxSwipeTime; swipeCounter++) {
             horizontalSwipe(swipeHorizontal, direction);
-            if (elementUtils.isElementDisplayed(targetLoc, 1)) {
+//            if (elementUtils.isElementDisplayed(targetLoc, 1000)) {
+            if (elementUtils.isElementPresent(targetLoc)) {
+                isTargetFound = true;
+                break;
+            }
+        }
+        return isTargetFound;
+    }
+
+    private boolean swipeToElement(SwipeHorizontalDirection direction, WebElement carouselContainerEl, int maxSwipeTime) {
+
+//        SwipeHorizontal swipeHorizontal = new SwipeHorizontal(driver, carouselContainerEl());
+        boolean isTargetFound = false;
+
+        for (int swipeCounter = 0; swipeCounter < maxSwipeTime; swipeCounter++) {
+            horizontalSwipe(swipeHorizontal, direction);
+            if (elementUtils.isElementDisplayed(carouselContainerEl)) {
                 isTargetFound = true;
                 break;
             }
@@ -162,43 +207,62 @@ public class SwipeScreen extends BaseScreen {
         return this;
     }
 
-    private boolean isFirstCard(long timeInMillis) {
-        return elementUtils.isElementDisplayed(firstCardLoc, timeInMillis);
-    }
+    public SwipeScreen goToTheFirstCard(int maxSwipeTime, long timeInMillis) {
 
-    public SwipeScreen goToTheFirstCard(int maxSwipeTime) {
-        boolean isTheFirstCard = isFirstCard(SHORT_EXPLICIT_WAIT) || swipeRightToElement(firstCardLoc, maxSwipeTime);
-        Assert.assertTrue(isTheFirstCard);
-        return this;
-    }
-
-    public void verifyFirsCard(String title, String description) {
-        elementUtils.isElementPresentText(currentCardTitleEl(), title, SHORT_EXPLICIT_WAIT);
-    }
-
-    public SwipeScreen goToLastCard(int maxSwipeTime, @Optional long timeInMillis) {
-
-        boolean isLastItem = timeInMillis == 0 ? isLastCard(LONG_EXPLICIT_WAIT) : isLastCard(SHORT_EXPLICIT_WAIT);
-
-        if (!isLastItem) {
-            isLastItem = swipeLeftToElement(lastCardLoc, maxSwipeTime);
+        boolean isFirstItem = isFirstCard();
+        if (!isFirstItem) {
+            isFirstItem = swipeRightToElement(firstCardWrapperLoc, maxSwipeTime);
         }
-        System.out.println("isLastItem " + isLastItem);
+        Assert.assertTrue(isFirstItem, "This is not first card");
 
-        Assert.assertTrue(isLastItem);
         return this;
     }
 
-    private boolean isLastCard(long timeInMillis) {
-        System.out.println(lastCardLoc);
-        boolean isLastCard = elementUtils.isElementDisplayed(lastCardLoc, timeInMillis);
-        System.out.println("isLastCard " + isLastCard);
-        return isLastCard;
+    private boolean isFirstCard() {
+        By currentCardWrapperLoc = getCurrentCardWrapperLoc();
+
+        return firstCardWrapperLoc.equals(currentCardWrapperLoc);
     }
 
-    public void verifyLastCard(String title, String description) {
-        String actualText = currentCardTitleEl().getText();
-        System.out.println(actualText);
-        Assert.assertTrue(elementUtils.isElementPresentText(currentCardTitleEl(), title, SHORT_EXPLICIT_WAIT));
+    public SwipeScreen goToLastCard(int maxSwipeTime, long timeInMillis) {
+
+        boolean isLastItem = isLastCard();
+        if (!isLastItem) {
+            isLastItem = swipeLeftToElement(lastCardWrapperLoc, maxSwipeTime);
+        }
+        Assert.assertTrue(isLastItem, "This is not last card");
+
+        return this;
+    }
+
+    private boolean isLastCard() {
+        By currentCardWrapperLoc = getCurrentCardWrapperLoc();
+
+        return lastCardWrapperLoc.equals(currentCardWrapperLoc);
+    }
+
+
+    private By getCurrentCardWrapperLoc() {
+
+        WebElement currentCardWrapperEl = driver.findElement(By.xpath("(//android.view.ViewGroup[@content-desc=\"card\"])[1]/.."));
+        String resourceId = currentCardWrapperEl.getAttribute("resourceId");
+
+        return AppiumBy.androidUIAutomator("new UiSelector().resourceId(\"" + resourceId + "\")");
+    }
+
+    public void verifyCardContent(String expectedTitle, String expectedDescription) {
+
+        verifyCardTitle(expectedTitle);
+        verifyCardDescription(expectedDescription);
+    }
+
+    private void verifyCardTitle(String expectedTitle) {
+        String actualTitle = currentCardTitleEl().getText();
+        Assert.assertEquals(actualTitle, expectedTitle, "Title is not correct");
+    }
+
+    private void verifyCardDescription(String expectedDescription) {
+        String actualDescription = currentCardDescriptionEl().getText();
+        Assert.assertEquals(actualDescription, expectedDescription, "Description is not correct");
     }
 }
