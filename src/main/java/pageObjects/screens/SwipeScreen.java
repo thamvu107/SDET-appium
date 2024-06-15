@@ -87,18 +87,18 @@ public class SwipeScreen extends BaseScreen {
         return this;
     }
 
-    public void verifySwipeLeftToCardTitle(String targetTitle, int maxSwipeTime) {
-        boolean isFoundTargetCard = swipeLeftToCard(targetTitle, maxSwipeTime);
-        Assert.assertTrue(isFoundTargetCard, "The target card is not found");
+    public SwipeScreen swipeRightToCardTitle(String targetTitle, int maxSwipeTime) {
+        boolean isTargetCard = swipeRightToCard(targetTitle, maxSwipeTime);
+        Assert.assertTrue(isTargetCard);
+
+        return this;
     }
 
-    public void verifySwipeRightToCardTitle(String targetTitle, int maxSwipeTime) {
-        boolean isFoundTargetCard = swipeRightToCard(targetTitle, maxSwipeTime);
-        Assert.assertTrue(isFoundTargetCard, "The target card is not found");
-    }
+    public SwipeScreen swipeLeftToCardTitle(String targetTitle, int maxSwipeTime) {
+        boolean isTargetCard = swipeToElement(SwipeHorizontalDirection.LEFT, targetTitle, maxSwipeTime);
+        Assert.assertTrue(isTargetCard);
 
-    public boolean swipeLeftToCard(String targetTitle, int maxSwipeTime) {
-        return swipeToElement(SwipeHorizontalDirection.LEFT, targetTitle, maxSwipeTime);
+        return this;
     }
 
     public boolean swipeRightToCard(String targetTitle, int maxSwipeTime) {
