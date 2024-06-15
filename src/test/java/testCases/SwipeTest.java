@@ -1,14 +1,19 @@
 package testCases;
 
 import base.BaseTest;
+import driverFactory.CapabilityFactory;
+import driverFactory.DriverProvider;
+import org.openqa.selenium.Capabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageObjects.screens.HomeScreen;
 import pageObjects.screens.SwipeScreen;
 
 import static constants.SwipeScreenConstants.*;
 import static constants.WaitConstants.SHORT_EXPLICIT_WAIT;
+import static devices.MobileFactory.getEmulator;
 
 public class SwipeTest extends BaseTest {
     protected SwipeScreen swipeScreen;
@@ -16,8 +21,13 @@ public class SwipeTest extends BaseTest {
     @BeforeClass
     public void setupSwipeTestClass() {
         try {
+            driverProvider = new DriverProvider();
+            Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+            driver = driverProvider.getLocalServerDriver(caps);
+            homeScreen = new HomeScreen(driver);
+            homeScreen.verifyAppLaunched();
+
             swipeScreen = homeScreen.goToSwipeScreen();
-            //swipeScreen = new SwipeScreen(driver);
         } catch (Exception e) {
             throw new RuntimeException("Setup failed: " + e.getMessage(), e);
         }
@@ -38,13 +48,15 @@ public class SwipeTest extends BaseTest {
 
     @Test
     public void swipeLeftToTargetCard() {
-        swipeScreen.verifySwipeLeftToCardTitle(SWIPE_LEFT_TARGET_CARD_TITLE, MAX_SWIPE_TIMES);
+        swipeScreen.swipeLeftToCardTitle(TARGET_CARD_TITLE_SWIPE_LEFT, MAX_SWIPE_TIMES)
+                .verifyCardContent(TARGET_CARD_TITLE_SWIPE_LEFT, TARGET_CARD_DESCRIPTION_SWIPE_LEFT);
     }
 
     @Test
     public void swipeRightToTargetCard() {
         swipeScreen.swipeLeft(MAX_SWIPE_TIMES)
-                .verifySwipeRightToCardTitle(SWIPE_RIGHT_TARGET_CARD_TITLE, MAX_SWIPE_TIMES);
+                .swipeRightToCardTitle(TARGET_CARD_TITLE_SWIPE_RIGHT, MAX_SWIPE_TIMES)
+                .verifyCardContent(TARGET_CARD_TITLE_SWIPE_RIGHT, TARGET_CARD_DESCRIPTION_SWIPE_RIGHT);
     }
 
     @Test
