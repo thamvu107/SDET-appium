@@ -49,7 +49,6 @@ public class SwipeTest extends BaseTest {
 
     @Test
     public void swipeToFirstCard() {
-        System.out.println("swipeToFirstCard ----------------");
         swipeScreen.goToTheFirstCard(MAX_SWIPE_TIMES, SHORT_EXPLICIT_WAIT)
                 .verifyCardContent(FIRST_CARD_TITLE, FIRST_CARD_DESCRIPTION);
     }
