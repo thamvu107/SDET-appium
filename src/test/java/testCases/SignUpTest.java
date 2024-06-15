@@ -2,22 +2,17 @@ package testCases;
 
 import base.BaseTest;
 import dataProvider.signUp.SignUpCredData;
-import driverFactory.CapabilityFactory;
-import driverFactory.DriverProvider;
 import entity.SignUpCred;
-import org.openqa.selenium.Capabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageObjects.screens.HomeScreen;
 import testFlows.SignUpFlow;
 import utils.AlertHelper;
 
 import static constants.LoginScreenConstants.INVALID_EMAIL_MESSAGE;
 import static constants.LoginScreenConstants.INVALID_PASSWORD_MESSAGE;
 import static constants.SignUpScreenConstants.*;
-import static devices.MobileFactory.getEmulator;
 
 public class SignUpTest extends BaseTest {
 
@@ -27,11 +22,6 @@ public class SignUpTest extends BaseTest {
 
     @BeforeClass
     public void beforeClass() {
-        driverProvider = new DriverProvider();
-        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
-        driver = driverProvider.getLocalServerDriver(caps);
-        homeScreen = new HomeScreen(driver);
-        homeScreen.verifyAppLaunched();
 
         signUpFlow = new SignUpFlow(driver);
         signUpFlow.gotoLoginScreen();

@@ -5,7 +5,6 @@ import driverFactory.DriverProvider;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.Capabilities;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import pageObjects.screens.HomeScreen;
 
@@ -18,18 +17,12 @@ public abstract class BaseTest {
     protected HomeScreen homeScreen;
 
     @BeforeTest
-    public void beforeTest() {
-
-    }
-
-    @BeforeClass
-    public void beforeClass() {
+    public void setup() {
         driverProvider = new DriverProvider();
         Capabilities caps = CapabilityFactory.getCaps(getEmulator());
         driver = driverProvider.getLocalServerDriver(caps);
         homeScreen = new HomeScreen(driver);
         homeScreen.verifyAppLaunched();
-
     }
 
     @AfterClass

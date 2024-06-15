@@ -119,6 +119,33 @@ public class ElementUtils {
         }
     }
 
+    public List<WebElement> waitForFindingElements(By locator) {
+
+        try {
+            return this.waitForCondition(driver -> {
+                assert driver != null;
+                return driver.findElements(locator);
+            });
+        } catch (WaitForConditionException e) {
+            System.err.println("Exception occurred while waiting for elements: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    public List<WebElement> waitForFindingElements(By locator, long timeoutInMills) {
+
+        try {
+            return this.waitForCondition(driver -> {
+                assert driver != null;
+                return driver.findElements(locator);
+            }, timeoutInMills);
+        } catch (WaitForConditionException e) {
+            System.err.println("Exception occurred while waiting for elements: " + e.getMessage());
+            throw e;
+        }
+    }
+
+
     public WebElement waitForElementToBeVisible(By locator) {
         try {
             return waitUtils.explicitWait()
@@ -349,7 +376,6 @@ public class ElementUtils {
         try {
             return waitUtils.createWebDriverWait(timeoutInMillis)
                     .until(ExpectedConditions.textToBePresentInElement(element, text));
-
         } catch (Exception e) {
             return false;
         }
