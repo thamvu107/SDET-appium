@@ -5,10 +5,11 @@ import exceptions.swipe.vertical.SwipeDownException;
 import exceptions.swipe.vertical.SwipeUpException;
 import exceptions.swipe.vertical.SwipeVerticallyException;
 import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import utils.gestures.swipe.Swipe;
+import utils.gestures.swipe.SwipeAction;
 
-public class SwipeVertically extends Swipe {
+public class SwipeVertically extends SwipeAction {
 
     protected int topY;
     protected int bottomY;
@@ -30,36 +31,60 @@ public class SwipeVertically extends Swipe {
     }
 
 
-    public SwipeVertically(AppiumDriver driver, long duration) {
+    public SwipeVertically(AppiumDriver driver, long moveDuration) {
 
-        super(driver, duration);
+        super(driver, moveDuration);
         this.anchor = this.calculateAnchor();
         this.topY = this.calculateSmallCoordinate();
         this.bottomY = this.calculateLargeCoordinate();
-
     }
 
-    public SwipeVertically(AppiumDriver driver, float anchorPercentage, float topPercent, float bottomPercent, long duration) {
+    public SwipeVertically(AppiumDriver driver, WebElement wrapper, long moveDuration) {
 
-        super(driver, anchorPercentage, topPercent, bottomPercent, duration);
+        super(driver, wrapper, moveDuration);
         this.anchor = this.calculateAnchor();
         this.topY = this.calculateSmallCoordinate();
         this.bottomY = this.calculateLargeCoordinate();
+    }
+
+    public SwipeVertically(AppiumDriver driver, float anchorPercentage, float topPercent, float bottomPercent, long moveDuration) {
+
+        super(driver, anchorPercentage, topPercent, bottomPercent, moveDuration);
+        this.anchor = this.calculateAnchor();
+        this.topY = this.calculateSmallCoordinate();
+        this.bottomY = this.calculateLargeCoordinate();
+    }
+
+    public SwipeVertically(AppiumDriver driver, WebElement wrapper, float anchorPercentage, float topPercent, float bottomPercent, long moveDuration) {
+
+        super(driver, wrapper, anchorPercentage, topPercent, bottomPercent, moveDuration);
+        this.anchor = this.calculateAnchor();
+        this.topY = this.calculateSmallCoordinate();
+        this.bottomY = this.calculateLargeCoordinate();
+    }
+
+    public SwipeVertically(AppiumDriver drive, Point start, Point end, long moveDuration) {
+
+        super(drive, start, end, moveDuration);
+        this.anchor = start.getX();
+        this.topY = start.getY();
+        this.bottomY = end.getY();
     }
 
     @Override
     protected int calculateAnchor() {
-        return location.getX() + Math.round(dimension.getWidth() * anchorPercent);
+
+        return wrapperBounds.getX() + Math.round(wrapperBounds.getWidth() * anchorPercent);
     }
 
     @Override
     protected int calculateSmallCoordinate() {
-        return location.getY() + Math.round(dimension.getHeight() * smallerPercent);
+        return wrapperBounds.getY() + Math.round(wrapperBounds.getHeight() * smallerPercent);
     }
 
     @Override
     protected int calculateLargeCoordinate() {
-        return location.getY() + Math.round(dimension.getHeight() * largerPercent);
+        return wrapperBounds.getY() + Math.round(wrapperBounds.getHeight() * largerPercent);
     }
 
     public void swipeUp() {
@@ -73,7 +98,7 @@ public class SwipeVertically extends Swipe {
     private void performVerticalSwipe(SwipeVerticalDirection direction) {
 
         setYCoordinates(direction);
-        swipe(anchor, this.startCoordinate, anchor, this.endCoordinate, moveDuration, pauseDuration);
+        swipe(anchor, this.startCoordinate, anchor, this.endCoordinate, moveDuration);
     }
 
     private void setYCoordinates(SwipeVerticalDirection direction) {

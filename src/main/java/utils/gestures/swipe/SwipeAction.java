@@ -3,6 +3,7 @@ package utils.gestures.swipe;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
@@ -13,17 +14,19 @@ import java.time.Duration;
 import java.util.Collections;
 
 import static constants.SwipeConstants.*;
+import static constants.WaitConstants.QUICK_PAUSE;
 import static java.time.Duration.ofMillis;
 import static org.openqa.selenium.interactions.PointerInput.Origin.viewport;
 
-public abstract class Swipe {
+public abstract class SwipeAction {
 
     protected AppiumDriver driver;
     protected long moveDuration;
-    protected long pauseDuration;
     protected WebElement wrapperElement;
-    protected Point location;
-    protected Dimension dimension;
+//    protected Point location;
+//    protected Dimension dimension;
+
+    protected Rectangle wrapperBounds;
     protected float anchorPercent;
     protected float smallerPercent;
     protected float largerPercent;
@@ -31,63 +34,74 @@ public abstract class Swipe {
     protected int startCoordinate;
     protected int endCoordinate;
 
-    public Swipe(AppiumDriver driver) {
+    public SwipeAction(AppiumDriver driver) {
         setDriver(driver);
         setDefaultPercents();
         setDefaultDurations();
-        setLocation();
-        setWrapperDimension();
+        setWrapperBounds();
     }
 
-    public Swipe(AppiumDriver driver, WebElement wrapperElement) {
+    public SwipeAction(AppiumDriver driver, WebElement wrapperElement) {
         setDriver(driver);
         setDefaultPercents();
         setDefaultDurations();
         setWrapperElement(wrapperElement);
-        setLocation();
-        setWrapperDimension();
+        setWrapperBounds();
     }
 
-    public Swipe(AppiumDriver driver, long moveDurationInMillis) {
-        setDriver(driver);
-        setDefaultPercents();
-        setMoveDuration(moveDurationInMillis);
-        setPauseDuration(SHORT_PAUSE);
-        setLocation();
-        setWrapperDimension();
-    }
-
-    public Swipe(AppiumDriver driver, long moveDuration, long pauseDuration) {
+    public SwipeAction(AppiumDriver driver, long moveDuration) {
         setDriver(driver);
         setDefaultPercents();
         setMoveDuration(moveDuration);
-        setPauseDuration(pauseDuration);
-        setLocation();
-        setWrapperDimension();
+        setWrapperBounds();
     }
 
-    public Swipe(AppiumDriver driver, float anchorPercent, float smallerPercent, float largerPercent, long moveDurationInMillis) {
+    public SwipeAction(AppiumDriver driver, WebElement wrapperElement, long moveDuration) {
+        setDriver(driver);
+        setWrapperElement(wrapperElement);
+        setMoveDuration(moveDuration);
+        setDefaultPercents();
+        setWrapperBounds();
+    }
+
+    public SwipeAction(AppiumDriver driver, float anchorPercent, float smallerPercent, float largerPercent, long moveDuration) {
         setDriver(driver);
         setSmallerPercent(smallerPercent);
         setLargerPercent(largerPercent);
         setAnchorPercent(anchorPercent);
-        setMoveDuration(moveDurationInMillis);
-        setPauseDuration(SHORT_PAUSE);
-        setLocation();
-        setWrapperDimension();
+        setMoveDuration(moveDuration);
+        setWrapperBounds();
     }
 
-    protected void swipe(int startX, int startY, int endX, int endY, long moveDurationInMillis, long pauseDurationInMillis) {
+    public SwipeAction(AppiumDriver driver, WebElement wrapperElement, float anchorPercent, float smallerPercent, float largerPercent, long moveDuration) {
+        setDriver(driver);
+        setWrapperElement(wrapperElement);
+        setSmallerPercent(smallerPercent);
+        setLargerPercent(largerPercent);
+        setAnchorPercent(anchorPercent);
+        setMoveDuration(moveDuration);
+        setWrapperBounds();
+    }
 
-        PointerInput pointerInput = new PointerInput(PointerInput.Kind.TOUCH, "finger1");
 
-        Sequence swipe = new Sequence(pointerInput, 1)
-                .addAction(pointerInput.createPointerMove(Duration.ZERO, viewport(), startX, startY))
-                .addAction(pointerInput.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(new Pause(pointerInput, ofMillis(FIRST_PAUSE)))
-                .addAction(pointerInput.createPointerMove(ofMillis(moveDurationInMillis), viewport(), endX, endY))
-                .addAction(pointerInput.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
-//                .addAction(new Pause(pointerInput, ofMillis(pauseDurationInMillis)));
+    public SwipeAction(AppiumDriver driver, Point start, Point end, long moveDuration) {
+        setDriver(driver);
+        // Validate start and end points
+        setMoveDuration(moveDuration);
+    }
+
+
+    protected void swipe(int startX, int startY, int endX, int endY, long moveDuration) {
+
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Sequence swipe = new Sequence(finger, 1)
+                .addAction(finger.createPointerMove(Duration.ZERO, viewport(), startX, startY))
+                .addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+                .addAction(new Pause(finger, ofMillis(QUICK_PAUSE)))
+                .addAction(finger.createPointerMove(ofMillis(moveDuration), viewport(), endX, endY))
+                .addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()))
+                .addAction(new Pause(finger, ofMillis(QUICK_PAUSE)));
+
 
         driver.perform(Collections.singletonList(swipe));
     }
@@ -104,8 +118,7 @@ public abstract class Swipe {
     }
 
     private void setDefaultDurations() {
-        setMoveDuration(FAST_MOVE);
-        setPauseDuration(SHORT_PAUSE);
+        setMoveDuration(MOVE_DURATION);
     }
 
     private void setWrapperElement(WebElement wrapper) {
@@ -128,24 +141,19 @@ public abstract class Swipe {
         this.anchorPercent = anchorPercent;
     }
 
-    private void setMoveDuration(long duration) {
-        validateMoveDuration(duration);
-        this.moveDuration = duration;
+    private void setMoveDuration(long moveDuration) {
+        validateSpeed(moveDuration);
+        this.moveDuration = moveDuration;
     }
 
-    private void setPauseDuration(long duration) {
-        validatePauseDuration(duration);
-        this.pauseDuration = duration;
-    }
-
-
-    private void setWrapperDimension() {
-        this.dimension = this.wrapperElement == null ? new ScreenSizeUtils(this.driver).getDimension() : this.wrapperElement.getSize();
-    }
-
-    private void setLocation() {
-
-        this.location = this.wrapperElement == null ? new Point(0, 0) : this.wrapperElement.getLocation();
+    private void setWrapperBounds() {
+        if (this.wrapperElement == null) {
+            Point point = new Point(0, 0);
+            Dimension screenSize = new ScreenSizeUtils(this.driver).getDimension();
+            this.wrapperBounds = new Rectangle(point, screenSize);
+        } else {
+            this.wrapperBounds = this.wrapperElement.getRect();
+        }
     }
 
     protected void validateSwipePercentCoordinates(float percent) {
@@ -154,21 +162,9 @@ public abstract class Swipe {
         }
     }
 
-    private void validateMoveDuration(long duration) {
-        if (duration <= 0) {
-            throw new IllegalArgumentException("Move duration must be positive.");
-        }
-        if (duration >= MAX_MOVE) {
-            throw new IllegalArgumentException(String.format("Move duration is too long. Maximum allowed is" + MAX_MOVE));
-        }
-    }
-
-    private void validatePauseDuration(long duration) {
-        if (duration <= 0) {
-            throw new IllegalArgumentException("Pause duration must be positive.");
-        }
-        if (duration >= MAX_PAUSE) {
-            throw new IllegalArgumentException(String.format("Pause duration is too long. Maximum allowed is" + MAX_PAUSE));
+    private void validateSpeed(long moveDuration) {
+        if (moveDuration <= 0) {
+            throw new IllegalArgumentException("moveDuration must be positive.");
         }
     }
 

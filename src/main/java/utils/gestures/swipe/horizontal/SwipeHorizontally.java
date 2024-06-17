@@ -6,45 +6,50 @@ import exceptions.swipe.horizontal.SwipeLeftException;
 import exceptions.swipe.horizontal.SwipeRightException;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
-import utils.gestures.swipe.Swipe;
+import utils.gestures.swipe.SwipeAction;
 
-public class SwipeHorizontal extends Swipe {
+public class SwipeHorizontally extends SwipeAction {
     protected int leftX;
     protected int rightX;
 
-    public SwipeHorizontal(AppiumDriver driver) {
+    public SwipeHorizontally(AppiumDriver driver) {
         super(driver);
         calculateCoordinates();
     }
 
-    public SwipeHorizontal(AppiumDriver driver, WebElement wrapper) {
+    public SwipeHorizontally(AppiumDriver driver, WebElement wrapper) {
         super(driver, wrapper);
         calculateCoordinates();
     }
 
-    public SwipeHorizontal(AppiumDriver driver, long moveDurationInMillis) {
-        super(driver, moveDurationInMillis);
+    public SwipeHorizontally(AppiumDriver driver, long moveDuration) {
+        super(driver, moveDuration);
         calculateCoordinates();
     }
 
-    public SwipeHorizontal(AppiumDriver driver, float anchorPercent, float smallerPercent, float largerPercent, long moveDurationInMillis) {
-        super(driver, anchorPercent, smallerPercent, largerPercent, moveDurationInMillis);
+    public SwipeHorizontally(AppiumDriver driver, WebElement wrapper, long moveDuration) {
+        super(driver, wrapper, moveDuration);
+        calculateCoordinates();
+    }
+
+    public SwipeHorizontally(AppiumDriver driver, float anchorPercent, float smallerPercent, float largerPercent, long moveDuration) {
+        super(driver, anchorPercent, smallerPercent, largerPercent, moveDuration);
         calculateCoordinates();
     }
 
     @Override
     protected int calculateAnchor() {
-        return location.getY() + Math.round(dimension.getHeight() * anchorPercent);
+        return wrapperBounds.getY() + Math.round(wrapperBounds.getHeight() * anchorPercent);
     }
 
     @Override
     protected int calculateSmallCoordinate() {
-        return location.getX() + Math.round(dimension.getWidth() * smallerPercent);
+        return wrapperBounds.getX() + Math.round(wrapperBounds.getWidth() * smallerPercent);
     }
 
     @Override
     protected int calculateLargeCoordinate() {
-        return location.getX() + Math.round(dimension.getWidth() * largerPercent);
+        return wrapperBounds.getX() + Math.round(wrapperBounds.getWidth() * largerPercent);
     }
 
 
@@ -56,16 +61,16 @@ public class SwipeHorizontal extends Swipe {
         performHorizontalSwipe(SwipeHorizontalDirection.RIGHT);
     }
 
-    public void swipeLeft(int swipeTimes) {
-        swipeMultiTimes(SwipeHorizontalDirection.LEFT, swipeTimes);
+    public void swipeLeft(int maxSwipes) {
+        swipeMultiTimes(SwipeHorizontalDirection.LEFT, maxSwipes);
     }
 
-    public void swipeRight(int swipeTimes) {
-        swipeMultiTimes(SwipeHorizontalDirection.RIGHT, swipeTimes);
+    public void swipeRight(int maxSwipes) {
+        swipeMultiTimes(SwipeHorizontalDirection.RIGHT, maxSwipes);
     }
 
-    private void swipeMultiTimes(SwipeHorizontalDirection direction, int swipeTime) {
-        for (int swipeCounter = 0; swipeCounter < swipeTime; swipeCounter++) {
+    private void swipeMultiTimes(SwipeHorizontalDirection direction, int maxSwipes) {
+        for (int swipeCounter = 0; swipeCounter < maxSwipes; swipeCounter++) {
             if (direction == SwipeHorizontalDirection.LEFT) {
                 swipeLeft();
             } else {
@@ -76,7 +81,7 @@ public class SwipeHorizontal extends Swipe {
 
     private void performHorizontalSwipe(SwipeHorizontalDirection direction) {
         setXCoordinates(direction);
-        swipe(startCoordinate, anchor, endCoordinate, anchor, moveDuration, pauseDuration);
+        swipe(startCoordinate, anchor, endCoordinate, anchor, moveDuration);
     }
 
     private void setXCoordinates(SwipeHorizontalDirection direction) {

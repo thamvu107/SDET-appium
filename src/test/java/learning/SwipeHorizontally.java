@@ -11,7 +11,6 @@ import org.openqa.selenium.WebElement;
 import pageObjects.screens.HomeScreen;
 import pageObjects.screens.SwipeScreen;
 import utils.ElementUtils;
-import utils.gestures.swipe.horizontal.SwipeHorizontal;
 
 import static constants.SwipeScreenConstants.SWIPE_SCREEN_TITLE;
 import static devices.MobileFactory.getEmulator;
@@ -47,7 +46,7 @@ public class SwipeHorizontally {
 
     }
 
-    private static void swipeToHorizontalDirection(SwipeHorizontal swipeHorizontal, SwipeHorizontalDirection direction) {
+    private static void swipeToHorizontalDirection(utils.gestures.swipe.horizontal.SwipeHorizontally swipeHorizontal, SwipeHorizontalDirection direction) {
         if (direction == SwipeHorizontalDirection.LEFT) {
             swipeHorizontal.swipeLeft();
         } else {
@@ -65,12 +64,12 @@ public class SwipeHorizontally {
     }
 
 
-    private static boolean swipeToTargetCard(SwipeHorizontalDirection direction, By targetElementLoc, int maxSwipeTime) {
+    private static boolean swipeToTargetCard(SwipeHorizontalDirection direction, By targetElementLoc, int maxSwipes) {
 
-        SwipeHorizontal swipeHorizontal = new SwipeHorizontal(driver, carouselContainerEl());
+        utils.gestures.swipe.horizontal.SwipeHorizontally swipeHorizontal = new utils.gestures.swipe.horizontal.SwipeHorizontally(driver, carouselContainerEl());
         boolean isTargetFound = false;
 
-        for (int swipeCounter = 0; swipeCounter < maxSwipeTime; swipeCounter++) {
+        for (int swipeCounter = 0; swipeCounter < maxSwipes; swipeCounter++) {
             swipeToHorizontalDirection(swipeHorizontal, direction);
             if (elementUtils.isElementPresent(targetElementLoc)) {
                 isTargetFound = true;

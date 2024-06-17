@@ -11,7 +11,7 @@ import utils.gestures.swipe.vertical.SwipeVertically;
 
 import java.util.Map;
 
-import static constants.SwipeConstants.FAST_MOVE;
+import static constants.SwipeConstants.MOVE_DURATION;
 import static io.appium.java_client.AppiumBy.accessibilityId;
 import static org.openqa.selenium.By.xpath;
 
@@ -83,7 +83,7 @@ public class SignUpScreen extends LoginScreen {
         // TODO: On smaller screenTextConstants there could be a possibility that the button is not shown
         if (!elementUtils.isElementDisplayed(signUpButtonLocator)) {
 
-            SwipeVertically swipeVertically = new SwipeVertically(driver, 0.5f, 0.2f, 0.8f, FAST_MOVE);
+            SwipeVertically swipeVertically = new SwipeVertically(driver, 0.5f, 0.2f, 0.8f, MOVE_DURATION);
             swipeVertically.swipeUp();
         }
         elementUtils.waitForFindingElement(signUpButtonLocator);
