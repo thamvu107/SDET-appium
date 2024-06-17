@@ -12,11 +12,10 @@ import pageObjects.screens.HomeScreen;
 import pageObjects.screens.SwipeScreen;
 
 import static constants.SwipeScreenConstants.*;
-import static constants.WaitConstants.SHORT_EXPLICIT_WAIT;
 import static devices.MobileFactory.getEmulator;
 
-public class SwipeTest extends BaseTest {
-    protected SwipeScreen swipeScreen;
+public class HorizontalSwipeTest extends BaseTest {
+    private SwipeScreen swipeScreen;
 
     @BeforeClass
     public void setupSwipeTestClass() {
@@ -41,33 +40,31 @@ public class SwipeTest extends BaseTest {
 
     @AfterMethod
     public void afterMethod() {
-//        swipeScreen.swipeRightToCard(FIRST_CARD_TITLE, MAX_SWIPE_TIMES);
-        swipeScreen.goToTheFirstCard(MAX_SWIPE_TIMES, SHORT_EXPLICIT_WAIT);
-//        swipeScreen.swipeRight(MAX_SWIPE_TIMES);
+        swipeScreen.goToTheFirstCard(MAX_SWIPES);
     }
 
     @Test
     public void swipeLeftToTargetCard() {
-        swipeScreen.swipeLeftToCardTitle(TARGET_CARD_TITLE_SWIPE_LEFT, MAX_SWIPE_TIMES)
+        swipeScreen.swipeLeftToCardTitle(TARGET_CARD_TITLE_SWIPE_LEFT, MAX_SWIPES)
                 .verifyCardContent(TARGET_CARD_TITLE_SWIPE_LEFT, TARGET_CARD_DESCRIPTION_SWIPE_LEFT);
     }
 
     @Test
     public void swipeRightToTargetCard() {
-        swipeScreen.swipeLeft(MAX_SWIPE_TIMES)
-                .swipeRightToCardTitle(TARGET_CARD_TITLE_SWIPE_RIGHT, MAX_SWIPE_TIMES)
+        swipeScreen.swipeLeft(MAX_SWIPES)
+                .swipeRightToCardTitle(TARGET_CARD_TITLE_SWIPE_RIGHT, MAX_SWIPES)
                 .verifyCardContent(TARGET_CARD_TITLE_SWIPE_RIGHT, TARGET_CARD_DESCRIPTION_SWIPE_RIGHT);
     }
 
     @Test
     public void swipeToFirstCard() {
-        swipeScreen.goToTheFirstCard(MAX_SWIPE_TIMES, SHORT_EXPLICIT_WAIT)
+        swipeScreen.goToTheFirstCard(MAX_SWIPES)
                 .verifyCardContent(FIRST_CARD_TITLE, FIRST_CARD_DESCRIPTION);
     }
 
     @Test
     public void swipeToLastCard() {
-        swipeScreen.goToLastCard(MAX_SWIPE_TIMES, SHORT_EXPLICIT_WAIT)
+        swipeScreen.goToLastCard(MAX_SWIPES)
                 .verifyCardContent(LAST_CARD_TITLE, LAST_CARD_DESCRIPTION);
     }
 }

@@ -20,8 +20,6 @@ public class SwipeVerticallyDemo {
 
         AppiumDriver driver;
 
-//        driver = DriverFactory.getMobileDriver(MobilePlatform.IOS);
-//        driver = DriverFactory.getLocalServerDriver(MobileFactory.getSmallEmulator());
         DriverProvider driverProvider = new DriverProvider();
         Capabilities caps = CapabilityFactory.getCaps(getEmulator());
         driver = driverProvider.getLocalServerDriver(caps);

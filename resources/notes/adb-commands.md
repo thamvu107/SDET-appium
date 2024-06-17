@@ -44,3 +44,4 @@ How to Launch Emulator Automatically:
     - `advLaunchTimeout`
 - cold boot emulator:
     - `emulator -avd Pixel_4_API_30 -no-snapshot-load`
+- `adb -s emulator-5554 shell getprop`
