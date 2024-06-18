@@ -1,4 +1,4 @@
-package testCases;
+package testCases.authen;
 
 import base.BaseTest;
 import dataProvider.signIn.LoginCredData;

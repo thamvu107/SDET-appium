@@ -1,4 +1,4 @@
-package testCases;
+package testCases.swipe;
 
 import base.BaseTest;
 import driverFactory.CapabilityFactory;
