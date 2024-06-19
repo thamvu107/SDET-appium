@@ -67,39 +67,6 @@ public class PlatformUtil {
         };
     }
 
-//    public WebDriver switchContext(Platform currentPlatform, Contexts context) {
-//
-//        Set<String> availableContexts;
-//        String contextName = context.getContextName();
-//
-//        switch (currentPlatform) {
-//            case ANDROID:
-//                AndroidDriver androidDriver = (AndroidDriver) driver;
-//                availableContexts = androidDriver.getContextHandles();
-//                System.out.println("availableContexts " + availableContexts);
-//
-//                if (availableContexts.contains(contextName)) {
-//                    System.out.println("contextName " + contextName);
-//
-//                    return androidDriver.context(contextName);
-//                } else {
-//                    throw new IllegalArgumentException("Context not found: " + contextName);
-//                }
-//
-//            case IOS:
-//                IOSDriver iosDriver = (IOSDriver) driver;
-//                availableContexts = iosDriver.getContextHandles();
-//
-//                if (availableContexts.contains(contextName)) {
-//                    return iosDriver.context(contextName);
-//                } else {
-//                    throw new IllegalArgumentException("Context not found: " + contextName);
-//                }
-//            default:
-//                throw new PlatformNotSupportException("Platform not supported: " + getCurrentPlatform());
-//        }
-//    }
-
 
     private WebDriver switchContextByPlatform(Platform platform, String contextName) {
         return switch (platform) {
@@ -108,6 +75,7 @@ public class PlatformUtil {
             default -> throw new PlatformNotSupportException("Platform not supported: " + platform);
         };
     }
+    
 
     private WebDriver switchContext(Platform currentPlatform, Contexts context) {
         Set<String> availableContexts = retrieveAvailableContexts(currentPlatform);
