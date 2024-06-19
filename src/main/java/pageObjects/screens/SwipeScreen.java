@@ -14,8 +14,7 @@ import utils.gestures.swipe.vertical.SwipeVertically;
 
 import java.util.List;
 
-import static constants.WaitConstants.LONG_EXPLICIT_WAIT;
-import static constants.WaitConstants.SHORT_EXPLICIT_WAIT;
+import static constants.WaitConstants.*;
 
 public class SwipeScreen extends BaseScreen {
 
@@ -42,7 +41,7 @@ public class SwipeScreen extends BaseScreen {
     public SwipeScreen(AppiumDriver driver) {
 
         super(driver);
-        swipeHorizontal = new SwipeHorizontally(driver, carouselContainerEl(), 100);
+        swipeHorizontal = new SwipeHorizontally(driver, carouselContainerEl(), VERTICAL_MOVE_IN_MILLIS);
         swipeVertically = initScrollDown(driver, swipeScreenEl(), carouselContainerEl());
     }
 
@@ -140,15 +139,11 @@ public class SwipeScreen extends BaseScreen {
 
     private boolean swipeToElement(SwipeHorizontalDirection direction, String targetTitle, int maxSwipes) {
 
-        WebElement currentCardEl;
-        WebElement currentCardTitleEl;
         boolean isTargetFound = false;
 
         for (int swipeCounter = 0; swipeCounter < maxSwipes; swipeCounter++) {
             horizontalSwipe(swipeHorizontal, direction);
-            currentCardEl = getCurrentCardEl(currentCardLoc);
-            currentCardTitleEl = currentCardEl.findElement(currentCardTitleLoc);
-            if (elementUtils.isTextDisplayedCorrect(currentCardTitleEl, targetTitle)) {
+            if (elementUtils.isElementPresentText(currentCardTitleLoc, targetTitle, DISPLAY_TITLE_CARD_WAIT)) {
                 isTargetFound = true;
                 break;
             }
@@ -156,6 +151,7 @@ public class SwipeScreen extends BaseScreen {
 
         return isTargetFound;
     }
+
 
     private WebElement getCurrentCardEl(By locator) {
 

@@ -20,7 +20,7 @@ public class AlertHelper {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("No alert was present.");
+            System.out.println("No alert present.");
         }
     }
 

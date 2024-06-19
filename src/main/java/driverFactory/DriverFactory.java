@@ -48,8 +48,7 @@ public class DriverFactory {
                     throw new PlatformNotSupportException("Platform " + caps.getPlatformName() + " is not supported");
             }
 
-            WaitUtils wait = new WaitUtils(driver);
-            wait.setImplicitWait(WaitConstants.SHORT_IMPLICIT_WAIT);
+            new WaitUtils(driver).setImplicitWait(WaitConstants.SHORT_IMPLICIT_WAIT);
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to create driver: " + e.getMessage(), e);

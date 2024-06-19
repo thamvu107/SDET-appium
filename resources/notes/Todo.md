@@ -1,0 +1,2 @@
+- TODO list:
+- Retry failed test: https://testng.org/rerunning_failed_tests.html

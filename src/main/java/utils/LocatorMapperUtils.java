@@ -18,7 +18,7 @@ public class LocatorMapperUtils {
 
     public LocatorMapperUtils(AppiumDriver driver) {
         this.driver = driver;
-        this.currentPlatform = new PlatformUtil().getCurrentPlatform(this.driver);
+        this.currentPlatform = new PlatformUtil(this.driver).getCurrentPlatform();
     }
 
     public WebElement findElement(Map<Platform, By> locatorMap) {
