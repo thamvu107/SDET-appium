@@ -18,6 +18,7 @@ public class BaseScreen {
     protected ElementUtils elementUtils;
 
     protected InteractionUtils interactionUtils;
+    protected PlatformUtil platformUtil;
     protected Platform currentPlatform;
     protected AssertUtils assertUtils;
 
@@ -27,12 +28,17 @@ public class BaseScreen {
             throw new IllegalArgumentException("Driver cannot be null");
         }
         this.driver = driver;
-        this.currentPlatform = new PlatformUtil().getCurrentPlatform(this.driver);
+        this.platformUtil = new PlatformUtil(this.driver);
+        this.currentPlatform = platformUtil.getCurrentPlatform();
         this.elementUtils = new ElementUtils(driver);
         this.interactionUtils = new InteractionUtils(driver);
         this.assertUtils = new AssertUtils(driver);
         this.bottomNavComponent = new BottomNavComponent(this.driver);
 
+    }
+
+    public HomeScreen goToHomeScreen() {
+        return bottomNavComponent.clickOnHomeNav();
     }
 
 
@@ -51,4 +57,7 @@ public class BaseScreen {
         return bottomNavComponent.clickOnSwipeNav();
     }
 
+    public WebViewScreen gotToWebViewScreen() {
+        return bottomNavComponent.clickOnWebViewNav();
+    }
 }

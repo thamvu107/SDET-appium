@@ -3,10 +3,13 @@ package pageObjects.commponents;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import pageObjects.screens.HomeScreen;
 import pageObjects.screens.SwipeScreen;
+import pageObjects.screens.WebViewScreen;
 import pageObjects.screens.login.LoginScreen;
 import utils.ElementUtils;
 import utils.InteractionUtils;
+import utils.PlatformUtil;
 
 import static io.appium.java_client.AppiumBy.accessibilityId;
 
@@ -21,11 +24,26 @@ public class BottomNavComponent {
 
     private final InteractionUtils mobileInteractions;
 
+    private final PlatformUtil platformUtil;
+
     public BottomNavComponent(AppiumDriver driver) {
 
         this.driver = driver;
         this.elementUtils = new ElementUtils(this.driver);
         this.mobileInteractions = new InteractionUtils(this.driver);
+        this.platformUtil = new PlatformUtil(this.driver);
+    }
+
+    public BottomNavComponent switchToNativeContext(long timeout) {
+        platformUtil.switchToNativeContext(platformUtil.getCurrentPlatform(), timeout);
+
+        return this;
+    }
+
+    public BottomNavComponent switchToWebViewContext(long timeout) {
+        platformUtil.switchToWebViewContext(platformUtil.getCurrentPlatform(), timeout);
+
+        return this;
     }
 
     public WebElement homeNavEl() {
@@ -33,40 +51,57 @@ public class BottomNavComponent {
         return elementUtils.waitForFindingElement(homeNavLoc);
     }
 
+    private WebElement homeNavEl(long durationInMillis) {
+        return elementUtils.waitForElementTobeClickable(homeNavLoc, durationInMillis);
+    }
+
     public WebElement webNavEl() {
 
-        return elementUtils.waitForFindingElement(webViewNavLoc);
+        return elementUtils.waitForElementTobeClickable(webViewNavLoc);
     }
 
     public WebElement loginNavEl() {
 
-        return elementUtils.waitForFindingElement(loginNavLoc);
+        return elementUtils.waitForElementTobeClickable(loginNavLoc);
     }
 
     public WebElement formsNavEl() {
 
-        return elementUtils.waitForFindingElement(formsNavLoc);
+        return elementUtils.waitForElementTobeClickable(formsNavLoc);
     }
 
     public WebElement swipeNavEl() {
 
-        return elementUtils.waitForElementToBeVisible(swipeNavLoc);
+        return elementUtils.waitForElementTobeClickable(swipeNavLoc);
+    }
+
+    public WebElement webViewNavEl() {
+
+        return elementUtils.waitForElementTobeClickable(webViewNavLoc);
     }
 
     public LoginScreen clickOnLoginNav() {
-
         loginNavEl().click();
 
         return new LoginScreen(driver);
     }
 
-    public void clickOnFormsNav() {
-        formsNavEl().click();
+    public HomeScreen clickOnHomeNav() {
+        homeNavEl().click();
 
+        return new HomeScreen(driver);
     }
 
     public SwipeScreen clickOnSwipeNav() {
         swipeNavEl().click();
+
         return new SwipeScreen(driver);
     }
+
+    public WebViewScreen clickOnWebViewNav() {
+        webViewNavEl().click();
+
+        return new WebViewScreen(driver);
+    }
+
 }

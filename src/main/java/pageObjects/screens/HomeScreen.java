@@ -22,15 +22,12 @@ public class HomeScreen extends BaseScreen {
     }
 
     public boolean verifyAppLaunched() {
+
         return elementUtils.isElementDisplayed(homeScreenEl());
     }
 
     private WebElement homeScreenEl(long durationInMillis) {
         return elementUtils.waitForElementToBeVisible(homeScreenLoc, durationInMillis);
-    }
-
-    public boolean verifyAppLaunched(long durationInMillis) {
-        return elementUtils.isElementDisplayed(homeScreenEl(durationInMillis));
     }
 
 }
