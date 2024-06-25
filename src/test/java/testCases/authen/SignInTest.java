@@ -4,75 +4,83 @@ import base.BaseTest;
 import dataProvider.signIn.LoginCredData;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
-import entity.LoginCred;
+import entity.authen.LoginCred;
 import org.openqa.selenium.Capabilities;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.screens.HomeScreen;
-import testFlows.SignInFlow;
-import utils.AlertHelper;
+import pageObjects.screens.alert.SignInAlertScreen;
+import pageObjects.screens.login.LoginScreen;
+import pageObjects.screens.login.SignInScreen;
 
 import static constants.LoginScreenConstants.INVALID_EMAIL_MESSAGE;
 import static constants.LoginScreenConstants.INVALID_PASSWORD_MESSAGE;
-import static constants.SignInScreenConstants.SIGN_IN_DIALOG_MESSAGE;
-import static constants.SignInScreenConstants.SIGN_IN_DIALOG_TITLE;
+import static constants.SignInScreenConstants.SIGN_IN_ALERT_MESSAGE;
+import static constants.SignInScreenConstants.SIGN_IN_ALERT_TITLE;
 import static devices.MobileFactory.getEmulator;
 
 public class SignInTest extends BaseTest {
-    private SignInFlow signInFlow;
-    private AlertHelper alertHelper;
+    private LoginScreen loginScreen;
+    private SignInScreen signInScreens;
+    private SignInAlertScreen alertScreen;
 
     @BeforeClass
     public void beforeClass() {
         driverProvider = new DriverProvider();
         Capabilities caps = CapabilityFactory.getCaps(getEmulator());
         driver = driverProvider.getLocalServerDriver(caps);
-        homeScreen = new HomeScreen(driver);
-        homeScreen.verifyAppLaunched();
-
-        signInFlow = new SignInFlow(driver);
-        signInFlow.gotoLoginScreen();
-        alertHelper = new AlertHelper(driver);
+        loginScreen = new HomeScreen(driver).openLoginScreen();
     }
 
 
     @BeforeMethod
     public void beforeMethod() {
-        signInFlow.openSignInTab();
+        signInScreens = loginScreen.openSignInForm();
     }
 
     @AfterMethod
     public void afterMethod() {
-
-        alertHelper.closeAlertIfPresent();
+        if (alertScreen != null) {
+            alertScreen.acceptAlert();
+        }
     }
 
     @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class)
     public void loginInWithCorrectCredential(LoginCred loginCred) {
-        signInFlow.loginWithCred(loginCred)
-                .switchToSignInAlert()
-                .verifyAlertPresent(SIGN_IN_DIALOG_TITLE, SIGN_IN_DIALOG_MESSAGE);
+
+        alertScreen = signInScreens.signInAsValidCred(loginCred);
+
+        Assert.assertTrue(alertScreen.isAlertPresent(), "Alert is not present");
+        Assert.assertEquals(alertScreen.getAlertTitle(), SIGN_IN_ALERT_TITLE, "Alert title is not correct");
+        Assert.assertEquals(alertScreen.getAlertMessage(), SIGN_IN_ALERT_MESSAGE, "Alert title is not correct");
     }
 
     @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = LoginCredData.class)
     public void loginInWithIncorrectCredentials(LoginCred loginCred) {
-        signInFlow.loginWithCred(loginCred)
-                .verifyInvalidEmailMessage(INVALID_EMAIL_MESSAGE)
-                .verifyInvalidPasswordMessage(INVALID_PASSWORD_MESSAGE);
+
+        signInScreens.signInAsInvalidCred(loginCred);
+
+        Assert.assertEquals(signInScreens.getInvalidEmailMessage(), INVALID_EMAIL_MESSAGE, "Invalid email message is not correct");
+        Assert.assertEquals(signInScreens.getInvalidPasswordMessage(), INVALID_PASSWORD_MESSAGE, "Invalid password message is not correct");
     }
 
     @Test(dataProvider = "loginCredInvalidEmail", dataProviderClass = LoginCredData.class)
     public void loginInWithIncorrectEmail(LoginCred loginCred) {
-        signInFlow.loginWithCred(loginCred)
-                .verifyInvalidEmailMessage(INVALID_EMAIL_MESSAGE);
+
+        signInScreens.signInAsInvalidCred(loginCred);
+
+        Assert.assertEquals(signInScreens.getInvalidEmailMessage(), INVALID_EMAIL_MESSAGE, "Invalid email message is not correct");
     }
 
 
     @Test(dataProvider = "loginCredInvalidPassword", dataProviderClass = LoginCredData.class)
     public void loginInWithIncorrectPassword(LoginCred loginCred) {
-        signInFlow.loginWithCred(loginCred)
-                .verifyInvalidPasswordMessage(INVALID_PASSWORD_MESSAGE);
+
+        signInScreens.signInAsInvalidCred(loginCred);
+
+        Assert.assertEquals(signInScreens.getInvalidPasswordMessage(), INVALID_PASSWORD_MESSAGE, "Invalid password message is not correct");
     }
 }

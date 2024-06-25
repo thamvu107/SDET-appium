@@ -3,7 +3,7 @@ package learning;
 import constants.WaitConstants;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
-import driverFactory.Platform;
+import enums.Platform;
 import exceptions.swipe.vertical.SwipeUpException;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
@@ -77,7 +77,7 @@ public class NarrowDownSearchingScope {
                     Platform.ANDROID, androidUIAutomator("new UiSelector(). textContains(\"Form components\")"),
                     Platform.IOS, iOSNsPredicateString("name == \"Form components\" AND label == \"Form components\" AND value == \"Form components\"")
             );
-            By formComponentLoc = elementUtils.getLocatorIsMappedCurrentPlatform(formComponentLocatorMap);
+            By formComponentLoc = elementUtils.getLocator(formComponentLocatorMap);
             elementUtils.waitForFindingElement(formComponentLoc);
 
 
@@ -88,7 +88,7 @@ public class NarrowDownSearchingScope {
                     Platform.ANDROID, id("com.android.systemui:id/expanded"),
                     Platform.IOS, id("com.android.systemui:id/expanded")
             );
-            By notificationLoc = elementUtils.getLocatorIsMappedCurrentPlatform(notificationLocatorMap);
+            By notificationLoc = elementUtils.getLocator(notificationLocatorMap);
             elementUtils.waitForFindingElement(notificationLoc);
 
 
@@ -99,7 +99,7 @@ public class NarrowDownSearchingScope {
                     Platform.ANDROID, id("android:id/title"),
                     Platform.IOS, id("android:id/title")
             );
-            By notificationTitleLoc = elementUtils.getLocatorIsMappedCurrentPlatform(notificationTitleLocatorMap);
+            By notificationTitleLoc = elementUtils.getLocator(notificationTitleLocatorMap);
             elementUtils.waitForFindingElement(notificationTitleLoc);
 
 
@@ -107,7 +107,7 @@ public class NarrowDownSearchingScope {
                     Platform.ANDROID, id("android:id/big_text"),
                     Platform.IOS, id("android:id/big_text")
             );
-            By notificationMessageLoc = elementUtils.getLocatorIsMappedCurrentPlatform(notificationMessageLocatorMap);
+            By notificationMessageLoc = elementUtils.getLocator(notificationMessageLocatorMap);
             elementUtils.waitForFindingElement(notificationMessageLoc);
 
 

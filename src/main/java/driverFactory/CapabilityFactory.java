@@ -10,8 +10,9 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.options.XCUITestOptions;
 import io.appium.java_client.remote.options.BaseOptions;
 
-import static constants.android.AndroidAppSetting.APP_ACTIVITY;
-import static constants.android.AndroidAppSetting.APP_PACKAGE;
+import java.time.Duration;
+
+import static constants.android.AndroidAppSetting.*;
 import static constants.android.AndroidDriverSetting.*;
 import static driverFactory.capabilities.AndroidCapabilities.getRealMobileCaps;
 import static driverFactory.capabilities.IOSCapabilities.getRealMobileCaps;
@@ -65,11 +66,16 @@ public class CapabilityFactory {
                 .setUdid(emulator.getUdid())
                 .setAvd(emulator.getAdv())
                 .setAvdLaunchTimeout(emulator.getAdvTimeout())
+                .setAvdReadyTimeout(Duration.ofMillis(240_000L))
+                .setApp(APP_PATH)
                 .setAppPackage(APP_PACKAGE)
                 .setAppActivity(APP_ACTIVITY)
-                .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH_TIME)
+                .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH)
+                .setAppWaitDuration(APP_WAIT_FOR_LAUNCH_TIME)
                 .setUiautomator2ServerLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
                 .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT)
+                .setUiautomator2ServerReadTimeout(UIAUTOMATOR2_SERVER_READY_TIMEOUT)
+                .setNewCommandTimeout(NEW_COMMAND_TIMEOUT)
                 .setFullReset(false)
                 .setNoReset(false)
                 .clearDeviceLogsOnStart();

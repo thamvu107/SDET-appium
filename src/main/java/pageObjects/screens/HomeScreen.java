@@ -15,19 +15,26 @@ public class HomeScreen extends BaseScreen {
     public HomeScreen(final AppiumDriver driver) {
 
         super(driver);
+        verifyScreenLoaded(homeScreenLoc);
     }
 
     private WebElement homeScreenEl() {
         return elementUtils.waitForElementToBeVisible(homeScreenLoc, LONG_EXPLICIT_WAIT);
     }
 
+    private WebElement homeScreenEl(long durationInMillis) {
+        return elementUtils.waitForElementToBeVisible(homeScreenLoc, durationInMillis);
+    }
+
+    public HomeScreen verifyHomeScreenDisplayed() {
+        elementUtils.isElementDisplayed(homeScreenEl());
+
+        return this;
+    }
+
     public boolean verifyAppLaunched() {
 
         return elementUtils.isElementDisplayed(homeScreenEl());
-    }
-
-    private WebElement homeScreenEl(long durationInMillis) {
-        return elementUtils.waitForElementToBeVisible(homeScreenLoc, durationInMillis);
     }
 
 }

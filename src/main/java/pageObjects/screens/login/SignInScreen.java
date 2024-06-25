@@ -1,10 +1,11 @@
 package pageObjects.screens.login;
 
+import entity.authen.LoginCred;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
+import pageObjects.screens.alert.SignInAlertScreen;
 
 public class SignInScreen extends LoginScreen {
 
@@ -13,12 +14,9 @@ public class SignInScreen extends LoginScreen {
 
     public SignInScreen(AppiumDriver driver) {
         super(driver);
+        verifyScreenLoaded(signInButtonLocator);
     }
 
-    private WebElement signInButtonElement() {
-
-        return this.driver.findElement(signInButtonLocator);
-    }
 
     public SignInScreen verifySignInFormDisplayed() {
 
@@ -29,43 +27,37 @@ public class SignInScreen extends LoginScreen {
         return this;
     }
 
-    public SignInScreen inputEmail(String email) {
+    private SignInScreen submitSignIn() {
 
-        emailFieldElement().clear();
-        emailFieldElement().sendKeys(email);
-
-        return this;
-    }
-
-    public SignInScreen inputPassword(String password) {
-
-        passwordFieldElement().clear();
-        passwordFieldElement().sendKeys(password);
+        WebElement signInBtnEl = elementUtils.waitForFindingElement(signInButtonLocator);
+        signInBtnEl.click();
 
         return this;
     }
 
-    public SignInScreen clickOnLoginButton() {
+    public SignInAlertScreen submitSignInSuccess() {
+        submitSignIn();
 
-        // TODO: On smaller screenTextConstants there could be a possibility that the button is not shown
-        signInButtonElement().click();
+        return new SignInAlertScreen(driver);
+    }
+
+    public SignInScreen inputSignInCredentials(LoginCred loginCred) {
+
+        this.inputEmail(loginCred.getEmail())
+                .inputPassword(loginCred.getPassword());
 
         return this;
     }
 
-    public SignInScreen verifyInvalidEmailMessage(String expectMessage) {
-
-        String actualMessage = invalidEmailLabelElement().getText();
-        Assert.assertEquals(actualMessage, expectMessage);
-
-        return this;
+    public SignInAlertScreen signInAsValidCred(LoginCred loginCred) {
+        return this.inputSignInCredentials(loginCred)
+                .submitSignInSuccess();
     }
 
-    public void verifyInvalidPasswordMessage(String expectMessage) {
 
-        String actualMessage = invalidPasswordLabelElement().getText();
-        Assert.assertEquals(actualMessage, expectMessage);
+    public SignInScreen signInAsInvalidCred(LoginCred loginCred) {
+        return this.inputSignInCredentials(loginCred)
+                .submitSignIn();
     }
-
 
 }

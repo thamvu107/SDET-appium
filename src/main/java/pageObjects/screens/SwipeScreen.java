@@ -41,6 +41,8 @@ public class SwipeScreen extends BaseScreen {
     public SwipeScreen(AppiumDriver driver) {
 
         super(driver);
+        verifyScreenLoaded(swipeScreenLoc);
+
         swipeHorizontal = new SwipeHorizontally(driver, carouselContainerEl(), VERTICAL_MOVE_IN_MILLIS);
         swipeVertically = initScrollDown(driver, swipeScreenEl(), carouselContainerEl());
     }
@@ -101,18 +103,12 @@ public class SwipeScreen extends BaseScreen {
         return this;
     }
 
-    public SwipeScreen swipeRightToCardTitle(String targetTitle, int maxSwipes) {
-        boolean isTargetCard = swipeRightToCard(targetTitle, maxSwipes);
-        Assert.assertTrue(isTargetCard);
-
-        return this;
+    public boolean swipeRightToCardTitle(String targetTitle, int maxSwipes) {
+        return swipeRightToCard(targetTitle, maxSwipes);
     }
 
-    public SwipeScreen swipeLeftToCardTitle(String targetTitle, int maxSwipes) {
-        boolean isTargetCard = swipeToElement(SwipeHorizontalDirection.LEFT, targetTitle, maxSwipes);
-        Assert.assertTrue(isTargetCard);
-
-        return this;
+    public boolean swipeLeftToCardTitle(String targetTitle, int maxSwipes) {
+        return swipeToElement(SwipeHorizontalDirection.LEFT, targetTitle, maxSwipes);
     }
 
     public boolean swipeRightToCard(String targetTitle, int maxSwipes) {
@@ -216,7 +212,7 @@ public class SwipeScreen extends BaseScreen {
         return this;
     }
 
-    public SwipeScreen goToTheFirstCard(int maxSwipes) {
+    public boolean goToTheFirstCard(int maxSwipes) {
 
         // TODO: improve get last card by the way that no left card before current card
 
@@ -224,9 +220,8 @@ public class SwipeScreen extends BaseScreen {
         if (!isFirstItem) {
             isFirstItem = swipeRightToElement(firstCardWrapperLoc, maxSwipes);
         }
-        Assert.assertTrue(isFirstItem, "This is not first card");
 
-        return this;
+        return isFirstItem;
     }
 
     private boolean isFirstCard() {
@@ -235,7 +230,7 @@ public class SwipeScreen extends BaseScreen {
         return firstCardWrapperLoc.equals(currentCardWrapperLoc);
     }
 
-    public SwipeScreen goToLastCard(int maxSwipes) {
+    public boolean goToLastCard(int maxSwipes) {
 
         // TODO: improve get last card by the way that no right card after current card
 
@@ -243,9 +238,7 @@ public class SwipeScreen extends BaseScreen {
         if (!isLastItem) {
             isLastItem = swipeLeftToElement(lastCardWrapperLoc, maxSwipes);
         }
-        Assert.assertTrue(isLastItem, "This is not last card");
-
-        return this;
+        return isLastItem;
     }
 
     private boolean isLastCard() {
@@ -279,36 +272,16 @@ public class SwipeScreen extends BaseScreen {
         Assert.assertEquals(actualDescription, expectedDescription, "Description is not correct");
     }
 
-    public SwipeScreen verifyScrollWrapperIsDisplayed() {
-        boolean isFoundTarget = elementUtils.isElementDisplayed(swipeScreenEl());
-        Assert.assertTrue(isFoundTarget, "Scroll wrapper is not found");
-        return this;
+    public boolean scrollToWebDriverIOLogo() {
+
+        return swipeUpToElement(scrollTargetLogoLoc, 3);
     }
 
-    public SwipeScreen scrollToWebDriverIOLogo() {
+    public boolean scrollToScreenTitle() {
 
-        boolean isFoundTarget = swipeUpToElement(scrollTargetLogoLoc, 3);
-        Assert.assertTrue(isFoundTarget, "WebDriverIO logo is not found");
-
-        return this;
+        return swipeDownToElement(swipeScreenTitleLoc, 3);
     }
 
-    public SwipeScreen scrollToScreenTitle() {
-
-        boolean isFoundTarget = swipeDownToElement(swipeScreenTitleLoc, 3);
-        Assert.assertTrue(isFoundTarget, "Title is not found");
-
-        return this;
-    }
-
-    public void verifyScrollUpTargetFound() {
-        Assert.assertTrue(elementUtils.isElementDisplayed(swipeScreenEl()));
-        Assert.assertTrue(elementUtils.isElementDisplayed(scrollTargetTextLoc));
-    }
-
-    public void verifyScrollDownTargetFound() {
-        Assert.assertTrue(elementUtils.isElementDisplayed(swipeScreenTitleLoc));
-    }
 
     public boolean swipeUpToElement(By targetLoc, int maxSwipes) {
         return swipeToElement(SwipeVerticalDirection.UP, targetLoc, maxSwipes);

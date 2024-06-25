@@ -1,4 +1,4 @@
-package driverFactory;
+package enums;
 
 import lombok.Getter;
 

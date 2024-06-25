@@ -1,6 +1,6 @@
 package pageObjects.screens.login;
 
-import driverFactory.Platform;
+import enums.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -21,7 +21,8 @@ public class LoginScreen extends BaseScreen {
     // Android:
     protected final By loginScreenLoc = accessibilityId("Login-screen"); // android + ios
     protected final By loginTabLoc = accessibilityId("button-login-container"); // android + ios
-    protected final By signupTabLoc = accessibilityId("button-sign-up-container"); // android + ios
+    protected final By signInTabLoc = accessibilityId("button-login-container"); // android + ios
+    protected final By signUpTabLoc = accessibilityId("button-sign-up-container"); // android + ios
     protected final By emailInputLoc = accessibilityId("input-email");
     protected final By passwordInputLoc = accessibilityId("input-password");
     protected final By androidInvalidEmailLabelLocator = xpath("//android.widget.TextView[@text='Please enter a valid email address']");
@@ -44,10 +45,11 @@ public class LoginScreen extends BaseScreen {
     public LoginScreen(final AppiumDriver driver) {
 
         super(driver);
+        verifyScreenLoaded(loginScreenLoc);
     }
 
-    protected By invalidEmailLabelLoc = elementUtils.getLocatorIsMappedCurrentPlatform(invalidEmailLabelLocatorMap);
-    protected By invalidPasswordLabelLoc = elementUtils.getLocatorIsMappedCurrentPlatform(invalidPasswordLabelLocatorMap);
+    protected By invalidEmailLabelLoc = elementUtils.getLocator(invalidEmailLabelLocatorMap);
+    protected By invalidPasswordLabelLoc = elementUtils.getLocator(invalidPasswordLabelLocatorMap);
 
     protected WebElement loginScreenElement() {
 
@@ -59,58 +61,68 @@ public class LoginScreen extends BaseScreen {
         return elementUtils.waitForElementTobeClickable(loginTabLoc);
     }
 
-    protected WebElement signupTabElement() {
+    protected WebElement signInTabEl() {
 
-        return elementUtils.waitForElementTobeClickable(signupTabLoc);
+        return elementUtils.waitForElementTobeClickable(signInTabLoc);
     }
 
-    protected WebElement emailFieldElement() {
+    protected WebElement signUpTabEl() {
+
+        return elementUtils.waitForElementTobeClickable(signUpTabLoc);
+    }
+
+    protected WebElement emailFieldEl() {
 
         return elementUtils.waitForElementTobeClickable(emailInputLoc);
     }
 
-    protected WebElement passwordFieldElement() {
+    protected WebElement passwordFieldEl() {
 
         return elementUtils.waitForElementTobeClickable(passwordInputLoc);
     }
 
-    protected WebElement invalidEmailLabelElement() {
+    protected WebElement invalidEmailLabelEl() {
 
         return elementUtils.waitForElementTobeClickable(invalidEmailLabelLoc);
     }
 
-    protected WebElement invalidPasswordLabelElement() {
+    protected WebElement invalidPasswordLabelEl() {
 
         return elementUtils.waitForFindingElement(invalidPasswordLabelLoc);
     }
 
-    public LoginScreen goToLoginScreen() {
+    public LoginScreen openLoginScreen() {
 
         bottomNavComponent.clickOnLoginNav();
 
         return this;
     }
 
-    public LoginScreen verifyLoginScreenDisplayed() {
+    public SignInScreen openSignInForm() {
 
-        elementUtils.waitForFindingElement(loginScreenLoc);
-
-        return this;
-    }
-
-    public SignInScreen clickOnSingInTab() {
-
-        loginTabElement().click();
+        signInTabEl().click();
 
         return new SignInScreen(driver);
     }
 
 
-    public SignUpScreen clickOnSingUpTab() {
+    public SignUpScreen openSingUpForm() {
 
-        signupTabElement().click();
+        signUpTabEl().click();
 
         return new SignUpScreen(driver);
+    }
+
+    public LoginScreen inputEmail(String email) {
+        elementUtils.inputText(emailFieldEl(), email);
+
+        return this;
+    }
+
+    public LoginScreen inputPassword(String password) {
+        elementUtils.inputText(passwordFieldEl(), password);
+
+        return this;
     }
 
     public SignUpAlertScreen switchToSignUpAlert() {
@@ -122,5 +134,15 @@ public class LoginScreen extends BaseScreen {
     public SignInAlertScreen switchToSignInAlert() {
 
         return new SignInAlertScreen(driver);
+    }
+
+    public String getInvalidEmailMessage() {
+
+        return invalidEmailLabelEl().getText();
+    }
+
+    public String getInvalidPasswordMessage() {
+
+        return invalidPasswordLabelEl().getText();
     }
 }

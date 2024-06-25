@@ -1,6 +1,6 @@
-package utils.expectedConditions;
+package context;
 
-import driverFactory.Platform;
+import enums.Platform;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -9,8 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import utils.PlatformUtil;
 
-public class MyExpectedConditions {
-    private MyExpectedConditions() {
+public class ContextExpectedConditions {
+    private ContextExpectedConditions() {
     }
 
     public static ExpectedCondition<Boolean> hasMultipleContexts(AppiumDriver driver) {
@@ -33,6 +33,7 @@ public class MyExpectedConditions {
 
     }
 
+
     public static ExpectedCondition<Boolean> hasSingleContext(AppiumDriver driver) {
         return new ExpectedCondition<Boolean>() {
             final Platform currentPlatform = new PlatformUtil(driver).getCurrentPlatform();
@@ -52,4 +53,6 @@ public class MyExpectedConditions {
         };
 
     }
+
+
 }

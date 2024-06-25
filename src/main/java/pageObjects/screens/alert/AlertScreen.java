@@ -1,10 +1,10 @@
 package pageObjects.screens.alert;
 
-import driverFactory.Platform;
+import enums.Platform;
 import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import pageObjects.screens.BaseScreen;
 
 import java.time.Duration;
@@ -29,6 +29,7 @@ public abstract class AlertScreen extends BaseScreen {
     protected AlertScreen(AppiumDriver driver) {
 
         super(driver);
+        verifyScreenLoaded(alertTitleLocator());
     }
 
     protected final Map<Platform, By> alertLocatorMap = Map.of(
@@ -39,56 +40,72 @@ public abstract class AlertScreen extends BaseScreen {
             Platform.ANDROID, androidAlertButtonLoc,
             Platform.IOS, iosAlertButtonLoc);
 
+    protected By alertTitleLocator() {
+//        return alertLocatorMap.get(currentPlatform);
+        return elementUtils.getLocator(alertLocatorMap);
+    }
 
-    protected WebElement dialogElement() {
+    protected WebElement alertEl() {
 
         return elementUtils.findElement(alertLocatorMap);
     }
 
-    protected abstract WebElement dialogTitleElement();
+    protected abstract WebElement alertTitleEl();
 
-    protected abstract WebElement dialogMessageElement();
+    protected abstract WebElement alertMessageEl();
 
-    protected WebElement okButtonElement() {
+    protected WebElement okButtonEl() {
 
         return elementUtils.findElement(alertOkButtonLocatorMap);
     }
 
-    public AlertScreen verifyAlertPresent(String expectedTitle, String expectedMessage) {
+    public boolean isAlertPresent() {
 
-        Assert.assertTrue(interactionUtils.isAlertPresent());
-        this.verifyAlertTitle(expectedTitle);
-        this.verifyAlertMessage(expectedMessage);
+        return interactionUtils.isAlertPresent();
+    }
+
+    public String getAlertTitle() {
+
+        return alertTitleEl().getText();
+    }
+
+    public String getAlertMessage() {
+
+        return alertMessageEl().getText();
+    }
+
+    public AlertScreen accept() {
+
+        okButtonEl().click();
 
         return this;
     }
 
-    public AlertScreen verifyAlertTitle(String expectedTitle) {
+    public boolean isAlertDisappeared() {
 
-        String actualMessage = dialogTitleElement().getText();
-        Assert.assertEquals(actualMessage, expectedTitle);
-
-        return this;
+        return interactionUtils.assertAlertHasDisappeared(driver, Duration.ofMillis(500));
     }
 
-    public AlertScreen verifyAlertMessage(String expectedMessage) {
-
-        String actualMessage = dialogMessageElement().getText();
-        Assert.assertEquals(actualMessage, expectedMessage);
-
-        return this;
+    public void acceptAlertIfPresent() {
+        if (isAlertPresent()) {
+            try {
+                Alert alert = driver.switchTo().alert();
+                alert.accept();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("No alert present.");
+        }
     }
 
-    public AlertScreen clickOnOkButton() {
 
-        okButtonElement().click();
-
-        return this;
+    public void acceptAlert() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            alert.accept();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    public void verifyAlertDisappeared() {
-
-        interactionUtils.assertAlertHasDisappeared(driver, Duration.ofMillis(500));
-    }
-
 }

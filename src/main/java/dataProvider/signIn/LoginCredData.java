@@ -1,9 +1,9 @@
 package dataProvider.signIn;
 
-import utils.DataObjectBuilderUtil;
-import constants.filePaths.LoginCredPathConstants;
-import entity.LoginCred;
+import constants.filePaths.jsonFiles.LoginCredPathConstants;
+import entity.authen.LoginCred;
 import org.testng.annotations.DataProvider;
+import utils.DataObjectBuilderUtil;
 
 import java.nio.file.Path;
 

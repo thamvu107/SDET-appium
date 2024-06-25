@@ -1,7 +1,7 @@
 package utils;
 
 import constants.ElementConstants;
-import driverFactory.Platform;
+import enums.Platform;
 import exceptions.WaitForConditionException;
 import exceptions.WaitForElementException;
 import io.appium.java_client.AppiumBy;
@@ -9,7 +9,6 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.*;
-import org.openqa.selenium.internal.Require;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -32,12 +31,14 @@ public class ElementUtils {
 
     }
 
-    public By getLocatorIsMappedCurrentPlatform(Map<driverFactory.Platform, By> locatorMap) {
+    public By getLocator(Map<Platform, By> locatorMap) {
 
-        Require.nonNull("Locator", locatorMap);
+        if (locatorMap == null) {
+            throw new IllegalArgumentException("Locator cannot be null");
+        }
+
         return locatorMap.get(currentPlatform);
     }
-
 
     public boolean isElementDisplayed(By locator) {
         try {
@@ -113,7 +114,8 @@ public class ElementUtils {
                 return null;
             });
         } catch (Exception e) {
-            return null;
+            //return null;
+            throw new WaitForElementException("Exception occurred while waiting for element: " + e.getMessage());
         }
     }
 
@@ -163,7 +165,6 @@ public class ElementUtils {
             return waitUtils.explicitWait()
                     .until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
-            System.out.println();
             throw new TimeoutException(
                     String.format("Timeout while waiting for element to be visible: %s", locator), e);
         } catch (NoSuchElementException e) {
@@ -192,27 +193,6 @@ public class ElementUtils {
             throw new RuntimeException(
                     String.format("An unexpected error occurred while waiting for element to be visible: %s", locator), e);
         }
-//
-//        int retryCount = 0;
-////        WebElement element = null;
-////        while (element == null && retryCount < ElementConstants.MAX_RETRY_COUNT) {
-////            System.out.println("retryCount " + retryCount);
-////            try {
-////                element = waitUtils.createWebDriverWait(timeInMillis)
-////                        .until(ExpectedConditions.visibilityOfElementLocated(locator));
-////                if (element != null)
-////                    break;
-////            } catch (TimeoutException e) {//
-////                logAndHandleException("TimeoutException", locator, e, retryCount);
-////                retryCount++;
-////
-////            } catch (Exception e) {
-////                String errorMessage = String.format("Unexpected exception while waiting for element to be clickable: %s", locator);
-////                throw new WaitForElementException(errorMessage, e);
-////            }
-////        }
-////        return element;
-//
     }
 
     public WebElement waitForElementToBeVisible(WebElement element) {
@@ -248,27 +228,23 @@ public class ElementUtils {
     }
 
     public WebElement waitForElementTobeClickable(By locator) {
-        int retryCount = 0;
-        WebElement element = null;
-        while (element == null && retryCount < ElementConstants.MAX_RETRY_COUNT) {
-            try {
-                element = waitUtils.explicitWait()
-                        .until(ExpectedConditions.elementToBeClickable(locator));
-                if (element != null)
-                    break;
-            } catch (TimeoutException e) {//
-                logAndHandleException("TimeoutException", locator, e, retryCount);
-                retryCount++;
 
-            } catch (ElementNotInteractableException e) {
-                String errorMessage = String.format("Element not interactable while waiting to be clickable: %s", locator);
-                throw new WaitForElementException(errorMessage, e);
-            } catch (Exception e) {
-                String errorMessage = String.format("Unexpected exception while waiting for element to be clickable: %s", locator);
-                throw new WaitForElementException(errorMessage, e);
-            }
+        try {
+            return waitUtils.explicitWait()
+                    .until(ExpectedConditions.elementToBeClickable(locator));
+        } catch (TimeoutException e) {//
+            throw new TimeoutException("Timeout while waiting for element to be clickable: " + locator, e);
+        } catch (ElementNotInteractableException e) {
+            String errorMessage = String.format("Element not interactable while waiting to be clickable: %s", locator);
+            throw new ElementNotInteractableException(errorMessage, e);
+        } catch (WebDriverException e) {
+            String errorMessage = String.format(" An unknown server-side error occurred while processing the command while waiting to be clickable: %s", locator);
+            throw new WebDriverException(errorMessage, e);
+        } catch (Exception e) {
+            String errorMessage = String.format("Unexpected exception while waiting for element to be clickable: %s", locator);
+            throw new WaitForElementException(errorMessage, e);
         }
-        return element;
+
     }
 
     private void logAndHandleException(String exceptionType, By locator, Exception e, int retryCount) {
@@ -285,23 +261,21 @@ public class ElementUtils {
     }
 
     public WebElement waitForElementTobeClickable(By locator, long timeInMillis) {
-        int retryCount = 0;
-        WebElement element = null;
-        while (element == null && retryCount < ElementConstants.MAX_RETRY_COUNT) {
-            try {
-                element = waitUtils.createWebDriverWait(timeInMillis)
-                        .until(ExpectedConditions.elementToBeClickable(locator));
-                if (element != null)
-                    break;
-            } catch (TimeoutException e) {
-                logAndHandleException("TimeoutException", locator, e, retryCount);
-                retryCount++;
-            } catch (Exception e) {
-                String errorMessage = String.format("Unexpected exception while waiting for element to be clickable: %s", locator);
-                throw new WaitForElementException(errorMessage, e);
-            }
+        try {
+            return waitUtils.createWebDriverWait(timeInMillis)
+                    .until(ExpectedConditions.elementToBeClickable(locator));
+        } catch (TimeoutException e) {//
+            throw new TimeoutException("Timeout while waiting for element to be clickable: " + locator, e);
+        } catch (ElementNotInteractableException e) {
+            String errorMessage = String.format("Element not interactable while waiting to be clickable: %s", locator);
+            throw new ElementNotInteractableException(errorMessage, e);
+        } catch (WebDriverException e) {
+            String errorMessage = String.format(" An unknown server-side error occurred while processing the command while waiting to be clickable: %s", locator);
+            throw new WebDriverException(errorMessage, e);
+        } catch (Exception e) {
+            String errorMessage = String.format("Unexpected exception while waiting for element to be clickable: %s", locator);
+            throw new WaitForElementException(errorMessage, e);
         }
-        return element;
     }
 
     public void waitForElementTobeClickable(WebElement element) {
@@ -504,5 +478,18 @@ public class ElementUtils {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public List<WebElement> waitForNestedElementsToBePresence(By parent, By locator) {
+        try {
+            return waitUtils.explicitWait().until(ExpectedConditions.presenceOfNestedElementsLocatedBy(parent, locator));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void inputText(WebElement element, String text) {
+        element.clear();
+        element.sendKeys(text);
     }
 }

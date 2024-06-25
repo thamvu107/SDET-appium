@@ -2,7 +2,7 @@ package learning;
 
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
-import driverFactory.Platform;
+import enums.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
@@ -37,7 +37,7 @@ public class SwipeVerticallyDemo {
 
             // Make sure we are on the target screen before swiping up/down/left/right/any direction
             ElementUtils elementUtils = new ElementUtils(driver);
-            By formComponentLoc = elementUtils.getLocatorIsMappedCurrentPlatform(formComponentLocatorMap);
+            By formComponentLoc = elementUtils.getLocator(formComponentLocatorMap);
             new ElementUtils(driver).waitForFindingElement(formComponentLoc);
 
             SwipeVertically swipeVertically = new SwipeVertically(driver);

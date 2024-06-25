@@ -1,7 +1,7 @@
 package pageObjects.screens.alert;
 
 
-import driverFactory.Platform;
+import enums.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -16,7 +16,9 @@ public class SignInAlertScreen extends AlertScreen {
     private final By iosAlertMessageLoc = accessibilityId("You are logged in!");
 
     public SignInAlertScreen(AppiumDriver driver) {
+
         super(driver);
+        verifyScreenLoaded(elementUtils.getLocator(alertTitleLocatorMap));
     }
 
     private final Map<Platform, By> alertTitleLocatorMap = Map.of(
@@ -28,14 +30,14 @@ public class SignInAlertScreen extends AlertScreen {
             Platform.IOS, iosAlertMessageLoc);
 
     @Override
-    protected WebElement dialogTitleElement() {
+    protected WebElement alertTitleEl() {
 
-        By locator = elementUtils.getLocatorIsMappedCurrentPlatform(alertTitleLocatorMap);
+        By locator = elementUtils.getLocator(alertTitleLocatorMap);
         return elementUtils.waitForFindingElement(locator);
     }
 
     @Override
-    protected WebElement dialogMessageElement() {
+    protected WebElement alertMessageEl() {
         return elementUtils.findElement(alertMessageLocatorMap);
     }
 

@@ -1,10 +1,10 @@
 package driverFactory;
 
-import utils.DataObjectBuilderUtil;
-import constants.filePaths.ServerConfigPathConstants;
+import constants.filePaths.jsonFiles.ServerConfigPathConstants;
 import entity.ServerConfig;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.Capabilities;
+import utils.DataObjectBuilderUtil;
 
 import java.net.URL;
 import java.nio.file.Path;

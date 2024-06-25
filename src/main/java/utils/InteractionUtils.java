@@ -5,7 +5,6 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 import java.time.Duration;
 
@@ -38,12 +37,12 @@ public class InteractionUtils {
         }
     }
 
-    public void assertAlertHasDisappeared(AppiumDriver driver, Duration timeoutInMilliseconds) {
+    public boolean assertAlertHasDisappeared(AppiumDriver driver, Duration timeoutInMilliseconds) {
 
         WebDriverWait wait = new WebDriverWait(driver, timeoutInMilliseconds);
 
         try {
-            boolean isAlertGone = wait.until(dr -> {
+            return wait.until(dr -> {
                 try {
                     dr.switchTo().alert();
                     return false; // Alert is still present
@@ -51,9 +50,8 @@ public class InteractionUtils {
                     return true; // Alert has disappeared
                 }
             });
-            Assert.assertTrue(isAlertGone);
         } catch (Exception e) {
-            Assert.fail("Alert did not disappear within the timeout period.");
+            return false;
         }
     }
 
