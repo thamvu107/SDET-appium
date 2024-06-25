@@ -2,7 +2,7 @@ package learning;
 
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
-import driverFactory.Platform;
+import enums.Platform;
 import enums.Platforms;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;

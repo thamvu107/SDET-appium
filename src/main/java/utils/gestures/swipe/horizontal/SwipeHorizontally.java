@@ -28,6 +28,7 @@ public class SwipeHorizontally extends SwipeAction {
     }
 
     public SwipeHorizontally(AppiumDriver driver, WebElement wrapper, long moveDuration) {
+
         super(driver, wrapper, moveDuration);
         calculateCoordinates();
     }

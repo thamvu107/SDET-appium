@@ -16,21 +16,25 @@ public class AndroidCapabilities extends UiAutomator2Options implements AndroidA
                 .setPlatformVersion(mobile.getPlatformVersion())
                 .setAvd(mobile.getAdv())
                 .setAvdLaunchTimeout(mobile.getAdvTimeout())
+                .setAvdReadyTimeout(mobile.getAdvTimeout())
+                .setApp(System.getProperty("user.dir") + "src/test/resources/apps/dev/android.wdio.native.app.v1.0.8.apk")
                 .setAppPackage(APP_PACKAGE)
                 .setAppActivity(APP_ACTIVITY)
-                .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH_TIME)
+                .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH)
+                .setAppWaitDuration(APP_WAIT_FOR_LAUNCH_TIME)
                 .setUiautomator2ServerLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
                 .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT)
+                .setUiautomator2ServerReadTimeout(UIAUTOMATOR2_SERVER_READY_TIMEOUT)
                 .setFullReset(false)
                 .setNoReset(false)
                 .clearDeviceLogsOnStart();
 
         caps.setCapability("clearSystemFiles", true);
+        caps.setCapability("clearDeviceLogsOnStart", true);
+        caps.setCapability("enableWebviewDetailsCollection", true);
         // not going to run your tests in parallel
 //        caps.setCapability("--session-override", true);
 
-        // TODO: platform version value is null then it remove cap options
-//        SetPlatformVersion.setPlatformVersion(mobile, caps);
 
         return caps;
     }
@@ -43,7 +47,8 @@ public class AndroidCapabilities extends UiAutomator2Options implements AndroidA
                 .setUdid(mobile.getUdid())
                 .setAppPackage(APP_PACKAGE)
                 .setAppActivity(APP_ACTIVITY)
-                .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH_TIME)
+                .setAppWaitForLaunch(APP_WAIT_FOR_LAUNCH)
+                .setAppWaitDuration(APP_WAIT_FOR_LAUNCH_TIME)
                 .setUiautomator2ServerLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
                 .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT)
                 .setFullReset(false)

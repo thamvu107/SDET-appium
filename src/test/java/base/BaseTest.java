@@ -3,7 +3,7 @@ package base;
 import driverFactory.DriverProvider;
 import io.appium.java_client.AppiumDriver;
 import org.testng.annotations.AfterClass;
-import pageObjects.commponents.BottomNavComponent;
+import org.testng.annotations.BeforeTest;
 import pageObjects.screens.HomeScreen;
 
 public abstract class BaseTest {
@@ -11,7 +11,11 @@ public abstract class BaseTest {
     protected AppiumDriver driver;
     protected DriverProvider driverProvider;
     protected HomeScreen homeScreen;
-    protected BottomNavComponent bottomNavComponent;
+
+    @BeforeTest
+    public void beforeTest() {
+//        System.out.println("Before Test");
+    }
 
 
     @AfterClass

@@ -1,7 +1,7 @@
 package devices.android;
 
 import devices.Mobile;
-import driverFactory.Platform;
+import enums.Platform;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,6 @@
 package pageObjects.screens.alert;
 
-import driverFactory.Platform;
+import enums.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -16,6 +16,7 @@ public class FormComponentAlertScreen extends AlertScreen {
 
     protected FormComponentAlertScreen(AppiumDriver driver) {
         super(driver);
+        verifyScreenLoaded(elementUtils.getLocator(dialogTitleLocMap));
     }
 
     private final Map<Platform, By> dialogTitleLocMap = Map.of(
@@ -28,17 +29,13 @@ public class FormComponentAlertScreen extends AlertScreen {
 
 
     @Override
-    protected WebElement dialogTitleElement() {
+    protected WebElement alertTitleEl() {
         return null;
     }
 
     @Override
-    protected WebElement dialogMessageElement() {
+    protected WebElement alertMessageEl() {
         return null;
     }
 
-    @Override
-    public AlertScreen verifyAlertTitle(String expectedTitle) {
-        return null;
-    }
 }

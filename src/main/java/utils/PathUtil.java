@@ -20,4 +20,8 @@ public class PathUtil {
 
         return relativePath.isAbsolute() ? relativePath : rootPath.resolve(relativePath).toAbsolutePath();
     }
+
+    public String getAbsolutePathString() {
+        return getAbsolutePath().toString();
+    }
 }

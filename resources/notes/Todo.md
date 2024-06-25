@@ -1,2 +1,8 @@
 - TODO list:
 - Retry failed test: https://testng.org/rerunning_failed_tests.html
+- Refactor POM reference POM.md file.
+- Separate framework and test
+- exDriver - exAndroidDriver, exIOSDriver - methods ( lesson 21)
+- Log
+- Report
+- multi apps

@@ -1,7 +1,7 @@
 package devices.ios;
 
 import devices.Mobile;
-import driverFactory.Platform;
+import enums.Platform;
 
 public abstract class IOSMobile extends Mobile {
 

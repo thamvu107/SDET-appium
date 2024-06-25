@@ -1,6 +1,6 @@
 package pageObjects.screens.alert;
 
-import driverFactory.Platform;
+import enums.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -17,6 +17,7 @@ public class SignUpAlertScreen extends AlertScreen {
 
     public SignUpAlertScreen(AppiumDriver driver) {
         super(driver);
+        verifyScreenLoaded(elementUtils.getLocator(alertTitleLocatorMap));
     }
 
     private final Map<Platform, By> alertTitleLocatorMap = Map.of(
@@ -29,16 +30,16 @@ public class SignUpAlertScreen extends AlertScreen {
 
 
     @Override
-    protected WebElement dialogTitleElement() {
+    protected WebElement alertTitleEl() {
 
-        By locator = elementUtils.getLocatorIsMappedCurrentPlatform(alertTitleLocatorMap);
+        By locator = elementUtils.getLocator(alertTitleLocatorMap);
         elementUtils.waitForFindingElement(locator);
 
         return elementUtils.findElement(alertTitleLocatorMap);
     }
 
     @Override
-    protected WebElement dialogMessageElement() {
+    protected WebElement alertMessageEl() {
 
         return elementUtils.findElement(alertMessageLocatorMap);
     }

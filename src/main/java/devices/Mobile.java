@@ -1,6 +1,6 @@
 package devices;
 
-import driverFactory.Platform;
+import enums.Platform;
 import lombok.Getter;
 import lombok.ToString;
 

@@ -1,11 +1,10 @@
 package pageObjects.screens.login;
 
-import driverFactory.Platform;
+import entity.authen.SignUpCred;
+import enums.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-import pageObjects.screens.alert.AlertScreen;
 import pageObjects.screens.alert.SignUpAlertScreen;
 import utils.gestures.swipe.vertical.SwipeVertically;
 
@@ -24,7 +23,9 @@ public class SignUpScreen extends LoginScreen {
     private final By iosInvalidRepeatPasswordLocator = accessibilityId("Please enter the same password");
 
     public SignUpScreen(AppiumDriver driver) {
+
         super(driver);
+        verifyScreenLoaded(signUpButtonLocator);
     }
 
     private final Map<Platform, By> invalidRepeatPasswordLocatorMap = Map.of(
@@ -37,86 +38,70 @@ public class SignUpScreen extends LoginScreen {
         return driver.findElement(repeatPasswordLocator);
     }
 
-    private WebElement signUpButtonElement() {
-
-        return driver.findElement(signUpButtonLocator);
-    }
 
     private WebElement invalidRepeatPasswordElement() {
 
-        By locator = elementUtils.getLocatorIsMappedCurrentPlatform(invalidRepeatPasswordLocatorMap);
+        By locator = elementUtils.getLocator(invalidRepeatPasswordLocatorMap);
 
         return elementUtils.waitForFindingElement(locator);
     }
 
-    public SignUpScreen verifySignUpFormDisplayed() {
 
-//        mobileActions.waitVisibilityOfElementLocated(signUpButtonLocator); // small screen doesn't visibility sign-up button
-        elementUtils.waitForFindingElement(repeatPasswordLocator);
-
-        return this;
-    }
-
-    public SignUpScreen inputEmail(String email) {
-
-        interactionUtils.setText(emailFieldElement(), email);
-
-        return this;
-    }
-
-    public SignUpScreen inputPassword(String password) {
-
-        interactionUtils.setText(passwordFieldElement(), password);
-
-        return this;
-    }
-
-    public SignUpScreen inputRepeatPassword(String repeatPassword) {
+    private SignUpScreen inputRepeatPassword(String repeatPassword) {
 
         interactionUtils.setText(repeatPasswordElement(), repeatPassword);
 
         return this;
     }
 
-    public SignUpScreen clickOnSignUpButton() {
+    private void swipeUntilElementVisible(By locator) {
+        while (!elementUtils.isElementDisplayed(locator)) {
 
-        // TODO: On smaller screenTextConstants there could be a possibility that the button is not shown
-        if (!elementUtils.isElementDisplayed(signUpButtonLocator)) {
-
+            // TODO: swipe until see element
             SwipeVertically swipeVertically = new SwipeVertically(driver, 0.5f, 0.2f, 0.8f, MOVE_DURATION);
             swipeVertically.swipeUp();
         }
-        elementUtils.waitForFindingElement(signUpButtonLocator);
-        signUpButtonElement().click();
-
-        return this;
     }
 
-    public SignUpScreen verifyInvalidEmailMessage(String expectMessage) {
+    private void submitSignUp() {
 
-        String actualMessage = invalidEmailLabelElement().getText();
-        Assert.assertEquals(actualMessage, expectMessage);
+        swipeUntilElementVisible(signUpButtonLocator);
 
-        return this;
+        WebElement signUpButtonElement = elementUtils.waitForFindingElement(signUpButtonLocator);
+        signUpButtonElement.click();
     }
 
-    public SignUpScreen verifyInvalidPasswordMessage(String expectMessage) {
+    private SignUpAlertScreen submitSignUpSuccess() {
+        submitSignUp();
 
-        String actualMessage = invalidPasswordLabelElement().getText();
-        Assert.assertEquals(actualMessage, expectMessage);
-
-        return this;
-    }
-
-    public void verifyInvalidRepeatPasswordMessage(String expectMessage) {
-
-        String actualMessage = invalidRepeatPasswordElement().getText();
-        Assert.assertEquals(actualMessage, expectMessage);
-
-    }
-
-    public AlertScreen SwitchToAlert() {
         return new SignUpAlertScreen(driver);
     }
 
+    private SignUpScreen submitSignUpFail() {
+        submitSignUp();
+        return this;
+    }
+
+    private SignUpScreen inputSignUpCredentials(SignUpCred signUpCred) {
+        inputEmail(signUpCred.getEmail());
+        inputPassword(signUpCred.getPassword());
+        inputRepeatPassword(signUpCred.getRepeatPassword());
+
+        return this;
+    }
+
+    public SignUpAlertScreen signUpAsValidCred(SignUpCred signUpCred) {
+        return this.inputSignUpCredentials(signUpCred)
+                .submitSignUpSuccess();
+    }
+
+    public SignUpScreen signUpAsInvalidCred(SignUpCred signUpCred) {
+        return this.inputSignUpCredentials(signUpCred)
+                .submitSignUpFail();
+    }
+
+    public String getInvalidRepeatPasswordMessage() {
+
+        return invalidRepeatPasswordElement().getText();
+    }
 }

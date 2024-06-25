@@ -4,8 +4,8 @@ import base.BaseTest;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import org.openqa.selenium.Capabilities;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.screens.HomeScreen;
 import pageObjects.screens.SwipeScreen;
@@ -21,32 +21,21 @@ public class VerticalSwipeTest extends BaseTest {
             driverProvider = new DriverProvider();
             Capabilities caps = CapabilityFactory.getCaps(getEmulator());
             driver = driverProvider.getLocalServerDriver(caps);
-            homeScreen = new HomeScreen(driver);
-            homeScreen.verifyAppLaunched();
 
-            swipeScreen = homeScreen.goToSwipeScreen();
+            swipeScreen = new HomeScreen(driver)
+                    .goToSwipeScreen();
         } catch (Exception e) {
             throw new RuntimeException("Setup failed: " + e.getMessage(), e);
         }
     }
 
-    @BeforeMethod
-    public void beforeMethod() {
-        swipeScreen.goToSwipeScreen()
-                .verifyCarouselDisplayed();
-    }
 
     @Test
-    public void swipeUp() {
-        swipeScreen.verifyScrollWrapperIsDisplayed()
-                .scrollToWebDriverIOLogo()
-                .verifyScrollUpTargetFound();
-    }
+    public void swipeUpAndDown() {
+        boolean isFoundSwipeUpTarget = swipeScreen.scrollToWebDriverIOLogo();
+        Assert.assertTrue(isFoundSwipeUpTarget, "Can't find WebDriverIO logo");
 
-    @Test
-    public void swipeDown() {
-        swipeScreen.verifyScrollWrapperIsDisplayed()
-                .scrollToScreenTitle()
-                .verifyScrollDownTargetFound();
+        boolean isFoundSwipeDownTarget = swipeScreen.scrollToScreenTitle();
+        Assert.assertTrue(isFoundSwipeDownTarget, "Can't find screen title");
     }
 }

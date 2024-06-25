@@ -12,7 +12,7 @@ import static constants.AndroidDeviceConstants.DEFAULT_ADV_TIMEOUT;
 public class Emulator extends AndroidMobile {
     private String adv;
     private Duration advTimeout;
-    private static final Duration defaultADVTimeout = Duration.ofMillis(2000);
+    private static final Duration defaultADVTimeout = Duration.ofMillis(180_000L);
 
     public Emulator(String deviceName, String platformVersion, String adv) {
         super(deviceName, platformVersion);

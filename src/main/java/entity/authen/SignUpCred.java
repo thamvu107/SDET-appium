@@ -1,4 +1,4 @@
-package entity;
+package entity.authen;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,15 +9,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginCred {
-    protected String email;
-    protected String password;
+public class SignUpCred extends LoginCred {
+    private String repeatPassword;
 
     @Override
     public String toString() {
         return "UserCred{" +
                 "username='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", repeatPassword='" + repeatPassword + '\'' +
                 '}';
     }
 }

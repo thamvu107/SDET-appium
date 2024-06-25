@@ -1,6 +1,7 @@
 package driverFactory;
 
 import constants.WaitConstants;
+import enums.Platform;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -39,8 +40,13 @@ public class DriverFactory {
 
             switch (platform) {
                 case ANDROID:
-                    driver = new AndroidDriver(serverURL, caps);
-                    break;
+                    try {
+                        driver = new AndroidDriver(serverURL, caps);
+                        System.out.println("currentActivity " + ((AndroidDriver) driver).currentActivity());
+                        break;
+                    } catch (Exception e) { // SessionNotCreatedException
+                        throw new RuntimeException(e);
+                    }
                 case IOS:
                     driver = new IOSDriver(serverURL, caps);
                     break;
