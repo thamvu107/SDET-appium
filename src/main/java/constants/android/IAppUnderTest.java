@@ -6,6 +6,5 @@ public interface IAppUnderTest {
 
     String BUNDLE_ID = "com.wdiodemoapp";
 
-//    String APP_FILE_NAME = "android.wdio.native.app.v1.0.8.apk"; // update version -> get from property
 
 }

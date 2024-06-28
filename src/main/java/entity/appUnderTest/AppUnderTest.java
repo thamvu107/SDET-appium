@@ -17,7 +17,7 @@ public abstract class AppUnderTest implements IAppPath {
     protected String appFileName;
     protected String appFilePath;
     protected String envVar;
-    protected Properties properties;// = new Properties();
+    protected Properties properties;
 
 //    static {
 //        try (InputStream input = AppUnderTest.class.getClassLoader().getResourceAsStream(getPropertiesFileName(envVar))) {
@@ -54,9 +54,8 @@ public abstract class AppUnderTest implements IAppPath {
 
     private Properties loadProperties() {
         Properties props = new Properties();
-        String env = Optional.ofNullable(System.getenv("env")).orElse("").toLowerCase();
+        String env = Optional.ofNullable(System.getenv("env")).orElse("dev").toLowerCase();
 
-        System.out.println("getPropertiesFileName() " + getPropertiesFileName());
         try (InputStream input = new FileInputStream(getPropertiesFileName())) {
             if (input == null) {
                 throw new IOException("Unable to find properties file for environment: " + env);
@@ -71,7 +70,6 @@ public abstract class AppUnderTest implements IAppPath {
 
     private String getPropertiesFileName() {
         return APP_CONFIG_FILE_BASE_PATH + getSubPathByEnv() + "app.properties";
-//        return "app.properties";
     }
 
     public abstract String getAppPath();
