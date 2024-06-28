@@ -1,9 +1,8 @@
 package pageObjects.commponents;
 
-import enums.Platform;
+import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import pageObjects.screens.HomeScreen;
 import pageObjects.screens.SwipeScreen;
@@ -23,7 +22,7 @@ public class BottomNavComponent {
     private final static By formsNavLoc = accessibilityId("Forms");
     private final static By swipeNavLoc = accessibilityId("Swipe");
 
-    private final Platform currentPlatform;
+    private final PlatformType currentPlatform;
     //
     private final ElementUtils elementUtils;
 
@@ -44,10 +43,8 @@ public class BottomNavComponent {
         // Waits for the element to be visible and throws an exception if it is not
         WebElement element = elementUtils.waitForElementToBeVisible(locator);
 
-        if (element != null) {
-            System.out.println("Bottom nav is loaded. Element found: " + locator.toString());
-        } else {
-            throw new NoSuchElementException("Bottom nav is not loaded. Element not found: " + locator.toString());
+        if (element == null) {
+            throw new IllegalStateException("Bottom nav is not loaded");
         }
     }
 

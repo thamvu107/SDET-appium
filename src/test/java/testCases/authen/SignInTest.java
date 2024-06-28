@@ -45,6 +45,7 @@ public class SignInTest extends BaseTest {
     public void afterMethod() {
         if (alertScreen != null) {
             alertScreen.acceptAlert();
+            alertScreen = null;
         }
     }
 

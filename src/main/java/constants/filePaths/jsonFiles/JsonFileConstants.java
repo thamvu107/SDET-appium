@@ -1,7 +1,10 @@
 package constants.filePaths.jsonFiles;
 
-import constants.filePaths.BasePathConstants;
+import constants.filePaths.IBasePaths;
 
-public class JsonFileConstants extends BasePathConstants {
-    public static final String JSON_SUFFIX = ".json";
+import java.io.File;
+
+public interface JsonFileConstants extends IBasePaths {
+    String JSON_BASE_PATH = TEST_RESOURCES_PATH + "testData" + File.separator + "jsonFiles" + File.separator;
+    String JSON_SUFFIX = ".json";
 }

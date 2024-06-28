@@ -3,7 +3,6 @@ package pageObjects.screens.webView;
 import entity.webView.MenuItemDataModel;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pageObjects.commponents.webView.LeftNavBarComponent;
 import pageObjects.commponents.webView.TopNavBarComponent;
@@ -11,8 +10,6 @@ import pageObjects.screens.BaseScreen;
 
 import java.util.HashSet;
 import java.util.List;
-
-import static constants.WaitConstants.LONG_EXPLICIT_WAIT;
 
 public class WebBasedScreen extends BaseScreen {
     private final AppiumDriver driver;
@@ -28,10 +25,9 @@ public class WebBasedScreen extends BaseScreen {
     public WebBasedScreen(AppiumDriver driver) {
         super(driver);
         this.driver = driver;
-        //switchToWebViewContext();
+        switchToWebViewContext();
         this.topNavBarComponent = new TopNavBarComponent(this.driver);
         this.leftNavBarComponent = new LeftNavBarComponent(this.driver);
-        // this.verifyScreenLoaded(webViewScreenLoc);
     }
 
 //    public WebDriver switchToNativeContext() {
@@ -45,12 +41,11 @@ public class WebBasedScreen extends BaseScreen {
 //    }
 
 
-    @Override
-    protected void verifyScreenLoaded(By locator) {
-
-        WebDriver webDriver = contextSwitching.switchToWebViewContext(LONG_EXPLICIT_WAIT);
-
-        webDriver.findElement(locator);
+    protected void verifyScreenTitle(String expectedTitle) {
+        String actualTitle = driver.getTitle();
+        if (!actualTitle.equalsIgnoreCase(expectedTitle)) {
+            throw new IllegalStateException("This is not the expected screen: " + expectedTitle + ". Current screen: " + actualTitle);
+        }
     }
 
     public boolean showingNavBar() {

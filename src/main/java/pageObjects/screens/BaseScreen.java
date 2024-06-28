@@ -86,9 +86,7 @@ public abstract class BaseScreen {
         // Waits for the element to be visible and throws an exception if it is not
         WebElement element = elementUtils.waitForElementToBeVisible(locator);
 
-        if (element != null) {
-            System.out.println("Page is loaded. Element found: " + locator.toString());
-        } else {
+        if (element == null) {
             throw new NoSuchElementException("Page is not loaded. Element not found: " + locator.toString());
         }
     }

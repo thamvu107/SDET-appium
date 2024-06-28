@@ -2,8 +2,7 @@ package learning;
 
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
-import enums.Platform;
-import enums.Platforms;
+import enums.PlatformType;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
@@ -16,9 +15,9 @@ import java.util.Map;
 import static devices.MobileFactory.getEmulator;
 
 public class HandleVariantLocators {
-    private static final Map<Platforms, By> navloginBtnLocMap = Map.of(Platforms.ANDROID, AppiumBy.accessibilityId("Login"), Platforms.IOS, AppiumBy.accessibilityId("try-to-have-difference-here"));
+    private static final Map<PlatformType, By> navloginBtnLocMap = Map.of(PlatformType.ANDROID, AppiumBy.accessibilityId("Login"), PlatformType.IOS, AppiumBy.accessibilityId("try-to-have-difference-here"));
 
-    private static final Map<Platform, By> navloginButtonLocatorMap = Map.of(Platform.ANDROID, AppiumBy.accessibilityId("Login"), Platform.IOS, AppiumBy.accessibilityId("Login"));
+    private static final Map<PlatformType, By> navloginButtonLocatorMap = Map.of(PlatformType.ANDROID, AppiumBy.accessibilityId("Login"), PlatformType.IOS, AppiumBy.accessibilityId("Login"));
     private static final By emailFieldLoc = AppiumBy.accessibilityId("input-email");
     private static final By passwordLoc = AppiumBy.accessibilityId("input-password");
     private static final By loginBtnLoc = AppiumBy.accessibilityId("button-LOGIN");

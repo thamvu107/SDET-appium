@@ -1,6 +1,8 @@
 package constants.filePaths.jsonFiles;
 
-public class ServerConfigPathConstants extends JsonFileConstants {
-    public static final String REMOTE_SERVER_CONFIG_JSON = JSON_BASE_PATH + "serverConfigure/RemoteServer" + JSON_SUFFIX;
+import java.io.File;
+
+public interface ServerConfigPathConstants extends JsonFileConstants {
+    String REMOTE_SERVER_CONFIG_JSON = JSON_BASE_PATH + "serverConfigure" + File.separator + "RemoteServer" + JSON_SUFFIX;
 }
 

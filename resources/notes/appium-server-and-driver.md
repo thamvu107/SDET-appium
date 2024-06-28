@@ -28,6 +28,10 @@
           breaking changes.
     - `appium driver update --unsafe`
         - --unsafe you are forcing the update of the Appium driver without strict safety checks.
+    - `appium driver update <driver-name>`
+        - This will NOT update the major version, in order to prevent breaking changes
+    - ` appium driver update <driver-name> --unsafe`
+        - Update a driver to the most recent version (may include breaking changes)
 
 - Uninstall a driver:
     - `appium driver uninstall <driver name>`

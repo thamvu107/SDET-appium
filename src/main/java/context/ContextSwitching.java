@@ -1,7 +1,7 @@
 package context;
 
 import enums.Contexts;
-import enums.Platform;
+import enums.PlatformType;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -18,7 +18,7 @@ public class ContextSwitching {
     private final AppiumDriver driver;
     private final WaitUtils waitUtils;
 
-    private final Platform currentPlatform;
+    private final PlatformType currentPlatform;
 
     public ContextSwitching(AppiumDriver driver) {
         this.driver = driver;

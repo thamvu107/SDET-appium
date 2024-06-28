@@ -1,7 +1,7 @@
 package context;
 
-import enums.Platform;
 import enums.Contexts;
+import enums.PlatformType;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -16,7 +16,7 @@ import java.util.Set;
 public class ExpectedConditionContextHas implements ExpectedCondition<Boolean> {
     private final AppiumDriver driver;
     private final String contextName;
-    private final Platform currentPlatform;
+    private final PlatformType currentPlatform;
 
     public ExpectedConditionContextHas(AppiumDriver driver, Contexts context) {
         ValidationDriver.validateDriverNotNull(driver);

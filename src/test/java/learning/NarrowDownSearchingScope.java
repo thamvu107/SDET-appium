@@ -3,7 +3,7 @@ package learning;
 import constants.WaitConstants;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
-import enums.Platform;
+import enums.PlatformType;
 import exceptions.swipe.vertical.SwipeUpException;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
@@ -73,9 +73,9 @@ public class NarrowDownSearchingScope {
             elementUtils.waitForFindingElement(formsBtnLoc);
             driver.findElement(formsBtnLoc).click();
 
-            Map<Platform, By> formComponentLocatorMap = Map.of(
-                    Platform.ANDROID, androidUIAutomator("new UiSelector(). textContains(\"Form components\")"),
-                    Platform.IOS, iOSNsPredicateString("name == \"Form components\" AND label == \"Form components\" AND value == \"Form components\"")
+            Map<PlatformType, By> formComponentLocatorMap = Map.of(
+                    PlatformType.ANDROID, androidUIAutomator("new UiSelector(). textContains(\"Form components\")"),
+                    PlatformType.IOS, iOSNsPredicateString("name == \"Form components\" AND label == \"Form components\" AND value == \"Form components\"")
             );
             By formComponentLoc = elementUtils.getLocator(formComponentLocatorMap);
             elementUtils.waitForFindingElement(formComponentLoc);
@@ -84,9 +84,9 @@ public class NarrowDownSearchingScope {
             notificationHelper.openNotificationPanel();
 
             // TODO: Simulator notification
-            Map<Platform, By> notificationLocatorMap = Map.of(
-                    Platform.ANDROID, id("com.android.systemui:id/expanded"),
-                    Platform.IOS, id("com.android.systemui:id/expanded")
+            Map<PlatformType, By> notificationLocatorMap = Map.of(
+                    PlatformType.ANDROID, id("com.android.systemui:id/expanded"),
+                    PlatformType.IOS, id("com.android.systemui:id/expanded")
             );
             By notificationLoc = elementUtils.getLocator(notificationLocatorMap);
             elementUtils.waitForFindingElement(notificationLoc);
@@ -95,17 +95,17 @@ public class NarrowDownSearchingScope {
             // TODO: handle app_name_text
 //            By notificationTitleLoc = AppiumBy.id("android:id/app_name_text");
 
-            Map<Platform, By> notificationTitleLocatorMap = Map.of(
-                    Platform.ANDROID, id("android:id/title"),
-                    Platform.IOS, id("android:id/title")
+            Map<PlatformType, By> notificationTitleLocatorMap = Map.of(
+                    PlatformType.ANDROID, id("android:id/title"),
+                    PlatformType.IOS, id("android:id/title")
             );
             By notificationTitleLoc = elementUtils.getLocator(notificationTitleLocatorMap);
             elementUtils.waitForFindingElement(notificationTitleLoc);
 
 
-            Map<Platform, By> notificationMessageLocatorMap = Map.of(
-                    Platform.ANDROID, id("android:id/big_text"),
-                    Platform.IOS, id("android:id/big_text")
+            Map<PlatformType, By> notificationMessageLocatorMap = Map.of(
+                    PlatformType.ANDROID, id("android:id/big_text"),
+                    PlatformType.IOS, id("android:id/big_text")
             );
             By notificationMessageLoc = elementUtils.getLocator(notificationMessageLocatorMap);
             elementUtils.waitForFindingElement(notificationMessageLoc);

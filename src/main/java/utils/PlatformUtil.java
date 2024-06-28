@@ -1,6 +1,6 @@
 package utils;
 
-import enums.Platform;
+import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.internal.CapabilityHelpers;
 import org.openqa.selenium.Capabilities;
@@ -24,12 +24,12 @@ public class PlatformUtil {
      * @return the current platform
      * @throws IllegalArgumentException if the driver is null
      */
-    public Platform getCurrentPlatform() {
+    public PlatformType getCurrentPlatform() {
 
         Capabilities caps = driver.getCapabilities();
         String currentPlatform = CapabilityHelpers.getCapability(caps, "platformName", String.class);
 
-        return Platform.fromString(currentPlatform);
+        return PlatformType.fromString(currentPlatform);
     }
 
 }

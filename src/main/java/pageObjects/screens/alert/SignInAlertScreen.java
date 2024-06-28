@@ -1,7 +1,7 @@
 package pageObjects.screens.alert;
 
 
-import enums.Platform;
+import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -21,13 +21,13 @@ public class SignInAlertScreen extends AlertScreen {
         verifyScreenLoaded(elementUtils.getLocator(alertTitleLocatorMap));
     }
 
-    private final Map<Platform, By> alertTitleLocatorMap = Map.of(
-            Platform.ANDROID, androidAlertTitleLoc,
-            Platform.IOS, iosAlertTitleLoc);
+    private final Map<PlatformType, By> alertTitleLocatorMap = Map.of(
+            PlatformType.ANDROID, androidAlertTitleLoc,
+            PlatformType.IOS, iosAlertTitleLoc);
 
-    private final Map<Platform, By> alertMessageLocatorMap = Map.of(
-            Platform.ANDROID, androidAlertMessageLoc,
-            Platform.IOS, iosAlertMessageLoc);
+    private final Map<PlatformType, By> alertMessageLocatorMap = Map.of(
+            PlatformType.ANDROID, androidAlertMessageLoc,
+            PlatformType.IOS, iosAlertMessageLoc);
 
     @Override
     protected WebElement alertTitleEl() {
