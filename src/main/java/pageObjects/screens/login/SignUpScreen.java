@@ -1,7 +1,7 @@
 package pageObjects.screens.login;
 
 import entity.authen.SignUpCred;
-import enums.Platform;
+import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -28,9 +28,9 @@ public class SignUpScreen extends LoginScreen {
         verifyScreenLoaded(signUpButtonLocator);
     }
 
-    private final Map<Platform, By> invalidRepeatPasswordLocatorMap = Map.of(
-            Platform.ANDROID, androidInvalidRepeatPasswordLocator,
-            Platform.IOS, iosInvalidRepeatPasswordLocator
+    private final Map<PlatformType, By> invalidRepeatPasswordLocatorMap = Map.of(
+            PlatformType.ANDROID, androidInvalidRepeatPasswordLocator,
+            PlatformType.IOS, iosInvalidRepeatPasswordLocator
     );
 
     private WebElement repeatPasswordElement() {

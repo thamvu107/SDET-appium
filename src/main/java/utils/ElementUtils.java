@@ -1,7 +1,7 @@
 package utils;
 
 import constants.ElementConstants;
-import enums.Platform;
+import enums.PlatformType;
 import exceptions.WaitForConditionException;
 import exceptions.WaitForElementException;
 import io.appium.java_client.AppiumBy;
@@ -21,7 +21,7 @@ public class ElementUtils {
     private AndroidDriver androidDriver;
     private IOSDriver iosDriver;
     public WaitUtils waitUtils;
-    private final Platform currentPlatform;
+    private final PlatformType currentPlatform;
     private static final Logger logger = Logger.getLogger(ElementUtils.class.getName());
 
     public ElementUtils(AppiumDriver driver) {
@@ -31,7 +31,7 @@ public class ElementUtils {
 
     }
 
-    public By getLocator(Map<Platform, By> locatorMap) {
+    public By getLocator(Map<PlatformType, By> locatorMap) {
 
         if (locatorMap == null) {
             throw new IllegalArgumentException("Locator cannot be null");
@@ -320,14 +320,14 @@ public class ElementUtils {
         }
     }
 
-    public WebElement findElement(Map<Platform, By> locatorMap) {
+    public WebElement findElement(Map<PlatformType, By> locatorMap) {
 
         By locator = locatorMap.get(currentPlatform);
 
         return driver.findElement(locator);
     }
 
-    public List<WebElement> findElements(Map<Platform, By> locatorMap) {
+    public List<WebElement> findElements(Map<PlatformType, By> locatorMap) {
 
         By locator = locatorMap.get(currentPlatform);
 

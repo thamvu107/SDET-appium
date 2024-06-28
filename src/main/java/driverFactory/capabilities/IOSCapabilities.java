@@ -30,7 +30,6 @@ public class IOSCapabilities extends XCUITestOptions implements IOSAppSetting {
                 .clearSystemFiles();
         caps.setCapability("--session-override", true);
 
-        SetPlatformVersion.setPlatformVersion(mobile, caps);
 
         return caps;
     }

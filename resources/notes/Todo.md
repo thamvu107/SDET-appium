@@ -6,3 +6,4 @@
 - Log
 - Report
 - multi apps
+- authen data dynamic

@@ -1,0 +1,10 @@
+[
+  {
+    "platformType": "android",
+    "appName": "android.wdio.native.app.v1.0.8.apk"
+  },
+  {
+    "platformType": "ios",
+    "appName": "ios.wdioNativeDemoApp.app"
+  }
+]

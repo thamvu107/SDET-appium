@@ -1,18 +1,18 @@
 package devices.ios;
 
 import devices.Mobile;
-import enums.Platform;
+import enums.PlatformType;
 
 public abstract class IOSMobile extends Mobile {
 
     protected int wdaLocalPort = 8100;
 
     protected IOSMobile() {
-        super(Platform.IOS);
+        super(PlatformType.IOS);
     }
 
     protected IOSMobile(String udid) {
-        super(Platform.IOS, udid);
+        super(PlatformType.IOS, udid);
     }
 
     protected IOSMobile(String udid, int wdaLocalPort) {
@@ -22,12 +22,12 @@ public abstract class IOSMobile extends Mobile {
 
 
     protected IOSMobile(String deviceName, String platformVersion, int wdaLocalPort) {
-        super(Platform.IOS, deviceName, platformVersion);
+        super(PlatformType.IOS, deviceName, platformVersion);
         this.wdaLocalPort = wdaLocalPort;
     }
 
     protected IOSMobile(String udid, String deviceName, String platformVersion, int wdaLocalPort) {
-        super(Platform.IOS, udid, deviceName, platformVersion);
+        super(PlatformType.IOS, udid, deviceName, platformVersion);
         this.wdaLocalPort = wdaLocalPort;
     }
 }

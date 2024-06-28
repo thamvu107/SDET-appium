@@ -2,7 +2,7 @@ package learning;
 
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
-import enums.Platform;
+import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
@@ -30,7 +30,7 @@ public class SwipeVerticallyDemo {
             By androidFormComponent = androidUIAutomator("new UiSelector(). textContains(\"Form components\")");
             By iosFormComponent = iOSNsPredicateString("name == \"Form components\" AND label == \"Form components\" AND value == \"Form components\"");
 
-            Map<Platform, By> formComponentLocatorMap = Map.of(Platform.ANDROID, androidFormComponent, Platform.IOS, iosFormComponent);
+            Map<PlatformType, By> formComponentLocatorMap = Map.of(PlatformType.ANDROID, androidFormComponent, PlatformType.IOS, iosFormComponent);
 
             // Navigate to [Forms] screen
             driver.findElement(formsBtnLoc).click();

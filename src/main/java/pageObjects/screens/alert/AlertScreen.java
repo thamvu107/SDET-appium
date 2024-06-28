@@ -1,6 +1,6 @@
 package pageObjects.screens.alert;
 
-import enums.Platform;
+import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -32,13 +32,13 @@ public abstract class AlertScreen extends BaseScreen {
         verifyScreenLoaded(alertTitleLocator());
     }
 
-    protected final Map<Platform, By> alertLocatorMap = Map.of(
-            Platform.ANDROID, androidAlertLoc,
-            Platform.IOS, iosAlertLocator);
+    protected final Map<PlatformType, By> alertLocatorMap = Map.of(
+            PlatformType.ANDROID, androidAlertLoc,
+            PlatformType.IOS, iosAlertLocator);
 
-    protected final Map<Platform, By> alertOkButtonLocatorMap = Map.of(
-            Platform.ANDROID, androidAlertButtonLoc,
-            Platform.IOS, iosAlertButtonLoc);
+    protected final Map<PlatformType, By> alertOkButtonLocatorMap = Map.of(
+            PlatformType.ANDROID, androidAlertButtonLoc,
+            PlatformType.IOS, iosAlertButtonLoc);
 
     protected By alertTitleLocator() {
 //        return alertLocatorMap.get(currentPlatform);

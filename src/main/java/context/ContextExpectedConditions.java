@@ -1,6 +1,6 @@
 package context;
 
-import enums.Platform;
+import enums.PlatformType;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -15,7 +15,7 @@ public class ContextExpectedConditions {
 
     public static ExpectedCondition<Boolean> hasMultipleContexts(AppiumDriver driver) {
         return new ExpectedCondition<Boolean>() {
-            final Platform currentPlatform = new PlatformUtil(driver).getCurrentPlatform();
+            final PlatformType currentPlatform = new PlatformUtil(driver).getCurrentPlatform();
 
             @Override
             public Boolean apply(WebDriver input) {
@@ -36,7 +36,7 @@ public class ContextExpectedConditions {
 
     public static ExpectedCondition<Boolean> hasSingleContext(AppiumDriver driver) {
         return new ExpectedCondition<Boolean>() {
-            final Platform currentPlatform = new PlatformUtil(driver).getCurrentPlatform();
+            final PlatformType currentPlatform = new PlatformUtil(driver).getCurrentPlatform();
 
             @Override
             public Boolean apply(WebDriver input) {

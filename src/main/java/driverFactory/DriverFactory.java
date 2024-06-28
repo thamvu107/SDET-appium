@@ -1,7 +1,7 @@
 package driverFactory;
 
 import constants.WaitConstants;
-import enums.Platform;
+import enums.PlatformType;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -36,7 +36,7 @@ public class DriverFactory {
         AppiumDriver driver;
         try {
 
-            Platform platform = getCurrentPlatformFromCapabilities();
+            PlatformType platform = getCurrentPlatformFromCapabilities();
 
             switch (platform) {
                 case ANDROID:
@@ -63,8 +63,8 @@ public class DriverFactory {
         return driver;
     }
 
-    private Platform getCurrentPlatformFromCapabilities() {
+    private PlatformType getCurrentPlatformFromCapabilities() {
         String platformName = CapabilityHelpers.getCapability(caps, "platformName", String.class);
-        return Platform.valueOf(platformName.toUpperCase());
+        return PlatformType.valueOf(platformName.toUpperCase());
     }
 }

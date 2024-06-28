@@ -1,7 +1,7 @@
 package devices.android;
 
 import devices.Mobile;
-import enums.Platform;
+import enums.PlatformType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,26 +13,26 @@ public abstract class AndroidMobile extends Mobile {
     protected int systemPort;
 
     protected AndroidMobile() {
-        super(Platform.ANDROID);
+        super(PlatformType.ANDROID);
     }
 
     protected AndroidMobile(String deviceName, String platformVersion) {
-        super(Platform.ANDROID, deviceName, platformVersion);
+        super(PlatformType.ANDROID, deviceName, platformVersion);
 
     }
 
     protected AndroidMobile(String deviceName, String platformVersion, int systemPort) {
-        super(Platform.ANDROID, deviceName, platformVersion);
+        super(PlatformType.ANDROID, deviceName, platformVersion);
         this.systemPort = systemPort;
     }
 
     protected AndroidMobile(String udid, int systemPort) {
-        super(Platform.ANDROID, udid);
+        super(PlatformType.ANDROID, udid);
         this.systemPort = systemPort;
     }
 
     protected AndroidMobile(String udid, String deviceName, String platformVersion, int systemPort) {
-        super(Platform.ANDROID, udid, deviceName, platformVersion);
+        super(PlatformType.ANDROID, udid, deviceName, platformVersion);
         this.systemPort = systemPort;
     }
 }

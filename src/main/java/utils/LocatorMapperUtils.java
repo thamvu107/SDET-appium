@@ -1,6 +1,6 @@
 package utils;
 
-import enums.Platform;
+import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -12,7 +12,7 @@ import java.util.Map;
 public class LocatorMapperUtils {
     private final AppiumDriver driver;
     //    private final String currentPlatform;
-    private final Platform currentPlatform;
+    private final PlatformType currentPlatform;
 
     // TODO: try the way handle Element mapper.
 
@@ -21,7 +21,7 @@ public class LocatorMapperUtils {
         this.currentPlatform = new PlatformUtil(this.driver).getCurrentPlatform();
     }
 
-    public WebElement findElement(Map<Platform, By> locatorMap) {
+    public WebElement findElement(Map<PlatformType, By> locatorMap) {
 
 //        By elementLocator = locatorMap.get(Platform.valueOf(currentPlatform));
         By elementLocator = locatorMap.get(currentPlatform);
@@ -29,7 +29,7 @@ public class LocatorMapperUtils {
         return this.driver.findElement(elementLocator);
     }
 
-    public List<WebElement> findElements(Map<Platform, By> locatorMap) {
+    public List<WebElement> findElements(Map<PlatformType, By> locatorMap) {
 
 //        By elementLocator = locatorMap.get(Platform.valueOf(currentPlatform));
         By elementLocator = locatorMap.get(currentPlatform);
@@ -38,7 +38,7 @@ public class LocatorMapperUtils {
     }
 
     // MobilePlatform
-    public By getLocatorMapped(Map<Platform, By> locatorMap) {
+    public By getLocatorMapped(Map<PlatformType, By> locatorMap) {
 
         Require.nonNull("Locator", locatorMap);
 
@@ -47,7 +47,7 @@ public class LocatorMapperUtils {
     }
 
     /* Check if an element is existed by its locator */
-    public boolean isElementPresent(Map<Platform, By> locatorMap) {
+    public boolean isElementPresent(Map<PlatformType, By> locatorMap) {
 
         List<WebElement> elements = this.findElements(locatorMap);
 

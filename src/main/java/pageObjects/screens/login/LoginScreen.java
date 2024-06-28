@@ -1,6 +1,6 @@
 package pageObjects.screens.login;
 
-import enums.Platform;
+import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -33,12 +33,12 @@ public class LoginScreen extends BaseScreen {
     protected final By iosInvalidPasswordLabelLocator = accessibilityId("Please enter at least 8 characters");
 
     // Mapping
-    private final Map<Platform, By> invalidEmailLabelLocatorMap = Map.of(
-            Platform.ANDROID, androidInvalidEmailLabelLocator,
-            Platform.IOS, iosInvalidEmailLabelLocator);
-    private final Map<Platform, By> invalidPasswordLabelLocatorMap = Map.of(
-            Platform.ANDROID, androidInvalidPasswordLabelLocator,
-            Platform.IOS, iosInvalidPasswordLabelLocator);
+    private final Map<PlatformType, By> invalidEmailLabelLocatorMap = Map.of(
+            PlatformType.ANDROID, androidInvalidEmailLabelLocator,
+            PlatformType.IOS, iosInvalidEmailLabelLocator);
+    private final Map<PlatformType, By> invalidPasswordLabelLocatorMap = Map.of(
+            PlatformType.ANDROID, androidInvalidPasswordLabelLocator,
+            PlatformType.IOS, iosInvalidPasswordLabelLocator);
 
 
     // Scope 02: Constructor to POM_AdvancedConcept.md the appiumDriver
