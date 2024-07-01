@@ -5,7 +5,7 @@ import devices.android.Emulator;
 import devices.ios.IOSPhysicalMobile;
 import devices.ios.Simulator;
 
-import static constants.AndroidDeviceConstants.*;
+import static constants.IAndroidMobileData.*;
 import static constants.IOSDeviceConstants.*;
 
 
@@ -13,15 +13,15 @@ public class MobileFactory {
 
     public static Emulator getSmallEmulator() {
 
-        Emulator mobile = new Emulator(SMALL_AVD_DEVICE_NAME, ADV_PLATFORM_VERSION, SMALL_AVD, ADV_SYSTEMPORT)
-                .setAvdTimeout(ADV_TIMEOUT);
+        Emulator mobile = new Emulator(SMALL_AVD_DEVICE_NAME, AVD_PLATFORM_VERSION, SMALL_AVD, AVD_SYSTEMPORT);
+//                .setAvdTimeout(AVD_READY_TIMEOUT);
 
         return mobile;
     }
 
     public static Emulator getEmulator() {
-        Emulator mobile = new Emulator(AVD_DEVICE_NAME, ADV_PLATFORM_VERSION, AVD)
-                .setAvdTimeout(ADV_TIMEOUT);
+        Emulator mobile = new Emulator(AVD_DEVICE_NAME, AVD_PLATFORM_VERSION, AVD);
+//                .setAvdTimeout(AVD_READY_TIMEOUT);
 
 //        Emulator mobile = new Emulator(AVD_DEVICE_NAME, ADV_PLATFORM_VERSION, AVD, ADV_SYSTEMPORT)
 //                .setAvdTimeout(ADV_TIMEOUT);
@@ -31,7 +31,7 @@ public class MobileFactory {
 
     public static AndroidPhysicalMobile getAndroidMobile() {
 
-        return new AndroidPhysicalMobile(ANDROID_MOBILE_UUID, ANDROID_MOBILE_NAME, ADV_PLATFORM_VERSION, SYSTEMPORT);
+        return new AndroidPhysicalMobile(ANDROID_MOBILE_UUID, ANDROID_MOBILE_NAME, AVD_PLATFORM_VERSION, SYSTEMPORT);
     }
 
     public static AndroidPhysicalMobile getAndroidTablet() {
