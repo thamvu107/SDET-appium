@@ -14,8 +14,8 @@ public interface AndroidDeviceConstants {
 
     String AVD_DEVICE_NAME = "Pixel 5 API 33";
     String AVD = "Pixel_5_API_33_1";
-    Duration ADV_TIMEOUT = ofMillis(36000);
-    Duration DEFAULT_ADV_TIMEOUT = ofMillis(60000);
+    Duration ADV_TIMEOUT = ofMillis(240_000);
+    Duration DEFAULT_ADV_TIMEOUT = ofMillis(120_000L);
 
     String ANDROID_MOBILE_UUID = "192.168.1.6:5555";
     String ANDROID_MOBILE_NAME = "Standard_PC__i440FX___PIIX__1996_";
