@@ -2,14 +2,13 @@ package constants.android;
 
 import java.time.Duration;
 
-import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofSeconds;
 
-public interface AndroidDriverSetting {
-    boolean APP_WAIT_FOR_LAUNCH = true;
-    Duration APP_WAIT_FOR_LAUNCH_TIME = Duration.ofMillis(180_000L);
-    Duration UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT = ofMillis(240_0000L);
-    Duration UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT = ofMillis(2400_000L);
-    Duration UIAUTOMATOR2_SERVER_READY_TIMEOUT = ofMillis(240_000L);
+public interface IAndroidDriverSetting {
+    Duration UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT = ofSeconds(400);
+    Duration UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT = ofSeconds(400);
+    Duration UIAUTOMATOR2_SERVER_READY_TIMEOUT = ofSeconds(400);
 
-    Duration NEW_COMMAND_TIMEOUT = ofMillis(240_000L);
+    Duration NEW_COMMAND_TIMEOUT = ofSeconds(400);
+    Duration ANDROID_INSTALL_TIMEOUT = ofSeconds(300);
 }

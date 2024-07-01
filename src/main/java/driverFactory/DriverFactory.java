@@ -8,6 +8,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.internal.CapabilityHelpers;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.SessionNotCreatedException;
 import utils.WaitUtils;
 
 import java.net.URL;
@@ -42,9 +43,21 @@ public class DriverFactory {
                 case ANDROID:
                     try {
                         driver = new AndroidDriver(serverURL, caps);
-                        System.out.println("currentActivity " + ((AndroidDriver) driver).currentActivity());
                         break;
-                    } catch (Exception e) { // SessionNotCreatedException
+                    } catch (SessionNotCreatedException ex) {
+                        // ERROR: first time start emulator then  throw exception since timeout Appium setting is set only 30_000ms( caps)
+                        // Error: Appium Settings app is not running after 30000ms
+//                        throw new SessionNotCreatedException(ex.getMessage());
+
+                        //Retrying to create driver
+                        if (ex.getMessage().contains("Appium Settings app is not running after")) {
+//                            System.out.println("Appium Settings app is not running: " + ex.getMessage());
+                            System.out.println("Retry to create driver");
+                            driver = new AndroidDriver(serverURL, caps);
+                            break;
+                        }
+//
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                 case IOS:

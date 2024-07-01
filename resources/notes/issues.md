@@ -10,8 +10,9 @@
             - `adb uninstall io.appium.uiautomator2.server.test`
             - `adb uninstall io.appium.unlock`
             - `adb uninstall io.appium.settings`
-- [Detail problem link](https://discuss.appium.io/t/selenium-webdriverexception-org-openqa-selenium-webdriverexception-an-unknown-server-side-error-occurred-while-processing-the-command-original-error-could-not-proxy-command-to-remote-server-original-error-error-socket-hang-up/29257/7)
-
+- **Issue**: Original error: Appium Settings app is not running after 30000ms - -
+    - **Solution**: `appium driver run uiautomator2 reset`
+- Issue: bug: 'appium-uiautomator2-server-v5.12.1.apk' does not exist or is not accessible
 
 - **Issue 2:**  `System UI Not Responding`
     - **Solutions**:

@@ -1,10 +1,14 @@
 Command with device:
 
+- [Refer document:]( https://developer.android.com/studio/run/emulator-commandline)
+
 - Show devices list:
     - `emulator -list-avds`
 - Start a device
     - `emulator @Pixel_5_API_34`
     - `emulator -avd <avd_name>`
+- Wipe data:
+    - `emulator @Pixel8_API_34 -wipe-data`
 - Stop/Kill a avd
     - `adb -e emu kill`
 

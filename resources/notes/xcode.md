@@ -23,13 +23,14 @@ Select Xcode path: `/Applications/Xcode.app/Contents/Developer`
       com.apple.CoreSimulator.SimRuntime.iOS-13-4`-
 - Open simulator:
     - `xcrun simctl boot "Device Name"`
+- Open simulator:
 - `open -a Simulator --args -CurentDeviceUDID {UUID}`
 - Open app:
-  - `open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/`
+    - `open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/`
 - Install app
-  - `xcrun simctl install <YOUR-DEVICE-ID> <PATH-TO-APPLICATION-BUNDLE>`
+    - `xcrun simctl install <YOUR-DEVICE-ID> <PATH-TO-APPLICATION-BUNDLE>`
 - Launch app on siumlator;
-  - `xcrun simctl launch <YOUR-DEVICE-ID> <BUNDLE-ID-OF-APP-BUNDLE>`
+    - `xcrun simctl launch <YOUR-DEVICE-ID> <BUNDLE-ID-OF-APP-BUNDLE>`
 - Shutdown simulator:
     - `xcrun simctl shutdown UUID`
 - Erase Simulator:

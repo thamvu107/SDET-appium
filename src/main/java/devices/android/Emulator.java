@@ -1,23 +1,31 @@
 package devices.android;
 
+import constants.IAndroidMobileData;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Duration;
 
-import static constants.AndroidDeviceConstants.DEFAULT_ADV_TIMEOUT;
-
 @Getter
 @Setter
 public class Emulator extends AndroidMobile {
-    private String adv;
-    private Duration advTimeout;
-    private static final Duration defaultADVTimeout = Duration.ofMillis(180_000L);
+    private String avd;
+    private Duration avdReadyTimeout;
+    private Duration avdLaunchTimeout;
+    private Duration appWaitDuration;
+    private String netWorkSpeed;
+    private boolean isHeadless;
+    private String avdArgs;
 
-    public Emulator(String deviceName, String platformVersion, String adv) {
+    public Emulator(String deviceName, String platformVersion, String avd) {
         super(deviceName, platformVersion);
-        this.adv = adv;
-        this.advTimeout = DEFAULT_ADV_TIMEOUT;
+        this.avd = avd;
+        this.avdReadyTimeout = IAndroidMobileData.AVD_READY_TIMEOUT;
+        this.avdLaunchTimeout = IAndroidMobileData.AVD_LAUNCH_TIMEOUT;
+        this.appWaitDuration = IAndroidMobileData.APP_WAIT_DURATION;
+        this.netWorkSpeed = IAndroidMobileData.NETWORK_SPEED;
+        this.isHeadless = IAndroidMobileData.IS_HEADLESS;
+        this.avdArgs = "-netspeed edge";//"-wipe-data";
     }
 
     public Emulator(String deviceName, String platformVersion, String adv, int systemPort) {
@@ -30,7 +38,7 @@ public class Emulator extends AndroidMobile {
     }
 
     public Emulator setAvdTimeout(Duration timeout) {
-        this.advTimeout = timeout;
+        this.avdReadyTimeout = timeout;
         return this;
     }
 }
