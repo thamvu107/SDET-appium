@@ -1,6 +1,7 @@
 package pageObjects.screens;
 
 import context.ContextSwitching;
+import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import lombok.Getter;
 import org.openqa.selenium.By;
@@ -12,6 +13,7 @@ import pageObjects.screens.login.LoginScreen;
 import pageObjects.screens.webView.WebHomeScreen;
 import utils.ElementUtils;
 import utils.InteractionUtils;
+import utils.PlatformUtil;
 
 import static constants.WaitConstants.LONG_EXPLICIT_WAIT;
 import static constants.WaitConstants.SHORT_EXPLICIT_WAIT;
@@ -29,7 +31,7 @@ public abstract class BaseScreen {
     protected ElementUtils elementUtils;
 
     protected InteractionUtils interactionUtils;
-    // protected Platform currentPlatform;
+    protected PlatformType currentPlatform;
     //protected AssertUtils assertUtils;
 
 
@@ -40,7 +42,7 @@ public abstract class BaseScreen {
             throw new IllegalArgumentException("Driver cannot be null");
         }
         this.driver = driver;
-        // this.currentPlatform = new PlatformUtil(this.driver).getCurrentPlatform();
+        this.currentPlatform = new PlatformUtil(this.driver).getCurrentPlatform();
         this.contextSwitching = new ContextSwitching(this.driver);
         this.elementUtils = new ElementUtils(driver);
         this.interactionUtils = new InteractionUtils(driver);

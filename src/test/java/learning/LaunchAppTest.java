@@ -16,11 +16,12 @@ public class LaunchAppTest extends BaseTest {
         try {
             driverProvider = new DriverProvider();
             Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+//            Capabilities caps = CapabilityFactory.getCaps(getPixel4Emulator());
+//            driver = driverProvider.getLocalServerDriver(caps);
             driver = driverProvider.getLocalServerDriver(caps);
         } catch (Exception e) {
+            driver.quit();
             throw new RuntimeException(e);
         }
-
     }
-
 }

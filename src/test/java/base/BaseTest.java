@@ -1,18 +1,19 @@
 package base;
 
 import driverFactory.DriverProvider;
+import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import pageObjects.screens.HomeScreen;
-import utils.LaunchingEmulatorUtil;
 
 public abstract class BaseTest {
 
     protected AppiumDriver driver;
     protected DriverProvider driverProvider;
     protected HomeScreen homeScreen;
+    protected PlatformType currentPlatform;
 
     @BeforeSuite
     public void beforeTest() {
@@ -29,7 +30,7 @@ public abstract class BaseTest {
     @AfterSuite
     public void afterSuite() {
 
-        LaunchingEmulatorUtil.killEmulator();
+//        LaunchingEmulatorUtil.killEmulator();
     }
 
 }
