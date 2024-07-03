@@ -9,11 +9,11 @@ public interface IAppUnderTest {
     boolean APP_WAIT_FOR_LAUNCH = true;
     Duration APP_WAIT_DURATION = Duration.ofMillis(400_000L); // default = 20_000
 
-    Duration ANDROID_INSTALL_TIMEOUT = Duration.ofMillis(400_000L); // default = 90_000
+    Duration ANDROID_INSTALL_TIMEOUT = Duration.ofMillis(120_000L); // default = 90_000
 
     boolean AUTO_GRANT_PERMISSION = true;
     boolean IS_ENFORCE_APP_INSTALL = false;
-    String BUNDLE_ID = "com.wdiodemoapp";
+    String BUNDLE_ID = "org.reactjs.native.example.wdiodemoapp";
 
 
 }

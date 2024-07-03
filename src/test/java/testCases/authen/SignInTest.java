@@ -31,6 +31,7 @@ public class SignInTest extends BaseTest {
     public void beforeClass() {
         driverProvider = new DriverProvider();
         Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+//        Capabilities caps = CapabilityFactory.getCaps(getSimulator());
         driver = driverProvider.getLocalServerDriver(caps);
         loginScreen = new HomeScreen(driver).openLoginScreen();
     }

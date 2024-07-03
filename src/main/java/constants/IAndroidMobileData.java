@@ -14,6 +14,8 @@ public interface IAndroidMobileData {
 
     String AVD_DEVICE_NAME = "Pixel 5 API 33";
     String AVD = "Pixel_5_API_33_1";
+    String PIXEL_4_DEVICE_NAME = "Pixel 4 API 34";
+    String PIXEL_4_AVD = "Pixel_4_API_34";
     Duration AVD_READY_TIMEOUT = ofMillis(500_000L);
     Duration AVD_LAUNCH_TIMEOUT = ofMillis(500_000L);
     Duration APP_WAIT_DURATION = ofMillis(500_000L);

@@ -32,6 +32,10 @@ public class HomeScreen extends BaseScreen {
         return this;
     }
 
+    public boolean homeScreenDisplayed() {
+        return elementUtils.isElementDisplayed(homeScreenEl());
+    }
+
     public boolean verifyAppLaunched() {
 
         return elementUtils.isElementDisplayed(homeScreenEl());

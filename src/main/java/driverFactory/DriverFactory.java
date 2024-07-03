@@ -48,15 +48,14 @@ public class DriverFactory {
                         // ERROR: first time start emulator then  throw exception since timeout Appium setting is set only 30_000ms( caps)
                         // Error: Appium Settings app is not running after 30000ms
 //                        throw new SessionNotCreatedException(ex.getMessage());
-
-                        //Retrying to create driver
-                        if (ex.getMessage().contains("Appium Settings app is not running after")) {
+//                        //Retrying to create driver
+                        if (ex.getMessage().contains("Appium Settings app is not running after 30000ms")) {
 //                            System.out.println("Appium Settings app is not running: " + ex.getMessage());
                             System.out.println("Retry to create driver");
                             driver = new AndroidDriver(serverURL, caps);
                             break;
                         }
-//
+
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

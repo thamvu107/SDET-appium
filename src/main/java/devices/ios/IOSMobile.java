@@ -2,7 +2,9 @@ package devices.ios;
 
 import devices.Mobile;
 import enums.PlatformType;
+import lombok.Getter;
 
+@Getter
 public abstract class IOSMobile extends Mobile {
 
     protected int wdaLocalPort = 8100;

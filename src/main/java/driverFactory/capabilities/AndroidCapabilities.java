@@ -1,18 +1,13 @@
 package driverFactory.capabilities;
 
 import constants.android.IAndroidDriverSetting;
-import constants.android.IAppUnderTest;
 import devices.android.AndroidPhysicalMobile;
 import devices.android.Emulator;
-import entity.appUnderTest.AndroidAppUnderTest;
+import entity.app.AndroidAppUnderTest;
 import io.appium.java_client.android.options.UiAutomator2Options;
 
-import java.time.Duration;
 
-import static java.time.Duration.ofSeconds;
-
-
-public class AndroidCapabilities extends UiAutomator2Options implements IAppUnderTest, IAndroidDriverSetting {
+public class AndroidCapabilities extends UiAutomator2Options implements IAndroidDriverSetting {
 
     static AndroidAppUnderTest app = new AndroidAppUnderTest();
 
@@ -22,21 +17,24 @@ public class AndroidCapabilities extends UiAutomator2Options implements IAppUnde
 //        AndroidAppUnderTest app = new AndroidAppUnderTest();
 
         UiAutomator2Options caps = new UiAutomator2Options()
-                .setUiautomator2ServerLaunchTimeout(ofSeconds(240))//UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT // 30_000
-                .setUiautomator2ServerInstallTimeout(ofSeconds(240))//(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT) //  20_000
-                .setUiautomator2ServerReadTimeout(ofSeconds(240)) //UIAUTOMATOR2_SERVER_READY_TIMEOUT) // 240_000
+                .setUiautomator2ServerLaunchTimeout(UIAUTOMATOR2_SERVER_LAUNCH_TIMEOUT)
+                .setUiautomator2ServerInstallTimeout(UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT)
+                .setUiautomator2ServerReadTimeout(UIAUTOMATOR2_SERVER_READY_TIMEOUT)
                 .setSkipServerInstallation(false)
+                .setAllowDelayAdb(true)
+                .setAdbExecTimeout(ADB_EXEC_TIMEOUT)
                 .setDeviceName(mobile.getDeviceName())
                 .setPlatformVersion(mobile.getPlatformVersion())
-                .setNewCommandTimeout(ofSeconds(120))//NEW_COMMAND_TIMEOUT)
-                .setAdbExecTimeout(Duration.ofSeconds(180L)) // 20_000
+                .setNewCommandTimeout(NEW_COMMAND_TIMEOUT)
                 .setSuppressKillServer(true)
-//                .setUdid("emulator-5554") // update later
+//                .setUdid("emulator-5554")
                 .setAvd(mobile.getAvd())
                 .setAvdLaunchTimeout(mobile.getAvdLaunchTimeout())
                 .setAvdReadyTimeout(mobile.getAvdReadyTimeout())
+
 //                .setAvdEnv()
                 .setApp(app.getAppPath())
+                .setEnforceAppInstall(true)
                 .setAppPackage(app.getAppPackage())
                 .setAppWaitPackage(app.getAppPackage())
                 .setAppActivity(app.getAppActivity())
@@ -52,18 +50,24 @@ public class AndroidCapabilities extends UiAutomator2Options implements IAppUnde
                 .setIsHeadless(mobile.isHeadless())
                 .setIgnoreHiddenApiPolicyError(true)
                 .setFullReset(false)
-                .setNoReset(false)
+                .setNoReset(true)
                 .clearDeviceLogsOnStart();
 
         caps.setCapability("clearSystemFiles", true);
         caps.setCapability("clearDeviceLogsOnStart", true);
         caps.setCapability("enableWebviewDetailsCollection", true);
+
+        caps.getAvdReadyTimeout();
+        caps.getAdbExecTimeout();
+        caps.getAvdLaunchTimeout();
+        caps.getAndroidInstallTimeout();
         // not going to run your tests in parallel
 //        caps.setCapability("--session-override", true);
 
 
         return caps;
     }
+
 
     public static UiAutomator2Options getRealMobileCaps(AndroidPhysicalMobile mobile) {
 
