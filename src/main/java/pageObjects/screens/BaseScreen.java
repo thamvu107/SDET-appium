@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pageObjects.commponents.BottomNavComponent;
 import pageObjects.screens.login.LoginScreen;
 import pageObjects.screens.webView.WebHomeScreen;
@@ -19,6 +21,7 @@ import static constants.WaitConstants.LONG_EXPLICIT_WAIT;
 import static constants.WaitConstants.SHORT_EXPLICIT_WAIT;
 
 public abstract class BaseScreen {
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected AppiumDriver driver;
     //    protected LocatorMapperUtils locatorMapperHelper;
@@ -87,9 +90,11 @@ public abstract class BaseScreen {
     protected void verifyScreenLoaded(By locator) {
         // Waits for the element to be visible and throws an exception if it is not
         WebElement element = elementUtils.waitForElementToBeVisible(locator);
+        logger.info("Page is loaded. Element found: " + locator.toString());
 
         if (element == null) {
-            throw new NoSuchElementException("Page is not loaded. Element not found: " + locator.toString());
+            logger.info("Page is not loaded. Element not found: " + locator);
+            throw new NoSuchElementException("Page is not loaded. Element not found: " + locator);
         }
     }
 }

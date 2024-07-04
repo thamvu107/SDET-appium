@@ -1,5 +1,6 @@
-package pageObjects.commponents;
+package pageObjects.commponents.webView;
 
+import customAnnotations.selectors.ComponentXpathSelector;
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
@@ -14,7 +15,9 @@ import utils.PlatformUtil;
 
 import static io.appium.java_client.AppiumBy.accessibilityId;
 
-public class BottomNavComponent {
+
+@ComponentXpathSelector(value = "//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.View")
+public class NavComponent {
     private final AppiumDriver driver;
     private final static By homeNavLoc = accessibilityId("Home");
     private final static By webViewNavLoc = accessibilityId("Webview");
@@ -29,13 +32,13 @@ public class BottomNavComponent {
     private final InteractionUtils mobileInteractions;
 
 
-    public BottomNavComponent(AppiumDriver driver) {
+    public NavComponent(AppiumDriver driver) {
 
         this.driver = driver;
         this.currentPlatform = new PlatformUtil(this.driver).getCurrentPlatform();
         this.elementUtils = new ElementUtils(this.driver);
         this.mobileInteractions = new InteractionUtils(this.driver);
-        //ensureBottomNavLoaded(homeNavLoc);
+        ensureBottomNavLoaded(homeNavLoc);
 
     }
 

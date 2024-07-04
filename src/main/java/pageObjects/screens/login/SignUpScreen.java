@@ -3,6 +3,7 @@ package pageObjects.screens.login;
 import entity.authen.SignUpCred;
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pageObjects.screens.alert.SignUpAlertScreen;
@@ -14,6 +15,7 @@ import static constants.SwipeConstants.MOVE_DURATION;
 import static io.appium.java_client.AppiumBy.accessibilityId;
 import static org.openqa.selenium.By.xpath;
 
+@Slf4j
 public class SignUpScreen extends LoginScreen {
 //    private AppiumDriver driver;
 
@@ -26,6 +28,7 @@ public class SignUpScreen extends LoginScreen {
 
         super(driver);
         verifyScreenLoaded(signUpButtonLocator);
+        log.atInfo().log("Sign up screen loaded");
     }
 
     private final Map<PlatformType, By> invalidRepeatPasswordLocatorMap = Map.of(
@@ -34,12 +37,14 @@ public class SignUpScreen extends LoginScreen {
     );
 
     private WebElement repeatPasswordElement() {
+        log.atInfo().log("Get repeat password element");
 
         return driver.findElement(repeatPasswordLocator);
     }
 
 
     private WebElement invalidRepeatPasswordElement() {
+        log.atInfo().log("Get invalid repeat password element");
 
         By locator = elementUtils.getLocator(invalidRepeatPasswordLocatorMap);
 
@@ -48,7 +53,7 @@ public class SignUpScreen extends LoginScreen {
 
 
     private SignUpScreen inputRepeatPassword(String repeatPassword) {
-
+        log.atInfo().log("Input repeat password");
         interactionUtils.setText(repeatPasswordElement(), repeatPassword);
 
         return this;
@@ -56,6 +61,7 @@ public class SignUpScreen extends LoginScreen {
 
     private void swipeUntilElementVisible(By locator) {
         while (!elementUtils.isElementDisplayed(locator)) {
+            log.atInfo().log("Swipe until element visible");
 
             // TODO: swipe until see element
             SwipeVertically swipeVertically = new SwipeVertically(driver, 0.5f, 0.2f, 0.8f, MOVE_DURATION);
@@ -64,7 +70,7 @@ public class SignUpScreen extends LoginScreen {
     }
 
     private void submitSignUp() {
-
+        log.atInfo().log("Submit sign up");
         swipeUntilElementVisible(signUpButtonLocator);
 
         WebElement signUpButtonElement = elementUtils.waitForFindingElement(signUpButtonLocator);
@@ -72,12 +78,13 @@ public class SignUpScreen extends LoginScreen {
     }
 
     private SignUpAlertScreen submitSignUpSuccess() {
+        log.atInfo().log("Sign up success");
         submitSignUp();
-
         return new SignUpAlertScreen(driver);
     }
 
     private SignUpScreen submitSignUpFail() {
+        log.atInfo().log("Sign up failed");
         submitSignUp();
         return this;
     }
@@ -91,16 +98,20 @@ public class SignUpScreen extends LoginScreen {
     }
 
     public SignUpAlertScreen signUpAsValidCred(SignUpCred signUpCred) {
+        log.atInfo().log("Sign up with valid credentials");
+
         return this.inputSignUpCredentials(signUpCred)
                 .submitSignUpSuccess();
     }
 
     public SignUpScreen signUpAsInvalidCred(SignUpCred signUpCred) {
+        log.atInfo().log("Sign up with invalid credentials");
         return this.inputSignUpCredentials(signUpCred)
                 .submitSignUpFail();
     }
 
     public String getInvalidRepeatPasswordMessage() {
+        log.atInfo().log("Get invalid repeat password message");
 
         return invalidRepeatPasswordElement().getText();
     }

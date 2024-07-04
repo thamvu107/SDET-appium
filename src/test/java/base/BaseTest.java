@@ -3,11 +3,15 @@ package base;
 import driverFactory.DriverProvider;
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.Capabilities;
+import org.slf4j.MDC;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import pageObjects.screens.HomeScreen;
 
+@Slf4j
 public abstract class BaseTest {
 
     protected AppiumDriver driver;
@@ -24,6 +28,7 @@ public abstract class BaseTest {
 
     @AfterClass
     public void afterClass() {
+        MDC.clear(); // Mapped Diagnostic Context
         driverProvider.quitDriver(driver);
     }
 
@@ -31,6 +36,11 @@ public abstract class BaseTest {
     public void afterSuite() {
 
 //        LaunchingEmulatorUtil.killEmulator();
+
+    }
+
+    protected static void putMDC(Capabilities caps) {
+        MDC.put("deviceName", caps.getCapability("deviceName").toString());
     }
 
 }

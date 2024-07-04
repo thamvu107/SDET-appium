@@ -1,6 +1,5 @@
 package utils;
 
-import constants.ElementConstants;
 import enums.PlatformType;
 import exceptions.WaitForConditionException;
 import exceptions.WaitForElementException;
@@ -8,21 +7,23 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
+
+@Slf4j
 public class ElementUtils {
     private final AppiumDriver driver;
     private AndroidDriver androidDriver;
     private IOSDriver iosDriver;
     public WaitUtils waitUtils;
     private final PlatformType currentPlatform;
-    private static final Logger logger = Logger.getLogger(ElementUtils.class.getName());
+//    private static final Logger logger = LoggerFactory.getLogger(ElementUtils.class);
 
     public ElementUtils(AppiumDriver driver) {
         this.driver = driver;
@@ -34,6 +35,7 @@ public class ElementUtils {
     public By getLocator(Map<PlatformType, By> locatorMap) {
 
         if (locatorMap == null) {
+            log.atError().log("Locator cannot be null");
             throw new IllegalArgumentException("Locator cannot be null");
         }
 
@@ -45,6 +47,8 @@ public class ElementUtils {
             WebElement element = this.waitForElementToBeVisible(locator);
             return element.isDisplayed();
         } catch (Exception e) {
+            log.atError().log("isElementDisplayed " + e.getMessage());
+
             return false;
         }
     }
@@ -54,6 +58,7 @@ public class ElementUtils {
             WebElement element = this.waitForElementToBeVisible(locator, waitTimeInMils);
             return element.isDisplayed();
         } catch (Exception e) {
+            log.atError().log("isElementDisplayed " + e.getMessage());
             return false;
         }
     }
@@ -62,6 +67,7 @@ public class ElementUtils {
         try {
             return element.isDisplayed();
         } catch (Exception e) {
+            log.atError().log("isElementDisplayed " + e.getMessage());
             return false;
         }
     }
@@ -70,6 +76,7 @@ public class ElementUtils {
         try {
             return !driver.findElements(locator).isEmpty();
         } catch (Exception e) {
+            log.atError().log("isElementPresent " + e.getMessage());
             return false;
         }
     }
@@ -80,6 +87,7 @@ public class ElementUtils {
             return waitUtils.explicitWait()
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
         } catch (Exception e) {
+            log.atError().log("waitForElementsToBeVisible " + e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -89,6 +97,7 @@ public class ElementUtils {
             return waitUtils.explicitWait()
                     .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent, locator));
         } catch (Exception e) {
+            log.atError().log("waitForElementsToBeVisible " + e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -114,8 +123,8 @@ public class ElementUtils {
                 return null;
             });
         } catch (Exception e) {
-            //return null;
-            throw new WaitForElementException("Exception occurred while waiting for element: " + e.getMessage());
+            log.atError().log("waitForFindingElement " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -128,8 +137,9 @@ public class ElementUtils {
                 return driver.findElement(locator);
             }, timeoutInMills);
         } catch (WaitForConditionException e) {
-            System.err.println("Exception occurred while waiting for element: " + e.getMessage());
-            throw e;
+            log.atError().log("waitForFindingElement " + e.getMessage());
+
+            throw new WaitForElementException("Exception occurred while waiting for element: " + e.getMessage());
         }
     }
 
@@ -141,8 +151,8 @@ public class ElementUtils {
                 return driver.findElements(locator);
             });
         } catch (WaitForConditionException e) {
-            System.err.println("Exception occurred while waiting for elements: " + e.getMessage());
-            throw e;
+            log.atError().log("waitForFindingElements " + e.getMessage());
+            throw new WaitForConditionException("Exception occurred while waiting for elements: " + e.getMessage());
         }
     }
 
@@ -154,7 +164,7 @@ public class ElementUtils {
                 return driver.findElements(locator);
             }, timeoutInMills);
         } catch (WaitForConditionException e) {
-            System.err.println("Exception occurred while waiting for elements: " + e.getMessage());
+            log.atError().log("waitForFindingElements " + e.getMessage());
             throw e;
         }
     }
@@ -165,17 +175,22 @@ public class ElementUtils {
             return waitUtils.explicitWait()
                     .until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
-            throw new TimeoutException(
-                    String.format("Timeout while waiting for element to be visible: %s", locator), e);
+            String message = String.format("Timeout while waiting for element to be visible: %s", locator);
+            log.atError().log(message);
+            throw new TimeoutException(message, e);
+
         } catch (NoSuchElementException e) {
-            throw new NoSuchElementException(
-                    String.format("Element not found while waiting for it to be visible: %s", locator), e);
+            String message = String.format("Element not found while waiting for it to be visible: %s", locator);
+            log.atError().log(message);
+            throw new NoSuchElementException(message, e);
         } catch (StaleElementReferenceException e) {
-            throw new StaleElementReferenceException(
-                    String.format("Element became stale while waiting for it to be visible: %s", locator), e);
+            String message = String.format("Element became stale while waiting for it to be visible: %s", locator);
+            log.atError().log(message);
+            throw new StaleElementReferenceException(message, e);
         } catch (Exception e) {
-            throw new RuntimeException(
-                    String.format("An unexpected error occurred while waiting for element to be visible: %s", locator), e);
+            String message = String.format("An unexpected error occurred while waiting for element to be visible: %s", locator);
+            log.atError().log(message);
+            throw new RuntimeException(message, e);
         }
     }
 
@@ -186,13 +201,15 @@ public class ElementUtils {
             return waitUtils.createWebDriverWait(timeInMillis)
                     .until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
-            System.out.println();
-            throw new TimeoutException(
-                    String.format("Timeout after %d milliseconds waiting for element to be visible: %s", timeInMillis, locator), e);//
+            String message = String.format("Timeout after %d milliseconds waiting for element to be visible: %s", timeInMillis, locator);
+            log.atError().log(message);
+            throw new TimeoutException(message, e);
         } catch (Exception e) {
-            throw new RuntimeException(
-                    String.format("An unexpected error occurred while waiting for element to be visible: %s", locator), e);
+            String message = String.format("An unexpected error occurred while waiting for element to be visible: %s", locator);
+            log.atError().log(message);
+            throw new RuntimeException(message, e);
         }
+
     }
 
     public WebElement waitForElementToBeVisible(WebElement element) {
@@ -200,14 +217,17 @@ public class ElementUtils {
             return waitUtils.explicitWait()
                     .until(ExpectedConditions.visibilityOf(element));
         } catch (TimeoutException e) {
-            throw new TimeoutException(
-                    String.format("Timeout while waiting for element to be visible: %s", element), e);
+            String message = String.format("Timeout while waiting for element to be visible: %s", element);
+            log.atError().log(message);
+            throw new TimeoutException(message, e);
         } catch (StaleElementReferenceException e) {
-            throw new StaleElementReferenceException(
-                    String.format("Element became stale while waiting for it to be visible: %s", element), e);
+            String message = String.format("Element became stale while waiting for it to be visible: %s", element);
+            log.atError().log(message);
+            throw new StaleElementReferenceException(message, e);
         } catch (Exception e) {
-            throw new RuntimeException(
-                    String.format("An unexpected error occurred while waiting for element to be visible: %s", element), e);
+            String message = String.format("An unexpected error occurred while waiting for element to be visible: %s", element);
+            log.atError().log(message);
+            throw new RuntimeException(message, e);
         }
     }
 
@@ -216,14 +236,17 @@ public class ElementUtils {
             return waitUtils.createWebDriverWait(timeInMillis)
                     .until(ExpectedConditions.visibilityOf(element));
         } catch (TimeoutException e) {
-            throw new TimeoutException(
-                    String.format("Timeout after %d milliseconds waiting for element to be visible: %s", timeInMillis, element), e);
+            String message = String.format("Timeout after %d milliseconds waiting for element to be visible: %s", timeInMillis, element);
+            log.atError().log(message);
+            throw new TimeoutException(message, e);
         } catch (StaleElementReferenceException e) {
-            throw new StaleElementReferenceException(
-                    String.format("Element became stale while waiting for it to be visible: %s", element), e);
+            String message = String.format("Element became stale while waiting for it to be visible: %s", element);
+            log.atError().log(message);
+            throw new StaleElementReferenceException(message, e);
         } catch (Exception e) {
-            throw new RuntimeException(
-                    String.format("An unexpected error occurred while waiting for element to be visible: %s", element), e);
+            String message = String.format("An unexpected error occurred while waiting for element to be visible: %s", element);
+            log.atError().log(message);
+            throw new RuntimeException(message, e);
         }
     }
 
@@ -245,19 +268,6 @@ public class ElementUtils {
             throw new WaitForElementException(errorMessage, e);
         }
 
-    }
-
-    private void logAndHandleException(String exceptionType, By locator, Exception e, int retryCount) {
-        String errorMessage = String.format("%s exception on attempt %d while waiting for element to be clickable: %s",
-                exceptionType, retryCount, locator);
-        logger.warning(errorMessage);
-        System.out.println("logAndHandleException " + errorMessage);
-
-        if (retryCount >= ElementConstants.MAX_RETRY_COUNT) {
-            throw new WaitForElementException(
-                    String.format("Timeout waiting for element to be clickable after %d retries: %s",
-                            ElementConstants.MAX_RETRY_COUNT, locator), e);
-        }
     }
 
     public WebElement waitForElementTobeClickable(By locator, long timeInMillis) {
@@ -353,7 +363,7 @@ public class ElementUtils {
             return waitUtils.createWebDriverWait(timeoutInMillis)
                     .until(ExpectedConditions.alertIsPresent());
         } catch (Exception e) {
-            System.err.println("Alert not present within " + timeoutInMillis + " millisecond.");
+            logThenThrowRuntimeException("Alert is not present" + e.getMessage());
             return null;
         }
     }
@@ -491,5 +501,10 @@ public class ElementUtils {
     public void inputText(WebElement element, String text) {
         element.clear();
         element.sendKeys(text);
+    }
+
+    private static void logThenThrowRuntimeException(String message) {
+        log.atError().log(message);
+        throw new RuntimeException(message);
     }
 }

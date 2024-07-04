@@ -8,6 +8,8 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.PlatformUtil;
 import utils.WaitUtils;
 
@@ -19,6 +21,8 @@ public class ContextSwitching {
     private final WaitUtils waitUtils;
 
     private final PlatformType currentPlatform;
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public ContextSwitching(AppiumDriver driver) {
         this.driver = driver;
@@ -59,8 +63,11 @@ public class ContextSwitching {
 
     public WebDriver switchToWebViewContext(long timeoutInSeconds) {
         if (hasWebViewContext(driver, timeoutInSeconds)) {
+            logger.info("Switched to webview context");
+
             return switchToContext(Contexts.WEBVIEW);
         }
+        logger.info("No webview context found");
 
         return null;
     }

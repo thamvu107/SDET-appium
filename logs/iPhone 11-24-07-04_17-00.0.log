@@ -1,0 +1,30 @@
+176114 [main] INFO  p.screens.alert.SignUpAlertScreen - Page is loaded. Element found: AppiumBy.iOSNsPredicate: name == "Signed Up!" AND label == "Signed Up!" AND value == "Signed Up!"
+176133 [main] INFO  p.screens.alert.SignUpAlertScreen - Sign up alert screen loaded
+181865 [main] INFO  p.screens.login.LoginScreen - Open sign up form
+184287 [main] INFO  p.screens.login.SignUpScreen - Page is loaded. Element found: AppiumBy.accessibilityId: Login-screen
+184891 [main] INFO  p.screens.login.SignUpScreen - Page is loaded. Element found: AppiumBy.accessibilityId: button-SIGN UP
+184891 [main] INFO  p.screens.login.SignUpScreen - Sign up screen loaded
+184896 [main] INFO  p.screens.login.SignUpScreen - Sign up with invalid credentials
+184897 [main] INFO  p.screens.login.SignUpScreen - Input email
+187858 [main] INFO  p.screens.login.SignUpScreen - Input password
+190791 [main] INFO  p.screens.login.SignUpScreen - Input repeat password
+190791 [main] INFO  p.screens.login.SignUpScreen - Get repeat password element
+192908 [main] INFO  p.screens.login.SignUpScreen - Sign up failed
+192910 [main] INFO  p.screens.login.SignUpScreen - Submit sign up
+195023 [main] INFO  p.screens.login.SignUpScreen - Get invalid repeat password message
+195023 [main] INFO  p.screens.login.SignUpScreen - Get invalid repeat password element
+195666 [main] INFO  p.screens.login.LoginScreen - Open sign up form
+198021 [main] INFO  p.screens.login.SignUpScreen - Page is loaded. Element found: AppiumBy.accessibilityId: Login-screen
+198639 [main] INFO  p.screens.login.SignUpScreen - Page is loaded. Element found: AppiumBy.accessibilityId: button-SIGN UP
+198639 [main] INFO  p.screens.login.SignUpScreen - Sign up screen loaded
+198650 [main] INFO  p.screens.login.SignUpScreen - Sign up with invalid credentials
+198651 [main] INFO  p.screens.login.SignUpScreen - Input email
+201570 [main] INFO  p.screens.login.SignUpScreen - Input password
+204733 [main] INFO  p.screens.login.SignUpScreen - Input repeat password
+204734 [main] INFO  p.screens.login.SignUpScreen - Get repeat password element
+207184 [main] INFO  p.screens.login.SignUpScreen - Sign up failed
+207184 [main] INFO  p.screens.login.SignUpScreen - Submit sign up
+209110 [main] INFO  p.screens.login.SignUpScreen - Get invalid email message
+210112 [main] INFO  p.screens.login.SignUpScreen - Get invalid password message
+210663 [main] INFO  p.screens.login.SignUpScreen - Get invalid repeat password message
+210664 [main] INFO  p.screens.login.SignUpScreen - Get invalid repeat password element

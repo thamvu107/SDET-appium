@@ -5,10 +5,12 @@ import exceptions.swipe.vertical.SwipeDownException;
 import exceptions.swipe.vertical.SwipeUpException;
 import exceptions.swipe.vertical.SwipeVerticallyException;
 import io.appium.java_client.AppiumDriver;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import utils.gestures.swipe.SwipeAction;
 
+@Slf4j
 public class SwipeVertically extends SwipeAction {
 
     protected int topY;
@@ -53,6 +55,7 @@ public class SwipeVertically extends SwipeAction {
         this.anchor = this.calculateAnchor();
         this.topY = this.calculateSmallCoordinate();
         this.bottomY = this.calculateLargeCoordinate();
+        log.atInfo().log("Swipe vertical: anchorPercentage: " + anchorPercentage + " topPercent: " + topPercent + " bottomPercent: " + bottomPercent);
     }
 
     public SwipeVertically(AppiumDriver driver, WebElement wrapper, float anchorPercentage, float topPercent, float bottomPercent, long moveDuration) {
@@ -61,6 +64,7 @@ public class SwipeVertically extends SwipeAction {
         this.anchor = this.calculateAnchor();
         this.topY = this.calculateSmallCoordinate();
         this.bottomY = this.calculateLargeCoordinate();
+        log.atInfo().log("Swipe vertical: anchorPercentage: " + anchorPercentage + " topPercent: " + topPercent + " bottomPercent: " + bottomPercent);
     }
 
     public SwipeVertically(AppiumDriver drive, Point start, Point end, long moveDuration) {
@@ -69,6 +73,7 @@ public class SwipeVertically extends SwipeAction {
         this.anchor = start.getX();
         this.topY = start.getY();
         this.bottomY = end.getY();
+        log.atInfo().log("Swipe vertical: anchor: " + anchor + " topY: " + topY + " bottomY: " + bottomY);
     }
 
     @Override
@@ -89,10 +94,12 @@ public class SwipeVertically extends SwipeAction {
 
     public void swipeUp() {
         performVerticalSwipe(SwipeVerticalDirection.UP);
+        log.atInfo().log("Swipe up");
     }
 
     public void swipeDown() {
         performVerticalSwipe(SwipeVerticalDirection.DOWN);
+        log.atInfo().log("Swipe down");
     }
 
     private void performVerticalSwipe(SwipeVerticalDirection direction) {

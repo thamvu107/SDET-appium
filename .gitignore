@@ -9,6 +9,15 @@
 *.ipr
 target/
 
+### Test results
+allure-*
+
+## logs
+logs
+
+### screenshots
+screenshots/
+
 ### Eclipse ###
 .apt_generated
 .classpath
