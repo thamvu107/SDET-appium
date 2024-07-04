@@ -3,6 +3,7 @@ package pageObjects.screens.login;
 import entity.authen.SignUpCred;
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pageObjects.screens.alert.SignUpAlertScreen;
@@ -14,6 +15,7 @@ import static constants.SwipeConstants.MOVE_DURATION;
 import static io.appium.java_client.AppiumBy.accessibilityId;
 import static org.openqa.selenium.By.xpath;
 
+@Slf4j
 public class SignUpScreen extends LoginScreen {
 //    private AppiumDriver driver;
 
@@ -48,7 +50,7 @@ public class SignUpScreen extends LoginScreen {
 
 
     private SignUpScreen inputRepeatPassword(String repeatPassword) {
-
+        log.atInfo().log("Input repeat password");
         interactionUtils.setText(repeatPasswordElement(), repeatPassword);
 
         return this;

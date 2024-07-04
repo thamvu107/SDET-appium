@@ -31,6 +31,7 @@ public abstract class BaseTest {
     public void afterSuite() {
 
 //        LaunchingEmulatorUtil.killEmulator();
+
     }
 
 }

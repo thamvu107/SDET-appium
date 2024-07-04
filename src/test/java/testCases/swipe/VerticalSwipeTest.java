@@ -1,6 +1,7 @@
 package testCases.swipe;
 
 import base.BaseTest;
+import customAnnotations.author.Author;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import org.openqa.selenium.Capabilities;
@@ -11,6 +12,7 @@ import pageObjects.screens.HomeScreen;
 import pageObjects.screens.SwipeScreen;
 
 import static devices.MobileFactory.getEmulator;
+import static interfaces.IAuthor.THAM_VU;
 
 public class VerticalSwipeTest extends BaseTest {
     private SwipeScreen swipeScreen;
@@ -29,7 +31,7 @@ public class VerticalSwipeTest extends BaseTest {
         }
     }
 
-
+    @Author(THAM_VU)
     @Test
     public void swipeUpAndDown() {
         boolean isFoundSwipeUpTarget = swipeScreen.scrollToWebDriverIOLogo();

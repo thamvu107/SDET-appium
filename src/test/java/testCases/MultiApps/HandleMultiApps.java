@@ -1,6 +1,7 @@
 package testCases.MultiApps;
 
 import base.BaseTest;
+import customAnnotations.author.Author;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import org.openqa.selenium.Capabilities;
@@ -11,6 +12,7 @@ import pageObjects.screens.HomeScreen;
 import pageObjects.screens.setting.SettingScreen;
 
 import static devices.MobileFactory.getSimulator;
+import static interfaces.IAuthor.THAM_VU;
 
 public class HandleMultiApps extends BaseTest {
 
@@ -27,6 +29,7 @@ public class HandleMultiApps extends BaseTest {
         }
     }
 
+    @Author(THAM_VU)
     @Test
     public void openSettingApp() {
         homeScreen = new HomeScreen(driver);

@@ -1,6 +1,7 @@
 package testCases.authen;
 
 import base.BaseTest;
+import customAnnotations.author.Author;
 import dataProvider.signIn.LoginCredData;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
@@ -21,6 +22,7 @@ import static constants.LoginScreenConstants.INVALID_PASSWORD_MESSAGE;
 import static constants.SignInScreenConstants.SIGN_IN_ALERT_MESSAGE;
 import static constants.SignInScreenConstants.SIGN_IN_ALERT_TITLE;
 import static devices.MobileFactory.getEmulator;
+import static interfaces.IAuthor.THAM_VU;
 
 public class SignInTest extends BaseTest {
     private LoginScreen loginScreen;
@@ -50,6 +52,7 @@ public class SignInTest extends BaseTest {
         }
     }
 
+    @Author(THAM_VU)
     @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class)
     public void loginInWithCorrectCredential(LoginCred loginCred) {
 
@@ -60,6 +63,7 @@ public class SignInTest extends BaseTest {
         Assert.assertEquals(alertScreen.getAlertMessage(), SIGN_IN_ALERT_MESSAGE, "Alert title is not correct");
     }
 
+    @Author(THAM_VU)
     @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = LoginCredData.class)
     public void loginInWithIncorrectCredentials(LoginCred loginCred) {
 
@@ -69,6 +73,7 @@ public class SignInTest extends BaseTest {
         Assert.assertEquals(signInScreens.getInvalidPasswordMessage(), INVALID_PASSWORD_MESSAGE, "Invalid password message is not correct");
     }
 
+    @Author(THAM_VU)
     @Test(dataProvider = "loginCredInvalidEmail", dataProviderClass = LoginCredData.class)
     public void loginInWithIncorrectEmail(LoginCred loginCred) {
 
@@ -78,6 +83,7 @@ public class SignInTest extends BaseTest {
     }
 
 
+    @Author(THAM_VU)
     @Test(dataProvider = "loginCredInvalidPassword", dataProviderClass = LoginCredData.class)
     public void loginInWithIncorrectPassword(LoginCred loginCred) {
 

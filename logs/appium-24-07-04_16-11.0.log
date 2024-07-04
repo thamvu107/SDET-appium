@@ -1,0 +1,57 @@
+525  [main] DEBUG org.testng.TestNG - suiteXmlPath: "/Users/tham/Library/Caches/JetBrains/IdeaIC2023.3/temp-testng-customsuite.xml"
+884  [main] TRACE org.testng.internal.Graph - [Graph] ADDING NODE BaseTest.beforeTest()[pri:0, instance:null] -1555007184
+884  [main] TRACE org.testng.internal.Graph - [Graph] ================ SORTING
+887  [main] TRACE org.testng.internal.Graph - [Graph] =============== DONE SORTING
+887  [main] TRACE org.testng.internal.Graph - [Graph] ====== SORTED NODES
+887  [main] TRACE org.testng.internal.Graph - [Graph] ====== END SORTED NODES
+889  [main] TRACE org.testng.internal.Graph - [Graph] ADDING NODE BaseTest.afterSuite()[pri:0, instance:null] -419499013
+889  [main] TRACE org.testng.internal.Graph - [Graph] ================ SORTING
+890  [main] TRACE org.testng.internal.Graph - [Graph] =============== DONE SORTING
+890  [main] TRACE org.testng.internal.Graph - [Graph] ====== SORTED NODES
+890  [main] TRACE org.testng.internal.Graph - [Graph] ====== END SORTED NODES
+892  [main] TRACE org.testng.internal.Graph - [Graph] ADDING NODE SignUpTest.beforeClass()[pri:0, instance:null] 1785117170
+893  [main] TRACE org.testng.internal.Graph - [Graph] ================ SORTING
+893  [main] TRACE org.testng.internal.Graph - [Graph] =============== DONE SORTING
+893  [main] TRACE org.testng.internal.Graph - [Graph] ====== SORTED NODES
+893  [main] TRACE org.testng.internal.Graph - [Graph] ====== END SORTED NODES
+895  [main] TRACE org.testng.internal.Graph - [Graph] ADDING NODE BaseTest.afterClass()[pri:0, instance:null] -405232261
+895  [main] TRACE org.testng.internal.Graph - [Graph] ================ SORTING
+895  [main] TRACE org.testng.internal.Graph - [Graph] =============== DONE SORTING
+895  [main] TRACE org.testng.internal.Graph - [Graph] ====== SORTED NODES
+895  [main] TRACE org.testng.internal.Graph - [Graph] ====== END SORTED NODES
+898  [main] TRACE org.testng.internal.Graph - [Graph] ADDING NODE SignUpTest.beforeMethod()[pri:0, instance:null] 775473609
+899  [main] TRACE org.testng.internal.Graph - [Graph] ================ SORTING
+899  [main] TRACE org.testng.internal.Graph - [Graph] =============== DONE SORTING
+899  [main] TRACE org.testng.internal.Graph - [Graph] ====== SORTED NODES
+899  [main] TRACE org.testng.internal.Graph - [Graph] ====== END SORTED NODES
+900  [main] TRACE org.testng.internal.Graph - [Graph] ADDING NODE SignUpTest.afterMethod()[pri:0, instance:null] -717421226
+900  [main] TRACE org.testng.internal.Graph - [Graph] ================ SORTING
+900  [main] TRACE org.testng.internal.Graph - [Graph] =============== DONE SORTING
+900  [main] TRACE org.testng.internal.Graph - [Graph] ====== SORTED NODES
+901  [main] TRACE org.testng.internal.Graph - [Graph] ====== END SORTED NODES
+906  [main] TRACE org.testng.internal.Graph - [Graph] ADDING NODE BaseTest.beforeTest()[pri:0, instance:testCases.authen.SignUpTest@1ab06251] -512815327
+906  [main] TRACE org.testng.internal.Graph - [Graph] ================ SORTING
+906  [main] TRACE org.testng.internal.Graph - [Graph] =============== DONE SORTING
+906  [main] TRACE org.testng.internal.Graph - [Graph] ====== SORTED NODES
+906  [main] TRACE org.testng.internal.Graph - [Graph] ====== END SORTED NODES
+908  [main] TRACE org.testng.internal.Graph - [Graph] ADDING NODE SignUpTest.signUpWithCorrectCredentials(entity.authen.SignUpCred)[pri:0, instance:testCases.authen.SignUpTest@1ab06251] -326353096
+908  [main] TRACE org.testng.internal.Graph - [Graph] ADDING NODE SignUpTest.signUpWithInvalidRepeatPassWord(entity.authen.SignUpCred)[pri:0, instance:testCases.authen.SignUpTest@1ab06251] 28672909
+908  [main] TRACE org.testng.internal.Graph - [Graph] ADDING NODE SignUpTest.signUpWithInvalidUser(entity.authen.SignUpCred)[pri:0, instance:testCases.authen.SignUpTest@1ab06251] 1433280068
+909  [main] TRACE org.testng.internal.Graph - [Graph] ================ SORTING
+912  [main] TRACE org.testng.internal.Graph - [Graph] =============== DONE SORTING
+912  [main] TRACE org.testng.internal.Graph - [Graph] ====== SORTED NODES
+912  [main] TRACE org.testng.internal.Graph - [Graph] ====== END SORTED NODES
+913  [main] TRACE org.testng.internal.Graph - [Graph] ADDING NODE BaseTest.afterSuite()[pri:0, instance:testCases.authen.SignUpTest@1ab06251] 328199606
+914  [main] TRACE org.testng.internal.Graph - [Graph] ================ SORTING
+914  [main] TRACE org.testng.internal.Graph - [Graph] =============== DONE SORTING
+914  [main] TRACE org.testng.internal.Graph - [Graph] ====== SORTED NODES
+914  [main] TRACE org.testng.internal.Graph - [Graph] ====== END SORTED NODES
+917  [main] INFO  org.testng.internal.Utils - [TestNG] Running:
+  /Users/tham/Library/Caches/JetBrains/IdeaIC2023.3/temp-testng-customsuite.xml
+
+15418 [main] INFO  pageObjects.screens.HomeScreen - Page is loaded. Element found: AppiumBy.accessibilityId: Home-screen
+17720 [main] INFO  p.screens.login.LoginScreen - Page is loaded. Element found: AppiumBy.accessibilityId: Login-screen
+21020 [main] INFO  p.screens.login.SignUpScreen - Page is loaded. Element found: AppiumBy.accessibilityId: Login-screen
+22170 [main] INFO  p.screens.login.SignUpScreen - Page is loaded. Element found: AppiumBy.accessibilityId: button-SIGN UP
+22450 [main] INFO  testCases.authen.SignUpTest - username: tham.qa@gmail.com
+22452 [main] INFO  testCases.authen.SignUpTest - password: qateam@123Testing

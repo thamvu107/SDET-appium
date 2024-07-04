@@ -51,6 +51,7 @@ public class SettingScreen extends BaseScreen {
 
     public SettingScreen switchSettingApp() {
 
+
         switchToActiveApp(currentPlatform, getSettingAppId());
 
         return this;

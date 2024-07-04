@@ -1,0 +1,6 @@
+614  [main] DEBUG org.testng.TestNG - suiteXmlPath: "/Users/tham/Library/Caches/JetBrains/IdeaIC2023.3/temp-testng-customsuite.xml"
+1007 [main] INFO  org.testng.internal.Utils - [TestNG] Running:
+  /Users/tham/Library/Caches/JetBrains/IdeaIC2023.3/temp-testng-customsuite.xml
+
+12866 [main] INFO  pageObjects.screens.HomeScreen - Page is loaded. Element found: AppiumBy.accessibilityId: Home-screen
+13835 [main] INFO  p.screens.login.LoginScreen - Page is loaded. Element found: AppiumBy.accessibilityId: Login-screen

@@ -1,6 +1,7 @@
 package testCases.authen;
 
 import base.BaseTest;
+import customAnnotations.author.Author;
 import dataProvider.signUp.SignUpCredData;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
@@ -19,7 +20,8 @@ import pageObjects.screens.login.SignUpScreen;
 import static constants.LoginScreenConstants.INVALID_EMAIL_MESSAGE;
 import static constants.LoginScreenConstants.INVALID_PASSWORD_MESSAGE;
 import static constants.SignUpScreenConstants.*;
-import static devices.MobileFactory.getEmulator;
+import static devices.MobileFactory.getSimulator;
+import static interfaces.IAuthor.THAM_VU;
 
 public class SignUpTest extends BaseTest {
 
@@ -31,7 +33,8 @@ public class SignUpTest extends BaseTest {
     @BeforeClass
     public void beforeClass() {
         driverProvider = new DriverProvider();
-        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+        Capabilities caps = CapabilityFactory.getCaps(getSimulator());
+//        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
         driver = driverProvider.getLocalServerDriver(caps);
         loginScreen = new HomeScreen(driver).openLoginScreen();
     }
@@ -49,9 +52,9 @@ public class SignUpTest extends BaseTest {
         }
     }
 
+    @Author(THAM_VU)
     @Test(dataProvider = "signUpCredValidUser", dataProviderClass = SignUpCredData.class)
     public void signUpWithCorrectCredentials(SignUpCred signupCred) {
-
         alertScreen = signUpScreen.signUpAsValidCred(signupCred);
 
         Assert.assertTrue(alertScreen.isAlertPresent(), "Alert is not present");
@@ -59,6 +62,7 @@ public class SignUpTest extends BaseTest {
         Assert.assertEquals(alertScreen.getAlertMessage(), SIGN_UP_SUCCESS_MESSAGE, "Alert message is not correct");
     }
 
+    @Author(THAM_VU)
     @Test(dataProvider = "signUpCredInvalidUser", dataProviderClass = SignUpCredData.class)
     public void signUpWithInvalidUser(SignUpCred signUpCred) {
 
@@ -69,6 +73,7 @@ public class SignUpTest extends BaseTest {
         Assert.assertEquals(signUpScreen.getInvalidRepeatPasswordMessage(), INCORRECT_REPEAT_PASSWORD_MESSAGE, "Invalid repeat password message is not correct");
     }
 
+    @Author(THAM_VU)
     @Test(dataProvider = "signUpCredInvalidRepeatPassword", dataProviderClass = SignUpCredData.class)
     public void signUpWithInvalidRepeatPassWord(SignUpCred signUpCred) {
 

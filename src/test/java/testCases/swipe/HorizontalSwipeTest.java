@@ -1,6 +1,7 @@
 package testCases.swipe;
 
 import base.BaseTest;
+import customAnnotations.author.Author;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import org.openqa.selenium.Capabilities;
@@ -14,6 +15,7 @@ import pageObjects.screens.SwipeScreen;
 
 import static constants.SwipeScreenConstants.*;
 import static devices.MobileFactory.getEmulator;
+import static interfaces.IAuthor.*;
 
 public class HorizontalSwipeTest extends BaseTest {
     private SwipeScreen swipeScreen;
@@ -41,6 +43,7 @@ public class HorizontalSwipeTest extends BaseTest {
         Assert.assertTrue(swipeScreen.goToTheFirstCard(MAX_SWIPES));
     }
 
+    @Author(THAM_VU)
     @Test
     public void swipeLeftToTargetCard() {
         boolean isFoundTarget = swipeScreen.swipeLeftToCardTitle(TARGET_CARD_TITLE_SWIPE_LEFT, MAX_SWIPES);
@@ -48,6 +51,7 @@ public class HorizontalSwipeTest extends BaseTest {
         Assert.assertTrue(isFoundTarget, "This is not target card");
     }
 
+    @Author(ADMIN)
     @Test
     public void swipeRightToTargetCard() {
         boolean isFoundTarget = swipeScreen.swipeLeft(MAX_SWIPES)
@@ -56,12 +60,14 @@ public class HorizontalSwipeTest extends BaseTest {
         Assert.assertTrue(isFoundTarget, "This is not target card");
     }
 
+    @Author(THAM_VU)
     @Test
     public void swipeToFirstCard() {
         boolean isFoundTarget = swipeScreen.goToTheFirstCard(MAX_SWIPES);
         Assert.assertTrue(isFoundTarget, "This is not first card");
     }
 
+    @Author(DEV)
     @Test
     public void swipeToLastCard() {
         boolean isFoundTarget = swipeScreen.goToLastCard(MAX_SWIPES);
