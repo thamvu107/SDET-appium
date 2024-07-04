@@ -107,19 +107,21 @@ public class LoginScreen extends BaseScreen {
 
 
     public SignUpScreen openSingUpForm() {
-
+        logger.atInfo().log("Open sign up form");
         signUpTabEl().click();
 
         return new SignUpScreen(driver);
     }
 
     public LoginScreen inputEmail(String email) {
+        logger.atInfo().log("Input email");
         elementUtils.inputText(emailFieldEl(), email);
 
         return this;
     }
 
     public LoginScreen inputPassword(String password) {
+        logger.atInfo().log("Input password");
         elementUtils.inputText(passwordFieldEl(), password);
 
         return this;
@@ -137,11 +139,12 @@ public class LoginScreen extends BaseScreen {
     }
 
     public String getInvalidEmailMessage() {
-
+        logger.atInfo().log("Get invalid email message");
         return invalidEmailLabelEl().getText();
     }
 
     public String getInvalidPasswordMessage() {
+        logger.atInfo().log("Get invalid password message");
 
         return invalidPasswordLabelEl().getText();
     }

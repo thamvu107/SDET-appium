@@ -23,6 +23,7 @@ public class HandleMultiApps extends BaseTest {
             Capabilities caps = CapabilityFactory.getCaps(getSimulator());
 //            Capabilities caps = CapabilityFactory.getCaps(getEmulator());
             driver = driverProvider.getLocalServerDriver(caps);
+            putMDC(caps);
 
         } catch (Exception e) {
             throw new RuntimeException("Setup failed: " + e.getMessage(), e);

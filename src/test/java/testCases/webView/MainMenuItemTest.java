@@ -31,6 +31,7 @@ public class MainMenuItemTest extends BaseTest {
             Capabilities caps = CapabilityFactory.getCaps(getEmulator());
 
             driver = driverProvider.getLocalServerDriver(caps);
+            putMDC(caps);
 
             webHomeScreen = new HomeScreen(driver)
                     .openWebViewScreen();

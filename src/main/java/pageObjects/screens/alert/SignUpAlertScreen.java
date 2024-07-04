@@ -18,6 +18,7 @@ public class SignUpAlertScreen extends AlertScreen {
     public SignUpAlertScreen(AppiumDriver driver) {
         super(driver);
         verifyScreenLoaded(elementUtils.getLocator(alertTitleLocatorMap));
+        logger.atInfo().log("Sign up alert screen loaded");
     }
 
     private final Map<PlatformType, By> alertTitleLocatorMap = Map.of(

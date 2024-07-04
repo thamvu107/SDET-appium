@@ -26,7 +26,7 @@ public class HorizontalSwipeTest extends BaseTest {
             driverProvider = new DriverProvider();
             Capabilities caps = CapabilityFactory.getCaps(getEmulator());
             driver = driverProvider.getLocalServerDriver(caps);
-
+            putMDC(caps);
             swipeScreen = new HomeScreen(driver).goToSwipeScreen();
         } catch (Exception e) {
             throw new RuntimeException("Setup failed: " + e.getMessage(), e);

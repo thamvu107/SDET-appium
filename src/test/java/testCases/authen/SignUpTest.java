@@ -6,6 +6,7 @@ import dataProvider.signUp.SignUpCredData;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import entity.authen.SignUpCred;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Capabilities;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -23,6 +24,7 @@ import static constants.SignUpScreenConstants.*;
 import static devices.MobileFactory.getSimulator;
 import static interfaces.IAuthor.THAM_VU;
 
+@Slf4j
 public class SignUpTest extends BaseTest {
 
     private LoginScreen loginScreen;
@@ -36,6 +38,7 @@ public class SignUpTest extends BaseTest {
         Capabilities caps = CapabilityFactory.getCaps(getSimulator());
 //        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
         driver = driverProvider.getLocalServerDriver(caps);
+        putMDC(caps);
         loginScreen = new HomeScreen(driver).openLoginScreen();
     }
 

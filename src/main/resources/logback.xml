@@ -5,41 +5,69 @@
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/appium-%d{yy-MM-dd_HH-mm}.%i.log</fileNamePattern>
-            <maxFileSize>10MB</maxFileSize>
-            <maxHistory>10</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
-        </encoder>
-        <append>true</append>
+    <!--    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+    <!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+    <!--            <fileNamePattern>logs/appium-%d{yy-MM-dd_HH-mm}.%i.log</fileNamePattern>-->
+    <!--            <maxFileSize>10MB</maxFileSize>-->
+    <!--            <maxHistory>10</maxHistory>-->
+    <!--        </rollingPolicy>-->
+    <!--        <encoder>-->
+    <!--            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>-->
+    <!--        </encoder>-->
+    <!--        <append>true</append>-->
+    <!--    </appender>-->
+
+    <appender name="SIFT" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator class="ch.qos.logback.classic.sift.MDCBasedDiscriminator">
+            <Key>deviceName</Key>
+            <DefaultValue>default</DefaultValue>
+        </discriminator>
+        <sift>
+            <appender name="FILE-${deviceName}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <fileNamePattern>logs/${deviceName}-%d{yy-MM-dd_HH-mm}.%i.log</fileNamePattern>
+                    <maxFileSize>10MB</maxFileSize>
+                    <maxHistory>10</maxHistory>
+                </rollingPolicy>
+                <encoder>
+                    <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+                </encoder>
+                <append>true</append>
+            </appender>
+        </sift>
     </appender>
+
+
     <logger name="test" level="TRACE">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
+        <!--        <appender-ref ref="FILE"/>-->
+        <appender-ref ref="SIFT"/>
     </logger>
     <logger name="test" level="DEBUG">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
+        <!--        <appender-ref ref="FILE"/>-->
+        <appender-ref ref="SIFT"/>
     </logger>
     <logger name="test" level="INFO">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
+        <!--        <appender-ref ref="FILE"/>-->
+        <appender-ref ref="SIFT"/>
     </logger>
     <logger name="test" level="WARN">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
+        <!--        <appender-ref ref="FILE"/>-->
+        <appender-ref ref="SIFT"/>
     </logger>
     <logger name="test" level="ERROR">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
+        <!--        <appender-ref ref="FILE"/>-->
+        <appender-ref ref="SIFT"/>
     </logger>
 
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
+        <!--        <appender-ref ref="FILE"/>-->
+        <appender-ref ref="SIFT"/>
     </root>
 
 </configuration>
