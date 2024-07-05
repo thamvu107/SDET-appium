@@ -4,6 +4,7 @@ import base.BaseTest;
 import customAnnotations.author.Author;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Capabilities;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -17,20 +18,17 @@ import static constants.SwipeScreenConstants.*;
 import static devices.MobileFactory.getEmulator;
 import static interfaces.IAuthor.*;
 
+@Slf4j
 public class HorizontalSwipeTest extends BaseTest {
     private SwipeScreen swipeScreen;
 
     @BeforeClass
     public void setupSwipeTestClass() {
-        try {
-            driverProvider = new DriverProvider();
-            Capabilities caps = CapabilityFactory.getCaps(getEmulator());
-            driver = driverProvider.getLocalServerDriver(caps);
-            putMDC(caps);
-            swipeScreen = new HomeScreen(driver).goToSwipeScreen();
-        } catch (Exception e) {
-            throw new RuntimeException("Setup failed: " + e.getMessage(), e);
-        }
+        driverProvider = new DriverProvider();
+        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+        driver = driverProvider.getLocalServerDriver(caps);
+        setLogParams(caps);
+        swipeScreen = new HomeScreen(driver).goToSwipeScreen();
     }
 
     @BeforeMethod

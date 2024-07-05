@@ -39,8 +39,20 @@ public abstract class BaseTest {
 
     }
 
-    protected static void putMDC(Capabilities caps) {
-        MDC.put("deviceName", caps.getCapability("deviceName").toString());
+    protected void setLogParams(Capabilities capabilities) {
+        String deviceName = capabilities.getCapability("deviceName").toString();
+        System.out.println(driver.getCapabilities().toString());
+        MDC.put("logDir", "logs");
+        MDC.put("deviceName", convertDeviceName(deviceName));
+    }
+
+    private static String convertDeviceName(String deviceName) {
+        System.out.println(deviceName);
+        if (deviceName == null || deviceName.isEmpty()) {
+            throw new IllegalArgumentException("Device name cannot be null or empty");
+        }
+        System.out.println(deviceName.replaceAll(" ", "_"));
+        return deviceName.replaceAll(" ", "_");
     }
 
 }

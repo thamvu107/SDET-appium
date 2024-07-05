@@ -26,21 +26,16 @@ public class MainMenuItemTest extends BaseTest {
 
     @BeforeClass
     public void beforeWebViewClass() {
-        try {
-            driverProvider = new DriverProvider();
-            Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+        driverProvider = new DriverProvider();
+        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
 
-            driver = driverProvider.getLocalServerDriver(caps);
-            putMDC(caps);
+        driver = driverProvider.getLocalServerDriver(caps);
+        setLogParams(caps);
 
-            webHomeScreen = new HomeScreen(driver)
-                    .openWebViewScreen();
+        webHomeScreen = new HomeScreen(driver)
+                .openWebViewScreen();
 
-            webHomeScreen.closeAnnouncement();
-
-        } catch (Exception e) {
-            throw new RuntimeException("Setup failed: " + e.getMessage(), e);
-        }
+        webHomeScreen.closeAnnouncement();
     }
 
     @BeforeMethod

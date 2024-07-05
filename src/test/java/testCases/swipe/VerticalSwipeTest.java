@@ -4,6 +4,7 @@ import base.BaseTest;
 import customAnnotations.author.Author;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Capabilities;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -14,22 +15,19 @@ import pageObjects.screens.SwipeScreen;
 import static devices.MobileFactory.getEmulator;
 import static interfaces.IAuthor.THAM_VU;
 
+@Slf4j
 public class VerticalSwipeTest extends BaseTest {
     private SwipeScreen swipeScreen;
 
     @BeforeClass
     public void setupSwipeTestClass() {
-        try {
-            driverProvider = new DriverProvider();
-            Capabilities caps = CapabilityFactory.getCaps(getEmulator());
-            driver = driverProvider.getLocalServerDriver(caps);
-            putMDC(caps);
+        driverProvider = new DriverProvider();
+        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+        driver = driverProvider.getLocalServerDriver(caps);
+        setLogParams(caps);
 
-            swipeScreen = new HomeScreen(driver)
-                    .goToSwipeScreen();
-        } catch (Exception e) {
-            throw new RuntimeException("Setup failed: " + e.getMessage(), e);
-        }
+        swipeScreen = new HomeScreen(driver)
+                .goToSwipeScreen();
     }
 
     @Author(THAM_VU)

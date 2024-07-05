@@ -38,7 +38,7 @@ public class SignUpTest extends BaseTest {
         Capabilities caps = CapabilityFactory.getCaps(getSimulator());
 //        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
         driver = driverProvider.getLocalServerDriver(caps);
-        putMDC(caps);
+        setLogParams(caps);
         loginScreen = new HomeScreen(driver).openLoginScreen();
     }
 
