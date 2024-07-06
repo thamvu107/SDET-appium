@@ -1,16 +1,16 @@
 package learning.component.genericType.drivers;
 
 import devices.Mobile;
-import driver.AppiumDriver;
+import driver.AppiumDriverEx;
 
 public class IOSDriver extends Driver {
-    @Override
-    public AppiumDriver innitDriver(Mobile mobile) {
-        return null;
-    }
+  @Override
+  public AppiumDriverEx innitDriver(Mobile mobile) {
+    return null;
+  }
 
-    @Override
-    public AppiumDriver quitDriver() {
-        return null;
-    }
+  @Override
+  public AppiumDriverEx quitDriver() {
+    return null;
+  }
 }

@@ -8,8 +8,8 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebElement;
-import pageObjects.screens.HomeScreen;
-import pageObjects.screens.SwipeScreen;
+import screens.screens.HomeScreen;
+import screens.screens.SwipeScreen;
 import utils.ElementUtils;
 
 import static constants.SwipeScreenConstants.SWIPE_SCREEN_TITLE;

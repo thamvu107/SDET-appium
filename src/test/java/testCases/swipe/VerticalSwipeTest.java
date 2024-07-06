@@ -1,7 +1,7 @@
 package testCases.swipe;
 
 import base.BaseTest;
-import customAnnotations.author.Author;
+import annotations.author.Author;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +9,8 @@ import org.openqa.selenium.Capabilities;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pageObjects.screens.HomeScreen;
-import pageObjects.screens.SwipeScreen;
+import screens.screens.HomeScreen;
+import screens.screens.SwipeScreen;
 
 import static devices.MobileFactory.getEmulator;
 import static interfaces.IAuthor.THAM_VU;

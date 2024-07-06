@@ -1,13 +1,13 @@
 package driver;
 
-public class AndroidDriverEx extends AppiumDriver {
-    @Override
-    public void createDriver() {
+public class AndroidDriverEx extends AppiumDriverEx {
+  @Override
+  public void createDriver() {
 
-    }
+  }
 
-    @Override
-    public void closeDriver() {
+  @Override
+  public void closeDriver() {
 
-    }
+  }
 }
