@@ -6,7 +6,7 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
-import pageObjects.screens.HomeScreen;
+import screens.screens.HomeScreen;
 import utils.ElementUtils;
 
 import static devices.MobileFactory.getEmulator;

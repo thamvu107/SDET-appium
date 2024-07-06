@@ -1,7 +1,7 @@
 package testCases.authen;
 
 import base.BaseTest;
-import customAnnotations.author.Author;
+import annotations.author.Author;
 import dataProvider.signIn.LoginCredData;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
@@ -12,10 +12,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageObjects.screens.HomeScreen;
-import pageObjects.screens.alert.SignInAlertScreen;
-import pageObjects.screens.login.LoginScreen;
-import pageObjects.screens.login.SignInScreen;
+import screens.screens.HomeScreen;
+import screens.screens.alert.SignInAlertScreen;
+import screens.screens.login.LoginScreen;
+import screens.screens.login.SignInScreen;
 
 import static constants.LoginScreenConstants.INVALID_EMAIL_MESSAGE;
 import static constants.LoginScreenConstants.INVALID_PASSWORD_MESSAGE;

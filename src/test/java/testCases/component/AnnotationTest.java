@@ -1,17 +1,19 @@
 package testCases.component;
 
-import customAnnotations.selectors.ComponentXpathSelector;
+import annotations.selectors.ComponentXpathSelector;
 import org.testng.annotations.Test;
-import pageObjects.commponents.webView.NavComponent;
+import screens.commponents.webView.component.BottomNavComponent;
 
 public class AnnotationTest {
-    public static <T> void printComponent(Class<T> componentClass) {
-        String xpath = componentClass.getAnnotation(ComponentXpathSelector.class).value();
-        System.out.println("xpath " + xpath);
-    }
 
-    @Test
-    public void testAnnotation() {
-        printComponent(NavComponent.class);
-    }
+  @Test
+  public void testAnnotation() {
+
+    printComponent(BottomNavComponent.class);
+  }
+
+  public static <T> void printComponent(Class<T> componentClass) {
+    String xpath = componentClass.getAnnotation(ComponentXpathSelector.class).android();
+    System.out.println("xpath " + xpath);
+  }
 }

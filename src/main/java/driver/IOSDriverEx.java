@@ -1,13 +1,13 @@
 package driver;
 
-public class IOSDriverEx extends AppiumDriver {
-    @Override
-    public void createDriver() {
+public class IOSDriverEx extends AppiumDriverEx {
+  @Override
+  public void createDriver() {
 
-    }
+  }
 
-    @Override
-    public void closeDriver() {
+  @Override
+  public void closeDriver() {
 
-    }
+  }
 }

@@ -9,50 +9,48 @@ import org.slf4j.MDC;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import pageObjects.screens.HomeScreen;
+import screens.screens.HomeScreen;
 
 @Slf4j
 public abstract class BaseTest {
 
-    protected AppiumDriver driver;
-    protected DriverProvider driverProvider;
-    protected HomeScreen homeScreen;
-    protected PlatformType currentPlatform;
+  protected AppiumDriver driver;
+  protected DriverProvider driverProvider;
+  protected HomeScreen homeScreen;
+  protected PlatformType currentPlatform;
 
-    @BeforeSuite
-    public void beforeTest() {
-        //LaunchingEmulatorUtil.launchEmulator("Pixel_5_API_33_1");
+  @BeforeSuite
+  public void beforeTest() {
+    //LaunchingEmulatorUtil.launchEmulator("Pixel_5_API_33_1");
 //        LaunchingEmulatorUtil.launchEmulator("Pixel_4_API_33");
-    }
+  }
 
 
-    @AfterClass
-    public void afterClass() {
-        MDC.clear(); // Mapped Diagnostic Context
-        driverProvider.quitDriver(driver);
-    }
+  @AfterClass
+  public void afterClass() {
+    MDC.clear(); // Mapped Diagnostic Context
+    driverProvider.quitDriver(driver);
+  }
 
-    @AfterSuite
-    public void afterSuite() {
+  @AfterSuite
+  public void afterSuite() {
 
 //        LaunchingEmulatorUtil.killEmulator();
 
-    }
+  }
 
-    protected void setLogParams(Capabilities capabilities) {
-        String deviceName = capabilities.getCapability("deviceName").toString();
-        System.out.println(driver.getCapabilities().toString());
-        MDC.put("logDir", "logs");
-        MDC.put("deviceName", convertDeviceName(deviceName));
-    }
+  protected void setLogParams(Capabilities capabilities) {
+    String deviceName = capabilities.getCapability("deviceName").toString();
+    MDC.put("logDir", "logs");
+    MDC.put("deviceName", convertDeviceName(deviceName));
+  }
 
-    private static String convertDeviceName(String deviceName) {
-        System.out.println(deviceName);
-        if (deviceName == null || deviceName.isEmpty()) {
-            throw new IllegalArgumentException("Device name cannot be null or empty");
-        }
-        System.out.println(deviceName.replaceAll(" ", "_"));
-        return deviceName.replaceAll(" ", "_");
+  private static String convertDeviceName(String deviceName) {
+    System.out.println(deviceName);
+    if (deviceName == null || deviceName.isEmpty()) {
+      throw new IllegalArgumentException("Device name cannot be null or empty");
     }
+    return deviceName.replaceAll(" ", "_");
+  }
 
 }

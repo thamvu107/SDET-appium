@@ -7,3 +7,10 @@
 - Report
 - multi apps
 - authen data dynamic
+- explore stream in java
+- map
+- lambada expression
+  // Wait until the component displayed on the page
+  // In case the component is not on screen(for Android) need to swipe the screen
+  // TODO: Explore this logic
+  waitUtils.explicitWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(componentSel));

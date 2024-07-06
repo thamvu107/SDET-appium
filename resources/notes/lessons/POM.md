@@ -26,3 +26,7 @@
 [Reference source](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/)
 
 Advance concept | Component page
+
+- simple locator / avoid duplicate locator when narrow down searching
+- reuse component - code UI reuse => Test reuse component
+- Components extent component & BasePage extent component & Other page extend BasePage
