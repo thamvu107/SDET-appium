@@ -3,13 +3,13 @@ package base;
 import driverFactory.DriverProvider;
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
+import screens.HomeScreen;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Capabilities;
 import org.slf4j.MDC;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import screens.screens.HomeScreen;
 
 @Slf4j
 public abstract class BaseTest {

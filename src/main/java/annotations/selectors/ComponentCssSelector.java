@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface ComponentCssSelector {
-  String android() default "";
+    String android() default "";
 
-  String ios() default "";
+    String ios() default "";
 }

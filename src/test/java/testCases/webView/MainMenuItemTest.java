@@ -6,14 +6,14 @@ import dataProvider.webView.MenuItemProvider;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import entity.webView.MenuItemDataModel;
+import screens.HomeScreen;
+import screens.webView.WebHomeScreen;
 import org.openqa.selenium.Capabilities;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import screens.screens.HomeScreen;
-import screens.screens.webView.WebHomeScreen;
 
 import java.util.List;
 

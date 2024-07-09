@@ -1,6 +1,6 @@
 package utils;
 
-import annotations.selectors.ComponentAccessibilityIdSelector;
+import annotations.selector.ComponentAccessibilityId;
 import annotations.selectors.ComponentCssSelector;
 import annotations.selectors.ComponentIdSelector;
 import annotations.selectors.ComponentXpathSelector;
@@ -17,8 +17,8 @@ public class ComponentLocatorUtil {
     try {
       if (componentClass.isAnnotationPresent(ComponentXpathSelector.class)) {
         return getLocatorByAnnotation(componentClass, platform, ComponentXpathSelector.class, AppiumBy::xpath);
-      } else if (componentClass.isAnnotationPresent(ComponentAccessibilityIdSelector.class)) {
-        return getLocatorByAnnotation(componentClass, platform, ComponentAccessibilityIdSelector.class, AppiumBy::accessibilityId);
+      } else if (componentClass.isAnnotationPresent(ComponentAccessibilityId.class)) {
+        return getLocatorByAnnotation(componentClass, platform, ComponentAccessibilityId.class, AppiumBy::accessibilityId);
       } else if (componentClass.isAnnotationPresent(ComponentCssSelector.class)) {
         return getLocatorByAnnotation(componentClass, platform, ComponentCssSelector.class, AppiumBy::cssSelector);
       } else if (componentClass.isAnnotationPresent(ComponentIdSelector.class)) {
@@ -26,7 +26,7 @@ public class ComponentLocatorUtil {
       } else {
         throw new IllegalArgumentException(
           "Component class " + componentClass.getSimpleName() + " must have annotation " +
-            ComponentAccessibilityIdSelector.class.getSimpleName() + " or " +
+            ComponentAccessibilityId.class.getSimpleName() + " or " +
             ComponentXpathSelector.class.getSimpleName() + " or " +
             ComponentCssSelector.class.getSimpleName());
       }
