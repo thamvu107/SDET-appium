@@ -13,5 +13,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(METHOD)
 public @interface Author {
-    String value() default IAuthor.QA;
+  String value() default IAuthor.QA;
 }

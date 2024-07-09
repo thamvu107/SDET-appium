@@ -1,6 +1,7 @@
 package utils;
 
 import exceptions.WaitForConditionException;
+import exceptions.WaitForElementException;
 import io.appium.java_client.AppiumDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -54,6 +55,38 @@ public class ComponentElementUtils {
       throw new RuntimeException(errorMessage, e);
     }
   }
+
+  public boolean isElementPresent(By locator) {
+    try {
+      return !componentEl.findElements(locator).isEmpty();
+    } catch (Exception e) {
+      log.atError().log("isElementPresent " + e.getMessage());
+      return false;
+    }
+  }
+
+  public WebElement waitForElementTobeClickable(By locator) {
+
+    try {
+      WebElement element = waitUtils.explicitWait()
+        .until(ExpectedConditions.elementToBeClickable(locator));
+
+      if (element == null) {
+        String errorMessage = String.format("Element not found while waiting to be clickable: %s", locator);
+        log.atError().setMessage(errorMessage).log();
+        throw new WaitForElementException(errorMessage);
+      }
+
+      return element;
+
+    } catch (Exception e) {
+      String errorMessage = String.format("Unexpected exception while waiting for element to be clickable: %s", locator);
+      log.atError().setMessage(errorMessage).setCause(e).log();
+      throw new WaitForElementException(errorMessage, e);
+    }
+
+  }
+
 
   //TODO : function interface
   private <T> T waitForCondition(ExpectedCondition<T> condition) {
