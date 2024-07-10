@@ -3,15 +3,15 @@ package screens;
 import context.ContextSwitching;
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
-import screens.login.LoginScreen;
-import screens.webView.WebHomeScreen;
+import learning.screens.commponents.BottomNavComponent;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import learning.screens.commponents.BottomNavComponent;
+import screens.login.LoginScreen;
+import screens.webView.WebHomeScreen;
 import utils.ElementUtils;
 import utils.InteractionUtils;
 import utils.PlatformUtil;
@@ -34,10 +34,7 @@ public abstract class BaseScreen {
 
   protected InteractionUtils interactionUtils;
   protected PlatformType currentPlatform;
-  //protected AssertUtils assertUtils;
 
-
-//    private final By screenWrapper = By.id("com.wdiodemoapp:id/action_bar_root");
 
   public BaseScreen(AppiumDriver driver) {
     if (driver == null) {
@@ -67,22 +64,22 @@ public abstract class BaseScreen {
 
 
   public HomeScreen openHomeScreen() {
-    return bottomNavComponent.clickOnHomeNav();
+    return getBottomNavComponent().clickOnHomeNav();
   }
 
 
   public LoginScreen openLoginScreen() {
 
-    return bottomNavComponent.clickOnLoginNav();
+    return getBottomNavComponent().clickOnLoginNav();
   }
 
   public SwipeScreen goToSwipeScreen() {
-    return bottomNavComponent.clickOnSwipeNav();
+    return getBottomNavComponent().clickOnSwipeNav();
   }
 
   public WebHomeScreen openWebViewScreen() {
 
-    return bottomNavComponent.clickOnWebViewNav();
+    return getBottomNavComponent().clickOnWebViewNav();
   }
 
   protected void verifyScreenLoaded(By locator) {
