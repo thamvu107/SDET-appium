@@ -6,85 +6,63 @@ import dataProvider.signUp.SignUpCredData;
 import driverFactory.CapabilityFactory;
 import driverFactory.DriverProvider;
 import entity.authen.SignUpCred;
-import screens.HomeScreen;
-import screens.alert.SignUpAlertScreen;
-import screens.login.LoginScreen;
-import screens.login.SignUpScreen;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Capabilities;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import testFlows.SignUpFlow;
 
 import static constants.LoginScreenConstants.INVALID_EMAIL_MESSAGE;
 import static constants.LoginScreenConstants.INVALID_PASSWORD_MESSAGE;
 import static constants.SignUpScreenConstants.INCORRECT_REPEAT_PASSWORD_MESSAGE;
 import static constants.SignUpScreenConstants.SIGN_UP_SUCCESS_MESSAGE;
 import static constants.SignUpScreenConstants.SIGN_UP_SUCCESS_TITLE;
-import static devices.MobileFactory.getSimulator;
+import static devices.MobileFactory.getEmulator;
 import static interfaces.IAuthor.THAM_VU;
 
 @Slf4j
 public class SignUpTest extends BaseTest {
 
-  private LoginScreen loginScreen;
-  private SignUpScreen signUpScreen;
-  private SignUpAlertScreen alertScreen;
+  private SignUpFlow signUpFlow;
 
 
   @BeforeClass
   public void beforeClass() {
     driverProvider = new DriverProvider();
-    Capabilities caps = CapabilityFactory.getCaps(getSimulator());
-//        Capabilities caps = CapabilityFactory.getCaps(getEmulator());
+//    Capabilities caps = CapabilityFactory.getCaps(getSimulator());
+    Capabilities caps = CapabilityFactory.getCaps(getEmulator());
     driver = driverProvider.getLocalServerDriver(caps);
     setLogParams(caps);
-    loginScreen = new HomeScreen(driver).openLoginScreen();
-  }
-
-  @BeforeMethod
-  public void beforeMethod() {
-    signUpScreen = loginScreen.openSingUpForm();
+    signUpFlow = new SignUpFlow(driver);
   }
 
   @AfterMethod
   public void afterMethod() {
-    if (alertScreen != null) {
-      alertScreen.acceptAlert();
-      alertScreen = null;
-    }
+    signUpFlow.closeAlert();
   }
 
   @Author(THAM_VU)
   @Test(dataProvider = "signUpCredValidUser", dataProviderClass = SignUpCredData.class)
   public void signUpWithCorrectCredentials(SignUpCred signupCred) {
-    alertScreen = signUpScreen.signUpAsValidCred(signupCred);
-
-    Assert.assertTrue(alertScreen.isAlertPresent(), "Alert is not present");
-    Assert.assertEquals(alertScreen.getAlertTitle(), SIGN_UP_SUCCESS_TITLE, "Alert title is not correct");
-    Assert.assertEquals(alertScreen.getAlertMessage(), SIGN_UP_SUCCESS_MESSAGE, "Alert message is not correct");
+    signUpFlow.signUpAsValidCred(signupCred)
+      .verifyAlertIsPresent(SIGN_UP_SUCCESS_TITLE, SIGN_UP_SUCCESS_MESSAGE);
   }
 
   @Author(THAM_VU)
   @Test(dataProvider = "signUpCredInvalidUser", dataProviderClass = SignUpCredData.class)
   public void signUpWithInvalidUser(SignUpCred signUpCred) {
 
-    signUpScreen.signUpAsInvalidCred(signUpCred);
+    signUpFlow.signUpAsInvalidCred(signUpCred)
+      .verifyCredIsInvalid(INVALID_EMAIL_MESSAGE, INVALID_PASSWORD_MESSAGE, INCORRECT_REPEAT_PASSWORD_MESSAGE);
 
-    Assert.assertEquals(signUpScreen.getInvalidEmailMessage(), INVALID_EMAIL_MESSAGE, "Invalid email message is not correct");
-    Assert.assertEquals(signUpScreen.getInvalidPasswordMessage(), INVALID_PASSWORD_MESSAGE, "Invalid password message is not correct");
-    Assert.assertEquals(signUpScreen.getInvalidRepeatPasswordMessage(), INCORRECT_REPEAT_PASSWORD_MESSAGE,
-                        "Invalid repeat password message is not correct");
   }
 
   @Author(THAM_VU)
   @Test(dataProvider = "signUpCredInvalidRepeatPassword", dataProviderClass = SignUpCredData.class)
   public void signUpWithInvalidRepeatPassWord(SignUpCred signUpCred) {
 
-    signUpScreen.signUpAsInvalidCred(signUpCred);
-    Assert.assertEquals(signUpScreen.getInvalidRepeatPasswordMessage(), INCORRECT_REPEAT_PASSWORD_MESSAGE,
-                        "Invalid repeat password message is not correct");
+    signUpFlow.signUpAsInvalidCred(signUpCred)
+      .verifyRepeatPasswordIsInvalid(INCORRECT_REPEAT_PASSWORD_MESSAGE);
   }
 }

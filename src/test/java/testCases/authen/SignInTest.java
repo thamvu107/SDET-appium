@@ -10,9 +10,6 @@ import org.openqa.selenium.Capabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import screens.alert.SignInAlertScreen;
-import screens.login.LoginScreen;
-import screens.login.SignInScreen;
 import testFlows.SignInFlow;
 
 import static constants.LoginScreenConstants.INVALID_EMAIL_MESSAGE;
@@ -23,10 +20,8 @@ import static devices.MobileFactory.getEmulator;
 import static interfaces.IAuthor.THAM_VU;
 
 public class SignInTest extends BaseTest {
-  private LoginScreen loginScreen;
-  private SignInScreen signInScreens;
-  private SignInAlertScreen alertScreen;
-  private SignInFlow loginFlow;
+
+  private SignInFlow signInFlow;
 
   @BeforeClass
   public void beforeClass() {
@@ -35,19 +30,19 @@ public class SignInTest extends BaseTest {
 //        Capabilities caps = CapabilityFactory.getCaps(getSimulator());
     driver = driverProvider.getLocalServerDriver(caps);
     setLogParams(caps);
-    loginFlow = new SignInFlow(driver);
+    signInFlow = new SignInFlow(driver);
   }
 
   @AfterMethod
   public void afterMethod() {
-    loginFlow.closeAlert();
+    signInFlow.closeAlert();
   }
 
   @Author(THAM_VU)
   @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class)
   public void loginInWithCorrectCredential(LoginCred loginCred) {
 
-    loginFlow
+    signInFlow
       .signInAsValidCred(loginCred)
       .verifyAlertIsPresent(SIGN_IN_ALERT_TITLE, SIGN_IN_ALERT_MESSAGE);
   }
@@ -56,7 +51,7 @@ public class SignInTest extends BaseTest {
   @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = LoginCredData.class)
   public void loginInWithIncorrectCredentials(LoginCred loginCred) {
 
-    loginFlow
+    signInFlow
       .signInAsInvalidCred(loginCred)
       .verifyCredIsInvalid(INVALID_EMAIL_MESSAGE, INVALID_PASSWORD_MESSAGE);
   }
@@ -65,8 +60,8 @@ public class SignInTest extends BaseTest {
   @Test(dataProvider = "loginCredInvalidEmail", dataProviderClass = LoginCredData.class)
   public void loginInWithIncorrectEmail(LoginCred loginCred) {
 
-    loginFlow.signInAsInvalidCred(loginCred)
-      .verityEmailIsInvalid(INVALID_EMAIL_MESSAGE);
+    signInFlow.signInAsInvalidCred(loginCred)
+      .verifyEmailIsInvalid(INVALID_EMAIL_MESSAGE);
   }
 
 
@@ -74,7 +69,7 @@ public class SignInTest extends BaseTest {
   @Test(dataProvider = "loginCredInvalidPassword", dataProviderClass = LoginCredData.class)
   public void loginInWithIncorrectPassword(LoginCred loginCred) {
 
-    loginFlow.signInAsInvalidCred(loginCred)
-      .verityPasswordIsInvalid(INVALID_PASSWORD_MESSAGE);
+    signInFlow.signInAsInvalidCred(loginCred)
+      .verifyPasswordIsInvalid(INVALID_PASSWORD_MESSAGE);
   }
 }

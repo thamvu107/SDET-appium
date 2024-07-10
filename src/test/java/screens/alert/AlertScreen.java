@@ -1,8 +1,8 @@
 package screens.alert;
 
+import base.BaseScreen;
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
-import screens.BaseScreen;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

@@ -2,12 +2,12 @@ package learning.screens.commponents;
 
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import screens.HomeScreen;
 import screens.SwipeScreen;
 import screens.login.LoginScreen;
 import screens.webView.WebHomeScreen;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import utils.ElementUtils;
 import utils.InteractionUtils;
 import utils.PlatformUtil;
@@ -64,26 +64,27 @@ public class BottomNavComponent {
 
   public WebElement loginNavEl() {
 
-    return elementUtils.waitForElementTobeClickable(loginNavLoc);
+//    return elementUtils.waitForElementTobeClickable(loginNavLoc);
+//    return elementUtils.waitForFindingElement(loginNavLoc, 7000);
+    return driver.findElement(loginNavLoc);
   }
 
-  public WebElement formsNavEl() {
+  private WebElement formsNavEl() {
 
     return elementUtils.waitForElementTobeClickable(formsNavLoc);
   }
 
-  public WebElement swipeNavEl() {
+  private WebElement swipeNavEl() {
 
     return elementUtils.waitForElementTobeClickable(swipeNavLoc);
   }
 
-  public WebElement webViewNavEl() {
+  private WebElement webViewNavEl() {
 
     return elementUtils.waitForElementTobeClickable(webViewNavLoc);
   }
 
-
-  public LoginScreen clickOnLoginNav() {
+  public LoginScreen openLoginScreen() {
     loginNavEl().click();
 
     return new LoginScreen(driver);

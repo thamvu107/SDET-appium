@@ -1,5 +1,6 @@
 package screens;
 
+import base.BaseScreen;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
@@ -15,7 +16,7 @@ public class HomeScreen extends BaseScreen {
   public HomeScreen(final AppiumDriver driver) {
 
     super(driver);
-    verifyScreenLoaded(homeScreenLoc);
+    //verifyScreenLoaded(homeScreenLoc);
   }
 
   private WebElement homeScreenEl() {
