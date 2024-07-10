@@ -1,6 +1,6 @@
 package learning.genericType;
 
-import annotations.selectors.ComponentXpathSelector;
+import annotations.selectors.ComponentByXpath;
 import learning.componentExploring.components.BottomNavComponent;
 import org.testng.annotations.Test;
 
@@ -13,7 +13,7 @@ public class AnnotationTest {
   }
 
   public static <T> void printComponent(Class<T> componentClass) {
-    String xpath = componentClass.getAnnotation(ComponentXpathSelector.class).android();
+    String xpath = componentClass.getAnnotation(ComponentByXpath.class).value();
     System.out.println("xpath " + xpath);
   }
 }

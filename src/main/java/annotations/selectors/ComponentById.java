@@ -8,8 +8,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RUNTIME)
 @Target(TYPE)
-public @interface ComponentIdSelector {
-    String android() default "";
-
-    String ios() default "";
+public @interface ComponentById {
+  String value() default "";
 }

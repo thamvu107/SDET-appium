@@ -7,8 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface ComponentCssSelector {
-    String android() default "";
-
-    String ios() default "";
+public @interface ComponentByAndroidUiAutomator2 {
+  String value() default "";
 }

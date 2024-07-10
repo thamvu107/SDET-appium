@@ -1,10 +1,10 @@
-package learning.componentExploring.screens;
+package learning.componentV3.screen;
 
 import context.ContextSwitching;
 import enums.PlatformType;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
-import learning.componentExploring.components.BottomNavComponent;
-import learning.componentExploring.components.Component;
+import learning.componentV3.components.BottomNavComponent;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -20,10 +20,10 @@ import java.util.Map;
 import static constants.WaitConstants.LONG_EXPLICIT_WAIT;
 import static constants.WaitConstants.SHORT_EXPLICIT_WAIT;
 import static io.appium.java_client.AppiumBy.accessibilityId;
-import static io.appium.java_client.AppiumBy.id;
+import static org.openqa.selenium.By.xpath;
 
 @Slf4j
-public class BaseScreenV2 extends Component {
+public class BaseScreenV3 {
 
   protected AppiumDriver driver;
   protected WebElement rootEl;
@@ -37,35 +37,23 @@ public class BaseScreenV2 extends Component {
 
   protected PlatformType currentPlatform;
 
-  public BaseScreenV2(AppiumDriver driver) {
+  public BaseScreenV3(AppiumDriver driver) {
     // TODO: variant platform type
-//    super(driver, rootLocator);
-//    super(driver, driver.findElement(androidRootLocator));
-//    super(driver, new ElementUtils(driver).waitForFindingElement(androidRootLocator));
-    super(driver, new ElementUtils(driver).waitForFindingElement(androidRootLocator, 25_000L));
 
     validateDriverNotNull(driver);
     this.driver = driver;
-    this.rootEl = getComponentEl();
     this.currentPlatform = new PlatformUtil(this.driver).getCurrentPlatform();
     this.contextSwitching = new ContextSwitching(this.driver);
     this.elementUtils = new ElementUtils(driver);
-    this.bottomNavComponent = findComponent(BottomNavComponent.class);
 
-//    this.bottomNavComponent = findComponent(ExploringBottomNavComponent.class); //getBottomNavComponent();
-//    this.elementUtils = new ElementUtils(driver);
-
-//    this.interactionUtils = new InteractionUtils(driver);
-//        try {
-//            this.bottomNavComponent = getBottomNavComponent();
-//        } catch (NoSuchMethodException e) {
-//            throw new RuntimeException(e);
-//        }
+//    this.bottomNavComponent = new BottomNavComponent(driver, bottomNavEl());
+    this.bottomNavComponent =
+      new BottomNavComponent(driver, new ElementUtils(driver).waitForFindingElement(bottomNavLocatorMap.get(currentPlatform)));
+    System.out.println("this.bottomNavComponent " + this.bottomNavComponent);
   }
 
-
-  //  private static final By androidRootLocator = id("com.wdiodemoapp:id/action_bar_root");
-  private static final By androidRootLocator = id("com.wdiodemoapp:id/action_bar_root");
+  private static final By androidRootLocator =
+    xpath("//android.widget.LinearLayout[@resource-id=\"com.wdiodemoapp:id/action_bar_root\"]");
   private static final By iosRootLocator = accessibilityId("wdiodemoapp");
 
   private static final Map<PlatformType, By> rootLocator = Map.of(
@@ -73,19 +61,26 @@ public class BaseScreenV2 extends Component {
     PlatformType.IOS, iosRootLocator);
 
   private final By webViewScreenLoc = By.cssSelector("#__docusaurus");
+
   private final By navBarLoc = By.cssSelector(".navbar-sidebar");
   private final By announcementBarLoc = By.cssSelector(".announcementBar_mb4j");
   private final By announcementCloseBtnLoc = By.cssSelector("button[class*='closeButton']");
-  private static final By androidBottomLocator = id(
-    "//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.View");
+//  private static final By androidBottomLocator = AppiumBy.xpath(
+//    "//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.View");
+
+  private static final By androidBottomLocator = AppiumBy.className("android.view.View");
   private static final By iosBottomLocator =
     accessibilityId("(//XCUIElementTypeOther[@name=\"Home Webview Login Forms Swipe Drag\"])[1]");
 
-  protected static final Map<PlatformType, By> bottomNavLocator = Map.of(
-    PlatformType.ANDROID, androidRootLocator,
-    PlatformType.IOS, iosRootLocator);
+  protected static final Map<PlatformType, By> bottomNavLocatorMap = Map.of(
+    PlatformType.ANDROID, androidBottomLocator,
+    PlatformType.IOS, iosBottomLocator);
 
-  //protected AssertUtils assertUtils;
+  protected final WebElement bottomNavEl() {
+    By bottomNavLocator = bottomNavLocatorMap.get(currentPlatform);
+
+    return elementUtils.waitForFindingElement(bottomNavLocator);
+  }
 
   private static void validateDriverNotNull(AppiumDriver driver) {
     if (driver == null) {
@@ -107,7 +102,7 @@ public class BaseScreenV2 extends Component {
 
   }
 
-  public HomeScreenV2 openHomeScreen() {
+  public HomeScreenV3 openHomeScreen() {
     return this.bottomNavComponent.clickOnHomeNav();
   }
 
@@ -116,34 +111,18 @@ public class BaseScreenV2 extends Component {
     return this.bottomNavComponent.clickOnLoginNav();
   }
 
-  public SwipeScreenV2 openSwipeScreen() {
+  public SwipeScreenV3 openSwipeScreen() {
 
     try {
       return this.bottomNavComponent.clickOnSwipeNav();
-//      return findComponent(ExploringBottomNavComponent.class).clickOnSwipeNav();
-//      return getBottomNavComponent().clickOnWebViewNavV2();
 
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 
-  public WebHomeScreenV2 openWebViewScreen() {
-
-    try {
-//      return this.bottomNavComponent.clickOnWebViewNavV2();
-      return this.bottomNavComponent.clickOnWebViewNavV2();
-//      return getBottomNavComponent().clickOnWebViewNavV2();
-
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
 
   public boolean showingNavBar() {
-
-//    return elementUtils.isElementPresent(navBarLoc);
-//    return componentElementUtils.isElementPresent(navBarLoc);
     return elementUtils.isElementPresent(navBarLoc);
   }
 
@@ -152,7 +131,7 @@ public class BaseScreenV2 extends Component {
     return elementUtils.waitForElementTobeClickable(announcementCloseBtnLoc);
   }
 
-  public BaseScreenV2 closeAnnouncement() {
+  public BaseScreenV3 closeAnnouncement() {
     if (elementUtils.isElementPresent(announcementBarLoc)) {
       announcementCloseBtnEl().click();
     }

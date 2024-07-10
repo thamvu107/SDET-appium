@@ -1,10 +1,10 @@
-package learning.componentExploring.components;
+package learning.componentV3.components;
 
 import annotations.selectors.ComponentByXpath;
 import io.appium.java_client.AppiumDriver;
-import learning.componentExploring.screens.HomeScreenV2;
-import learning.componentExploring.screens.SwipeScreenV2;
-import learning.componentExploring.screens.WebHomeScreenV2;
+import learning.componentV3.screen.HomeScreenV3;
+import learning.componentV3.screen.SwipeScreenV3;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import screens.login.LoginScreen;
@@ -13,9 +13,11 @@ import screens.webView.WebHomeScreen;
 import static io.appium.java_client.AppiumBy.accessibilityId;
 
 // TODO: Explore Different Strategy Component Locators by platform types (Map?)
+//@ComponentXpathSelector(value = "//android.view.ViewGroup/android.view.ViewGroup[2]/android.view.View")
 @ComponentByXpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.View")
 public class BottomNavComponent extends Component {
   private final AppiumDriver driver;
+  @Getter
   private final WebElement componentEl;
 
 //  public BottomNavComponent(AppiumDriver driver, Map<PlatformType, By> componentLocator) {
@@ -72,16 +74,16 @@ public class BottomNavComponent extends Component {
     return new LoginScreen(driver);
   }
 
-  public HomeScreenV2 clickOnHomeNav() {
+  public HomeScreenV3 clickOnHomeNav() {
     homeNavEl().click();
 
-    return new HomeScreenV2(driver);
+    return new HomeScreenV3(driver);
   }
 
-  public SwipeScreenV2 clickOnSwipeNav() {
+  public SwipeScreenV3 clickOnSwipeNav() {
     swipeNavEl().click();
 
-    return new SwipeScreenV2(driver);
+    return new SwipeScreenV3(driver);
   }
 
   public WebHomeScreen clickOnWebViewNav() {
@@ -90,10 +92,4 @@ public class BottomNavComponent extends Component {
     return new WebHomeScreen(driver);
   }
 
-  // Explore Component V2
-  public WebHomeScreenV2 clickOnWebViewNavV2() {
-    webViewNavEl().click();
-
-    return new WebHomeScreenV2(driver);
-  }
 }

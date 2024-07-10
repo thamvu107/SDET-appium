@@ -1,9 +1,11 @@
 package utils;
 
-import annotations.selector.ComponentAccessibilityId;
-import annotations.selectors.ComponentCssSelector;
-import annotations.selectors.ComponentIdSelector;
-import annotations.selectors.ComponentXpathSelector;
+import annotations.selector.ByAccessibilityId;
+import annotations.selectors.ComponentByAccessibilityId;
+import annotations.selectors.ComponentByClassName;
+import annotations.selectors.ComponentByCssSelector;
+import annotations.selectors.ComponentById;
+import annotations.selectors.ComponentByXpath;
 import enums.PlatformType;
 import io.appium.java_client.AppiumBy;
 import lombok.extern.slf4j.Slf4j;
@@ -15,20 +17,24 @@ import java.lang.annotation.Annotation;
 public class ComponentLocatorUtil {
   public By getComponentLocator(Class<?> componentClass, PlatformType platform) throws NoSuchMethodException, IllegalAccessException {
     try {
-      if (componentClass.isAnnotationPresent(ComponentXpathSelector.class)) {
-        return getLocatorByAnnotation(componentClass, platform, ComponentXpathSelector.class, AppiumBy::xpath);
-      } else if (componentClass.isAnnotationPresent(ComponentAccessibilityId.class)) {
-        return getLocatorByAnnotation(componentClass, platform, ComponentAccessibilityId.class, AppiumBy::accessibilityId);
-      } else if (componentClass.isAnnotationPresent(ComponentCssSelector.class)) {
-        return getLocatorByAnnotation(componentClass, platform, ComponentCssSelector.class, AppiumBy::cssSelector);
-      } else if (componentClass.isAnnotationPresent(ComponentIdSelector.class)) {
-        return getLocatorByAnnotation(componentClass, platform, ComponentIdSelector.class, AppiumBy::id);
+      if (componentClass.isAnnotationPresent(ComponentByAccessibilityId.class)) {
+        return getLocatorByAnnotation(componentClass, platform, ComponentByAccessibilityId.class,
+                                      AppiumBy::accessibilityId);
+      } else if (componentClass.isAnnotationPresent(ComponentById.class)) {
+        return getLocatorByAnnotation(componentClass, platform, ComponentById.class, AppiumBy::id);
+      } else if (componentClass.isAnnotationPresent(ComponentByClassName.class)) {
+        return getLocatorByAnnotation(componentClass, platform, ComponentByClassName.class, AppiumBy::className);
+
+      } else if (componentClass.isAnnotationPresent(ComponentByCssSelector.class)) {
+        return getLocatorByAnnotation(componentClass, platform, ComponentByCssSelector.class, AppiumBy::cssSelector);
+      } else if (componentClass.isAnnotationPresent(ComponentByXpath.class)) {
+        return getLocatorByAnnotation(componentClass, platform, ComponentByXpath.class, AppiumBy::xpath);
       } else {
         throw new IllegalArgumentException(
           "Component class " + componentClass.getSimpleName() + " must have annotation " +
-            ComponentAccessibilityId.class.getSimpleName() + " or " +
-            ComponentXpathSelector.class.getSimpleName() + " or " +
-            ComponentCssSelector.class.getSimpleName());
+            ByAccessibilityId.class.getSimpleName() + " or " +
+            ComponentByXpath.class.getSimpleName() + " or " +
+            ComponentByCssSelector.class.getSimpleName());
       }
     } catch (IllegalArgumentException e) {
       throw new RuntimeException(e);
