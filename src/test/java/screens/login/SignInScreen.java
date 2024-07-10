@@ -3,7 +3,6 @@ package screens.login;
 import entity.authen.LoginCred;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
-import screens.alert.SignInAlertScreen;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -17,17 +16,7 @@ public class SignInScreen extends LoginScreen {
     verifyScreenLoaded(signInButtonLocator);
   }
 
-
-  public SignInScreen verifySignInFormDisplayed() {
-
-    elementUtils.waitForFindingElement(signInButtonLocator);
-    elementUtils.waitForFindingElement(emailInputLoc);
-    elementUtils.waitForFindingElement(passwordInputLoc);
-
-    return this;
-  }
-
-  private SignInScreen submitSignIn() {
+  public SignInScreen clickSignInBtn() {
 
     WebElement signInBtnEl = elementUtils.waitForFindingElement(signInButtonLocator);
     signInBtnEl.click();
@@ -35,29 +24,24 @@ public class SignInScreen extends LoginScreen {
     return this;
   }
 
-  public SignInAlertScreen submitSignInSuccess() {
-    submitSignIn();
-
-    return new SignInAlertScreen(driver);
-  }
-
-  public SignInScreen inputSignInCredentials(LoginCred loginCred) {
+  public SignInScreen signInWithCred(LoginCred loginCred) {
 
     this.inputEmail(loginCred.getEmail())
       .inputPassword(loginCred.getPassword());
+    this.clickSignInBtn();
 
     return this;
   }
 
-  public SignInAlertScreen signInAsValidCred(LoginCred loginCred) {
-    return this.inputSignInCredentials(loginCred)
-      .submitSignInSuccess();
-  }
-
-
-  public SignInScreen signInAsInvalidCred(LoginCred loginCred) {
-    return this.inputSignInCredentials(loginCred)
-      .submitSignIn();
-  }
+//  public SignInAlertScreen signInAsValidCred(LoginCred loginCred) {
+//    this.signInWithCred(loginCred);
+//    return new SignInAlertScreen(driver);
+//  }
+//
+//  public SignInScreen signInAsInvalidCred(LoginCred loginCred) {
+//    this.signInWithCred(loginCred);
+//
+//    return this;
+//  }
 
 }

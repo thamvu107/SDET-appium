@@ -1,15 +1,17 @@
 package testFlows;
 
 import io.appium.java_client.AppiumDriver;
+import screens.BaseScreen;
 
-public class BaseFlow {
+public class BaseFlow extends BaseScreen {
 
-    protected final AppiumDriver driver;
+  protected final AppiumDriver driver;
+//  @Getter
+//  protected final HomeScreen homeScreen;
 
-    public BaseFlow(AppiumDriver driver) {
-
-        this.driver = driver;
-    }
-
+  public BaseFlow(AppiumDriver driver) {
+    super(driver);
+    this.driver = driver;
+  }
 
 }

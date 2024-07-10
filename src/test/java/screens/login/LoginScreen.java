@@ -2,12 +2,12 @@ package screens.login;
 
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
-import screens.BaseScreen;
-import screens.alert.SignInAlertScreen;
-import screens.alert.SignUpAlertScreen;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import screens.BaseScreen;
+import screens.alert.SignInAlertScreen;
+import screens.alert.SignUpAlertScreen;
 
 import java.util.Map;
 
@@ -18,6 +18,12 @@ import static org.openqa.selenium.By.xpath;
 @Slf4j
 public class LoginScreen extends BaseScreen {
   // TODO: Separate android locator and ios locator to 2 files.
+
+  public LoginScreen(final AppiumDriver driver) {
+
+    super(driver);
+    verifyScreenLoaded(loginScreenLoc);
+  }
 
   // Scope 01: Keep the selector
   // Android:
@@ -43,11 +49,6 @@ public class LoginScreen extends BaseScreen {
     PlatformType.ANDROID, androidInvalidPasswordLabelLocator,
     PlatformType.IOS, iosInvalidPasswordLabelLocator);
 
-  public LoginScreen(final AppiumDriver driver) {
-
-    super(driver);
-    verifyScreenLoaded(loginScreenLoc);
-  }
 
   protected By invalidEmailLabelLoc = elementUtils.getLocator(invalidEmailLabelLocatorMap);
   protected By invalidPasswordLabelLoc = elementUtils.getLocator(invalidPasswordLabelLocatorMap);
@@ -92,12 +93,6 @@ public class LoginScreen extends BaseScreen {
     return elementUtils.waitForFindingElement(invalidPasswordLabelLoc);
   }
 
-  public LoginScreen openLoginScreen() {
-
-    bottomNavComponent.clickOnLoginNav();
-
-    return this;
-  }
 
   public SignInScreen openSignInForm() {
 
