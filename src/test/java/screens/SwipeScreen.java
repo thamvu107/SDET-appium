@@ -1,5 +1,6 @@
 package screens;
 
+import base.BaseScreen;
 import enums.SwipeHorizontalDirection;
 import enums.SwipeVerticalDirection;
 import io.appium.java_client.AppiumBy;

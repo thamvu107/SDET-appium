@@ -18,7 +18,7 @@ public class SignInScreen extends LoginScreen {
 
   public SignInScreen clickSignInBtn() {
 
-    WebElement signInBtnEl = elementUtils.waitForFindingElement(signInButtonLocator);
+    WebElement signInBtnEl = elementUtils.waitForElementTobeClickable(signInButtonLocator);
     signInBtnEl.click();
 
     return this;

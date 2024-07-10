@@ -1,5 +1,6 @@
 package screens.setting;
 
+import base.BaseScreen;
 import entity.app.AndroidAppUnderTest;
 import entity.app.IOSAppUnderTest;
 import enums.PlatformType;
@@ -7,7 +8,6 @@ import interfaces.app.ISettingApp;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
-import screens.BaseScreen;
 import org.openqa.selenium.By;
 
 import java.time.Duration;

@@ -1,4 +1,4 @@
-package screens;
+package base;
 
 import context.ContextSwitching;
 import enums.PlatformType;
@@ -10,6 +10,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import screens.HomeScreen;
+import screens.SwipeScreen;
 import screens.login.LoginScreen;
 import screens.webView.WebHomeScreen;
 import utils.ElementUtils;
@@ -20,7 +22,7 @@ import static constants.WaitConstants.LONG_EXPLICIT_WAIT;
 import static constants.WaitConstants.SHORT_EXPLICIT_WAIT;
 
 @Slf4j
-public abstract class BaseScreen {
+public class BaseScreen {
 
   protected AppiumDriver driver;
   //    protected LocatorMapperUtils locatorMapperHelper;
@@ -70,7 +72,7 @@ public abstract class BaseScreen {
 
   public LoginScreen openLoginScreen() {
 
-    return getBottomNavComponent().clickOnLoginNav();
+    return getBottomNavComponent().openLoginScreen();
   }
 
   public SwipeScreen goToSwipeScreen() {
@@ -97,7 +99,5 @@ public abstract class BaseScreen {
     } else {
       log.atInfo().setMessage("Page is loaded. Element found: " + locator).log();
     }
-
-
   }
 }

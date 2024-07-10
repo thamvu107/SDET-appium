@@ -1,12 +1,12 @@
 package screens.webView;
 
+import base.BaseScreen;
 import entity.webView.MenuItemDataModel;
 import io.appium.java_client.AppiumDriver;
-import screens.BaseScreen;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import learning.screens.commponents.webView.LeftNavBarComponent;
 import learning.screens.commponents.webView.TopNavBarComponent;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.util.HashSet;
 import java.util.List;

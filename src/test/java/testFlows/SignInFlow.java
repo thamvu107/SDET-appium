@@ -1,37 +1,33 @@
 package testFlows;
 
+import base.BaseFlow;
 import entity.authen.LoginCred;
 import io.appium.java_client.AppiumDriver;
 import org.testng.Assert;
 import screens.alert.SignInAlertScreen;
 import screens.login.LoginScreen;
 import screens.login.SignInScreen;
-import utils.AlertHelper;
 
 public class SignInFlow extends BaseFlow {
   private final LoginScreen loginScreen;
-  private final SignInScreen signInScreen;
-  private LoginCred loginCred;
+  private SignInScreen signInScreen;
   private SignInAlertScreen alertScreen;
 
-  private final AlertHelper alertHelper;
+//  private final AlertHelper alertHelper;
 
   public SignInFlow(AppiumDriver driver) {
     super(driver);
     loginScreen = openLoginScreen();
     signInScreen = loginScreen.openSignInForm();
-    alertHelper = new AlertHelper(driver);
   }
 
-  public SignInFlow closeAlert() {
-    alertHelper.closeAlertIfPresent();
-
-    return this;
+  public void closeAlert() {
+    loginScreen.closeAlert();
   }
 
   public SignInFlow signInAsValidCred(LoginCred loginCred) {
+    signInScreen = loginScreen.openSignInForm();
 
-//    signInAsValidCred(loginCred);
     signInScreen.signInWithCred(loginCred);
     alertScreen = new SignInAlertScreen(driver);
 
@@ -39,6 +35,8 @@ public class SignInFlow extends BaseFlow {
   }
 
   public SignInFlow signInAsInvalidCred(LoginCred loginCred) {
+    signInScreen = loginScreen.openSignInForm();
+
     signInScreen.signInWithCred(loginCred);
 
     return this;
@@ -52,21 +50,21 @@ public class SignInFlow extends BaseFlow {
     return this;
   }
 
-  public SignInFlow verityEmailIsInvalid(String email) {
+  public SignInFlow verifyEmailIsInvalid(String email) {
     Assert.assertEquals(signInScreen.getInvalidEmailMessage(), email, "Invalid email message is not correct");
 
     return this;
   }
 
-  public SignInFlow verityPasswordIsInvalid(String password) {
+  public SignInFlow verifyPasswordIsInvalid(String password) {
     Assert.assertEquals(signInScreen.getInvalidPasswordMessage(), password, "Invalid password message is not correct");
 
     return this;
   }
 
   public SignInFlow verifyCredIsInvalid(String email, String password) {
-    verityEmailIsInvalid(email);
-    verityPasswordIsInvalid(password);
+    verifyEmailIsInvalid(email);
+    verifyPasswordIsInvalid(password);
 
     return this;
   }

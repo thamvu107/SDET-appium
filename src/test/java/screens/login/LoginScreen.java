@@ -1,13 +1,14 @@
 package screens.login;
 
+import base.BaseScreen;
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import screens.BaseScreen;
 import screens.alert.SignInAlertScreen;
 import screens.alert.SignUpAlertScreen;
+import utils.AlertHelper;
 
 import java.util.Map;
 
@@ -18,10 +19,12 @@ import static org.openqa.selenium.By.xpath;
 @Slf4j
 public class LoginScreen extends BaseScreen {
   // TODO: Separate android locator and ios locator to 2 files.
+  protected final AlertHelper alertHelper;
 
   public LoginScreen(final AppiumDriver driver) {
 
     super(driver);
+    alertHelper = new AlertHelper(driver);
     verifyScreenLoaded(loginScreenLoc);
   }
 
@@ -93,6 +96,9 @@ public class LoginScreen extends BaseScreen {
     return elementUtils.waitForFindingElement(invalidPasswordLabelLoc);
   }
 
+  public void verifyScreenLoaded() {
+    verifyScreenLoaded(loginScreenLoc);
+  }
 
   public SignInScreen openSignInForm() {
 
@@ -101,8 +107,7 @@ public class LoginScreen extends BaseScreen {
     return new SignInScreen(driver);
   }
 
-
-  public SignUpScreen openSingUpForm() {
+  public SignUpScreen openSignUpForm() {
     signUpTabEl().click();
 
     return new SignUpScreen(driver);
@@ -138,5 +143,9 @@ public class LoginScreen extends BaseScreen {
   public String getInvalidPasswordMessage() {
 
     return invalidPasswordLabelEl().getText();
+  }
+
+  public void closeAlert() {
+    alertHelper.closeAlertIfPresent();
   }
 }

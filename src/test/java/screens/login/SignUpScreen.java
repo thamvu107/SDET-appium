@@ -3,10 +3,10 @@ package screens.login;
 import entity.authen.SignUpCred;
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
-import screens.alert.SignUpAlertScreen;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import screens.alert.SignUpAlertScreen;
 import utils.gestures.swipe.vertical.SwipeVertically;
 
 import java.util.Map;
@@ -69,30 +69,31 @@ public class SignUpScreen extends LoginScreen {
     }
   }
 
-  private void submitSignUp() {
+  private void clickSignUpBtn() {
     log.atInfo().log("Submit sign up");
     swipeUntilElementVisible(signUpButtonLocator);
 
-    WebElement signUpButtonElement = elementUtils.waitForFindingElement(signUpButtonLocator);
+    WebElement signUpButtonElement = elementUtils.waitForElementTobeClickable(signUpButtonLocator);
     signUpButtonElement.click();
   }
 
   private SignUpAlertScreen submitSignUpSuccess() {
     log.atInfo().log("Sign up success");
-    submitSignUp();
+    clickSignUpBtn();
     return new SignUpAlertScreen(driver);
   }
 
   private SignUpScreen submitSignUpFail() {
     log.atInfo().log("Sign up failed");
-    submitSignUp();
+    clickSignUpBtn();
     return this;
   }
 
-  private SignUpScreen inputSignUpCredentials(SignUpCred signUpCred) {
+  public SignUpScreen signUpWithCred(SignUpCred signUpCred) {
     inputEmail(signUpCred.getEmail());
     inputPassword(signUpCred.getPassword());
     inputRepeatPassword(signUpCred.getRepeatPassword());
+    clickSignUpBtn();
 
     return this;
   }
@@ -100,13 +101,13 @@ public class SignUpScreen extends LoginScreen {
   public SignUpAlertScreen signUpAsValidCred(SignUpCred signUpCred) {
     log.atInfo().log("Sign up with valid credentials");
 
-    return this.inputSignUpCredentials(signUpCred)
+    return this.signUpWithCred(signUpCred)
       .submitSignUpSuccess();
   }
 
   public SignUpScreen signUpAsInvalidCred(SignUpCred signUpCred) {
     log.atInfo().log("Sign up with invalid credentials");
-    return this.inputSignUpCredentials(signUpCred)
+    return this.signUpWithCred(signUpCred)
       .submitSignUpFail();
   }
 
