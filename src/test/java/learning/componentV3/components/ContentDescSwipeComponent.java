@@ -1,4 +1,4 @@
-package learning.componentExploring.components;
+package learning.componentV3.components;
 
 import annotations.selector.ByAccessibilityId;
 import io.appium.java_client.AppiumBy;

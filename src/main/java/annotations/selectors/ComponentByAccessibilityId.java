@@ -8,8 +8,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface ComponentAccessibilityIdSelector {
-  String android() default "";
-
-  String ios() default "";
+public @interface ComponentByAccessibilityId {
+  String value() default "";
 }
