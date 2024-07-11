@@ -1,4 +1,4 @@
-package testCases.authen;
+package testCases.authentication;
 
 import annotations.author.Author;
 import base.BaseTest;
@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Capabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import testFlows.SignUpFlow;
 
@@ -43,14 +44,16 @@ public class SignUpTest extends BaseTest {
   }
 
   @Author(THAM_VU)
-  @Test(dataProvider = "signUpCredValidUser", dataProviderClass = SignUpCredData.class)
+  @Test(dataProvider = "signUpCredValidUser", dataProviderClass = SignUpCredData.class,
+    groups = {"Release"})
   public void signUpWithCorrectCredentials(SignUpCred signupCred) {
     signUpFlow.signUpAsValidCred(signupCred)
       .verifyAlertIsPresent(SIGN_UP_SUCCESS_TITLE, SIGN_UP_SUCCESS_MESSAGE);
   }
 
   @Author(THAM_VU)
-  @Test(dataProvider = "signUpCredInvalidUser", dataProviderClass = SignUpCredData.class)
+  @Test(dataProvider = "signUpCredInvalidUser", dataProviderClass = SignUpCredData.class,
+    groups = {"Release"})
   public void signUpWithInvalidUser(SignUpCred signUpCred) {
 
     signUpFlow.signUpAsInvalidCred(signUpCred)
@@ -59,10 +62,17 @@ public class SignUpTest extends BaseTest {
   }
 
   @Author(THAM_VU)
-  @Test(dataProvider = "signUpCredInvalidRepeatPassword", dataProviderClass = SignUpCredData.class)
+  @Test(dataProvider = "signUpCredInvalidRepeatPassword", dataProviderClass = SignUpCredData.class,
+    groups = {"Release"})
   public void signUpWithInvalidRepeatPassWord(SignUpCred signUpCred) {
 
     signUpFlow.signUpAsInvalidCred(signUpCred)
       .verifyRepeatPasswordIsInvalid(INCORRECT_REPEAT_PASSWORD_MESSAGE);
+  }
+
+  @Test
+  @Ignore
+  public void ignoreTest() {
+    System.out.println("Ignore test");
   }
 }

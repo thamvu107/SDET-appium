@@ -1,4 +1,4 @@
-package testCases.authen;
+package testCases.authentication;
 
 import annotations.author.Author;
 import base.BaseTest;
@@ -23,7 +23,7 @@ public class SignInTest extends BaseTest {
 
   private SignInFlow signInFlow;
 
-  @BeforeClass
+  @BeforeClass(alwaysRun = true)
   public void beforeClass() {
     driverProvider = new DriverProvider();
     Capabilities caps = CapabilityFactory.getCaps(getEmulator());
@@ -33,13 +33,14 @@ public class SignInTest extends BaseTest {
     signInFlow = new SignInFlow(driver);
   }
 
-  @AfterMethod
+  @AfterMethod()
   public void afterMethod() {
     signInFlow.closeAlert();
   }
 
   @Author(THAM_VU)
-  @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class)
+  @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class,
+    groups = {"funcTest", "checkInTest"})
   public void loginInWithCorrectCredential(LoginCred loginCred) {
 
     signInFlow
@@ -48,7 +49,8 @@ public class SignInTest extends BaseTest {
   }
 
   @Author(THAM_VU)
-  @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = LoginCredData.class)
+  @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = LoginCredData.class,
+    groups = {"funcTest"})
   public void loginInWithIncorrectCredentials(LoginCred loginCred) {
 
     signInFlow
@@ -57,7 +59,8 @@ public class SignInTest extends BaseTest {
   }
 
   @Author(THAM_VU)
-  @Test(dataProvider = "loginCredInvalidEmail", dataProviderClass = LoginCredData.class)
+  @Test(dataProvider = "loginCredInvalidEmail", dataProviderClass = LoginCredData.class,
+    groups = {"funcTest", "checkInTest"})
   public void loginInWithIncorrectEmail(LoginCred loginCred) {
 
     signInFlow.signInAsInvalidCred(loginCred)
@@ -66,10 +69,31 @@ public class SignInTest extends BaseTest {
 
 
   @Author(THAM_VU)
-  @Test(dataProvider = "loginCredInvalidPassword", dataProviderClass = LoginCredData.class)
+  @Test(dataProvider = "loginCredInvalidPassword", dataProviderClass = LoginCredData.class,
+    groups = {"funcTest"})
   public void loginInWithIncorrectPassword(LoginCred loginCred) {
 
     signInFlow.signInAsInvalidCred(loginCred)
       .verifyPasswordIsInvalid(INVALID_PASSWORD_MESSAGE);
+  }
+
+  @Test(description = "Test case for purpose to show failure test",
+    dataProvider = "loginCredInvalidEmail",
+    dataProviderClass = LoginCredData.class,
+    groups = {"brokenTests"})
+  public void brokenTest1(LoginCred loginCred) {
+    signInFlow
+      .signInAsValidCred(loginCred)
+      .verifyAlertIsPresent(SIGN_IN_ALERT_TITLE, SIGN_IN_ALERT_MESSAGE);
+  }
+
+  @Test(description = "Test case for purpose to show failure test",
+    dataProvider = "loginCredInvalidEmail",
+    dataProviderClass = LoginCredData.class,
+    groups = {"NotInBrokenGroup"})
+  public void methodToBeBrokenTest2(LoginCred loginCred) {
+    signInFlow
+      .signInAsValidCred(loginCred)
+      .verifyAlertIsPresent(SIGN_IN_ALERT_TITLE, SIGN_IN_ALERT_MESSAGE);
   }
 }
