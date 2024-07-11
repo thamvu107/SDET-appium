@@ -40,7 +40,7 @@ public class SignInTest extends BaseTest {
 
   @Author(THAM_VU)
   @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class,
-    groups = {"Smoke", "Release"})
+    groups = {"funcTest", "checkInTest"})
   public void loginInWithCorrectCredential(LoginCred loginCred) {
 
     signInFlow
@@ -50,7 +50,7 @@ public class SignInTest extends BaseTest {
 
   @Author(THAM_VU)
   @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = LoginCredData.class,
-    groups = {"Release"})
+    groups = {"funcTest"})
   public void loginInWithIncorrectCredentials(LoginCred loginCred) {
 
     signInFlow
@@ -60,7 +60,7 @@ public class SignInTest extends BaseTest {
 
   @Author(THAM_VU)
   @Test(dataProvider = "loginCredInvalidEmail", dataProviderClass = LoginCredData.class,
-    groups = {"Release"})
+    groups = {"funcTest", "checkInTest"})
   public void loginInWithIncorrectEmail(LoginCred loginCred) {
 
     signInFlow.signInAsInvalidCred(loginCred)
@@ -70,7 +70,7 @@ public class SignInTest extends BaseTest {
 
   @Author(THAM_VU)
   @Test(dataProvider = "loginCredInvalidPassword", dataProviderClass = LoginCredData.class,
-    groups = {"Release"})
+    groups = {"funcTest"})
   public void loginInWithIncorrectPassword(LoginCred loginCred) {
 
     signInFlow.signInAsInvalidCred(loginCred)
@@ -80,7 +80,7 @@ public class SignInTest extends BaseTest {
   @Test(description = "Test case for purpose to show failure test",
     dataProvider = "loginCredInvalidEmail",
     dataProviderClass = LoginCredData.class,
-    groups = {"BrokenTests"})
+    groups = {"brokenTests"})
   public void brokenTest1(LoginCred loginCred) {
     signInFlow
       .signInAsValidCred(loginCred)

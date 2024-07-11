@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 
 import java.util.GregorianCalendar;
 
-@Test
 public class SignInTest {
+  @Test
   @Parameters({"email", "password"})
   public void signIn(String email, String password) {
     System.out.println(new GregorianCalendar().getTime());

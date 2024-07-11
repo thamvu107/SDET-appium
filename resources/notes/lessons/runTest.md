@@ -1,3 +1,0 @@
-- Run test from Configuration file
-- button run on IDE
-- Test suite xml

@@ -6,7 +6,7 @@
         <groups>
             <run>
                 <exclude name="brokenTests"/>
-                <include name="release"/>
+                <include name="checkInTest"/>
             </run>
         </groups>
         <classes>
