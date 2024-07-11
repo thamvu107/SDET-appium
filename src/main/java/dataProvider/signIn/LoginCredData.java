@@ -8,36 +8,36 @@ import utils.DataObjectBuilderUtil;
 import java.nio.file.Path;
 
 public class LoginCredData {
-    @DataProvider(name = "loginCredValidUser")
-    public LoginCred[] loginCredValidUser() {
+  @DataProvider()
+  public LoginCred[] loginCredValidUser() {
 
-        Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_VALID_USER_JSON);
+    Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_VALID_USER_JSON);
 
-        return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
-    }
+    return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
+  }
 
-    @DataProvider(name = "loginCredInvalidUser")
-    public LoginCred[] loginCredInvalidUser() {
+  @DataProvider()
+  public LoginCred[] loginCredInvalidUser() {
 
-        Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_INVALID_USER_JSON);
+    Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_INVALID_USER_JSON);
 
-        return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
-    }
+    return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
+  }
 
-    @DataProvider(name = "loginCredInvalidEmail")
-    public LoginCred[] loginCredInvalidEmail() {
+  @DataProvider()
+  public LoginCred[] loginCredInvalidEmail() {
 
-        Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_INVALID_EMAIL_JSON);
+    Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_INVALID_EMAIL_JSON);
 
-        return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
-    }
+    return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
+  }
 
-    @DataProvider(name = "loginCredInvalidPassword")
-    public LoginCred[] loginCredInvalidPassword() {
+  @DataProvider()
+  public LoginCred[] loginCredInvalidPassword() {
 
-        Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_INVALID_PASSWORD_JSON);
+    Path loginCredDataPath = Path.of(LoginCredPathConstants.LOGIN_CRED_INVALID_PASSWORD_JSON);
 
-        return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
-    }
+    return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
+  }
 
 }
