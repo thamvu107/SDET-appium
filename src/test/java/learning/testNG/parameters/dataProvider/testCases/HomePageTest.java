@@ -1,4 +1,4 @@
-package learning.testNG.parallel.parallelDataProvider.testCases;
+package learning.testNG.parameters.dataProvider.testCases;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -8,8 +8,8 @@ public class HomePageTest extends BaseTest {
 
   @Parameters("configureFile")
   @BeforeClass(alwaysRun = true)
-  public void beforeClass( String configureFile) {
-    System.out.println("configureFile " +configureFile);
+  public void beforeClass(String configureFile) {
+    System.out.println("configureFile " + configureFile);
   }
 
   @Test
