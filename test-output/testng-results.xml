@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="8" passed="8" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-07-17T08:40:04 ICT" name="Dynamic Regression" finished-at="2024-07-17T08:40:04 ICT" duration-ms="186">
+    <groups>
+    </groups>
+    <test started-at="2024-07-17T08:40:04 ICT" name="192.168.1.13:5555" finished-at="2024-07-17T08:40:04 ICT" duration-ms="21">
+    </test> <!-- 192.168.1.13:5555 -->
+    <test started-at="2024-07-17T08:40:04 ICT" name="Pixel_4_API_33" finished-at="2024-07-17T08:40:04 ICT" duration-ms="166">
+      <class name="learning.testNG.parallel.parallelDataProvider.testCases.SignInTest">
+        <test-method is-config="true" signature="beforeClass(java.lang.String)[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.SignInTest@79c7532f]" started-at="2024-07-17T08:40:04 ICT" name="beforeClass" finished-at="2024-07-17T08:40:04 ICT" duration-ms="28" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Pixel_4_API_33.properties]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClass -->
+        <test-method signature="testSignInValid()[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.SignInTest@79c7532f]" started-at="2024-07-17T08:40:04 ICT" name="testSignInValid" finished-at="2024-07-17T08:40:04 ICT" duration-ms="59" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSignInValid -->
+        <test-method signature="testSignInvalid()[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.SignInTest@79c7532f]" started-at="2024-07-17T08:40:04 ICT" name="testSignInvalid" finished-at="2024-07-17T08:40:04 ICT" duration-ms="2" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSignInvalid -->
+      </class> <!-- learning.testNG.parallel.parallelDataProvider.testCases.SignInTest -->
+    </test> <!-- Pixel_4_API_33 -->
+    <test started-at="2024-07-17T08:40:04 ICT" name="Pixel_5_API_33" finished-at="2024-07-17T08:40:04 ICT" duration-ms="171">
+      <class name="learning.testNG.parallel.parallelDataProvider.testCases.SwipePageTest">
+        <test-method is-config="true" signature="beforeClass(java.lang.String)[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.SwipePageTest@6138e79a]" started-at="2024-07-17T08:40:04 ICT" name="beforeClass" finished-at="2024-07-17T08:40:04 ICT" duration-ms="28" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Pixel_5.properties]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClass -->
+        <test-method signature="testHorizontalSwipe()[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.SwipePageTest@6138e79a]" started-at="2024-07-17T08:40:04 ICT" name="testHorizontalSwipe" finished-at="2024-07-17T08:40:04 ICT" duration-ms="58" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testHorizontalSwipe -->
+        <test-method signature="testVerticalSwipe()[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.SwipePageTest@6138e79a]" started-at="2024-07-17T08:40:04 ICT" name="testVerticalSwipe" finished-at="2024-07-17T08:40:04 ICT" duration-ms="3" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerticalSwipe -->
+      </class> <!-- learning.testNG.parallel.parallelDataProvider.testCases.SwipePageTest -->
+    </test> <!-- Pixel_5_API_33 -->
+    <test started-at="2024-07-17T08:40:04 ICT" name="192.168.1.14:5555" finished-at="2024-07-17T08:40:04 ICT" duration-ms="186">
+      <class name="learning.testNG.parallel.parallelDataProvider.testCases.HomePageTest">
+        <test-method is-config="true" signature="beforeClass(java.lang.String)[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.HomePageTest@7e3181aa]" started-at="2024-07-17T08:40:04 ICT" name="beforeClass" finished-at="2024-07-17T08:40:04 ICT" duration-ms="28" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Samsung_Galaxy_S8.properties]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClass -->
+        <test-method signature="testHomePage()[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.HomePageTest@7e3181aa]" started-at="2024-07-17T08:40:04 ICT" name="testHomePage" finished-at="2024-07-17T08:40:04 ICT" duration-ms="59" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testHomePage -->
+        <test-method signature="testHomePageBroken()[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.HomePageTest@7e3181aa]" started-at="2024-07-17T08:40:04 ICT" name="testHomePageBroken" finished-at="2024-07-17T08:40:04 ICT" duration-ms="3" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testHomePageBroken -->
+      </class> <!-- learning.testNG.parallel.parallelDataProvider.testCases.HomePageTest -->
+      <class name="learning.testNG.parallel.parallelDataProvider.testCases.SignUpTest">
+        <test-method is-config="true" signature="beforeClass(java.lang.String)[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.SignUpTest@253d9f73]" started-at="2024-07-17T08:40:04 ICT" name="beforeClass" finished-at="2024-07-17T08:40:04 ICT" duration-ms="1" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Samsung_Galaxy_S8.properties]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClass -->
+        <test-method signature="testSignUpInvalid()[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.SignUpTest@253d9f73]" started-at="2024-07-17T08:40:04 ICT" name="testSignUpInvalid" finished-at="2024-07-17T08:40:04 ICT" duration-ms="3" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSignUpInvalid -->
+        <test-method signature="testSignUpValid()[pri:0, instance:learning.testNG.parallel.parallelDataProvider.testCases.SignUpTest@253d9f73]" started-at="2024-07-17T08:40:04 ICT" name="testSignUpValid" finished-at="2024-07-17T08:40:04 ICT" duration-ms="3" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSignUpValid -->
+      </class> <!-- learning.testNG.parallel.parallelDataProvider.testCases.SignUpTest -->
+    </test> <!-- 192.168.1.14:5555 -->
+  </suite> <!-- Dynamic Regression -->
+</testng-results>
