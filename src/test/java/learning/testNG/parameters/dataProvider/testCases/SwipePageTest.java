@@ -1,4 +1,4 @@
-package learning.testNG.parallel.parallelDataProvider.testCases;
+package learning.testNG.parameters.dataProvider.testCases;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;

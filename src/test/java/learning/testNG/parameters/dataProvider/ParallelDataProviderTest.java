@@ -1,4 +1,4 @@
-package learning.testNG.parallel.parallelDataProvider;
+package learning.testNG.parameters.dataProvider;
 
 import org.testng.annotations.DataProvider;
 

@@ -1,4 +1,4 @@
-package learning.testNG.parallel.parallelDataProvider;
+package learning.testNG.parameters.dataProvider;
 
 import constants.filePaths.jsonFiles.DevicePathConstants;
 import entity.deviceConfigure.DeviceCapConfigure;

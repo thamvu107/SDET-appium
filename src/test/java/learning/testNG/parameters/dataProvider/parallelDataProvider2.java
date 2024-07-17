@@ -1,4 +1,4 @@
-package learning.testNG.parallel.parallelDataProvider;
+package learning.testNG.parameters.dataProvider;
 
 import com.google.common.reflect.ClassPath;
 import constants.filePaths.jsonFiles.DevicePathConstants;
@@ -50,21 +50,16 @@ public class parallelDataProvider2 {
     List<DeviceCapConfigure> deviceList = getDeviceUnderTest(platformType, configs);
 
     // Assign devices to test classes
-    int testNumEachDevice = testClasses.size() / deviceList.size();
-    Map<DeviceCapConfigure, List<Class<?>>> deviceCapConfigureList = new HashMap<>();
-    for (int deviceIndex = 0; deviceIndex < deviceList.size(); deviceIndex++) {
-      int startIndex = deviceIndex * testNumEachDevice;
-      boolean isTheLastDevice = deviceIndex == deviceList.size() - 1;
-      int endIndex = isTheLastDevice ? testClasses.size() : (startIndex + testNumEachDevice);
-      List<Class<?>> subTestList = testClasses.subList(startIndex, endIndex);
-      deviceCapConfigureList.put(deviceList.get(deviceIndex), subTestList);
-    }
-    deviceCapConfigureList.forEach((k, v) -> System.out.println(k.getId() + " " + v.size()));
+    Map<DeviceCapConfigure, List<Class<?>>> deviceCapConfigureList = assignTestClassToDevices(testClasses, deviceList);
+
+    //deviceCapConfigureList.forEach((k, v) -> System.out.println(k.getId() + " " + v.size()));
 
     // Build dynamic test suite
     TestNG testNG = new TestNG();
     XmlSuite suite = new XmlSuite();
     suite.setName("Dynamic Regression");
+    suite.setPreserveOrder(false);
+    suite.setParallel(ParallelMode.TESTS);
 
     List<XmlTest> allTests = new ArrayList<>();
     for (DeviceCapConfigure deviceCapConfigure : deviceCapConfigureList.keySet()) {
@@ -81,27 +76,11 @@ public class parallelDataProvider2 {
       test.addParameter("deviceType", deviceCapConfigure.getDeviceType());
       test.addParameter("deviceName", deviceCapConfigure.getDeviceName());
       test.addParameter("configureFile", deviceCapConfigure.getConfigureFile());
-//      test.addParameter(AndroidCapabilityType.PLATFORM_NAME, platformName);
-//      test.addParameter(AndroidCapabilityType.PLATFORM_VERSION_OPTION, "17.2");
-//      test.addParameter(AndroidCapabilityType.SYSTEM_PORT,
-//                        String.valueOf(new SecureRandom().nextInt(1000) + 8300));
       allTests.add(test);
     }
     suite.setTests(allTests);
     suite.setParallel(ParallelMode.TESTS);
     suite.setThreadCount(10);
-    System.out.println(suite.toXml());
-
-    //    // Generate dynamic filename with the current date
-//    String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm"));
-//    String fileName = "src/test/java/learning/testNG/parallel/parallelDataProvider/testSuites/testNG-" + date + ".xml";
-//
-//    // Write the XML suite to a file
-//    try (FileWriter writer = new FileWriter(fileName)) {
-//      writer.write(suite.toXml());
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
 
     String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH"));
@@ -122,8 +101,6 @@ public class parallelDataProvider2 {
       e.printStackTrace();
     }
 
-    // Add Suite into TestNG
-//    testNG.setSuiteXmlFiles(Arrays.asList(filePath.toString()));
     // Add TestSuite into Suite list
     List<XmlSuite> suites = new ArrayList<>();
     suites.add(suite);
@@ -131,6 +108,20 @@ public class parallelDataProvider2 {
     // Invoke run method
     testNG.setXmlSuites(suites);
     testNG.run();
+  }
+
+  private static Map<DeviceCapConfigure, List<Class<?>>> assignTestClassToDevices(List<Class<?>> testClasses,
+                                                                                  List<DeviceCapConfigure> deviceList) {
+    Map<DeviceCapConfigure, List<Class<?>>> deviceCapConfigureList = new HashMap<>();
+    int testNumEachDevice = testClasses.size() / deviceList.size();
+    for (int deviceIndex = 0; deviceIndex < deviceList.size(); deviceIndex++) {
+      int startIndex = deviceIndex * testNumEachDevice;
+      boolean isTheLastDevice = deviceIndex == deviceList.size() - 1;
+      int endIndex = isTheLastDevice ? testClasses.size() : (startIndex + testNumEachDevice);
+      List<Class<?>> subTestList = testClasses.subList(startIndex, endIndex);
+      deviceCapConfigureList.put(deviceList.get(deviceIndex), subTestList);
+    }
+    return deviceCapConfigureList;
   }
 
 
