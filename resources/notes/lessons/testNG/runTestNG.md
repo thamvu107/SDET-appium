@@ -7,3 +7,5 @@
 
 - System properties
 - Running tests from within a test jar
+
+- Lazy init / lazy loading

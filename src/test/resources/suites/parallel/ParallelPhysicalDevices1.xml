@@ -4,7 +4,7 @@
 <suite name="Parameters Test Suite" parallel="tests" thread-count="3" verbose="2" preserve-order="false">
 
     <test name="Pixel_5_API_33_1">
-        <parameter name="platform" value="ANDROID"/>
+        <parameter name="platformType" value="ANDROID"/>
         <parameter name="deviceType" value="EMULATOR"/>
         <parameter name="configureFile" value="deviceCapConfig/android/emulators/Pixel_5_API_33_1.properties"/>
         <groups>
@@ -21,7 +21,7 @@
     </test>
 
     <test name="Tablet">
-        <parameter name="platform" value="ANDROID"/>
+        <parameter name="platformType" value="ANDROID"/>
         <parameter name="deviceType" value="PHYSICAL"/>
         <parameter name="configureFile" value="deviceCapConfig/android/physicalDevices/physicalTablet.properties"/>
         <groups>
@@ -38,7 +38,7 @@
     </test>
 
     <test name="Mobile">
-        <parameter name="platform" value="ANDROID"/>
+        <parameter name="platformType" value="ANDROID"/>
         <parameter name="deviceType" value="PHYSICAL"/>
         <parameter name="configureFile" value="deviceCapConfig/android/physicalDevices/physicalMobile.properties"/>
         <groups>

@@ -19,12 +19,7 @@ public class DriverFactory {
   public AppiumDriver getLocalServerDriver(PlatformType platformType, DeviceUnderTestType deviceType, String configureFile) {
 
     URL localServerURL = getLocalServerURL();
-    try {
-      return getDriver(localServerURL, platformType, deviceType, configureFile);
-    } catch (Exception e) {
-      log.atInfo().setMessage("Get local server driver is failed").setCause(e).log();
-      throw new RuntimeException("Get local server driver is failed" + e);
-    }
+    return getDriver(localServerURL, platformType, deviceType, configureFile);
   }
 
   private URL getLocalServerURL() {
@@ -55,13 +50,13 @@ public class DriverFactory {
 //                        //Retrying to create driver
             if (ex.getMessage().contains("Appium Settings app is not running after 30000ms")) {
 //                            System.out.println("Appium Settings app is not running: " + ex.getMessage());
-              System.out.println("Retry to create driver");
+              System.out.println("Retry to get driver");
               driver = new AndroidDriverManager().createDriver(serverURL, deviceType, configureFile);
               break;
             }
 
           } catch (Exception e) {
-            throw new RuntimeException("Failed to create driver: " + e);
+            throw new RuntimeException("Failed to get driver: " + e);
           }
 
         case IOS:

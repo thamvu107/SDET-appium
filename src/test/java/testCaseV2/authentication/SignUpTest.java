@@ -4,10 +4,14 @@ import annotations.author.Author;
 import base.BaseTestV2;
 import dataProvider.signUp.SignUpCredData;
 import entity.authen.SignUpCred;
+import enums.DeviceUnderTestType;
+import enums.PlatformType;
+import io.appium.java_client.AppiumDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Ignore;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import testFlows.SignUpFlow;
 
@@ -20,10 +24,21 @@ import static interfaces.IAuthor.THAM_VU;
 
 @Slf4j
 public class SignUpTest extends BaseTestV2 {
+  private AppiumDriver driver;
   private SignUpFlow signUpFlow;
 
   @BeforeClass(alwaysRun = true)
-  public void beforeClass() {
+  @Parameters({"platformType", "deviceType", "configureFile"})
+  public void beforeClass(String platformType, String deviceType, String configureFile) {
+    baseTestPlatformType = PlatformType.valueOf(platformType);
+    baseTestDeviceType = DeviceUnderTestType.valueOf(deviceType);
+    baseTestConfigureFile = configureFile;
+
+    System.out.println("platform:  " + baseTestPlatformType);
+    System.out.println("deviceType:  " + baseTestDeviceType);
+    System.out.println("configureFile:  " + baseTestConfigureFile);
+
+    driver = getDriver(baseTestPlatformType, baseTestDeviceType, baseTestConfigureFile);
     System.out.println("Before Class: driver " + driver);
 
     signUpFlow = new SignUpFlow(driver);

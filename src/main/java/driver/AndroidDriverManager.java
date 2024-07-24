@@ -17,32 +17,31 @@ public class AndroidDriverManager extends AppiumDriverManager {
   public AppiumDriver createDriver(URL serverURL, DeviceUnderTestType deviceType, String configureFile) {
     PropertiesMap propertiesMap = getPropertiesMap(configureFile);
 
-    try {
-      UiAutomator2Options caps = null;
-      switch (deviceType) {
-        case EMULATOR:
-          caps = AndroidCapabilitiesManager.getEmulatorCaps(propertiesMap);
-          setLogParams(caps.getCapability("deviceName").toString());
-          break;
-        case PHYSICAL:
-        case REAL:
-          caps = AndroidCapabilitiesManager.getRealMobileCaps(propertiesMap);
-          setLogParams(caps.getCapability("udid").toString());
-          break;
-        default:
-          throw new IllegalStateException("Unexpected device type: " + deviceType);
-      }
+    UiAutomator2Options caps = null;
+    switch (deviceType) {
+      case EMULATOR:
+        caps = AndroidCapabilitiesManager.getEmulatorCaps(propertiesMap);
+        setLogParams(caps.getCapability("deviceName").toString());
+        break;
+      case PHYSICAL:
+      case REAL:
+        caps = AndroidCapabilitiesManager.getRealMobileCaps(propertiesMap);
+        setLogParams(caps.getCapability("udid").toString());
+        break;
+      default:
+        throw new IllegalStateException("Unexpected device type: " + deviceType);
+    }
 
-
-//      setLogParams(caps);
-      if (caps == null) {
-        throw new RuntimeException("Capabilities is null");
-      } else {
+    if (caps != null) {
+      try {
         return new AndroidDriver(serverURL, caps);
+      } catch (Exception e) {
+        log.error("Failed to create driver: {}", e.getMessage(), e);
+        e.printStackTrace();
+        throw new RuntimeException("Failed to create driver", e);
       }
-
-    } catch (Exception e) {
-      throw new RuntimeException("Create driver is failed", e);
+    } else {
+      throw new IllegalArgumentException("Capabilities is null");
     }
   }
 
