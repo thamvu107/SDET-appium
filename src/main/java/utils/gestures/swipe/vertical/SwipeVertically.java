@@ -79,6 +79,31 @@ public class SwipeVertically extends SwipeAction {
     log.atInfo().log("Swipe vertical: anchor: " + anchor + " topY: " + topY + " bottomY: " + bottomY);
   }
 
+  public SwipeVertically(AppiumDriver driver, WebElement wrapper, WebElement childElement) {
+
+
+    super(driver, wrapper);
+    this.anchor = this.calculateAnchor();
+    this.topY = this.calculateSmallCoordinate();
+    this.bottomY = this.calculateLargeCoordinate();
+  }
+
+//  private SwipeVertically initScrollDown(AppiumDriver driver, WebElement wrapper, WebElement childElement) {
+//
+//    Rectangle wrapperRect = wrapper.getRect();
+//
+//    int anchor = wrapperRect.getX() + wrapperRect.getWidth() / 2;
+//    int scrollTopY = wrapperRect.getY() + 5;
+//    int scrollBottomY = childElement.getLocation().getY() - 10;
+//
+//    Point start = new Point(anchor, scrollTopY);
+//    Point end = new Point(anchor, scrollBottomY);
+//
+//
+//    return new SwipeVertically(driver, start, end, 60);
+//  }
+
+
   @Override
   protected int calculateAnchor() {
 

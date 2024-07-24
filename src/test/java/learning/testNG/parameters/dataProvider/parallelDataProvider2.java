@@ -2,7 +2,7 @@ package learning.testNG.parameters.dataProvider;
 
 import com.google.common.reflect.ClassPath;
 import constants.filePaths.jsonFiles.DevicePathConstants;
-import entity.deviceConfigure.DeviceCapConfigure;
+import entity.deviceConfigure.DeviceUnderTest;
 import enums.PlatformType;
 import org.testng.TestNG;
 import org.testng.annotations.DataProvider;
@@ -38,7 +38,7 @@ public class parallelDataProvider2 {
       throw new RuntimeException(e);
     }
 
-    DeviceCapConfigure[] configs = readDeviceConfigsFromExternalSource();
+    DeviceUnderTest[] configs = readDeviceConfigsFromExternalSource();
 
 
     // Get platform
@@ -47,10 +47,10 @@ public class parallelDataProvider2 {
     String platformType = "android";
 
     // Devices under test
-    List<DeviceCapConfigure> deviceList = getDeviceUnderTest(platformType, configs);
+    List<DeviceUnderTest> deviceList = getDeviceUnderTest(platformType, configs);
 
     // Assign devices to test classes
-    Map<DeviceCapConfigure, List<Class<?>>> deviceCapConfigureList = assignTestClassToDevices(testClasses, deviceList);
+    Map<DeviceUnderTest, List<Class<?>>> deviceCapConfigureList = assignTestClassToDevices(testClasses, deviceList);
 
     //deviceCapConfigureList.forEach((k, v) -> System.out.println(k.getId() + " " + v.size()));
 
@@ -62,7 +62,7 @@ public class parallelDataProvider2 {
     suite.setParallel(ParallelMode.TESTS);
 
     List<XmlTest> allTests = new ArrayList<>();
-    for (DeviceCapConfigure deviceCapConfigure : deviceCapConfigureList.keySet()) {
+    for (DeviceUnderTest deviceCapConfigure : deviceCapConfigureList.keySet()) {
       XmlTest test = new XmlTest(suite);
       test.setName(deviceCapConfigure.getId());
       List<XmlClass> xmlClasses = new ArrayList<>();
@@ -74,7 +74,6 @@ public class parallelDataProvider2 {
       test.addParameter("id", deviceCapConfigure.getId());
       test.addParameter("platformType", deviceCapConfigure.getPlatformType());
       test.addParameter("deviceType", deviceCapConfigure.getDeviceType());
-      test.addParameter("deviceName", deviceCapConfigure.getDeviceName());
       test.addParameter("configureFile", deviceCapConfigure.getConfigureFile());
       allTests.add(test);
     }
@@ -110,9 +109,9 @@ public class parallelDataProvider2 {
     testNG.run();
   }
 
-  private static Map<DeviceCapConfigure, List<Class<?>>> assignTestClassToDevices(List<Class<?>> testClasses,
-                                                                                  List<DeviceCapConfigure> deviceList) {
-    Map<DeviceCapConfigure, List<Class<?>>> deviceCapConfigureList = new HashMap<>();
+  private static Map<DeviceUnderTest, List<Class<?>>> assignTestClassToDevices(List<Class<?>> testClasses,
+                                                                               List<DeviceUnderTest> deviceList) {
+    Map<DeviceUnderTest, List<Class<?>>> deviceCapConfigureList = new HashMap<>();
     int testNumEachDevice = testClasses.size() / deviceList.size();
     for (int deviceIndex = 0; deviceIndex < deviceList.size(); deviceIndex++) {
       int startIndex = deviceIndex * testNumEachDevice;
@@ -125,13 +124,13 @@ public class parallelDataProvider2 {
   }
 
 
-  private static List<DeviceCapConfigure> getDeviceUnderTest(String platformType, DeviceCapConfigure[] configs) {
+  private static List<DeviceUnderTest> getDeviceUnderTest(String platformType, DeviceUnderTest[] configs) {
     boolean isAllPlatformTypes = platformType == null;
-    List<DeviceCapConfigure> configsList = Arrays.asList(configs);
-    List<DeviceCapConfigure> iosDeviceList = filterByPlatform(configsList, PlatformType.IOS);
-    List<DeviceCapConfigure> androidDeviceList = filterByPlatform(configsList, PlatformType.ANDROID);
+    List<DeviceUnderTest> configsList = Arrays.asList(configs);
+    List<DeviceUnderTest> iosDeviceList = filterByPlatform(configsList, PlatformType.IOS);
+    List<DeviceUnderTest> androidDeviceList = filterByPlatform(configsList, PlatformType.ANDROID);
 
-    List<DeviceCapConfigure> deviceList = new ArrayList<>();
+    List<DeviceUnderTest> deviceList = new ArrayList<>();
 
     if (isAllPlatformTypes) {
       deviceList.addAll(iosDeviceList);
@@ -161,32 +160,31 @@ public class parallelDataProvider2 {
     return testClasses;
   }
 
-  private static void printParams(DeviceCapConfigure config) {
+  private static void printParams(DeviceUnderTest config) {
     // Example test logic using Appium
     System.out.println("\nRunning Appium test on platform: " + config.getPlatformType());
     System.out.println("Device Id: " + config.getId());
     System.out.println("Device Type: " + config.getDeviceType());
-    System.out.println("Device Name: " + config.getDeviceName());
     System.out.println("File: " + config.getConfigureFile());
   }
 
   @DataProvider(name = "platformsDataProvider", parallel = true)
-  public DeviceCapConfigure[] platformsDataProvider() {
+  public DeviceUnderTest[] platformsDataProvider() {
     return readDeviceConfigsFromExternalSource();
   }
 
-  private static DeviceCapConfigure[] readDeviceConfigsFromExternalSource() {
+  private static DeviceUnderTest[] readDeviceConfigsFromExternalSource() {
 
-    Path deviceConfigDataPath = Path.of(DevicePathConstants.DEVICE_JSON_PATH);
+    Path deviceConfigDataPath = Path.of(DevicePathConstants.DEVICES_JSON_PATH);
 
-    return DataObjectBuilderUtil.buildDataObject(deviceConfigDataPath, DeviceCapConfigure[].class);
+    return DataObjectBuilderUtil.buildDataObject(deviceConfigDataPath, DeviceUnderTest[].class);
   }
 
 
-  private static List<DeviceCapConfigure> filterByPlatform(List<DeviceCapConfigure> configs, PlatformType platformType) {
+  private static List<DeviceUnderTest> filterByPlatform(List<DeviceUnderTest> configs, PlatformType platformType) {
     // Filter data for the specified platformType
-    List<DeviceCapConfigure> filteredData = new ArrayList<>();
-    for (DeviceCapConfigure config : configs) {
+    List<DeviceUnderTest> filteredData = new ArrayList<>();
+    for (DeviceUnderTest config : configs) {
       if (PlatformType.fromString(config.getPlatformType()).equals(platformType)) {
 
         filteredData.add(config);

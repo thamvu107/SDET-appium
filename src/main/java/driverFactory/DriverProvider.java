@@ -13,75 +13,73 @@ import java.nio.file.Path;
 @Slf4j
 public class DriverProvider {
 
-    public AppiumDriver getLocalServerDriver(Capabilities caps) {
+  public AppiumDriver getLocalServerDriver(Capabilities caps) {
 
-        URL localServerURL = getLocalServerURL();
-        try {
-            return createDriver(localServerURL, caps);
-        } catch (Exception e) {
-            log.atInfo().setMessage("Innit local server driver is failed").setCause(e).log();
-            throw new RuntimeException(e);
-        }
+    URL localServerURL = getLocalServerURL();
+    try {
+      return createDriver(localServerURL, caps);
+    } catch (Exception e) {
+      log.atInfo().setMessage("Innit local server driver is failed").setCause(e).log();
+      throw new RuntimeException(e);
     }
+  }
 
-    public AppiumDriver getRemoteServerDriver(Capabilities caps) {
+  public AppiumDriver getRemoteServerDriver(Capabilities caps) {
 
-        URL remoteServerURL = getRemoteServerURL();
-        try {
-            return createDriver(remoteServerURL, caps);
-        } catch (Exception e) {
-            log.atInfo().setMessage("Innit remote server driver is failed").setCause(e).log();
-            throw new RuntimeException(e);
-        }
+    URL remoteServerURL = getRemoteServerURL();
+    try {
+      return createDriver(remoteServerURL, caps);
+    } catch (Exception e) {
+      log.atInfo().setMessage("Innit remote server driver is failed").setCause(e).log();
+      throw new RuntimeException(e);
     }
+  }
 
-    private URL getLocalServerURL() {
+  private URL getLocalServerURL() {
 
-        ServerConfig server = new ServerConfig("127.0.0.1", 4723);
-        try {
-            return server.getServerURL();
-        } catch (Exception e) {
-            log.atInfo().setMessage("Invalid server URL").setCause(e).log();
-            throw new RuntimeException("Invalid server URL" + e);
-        }
+    ServerConfig server = new ServerConfig("127.0.0.1", 4723);
+    try {
+      return server.getServerURL();
+    } catch (Exception e) {
+      log.atInfo().setMessage("Invalid server URL").setCause(e).log();
+      throw new RuntimeException("Invalid server URL" + e);
     }
+  }
 
-    private URL getRemoteServerURL() {
+  private URL getRemoteServerURL() {
 
-        Path serverConfigurePath = Path.of(ServerConfigPathConstants.REMOTE_SERVER_CONFIG_JSON);
-        ServerConfig serverConfig = DataObjectBuilderUtil.buildDataObject(serverConfigurePath, ServerConfig.class);
+    Path serverConfigurePath = Path.of(ServerConfigPathConstants.REMOTE_SERVER_CONFIG_JSON);
+    ServerConfig serverConfig = DataObjectBuilderUtil.buildDataObject(serverConfigurePath, ServerConfig.class);
 
-        try {
-            return serverConfig.getServerURL();
-        } catch (Exception e) {
-            log.atInfo().setMessage("Invalid server URL").setCause(e).log();
-            throw new RuntimeException("Invalid server URL" + e);
+    try {
+      return serverConfig.getServerURL();
+    } catch (Exception e) {
+      log.atInfo().setMessage("Invalid server URL").setCause(e).log();
+      throw new RuntimeException("Invalid server URL" + e);
 
-        }
     }
+  }
 
-    private AppiumDriver createDriver(URL serverURL, Capabilities caps) {
-        DriverFactory factory = new DriverFactory(serverURL, caps);
-        try {
-            return factory.getDriver();
-        } catch (Exception e) {
-            log.atInfo().setMessage("Innit driver is failed").setCause(e).log();
-            throw new RuntimeException(e);
-        }
+  private AppiumDriver createDriver(URL serverURL, Capabilities caps) {
+    DriverFactory factory = new DriverFactory(serverURL, caps);
+    try {
+      return factory.getDriver();
+    } catch (Exception e) {
+      log.atInfo().setMessage("Innit driver is failed").setCause(e).log();
+      throw new RuntimeException(e);
     }
+  }
 
-    public void quitDriver(AppiumDriver driver) {
-        if (driver != null) {
-            try {
-                System.out.println(driver);
-                if (driver != null) {
-                    driver.quit();
-                }
-            } catch (Exception e) {
-                log.atInfo().setMessage("Failed to quit driver").setCause(e).log();
-                throw new RuntimeException(e);
-            }
-        }
+  public void quitDriver(AppiumDriver driver) {
+    if (driver != null) {
+      try {
+        System.out.println(driver);
+        driver.quit();
+      } catch (Exception e) {
+        log.atInfo().setMessage("Failed to quit driver").setCause(e).log();
+        throw new RuntimeException(e);
+      }
     }
+  }
 
 }

@@ -1,7 +1,7 @@
 package learning.testNG.parameters.dataProvider;
 
 import constants.filePaths.jsonFiles.DevicePathConstants;
-import entity.deviceConfigure.DeviceCapConfigure;
+import entity.deviceConfigure.DeviceUnderTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utils.DataObjectBuilderUtil;
@@ -29,7 +29,7 @@ public class parallelDataProvider1 {
 
 
   @Test(dataProvider = "platformsDataProvider")
-  public void testAppium1(DeviceCapConfigure config) {
+  public void testAppium1(DeviceUnderTest config) {
     Instant start = Instant.now();
 //    System.out.println("\ntestAppium1");
     System.out.println("\ntestAppium1: \nTest start time: " + start + " ms");
@@ -52,7 +52,7 @@ public class parallelDataProvider1 {
   }
 
   @Test(dataProvider = "platformsDataProvider")
-  public void testAppium2(DeviceCapConfigure config) {
+  public void testAppium2(DeviceUnderTest config) {
     Instant start = Instant.now();
 //    System.out.println("\ntestAppium2");
 //    System.out.println("Test start time: " + start + " ms");
@@ -77,7 +77,7 @@ public class parallelDataProvider1 {
 
   @Test(dataProvider = "platformsDataProvider")
 //  public void testAppium3(DeviceConfig config) {
-  public void testAppium3(DeviceCapConfigure config) {
+  public void testAppium3(DeviceUnderTest config) {
     Instant start = Instant.now();
 //    System.out.println("\ntestAppium2");
 //    System.out.println("Test start time: " + start + " ms");
@@ -98,36 +98,29 @@ public class parallelDataProvider1 {
     System.out.println("testAppium3: Test execution time: " + timeElapsed + " ms");
   }
 
-  private static void printParams(DeviceCapConfigure config) {
+  private static void printParams(DeviceUnderTest config) {
     // Example test logic using Appium
     System.out.println("Running Appium test on platform: " + config.getPlatformType());
-    System.out.println("Device Name: " + config.getDeviceName());
     System.out.println("File: " + config.getConfigureFile());
   }
 
   @DataProvider(name = "platformsDataProvider", parallel = true)
 //  public Object[][] platformsDataProvider() {
-  public DeviceCapConfigure[] platformsDataProvider() {
+  public DeviceUnderTest[] platformsDataProvider() {
     // Simulate fetching platform configurations dynamically (e.g., from JSON or external source)
 //    List<DeviceConfig> configs = readDeviceConfigsFromExternalSource();
-    DeviceCapConfigure[] configs = readDeviceConfigsFromExternalSource();
+    DeviceUnderTest[] configs = readDeviceConfigsFromExternalSource();
 //    return filterByPlatform(configs);
 //    return convertListToObjectArray(configs);
     return configs;
   }
 
   //  private List<DeviceConfig> readDeviceConfigsFromExternalSource() {
-  private DeviceCapConfigure[] readDeviceConfigsFromExternalSource() {
+  private DeviceUnderTest[] readDeviceConfigsFromExternalSource() {
     // Example: Simulating reading from an external JSON file or database
-    List<DeviceConfig> configs = new ArrayList<>();
-//    configs.add(new DeviceConfig("android", "Pixel 5", "app-android.apk"));
-//    configs.add(new DeviceConfig("android", "Samsung Galaxy S8", "app-android.apk"));
-//    configs.add(new DeviceConfig("ios", "iPhone 11", "app-ios.ipa"));
-//    configs.add(new DeviceConfig("ios", "iPhone X", "app-ios.ipa"));
-
-    Path deviceConfigDataPath = Path.of(DevicePathConstants.DEVICE_JSON_PATH);
-    DeviceCapConfigure[] deviceConfigureCaps =
-      DataObjectBuilderUtil.buildDataObject(deviceConfigDataPath, DeviceCapConfigure[].class);
+    Path deviceConfigDataPath = Path.of(DevicePathConstants.DEVICES_JSON_PATH);
+    DeviceUnderTest[] deviceConfigureCaps =
+      DataObjectBuilderUtil.buildDataObject(deviceConfigDataPath, DeviceUnderTest[].class);
 
     return deviceConfigureCaps;
   }

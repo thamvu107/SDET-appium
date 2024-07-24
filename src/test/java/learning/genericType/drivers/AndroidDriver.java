@@ -3,7 +3,7 @@ package learning.genericType.drivers;
 import devices.Mobile;
 import devices.android.AndroidPhysicalMobile;
 import devices.android.Emulator;
-import driver.AppiumDriverEx;
+import driver.AppiumDriverManager;
 import io.appium.java_client.android.options.UiAutomator2Options;
 
 import static driverFactory.capabilities.AndroidCapabilities.getEmulatorCaps;
@@ -22,14 +22,14 @@ public class AndroidDriver extends Driver {
   }
 
   @Override
-  public AppiumDriverEx innitDriver(Mobile mobile) {
+  public AppiumDriverManager innitDriver(Mobile mobile) {
 
     return null;//new AndroidDriver(serverURL, caps);
   }
 
 
   @Override
-  public AppiumDriverEx quitDriver() {
+  public AppiumDriverManager quitDriver() {
     return null;
   }
 }

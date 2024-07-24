@@ -24,7 +24,7 @@ import static constants.WaitConstants.SHORT_EXPLICIT_WAIT;
 @Slf4j
 public class BaseScreen {
 
-  protected AppiumDriver driver;
+  protected final AppiumDriver driver;
   //    protected LocatorMapperUtils locatorMapperHelper;
   protected ContextSwitching contextSwitching;
 
@@ -46,13 +46,13 @@ public class BaseScreen {
     this.currentPlatform = new PlatformUtil(this.driver).getCurrentPlatform();
     this.contextSwitching = new ContextSwitching(this.driver);
     this.elementUtils = new ElementUtils(driver);
-    this.interactionUtils = new InteractionUtils(driver);
+    this.interactionUtils = new InteractionUtils(this.driver);
     // this.assertUtils = new AssertUtils(driver);
     this.bottomNavComponent = new BottomNavComponent(this.driver);
   }
 
   public String getCurrentContext() {
-    return contextSwitching.getCurrentContext(driver);
+    return contextSwitching.getCurrentContext(this.driver);
 
   }
 
@@ -76,6 +76,10 @@ public class BaseScreen {
   }
 
   public SwipeScreen goToSwipeScreen() {
+    return getBottomNavComponent().clickOnSwipeNav();
+  }
+
+  public SwipeScreen goToVerticalSwipeScreen() {
     return getBottomNavComponent().clickOnSwipeNav();
   }
 

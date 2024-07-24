@@ -13,7 +13,7 @@ public class BaseFlow {
 
   public LoginScreen openLoginScreen() {
 
-    return new BaseScreen(driver).openLoginScreen();
+    return new BaseScreen(this.driver).openLoginScreen();
   }
 
 }

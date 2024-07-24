@@ -2,7 +2,7 @@ package learning.genericType.drivers;
 
 import constants.filePaths.jsonFiles.ServerConfigPathConstants;
 import devices.Mobile;
-import driver.AppiumDriverEx;
+import driver.AppiumDriverManager;
 import entity.ServerConfig;
 import utils.DataObjectBuilderUtil;
 
@@ -11,9 +11,9 @@ import java.nio.file.Path;
 
 public abstract class Driver {
 
-  public abstract AppiumDriverEx innitDriver(Mobile mobile);
+  public abstract AppiumDriverManager innitDriver(Mobile mobile);
 
-  public abstract AppiumDriverEx quitDriver();
+  public abstract AppiumDriverManager quitDriver();
 
   protected URL getLocalServer() {
     Path serverConfigurePath = Path.of(ServerConfigPathConstants.LOCAL_SERVER_CONFIG_JSON);
