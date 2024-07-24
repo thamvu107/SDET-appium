@@ -30,7 +30,10 @@ public class SwipeScreen extends BaseScreen {
     super(driver);
     verifyScreenLoaded(swipeScreenLoc);
 
+    //TODO: seperate  2 screens
+
     swipeHorizontal = new SwipeHorizontally(driver, carouselContainerEl(), VERTICAL_MOVE_IN_MILLIS);
+
     swipeVertically = initScrollDown(driver, swipeScreenEl(), carouselContainerEl());
   }
 
@@ -286,12 +289,15 @@ public class SwipeScreen extends BaseScreen {
 
   public boolean scrollToWebDriverIOLogo() {
 
-    return swipeUpToElement(scrollTargetLogoLoc, 3);
+//    return swipeUpToElement(scrollTargetLogoLoc, 7);
+    return swipeDownToLogo(swipeScreenEl(), carouselContainerLoc, SwipeVerticalDirection.UP, scrollTargetLogoLoc, 6);
   }
 
   public boolean scrollToScreenTitle() {
 
-    return swipeDownToElement(swipeScreenTitleLoc, 3);
+//    return swipeDownToElement(swipeScreenTitleLoc, 3);
+    return swipeUpToTitle(swipeScreenEl(), carouselContainerLoc, SwipeVerticalDirection.DOWN, swipeScreenTitleLoc, 6);
+
   }
 
 
@@ -309,6 +315,92 @@ public class SwipeScreen extends BaseScreen {
 
     for (int swipeCounter = 0; swipeCounter < maxSwipes; swipeCounter++) {
       verticalSwipe(swipeVertically, direction);
+      if (elementUtils.isElementPresent(targetLoc)) {
+        isTargetFound = true;
+        break;
+      }
+    }
+    return isTargetFound;
+  }
+
+
+  private boolean swipeUpToTitle(WebElement wrapper, By carouselContainerLoc,
+                                 SwipeVerticalDirection direction, By targetLoc, int maxSwipes) {
+
+    boolean isTargetFound = false;
+    Rectangle wrapperRect = wrapper.getRect();
+    int anchor = wrapperRect.getX() + wrapperRect.getWidth() / 2;
+    int wrapperY = wrapperRect.getY();
+    int wrapperRectHeight = wrapperRect.getHeight();
+
+
+    for (int swipeCounter = 0; swipeCounter < maxSwipes; swipeCounter++) {
+      int scrollTopY;
+      int scrollBottomY;
+      WebElement carouselContainerEl = elementUtils.waitForElementToBeVisible(carouselContainerLoc, SHORT_EXPLICIT_WAIT);
+      boolean isCarouselVisible = carouselContainerEl != null;
+
+      if (!isCarouselVisible) {
+        scrollTopY = wrapperY + 10;
+        scrollBottomY = wrapperRectHeight - 10;
+      } else {
+        int carouselContainerY = carouselContainerEl.getLocation().getY();
+        int bottomDistance = wrapperRectHeight - carouselContainerY - carouselContainerEl.getSize().getHeight();
+        if (carouselContainerY >= bottomDistance) {
+          scrollTopY = wrapperY + 10;
+          scrollBottomY = carouselContainerY - 10;
+        } else {
+          scrollTopY = carouselContainerY + 10;
+          scrollBottomY = wrapperRectHeight - 10;
+        }
+
+      }
+
+      swipeVertically.swipe(anchor, scrollTopY, anchor, scrollBottomY, 60);
+
+
+      if (elementUtils.isElementPresent(targetLoc)) {
+        isTargetFound = true;
+        break;
+      }
+    }
+    return isTargetFound;
+  }
+
+  private boolean swipeDownToLogo(WebElement wrapper, By carouselContainerLoc,
+                                  SwipeVerticalDirection direction, By targetLoc, int maxSwipes) {
+
+    boolean isTargetFound = false;
+    Rectangle wrapperRect = wrapper.getRect();
+    int anchor = wrapperRect.getX() + wrapperRect.getWidth() / 2;
+    int wrapperY = wrapperRect.getY();
+    int wrapperRectHeight = wrapperRect.getHeight();
+
+
+    for (int swipeCounter = 0; swipeCounter < maxSwipes; swipeCounter++) {
+      int scrollTopY;
+      int scrollBottomY;
+      WebElement carouselContainerEl = elementUtils.waitForElementToBeVisible(carouselContainerLoc);
+      boolean isCarouselVisible = carouselContainerEl != null;
+
+      if (isCarouselVisible) {
+        int carouselContainerY = carouselContainerEl.getLocation().getY();
+        int bottomDistance = wrapperRectHeight - carouselContainerY - carouselContainerEl.getSize().getHeight();
+        if (carouselContainerY >= bottomDistance) {
+          scrollTopY = wrapperY + 10;
+          scrollBottomY = carouselContainerY - 10;
+        } else {
+          scrollTopY = carouselContainerY + 10;
+          scrollBottomY = wrapperRectHeight - 10;
+        }
+      } else {
+        scrollTopY = wrapperY + 10;
+        scrollBottomY = wrapperRectHeight - 10;
+      }
+
+      swipeVertically.swipe(anchor, scrollBottomY, anchor, scrollTopY, 60);
+
+
       if (elementUtils.isElementPresent(targetLoc)) {
         isTargetFound = true;
         break;
@@ -335,11 +427,12 @@ public class SwipeScreen extends BaseScreen {
     Rectangle wrapperRect = wrapper.getRect();
 
     int anchor = wrapperRect.getX() + wrapperRect.getWidth() / 2;
-    int scrollTopY = wrapperRect.getY() + 100;
-    int scrollBottomY = childElement.getLocation().getY() - 100;
+    int scrollTopY = wrapperRect.getY() + 5;
+    int scrollBottomY = childElement.getLocation().getY() - 10;
 
     Point start = new Point(anchor, scrollTopY);
     Point end = new Point(anchor, scrollBottomY);
+
 
     return new SwipeVertically(driver, start, end, 60);
   }

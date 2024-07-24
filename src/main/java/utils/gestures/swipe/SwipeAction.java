@@ -97,7 +97,7 @@ public abstract class SwipeAction {
   }
 
 
-  protected void swipe(int startX, int startY, int endX, int endY, long moveDuration) {
+  public void swipe(int startX, int startY, int endX, int endY, long moveDuration) {
 
     PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
     Sequence swipe = new Sequence(finger, 1)

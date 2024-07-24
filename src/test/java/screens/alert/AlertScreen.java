@@ -96,8 +96,6 @@ public abstract class AlertScreen extends BaseScreen {
       } catch (Exception e) {
         e.printStackTrace();
       }
-    } else {
-      System.out.println("No alert present.");
     }
   }
 

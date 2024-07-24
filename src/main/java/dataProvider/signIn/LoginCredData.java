@@ -39,5 +39,4 @@ public class LoginCredData {
 
     return DataObjectBuilderUtil.buildDataObject(loginCredDataPath, LoginCred[].class);
   }
-
 }

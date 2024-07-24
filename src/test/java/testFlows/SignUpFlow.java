@@ -1,6 +1,6 @@
 package testFlows;
 
-import base.BaseScreen;
+import base.BaseFlow;
 import entity.authen.SignUpCred;
 import io.appium.java_client.AppiumDriver;
 import org.testng.Assert;
@@ -8,7 +8,7 @@ import screens.alert.SignUpAlertScreen;
 import screens.login.LoginScreen;
 import screens.login.SignUpScreen;
 
-public class SignUpFlow extends BaseScreen {
+public class SignUpFlow extends BaseFlow {
 
   private final LoginScreen loginScreen;
   private final SignUpScreen signUpScreen;
@@ -16,6 +16,7 @@ public class SignUpFlow extends BaseScreen {
 
   public SignUpFlow(AppiumDriver driver) {
     super(driver);
+//    loginScreen = new HomeScreen(driver).openLoginScreen();
     loginScreen = openLoginScreen();
     signUpScreen = loginScreen.openSignUpForm();
   }

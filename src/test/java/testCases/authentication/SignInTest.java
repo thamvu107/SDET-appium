@@ -29,7 +29,6 @@ public class SignInTest extends BaseTest {
     Capabilities caps = CapabilityFactory.getCaps(getEmulator());
 //        Capabilities caps = CapabilityFactory.getCaps(getSimulator());
     driver = driverProvider.getLocalServerDriver(caps);
-    setLogParams(caps);
     signInFlow = new SignInFlow(driver);
   }
 
@@ -41,7 +40,7 @@ public class SignInTest extends BaseTest {
   @Author(THAM_VU)
   @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class,
     groups = {"funcTest", "checkInTest"})
-  public void loginInWithCorrectCredential(LoginCred loginCred) {
+  public void loginWithCorrectCredential(LoginCred loginCred) {
 
     signInFlow
       .signInAsValidCred(loginCred)
@@ -51,7 +50,7 @@ public class SignInTest extends BaseTest {
   @Author(THAM_VU)
   @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = LoginCredData.class,
     groups = {"funcTest"})
-  public void loginInWithIncorrectCredentials(LoginCred loginCred) {
+  public void loginWithIncorrectCredentials(LoginCred loginCred) {
 
     signInFlow
       .signInAsInvalidCred(loginCred)
@@ -61,7 +60,7 @@ public class SignInTest extends BaseTest {
   @Author(THAM_VU)
   @Test(dataProvider = "loginCredInvalidEmail", dataProviderClass = LoginCredData.class,
     groups = {"funcTest", "checkInTest"})
-  public void loginInWithIncorrectEmail(LoginCred loginCred) {
+  public void loginWithIncorrectEmail(LoginCred loginCred) {
 
     signInFlow.signInAsInvalidCred(loginCred)
       .verifyEmailIsInvalid(INVALID_EMAIL_MESSAGE);
@@ -71,7 +70,7 @@ public class SignInTest extends BaseTest {
   @Author(THAM_VU)
   @Test(dataProvider = "loginCredInvalidPassword", dataProviderClass = LoginCredData.class,
     groups = {"funcTest"})
-  public void loginInWithIncorrectPassword(LoginCred loginCred) {
+  public void loginWithIncorrectPassword(LoginCred loginCred) {
 
     signInFlow.signInAsInvalidCred(loginCred)
       .verifyPasswordIsInvalid(INVALID_PASSWORD_MESSAGE);
@@ -81,7 +80,7 @@ public class SignInTest extends BaseTest {
     dataProvider = "loginCredInvalidEmail",
     dataProviderClass = LoginCredData.class,
     groups = {"brokenTests"})
-  public void brokenTest1(LoginCred loginCred) {
+  public void methodToBeBrokenTest1(LoginCred loginCred) {
     signInFlow
       .signInAsValidCred(loginCred)
       .verifyAlertIsPresent(SIGN_IN_ALERT_TITLE, SIGN_IN_ALERT_MESSAGE);

@@ -10,16 +10,28 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.appium>9.2.2</version.appium>
+        <version.testng>7.10.2</version.testng>
+        <version.lombok>1.18.32</version.lombok>
+        <version.validator>1.8.0</version.validator>
+        <version.seleniumhq>4.19.0</version.seleniumhq>
+        <version.gson>2.10.1</version.gson>
+        <version.logback>1.5.6</version.logback>
+        <version.slf4j>2.0.12</version.slf4j>
+        <version.allure>2.27.0</version.allure>
+        <version.maven>3.13.0</version.maven>
+        <version.owner>1.0.12</version.owner>
     </properties>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
-            <version>9.2.2</version>
+            <version>${version.appium}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.seleniumhq.selenium</groupId>
@@ -35,136 +47,116 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
-            <version>4.19.0</version>
+            <version>${version.seleniumhq}</version>
         </dependency>
+
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-remote-driver</artifactId>
-            <version>4.19.0</version>
+            <version>${version.seleniumhq}</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-support</artifactId>
-            <version>4.19.0</version>
+            <version>${version.seleniumhq}</version>
         </dependency>
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.10.1</version>
+            <version>${version.gson}</version>
             <!--                    <scope>compile</scope>-->
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.12</version>
         </dependency>
 
         <!-- https://mvnreposito9ry.com/artifact/org.testng/testng-->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.10.2</version>
-            <!--            <scope>test</scope>-->
-            <!--            <exclusions>-->
-            <!--                <exclusion>-->
-            <!--                    <groupId>org.slf4j</groupId>-->
-            <!--                    <artifactId>slf4j-api</artifactId>-->
-            <!--                </exclusion>-->
-            <!--            </exclusions>-->
+            <version>${version.testng}</version>
+            <!--            <scope>test</scope>&ndash;&gt;-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.32</version>
-            <scope>provided</scope>
-
+            <version>${version.lombok}</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
-            <version>1.8.0</version>
+            <version>${version.validator}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.13</version>
+            <version>${version.slf4j}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.5.6</version>
+            <version>${version.logback}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.5.6</version>
+            <version>${version.logback}</version>
             <scope>test</scope>
         </dependency>
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.slf4j</groupId>-->
-        <!--            <artifactId>slf4j-api</artifactId>-->
-        <!--            <version>2.0.13</version>-->
-        <!--            <scope>runtime</scope>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.slf4j</groupId>-->
-        <!--            <artifactId>slf4j-api</artifactId>-->
-        <!--            <version>1.7.36</version>-->
-        <!--            <scope>compile</scope>-->
-        <!--        </dependency>-->
-
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
-            <version>2.27.0</version>
+            <version>${version.allure}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-attachments -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-attachments</artifactId>
-            <version>2.27.0</version>
+            <version>${version.allure}</version>
         </dependency>
 
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.reflections/reflections &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.reflections</groupId>-->
-        <!--            <artifactId>reflections</artifactId>-->
-        <!--            <version>0.10.2</version>-->
-        <!--        </dependency>-->
-
-
+        <!-- https://mvnrepository.com/artifact/org.aeonbits.owner/owner-java8 -->
+        <dependency>
+            <groupId>org.aeonbits.owner</groupId>
+            <artifactId>owner-java8</artifactId>
+            <version>${version.owner}</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>2.0.12</version>
+                <version>${version.slf4j}</version>
                 <scope>compile</scope>
             </dependency>
-            <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>1.3.0</version>
-            </dependency>
+            <!--            <dependency>-->
+            <!--                <groupId>commons-logging</groupId>-->
+            <!--                <artifactId>commons-logging</artifactId>-->
+            <!--                <version>1.3.0</version>-->
+            <!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
     <build>
@@ -172,13 +164,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${version.maven}</version>
                 <configuration>
-                    <release>17</release>
-                    <target>17</target>
+                    <!--                    <release>${maven.compiler.source}</release>-->
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <forceJavacCompilerUse>true</forceJavacCompilerUse>
                 </configuration>
             </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-surefire-plugin</artifactId>-->
+            <!--                <version>${version.surefire}</version>-->
+            <!--                <configuration>-->
+            <!--                    <systemPropertyVariables>-->
+            <!--                        <drivertype>${drivertype}</drivertype>-->
+            <!--                        <mode>${mode}</mode>-->
+            <!--                    </systemPropertyVariables>-->
+            <!--                    <suiteXmlFiles>testng.xml</suiteXmlFiles>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 

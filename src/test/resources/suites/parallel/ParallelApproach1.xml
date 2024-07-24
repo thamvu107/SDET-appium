@@ -1,4 +1,33 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Parallel Test Approach 01" parallel="tests" preserve-order="false">
+
+<suite name="Parameters Test Suite" parallel="tests" verbose="2" preserve-order="false">
+    <parameter name="platform" value="ANDROID"/>
+    <parameter name="deviceType" value="EMULATOR"/>
+    <parameter name="configureFile" value="deviceCapConfig/android/emulators/Pixel_5_API_33_1.properties"/>
+    <test name="Pixel_5_API_33_1">
+        <groups>
+            <run>
+                <exclude name="brokenTests"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="testCaseV2.authentication.SignUpTest">
+                <methods>
+                    <include name="signUpWithInvalidUser"/>
+                </methods>
+            </class>
+            <class name="testCaseV2.authentication.SignInTest">
+                <methods>
+                    <include name="loginWithCorrectCredential"/>
+                </methods>
+            </class>
+            <class name="testCaseV2.swipe.HorizontalSwipeTest">
+                <methods>
+                    <include name="swipeLeftToTargetCard"/>
+                </methods>
+            </class>
+            <class name="testCaseV2.multiApps.HandleMultiApps"/>
+        </classes>
+    </test>
 
 </suite>

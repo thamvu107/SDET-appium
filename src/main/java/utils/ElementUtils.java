@@ -245,27 +245,39 @@ public class ElementUtils {
   }
 
 
+//  public WebElement waitForElementToBeVisible(By locator) {
+//    try {
+//      return waitUtils.explicitWait()
+//        .until(ExpectedConditions.visibilityOfElementLocated(locator));
+//    } catch (TimeoutException e) {
+//      String message = String.format("Timeout while waiting for element to be visible: %s", locator);
+//      log.atError().log(message);
+//      throw new TimeoutException(message, e);
+//
+//    } catch (NoSuchElementException e) {
+//      String message = String.format("Element not found while waiting for it to be visible: %s", locator);
+//      log.atError().log(message);
+//      throw new NoSuchElementException(message, e);
+//    } catch (StaleElementReferenceException e) {
+//      String message = String.format("Element became stale while waiting for it to be visible: %s", locator);
+//      log.atError().log(message);
+//      throw new StaleElementReferenceException(message, e);
+//    } catch (Exception e) {
+//      String message = String.format("An unexpected error occurred while waiting for element to be visible: %s", locator);
+//      log.atError().log(message);
+//      throw new RuntimeException(message, e);
+//    }
+//  }
+
   public WebElement waitForElementToBeVisible(By locator) {
     try {
       return waitUtils.explicitWait()
         .until(ExpectedConditions.visibilityOfElementLocated(locator));
-    } catch (TimeoutException e) {
-      String message = String.format("Timeout while waiting for element to be visible: %s", locator);
-      log.atError().log(message);
-      throw new TimeoutException(message, e);
 
-    } catch (NoSuchElementException e) {
-      String message = String.format("Element not found while waiting for it to be visible: %s", locator);
-      log.atError().log(message);
-      throw new NoSuchElementException(message, e);
-    } catch (StaleElementReferenceException e) {
-      String message = String.format("Element became stale while waiting for it to be visible: %s", locator);
-      log.atError().log(message);
-      throw new StaleElementReferenceException(message, e);
     } catch (Exception e) {
       String message = String.format("An unexpected error occurred while waiting for element to be visible: %s", locator);
       log.atError().log(message);
-      throw new RuntimeException(message, e);
+      return null;
     }
   }
 
@@ -325,11 +337,13 @@ public class ElementUtils {
     } catch (TimeoutException e) {
       String message = String.format("Timeout after %d milliseconds waiting for element to be visible: %s", timeInMillis, locator);
       log.atError().log(message);
-      throw new TimeoutException(message, e);
+//      throw new TimeoutException(message, e);
+      return null;
     } catch (Exception e) {
       String message = String.format("An unexpected error occurred while waiting for element to be visible: %s", locator);
       log.atError().log(message);
-      throw new RuntimeException(message, e);
+      //throw new RuntimeException(message, e);
+      return null;
     }
 
   }

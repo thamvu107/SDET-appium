@@ -7,7 +7,7 @@
         <classes>
             <!-- BeforeClass Hook -->
             <!-- BeforeMethod Hook -->
-            <class name="testCases.MultiApps.HandleMultiApps"/>
+            <class name="testCases.multiApps.HandleMultiApps"/>
             <!-- AfterMethod Hook -->
             <!-- AfterClass Hook -->
         </classes>
