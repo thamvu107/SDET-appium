@@ -16,39 +16,60 @@ import screens.HomeScreen;
 @Slf4j
 public abstract class BaseTestV2 {
 
-  protected AppiumDriver driver; //  none static
-  //  protected static AppiumDriver driver; // static
+  private AppiumDriver driver; //  none static
   protected DriverFactory driverFactory;
   protected HomeScreen homeScreen;
 
-  private PlatformType platformType;
-  private DeviceUnderTestType deviceType;
-  private String configureFile;
+  protected PlatformType baseTestPlatformType;
+  protected DeviceUnderTestType baseTestDeviceType;
+  protected String baseTestConfigureFile;
+
+  public BaseTestV2() {
+    // NOTE: This version to learn from error the initialization of driver setting in parallel multiple classes
+
+    System.out.println("Initializing parent BaseTestV2 class");
+  }
+
+
+  protected AppiumDriver getDriver(PlatformType platformType, DeviceUnderTestType deviceType, String configureFile) {
+    if (driver == null) {
+      driverFactory = new DriverFactory();
+      driver = driverFactory.getLocalServerDriver(platformType, deviceType, configureFile);
+      System.out.println("Create new driver: " + driver);
+
+    } else {
+      System.out.println("Reuse driver: " + driver);
+    }
+
+    return driver;
+  }
 
   @BeforeSuite
   public void beforeSuite() {
+
     MDC.put("logDir", "logs");
+    log.info("Before Suite");
+    System.out.println("beforeSuite");
   }
 
-  @BeforeTest
-  @Parameters({"platform", "deviceType", "configureFile"})
-  public void beforeTest(String platform, String deviceType, String configureFile) {
-    System.out.println("platform:  " + platform);
-    System.out.println("deviceType:  " + deviceType);
-    System.out.println("configureFile:  " + configureFile);
-    if (driver == null) {
-      driverFactory = new DriverFactory();
-      driver = driverFactory.getLocalServerDriver(PlatformType.valueOf(platform), DeviceUnderTestType.valueOf(deviceType),
-                                                  configureFile);
+  @BeforeTest(alwaysRun = true)
+  @Parameters({"platformType", "deviceType", "configureFile"})
+  public void beforeTest(String platformType, String deviceType, String configureFile) {
 
-      System.out.println("Before Test: create driver " + driver);
-    }
+    this.baseTestPlatformType = PlatformType.valueOf(platformType);
+    this.baseTestDeviceType = DeviceUnderTestType.valueOf(deviceType);
+    this.baseTestConfigureFile = configureFile;
+
+    System.out.println("platform:  " + this.baseTestPlatformType);
+    System.out.println("deviceType:  " + this.baseTestDeviceType);
+    System.out.println("configureFile:  " + this.baseTestConfigureFile);
 
   }
+
 
   @AfterTest(alwaysRun = true)
   public void afterTest() {
-    System.out.println("After Test: driver " + driver);
+    System.out.println("After Test - Close driver: " + driver);
 
     MDC.clear(); // Mapped Diagnostic Context
     driverFactory.closeDriver();

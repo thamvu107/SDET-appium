@@ -4,9 +4,14 @@ import annotations.author.Author;
 import base.BaseTestV2;
 import dataProvider.signIn.LoginCredData;
 import entity.authen.LoginCred;
+import enums.DeviceUnderTestType;
+import enums.PlatformType;
+import io.appium.java_client.AppiumDriver;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import testFlows.SignInFlow;
 
@@ -16,20 +21,36 @@ import static constants.SignInScreenConstants.SIGN_IN_ALERT_MESSAGE;
 import static constants.SignInScreenConstants.SIGN_IN_ALERT_TITLE;
 import static interfaces.IAuthor.THAM_VU;
 
+@Slf4j
 public class SignInTest extends BaseTestV2 {
+  private AppiumDriver driver;
 
   private SignInFlow signInFlow;
 
   @BeforeClass(alwaysRun = true)
-  public void beforeClass() {
-    System.out.println("Before Class: driver " + driver);
+  @Parameters({"platformType", "deviceType", "configureFile"})
+  public void beforeClass(String platformType, String deviceType, String configureFile) {
+    baseTestPlatformType = PlatformType.valueOf(platformType);
+    baseTestDeviceType = DeviceUnderTestType.valueOf(deviceType);
+    baseTestConfigureFile = configureFile;
 
+    System.out.println("platform:  " + baseTestPlatformType);
+    System.out.println("deviceType:  " + baseTestDeviceType);
+    System.out.println("configureFile:  " + baseTestConfigureFile);
+
+    driver = getDriver(baseTestPlatformType, baseTestDeviceType, baseTestConfigureFile);
+
+    System.out.println("Before Class: driver " + driver);
+    log.atInfo().log("Before Class: driver " + driver);
     signInFlow = new SignInFlow(driver);
   }
 
   @AfterClass
   public void afterClass() {
+
     System.out.println("After Class");
+    log.atInfo().log("After Class: driver " + driver);
+
   }
 
   @AfterMethod()

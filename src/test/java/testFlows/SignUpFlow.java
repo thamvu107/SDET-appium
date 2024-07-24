@@ -16,7 +16,6 @@ public class SignUpFlow extends BaseFlow {
 
   public SignUpFlow(AppiumDriver driver) {
     super(driver);
-//    loginScreen = new HomeScreen(driver).openLoginScreen();
     loginScreen = openLoginScreen();
     signUpScreen = loginScreen.openSignUpForm();
   }
