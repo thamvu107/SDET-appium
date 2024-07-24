@@ -17,7 +17,6 @@ import screens.HomeScreen;
 public abstract class BaseTestV2 {
 
   protected AppiumDriver driver; //  none static
-  //  protected static AppiumDriver driver; // static
   protected DriverFactory driverFactory;
   protected HomeScreen homeScreen;
 

@@ -4,6 +4,7 @@ import annotations.author.Author;
 import base.BaseTestV2;
 import dataProvider.signIn.LoginCredData;
 import entity.authen.LoginCred;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -16,6 +17,7 @@ import static constants.SignInScreenConstants.SIGN_IN_ALERT_MESSAGE;
 import static constants.SignInScreenConstants.SIGN_IN_ALERT_TITLE;
 import static interfaces.IAuthor.THAM_VU;
 
+@Slf4j
 public class SignInTest extends BaseTestV2 {
 
   private SignInFlow signInFlow;
@@ -23,13 +25,17 @@ public class SignInTest extends BaseTestV2 {
   @BeforeClass(alwaysRun = true)
   public void beforeClass() {
     System.out.println("Before Class: driver " + driver);
+    log.atInfo().log("Before Class: driver " + driver);
 
     signInFlow = new SignInFlow(driver);
   }
 
   @AfterClass
   public void afterClass() {
+
     System.out.println("After Class");
+    log.atInfo().log("After Class: driver " + driver);
+
   }
 
   @AfterMethod()
