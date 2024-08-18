@@ -34,9 +34,7 @@ public class SignUpTest extends BaseTestV3 {
   @AfterClass
   public void afterClass() {
 
-    System.out.println("After SignUpTest");
     log.atInfo().log("After SignUpTest: driver " + getDriver());
-
   }
 
   @AfterMethod

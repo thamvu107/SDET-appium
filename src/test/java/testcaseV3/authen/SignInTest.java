@@ -27,9 +27,6 @@ public class SignInTest extends BaseTestV3 {
   @BeforeClass(alwaysRun = true)
   public void beforeClass() {
 
-    System.out.println("BeforeClass SignInTest");
-
-    System.out.println("Before Class: driver " + getDriver());
     log.atInfo().log("Before Class: driver " + getDriver());
 
     signInFlow = new SignInFlow(getDriver());
@@ -38,7 +35,6 @@ public class SignInTest extends BaseTestV3 {
   @AfterClass
   public void afterClass() {
 
-    System.out.println("After Class");
     log.atInfo().log("After Class: driver " + getDriver());
 
   }
