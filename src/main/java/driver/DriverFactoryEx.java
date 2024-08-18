@@ -1,7 +1,7 @@
 package driver;
 
 import entity.ServerConfig;
-import enums.DeviceUnderTestType;
+import enums.DeviceType;
 import enums.PlatformType;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
@@ -14,7 +14,7 @@ public class DriverFactoryEx {
 
   private AppiumDriver driver;
 
-  public AppiumDriver getLocalServerDriver(PlatformType platformType, DeviceUnderTestType deviceType, String configureFile) {
+  public AppiumDriver getLocalServerDriver(PlatformType platformType, DeviceType deviceType, String configureFile) {
 
     URL localServerURL = getLocalServerURL();
     try {
@@ -37,7 +37,7 @@ public class DriverFactoryEx {
     }
   }
 
-  private AppiumDriver getDriver(URL serverURL, PlatformType platformType, DeviceUnderTestType deviceType, String configureFile) {
+  private AppiumDriver getDriver(URL serverURL, PlatformType platformType, DeviceType deviceType, String configureFile) {
     if (driver == null) {
 
       switch (platformType) {

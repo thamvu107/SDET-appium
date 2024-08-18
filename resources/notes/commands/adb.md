@@ -59,3 +59,4 @@ How to Launch Emulator Automatically:
 - cold boot emulator:
     - `emulator -avd Pixel_4_API_30 -no-snapshot-load`
 - `adb -s emulator-5554 shell getprop`
+- `adb -s 192.168.1.15:5555 shell getprop ro.build.version.release`

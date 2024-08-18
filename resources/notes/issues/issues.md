@@ -10,8 +10,13 @@
             - `adb uninstall io.appium.uiautomator2.server.test`
             - `adb uninstall io.appium.unlock`
             - `adb uninstall io.appium.settings`
+        - install app: `adb -s udid install /path/to/your/app.apk`
 
-- `appium driver run uiautomator2 reset`
+        - `appium driver run uiautomator2 reset`
+        - Solution: kill all system port
+            - `kill -9 $(lsof -t -i :systemPort)`
+
+-
 - Issue: `bug: 'appium-uiautomator2-server-v5.12.1.apk' does not exist or is not accessible`
 
 - **Issue 2:**  `System UI Not Responding`
@@ -83,19 +88,19 @@
 - **Issue**: **SessionNotCreatedException** : Appium Settings app is not running after 30000ms
 - My Solution:
     - ```try {
-    driver = new AndroidDriver(serverURL, caps);
-    break;
-    } catch (SessionNotCreatedException ex) {
-    // ERROR: first time start emulator then throw exception since timeout Appium setting is set only 30_000ms( caps)
-    // Error: Appium Settings app is not running after 30000ms
-    // throw new SessionNotCreatedException(ex.getMessage());
-    // //Retrying to create driver
-    if (ex.getMessage().contains("Appium Settings app is not running after 30000ms")) {
-    // System.out.println("Appium Settings app is not running: " + ex.getMessage());
-    System.out.println("Retry to create driver");
-    driver = new AndroidDriver(serverURL, caps);
-    break;
-    }
+  driver = new AndroidDriver(serverURL, caps);
+  break;
+  } catch (SessionNotCreatedException ex) {
+  // ERROR: first time start emulator then throw exception since timeout Appium setting is set only 30_000ms( caps)
+  // Error: Appium Settings app is not running after 30000ms
+  // throw new SessionNotCreatedException(ex.getMessage());
+  // //Retrying to create driver
+  if (ex.getMessage().contains("Appium Settings app is not running after 30000ms")) {
+  // System.out.println("Appium Settings app is not running: " + ex.getMessage());
+  System.out.println("Retry to create driver");
+  driver = new AndroidDriver(serverURL, caps);
+  break;
+  }
 
             } catch (Exception e) {
               throw new RuntimeException(e);
