@@ -1,17 +1,14 @@
-package testCaseV2.authentication;
+package testcaseV3.authen;
 
 import annotations.author.Author;
-import base.BaseTestV2;
+import base.BaseTestV3;
 import dataProvider.signUp.SignUpCredData;
 import entity.authen.SignUpCred;
-import enums.DeviceType;
-import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import lombok.extern.slf4j.Slf4j;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import testFlows.SignUpFlow;
 
@@ -23,25 +20,23 @@ import static constants.SignUpScreenConstants.SIGN_UP_SUCCESS_TITLE;
 import static interfaces.IAuthor.THAM_VU;
 
 @Slf4j
-public class SignUpTest extends BaseTestV2 {
+public class SignUpTest extends BaseTestV3 {
   private AppiumDriver driver;
   private SignUpFlow signUpFlow;
 
   @BeforeClass(alwaysRun = true)
-  @Parameters({"platformType", "deviceType", "configureFile"})
-  public void beforeClass(String platformType, String deviceType, String configureFile) {
-    baseTestPlatformType = PlatformType.valueOf(platformType);
-    baseTestDeviceType = DeviceType.valueOf(deviceType);
-    baseTestConfigureFile = configureFile;
+  public void beforeClass() {
 
-    System.out.println("platform:  " + baseTestPlatformType);
-    System.out.println("deviceType:  " + baseTestDeviceType);
-    System.out.println("configureFile:  " + baseTestConfigureFile);
+    log.atInfo().log("Before Class: driver " + getDriver());
+    signUpFlow = new SignUpFlow(getDriver());
+  }
 
-    driver = getDriver(baseTestPlatformType, baseTestDeviceType, baseTestConfigureFile);
-    System.out.println("Before Class: driver " + driver);
+  @AfterClass
+  public void afterClass() {
 
-    signUpFlow = new SignUpFlow(driver);
+    System.out.println("After SignUpTest");
+    log.atInfo().log("After SignUpTest: driver " + getDriver());
+
   }
 
   @AfterMethod
@@ -74,11 +69,5 @@ public class SignUpTest extends BaseTestV2 {
 
     signUpFlow.signUpAsInvalidCred(signUpCred)
       .verifyRepeatPasswordIsInvalid(INCORRECT_REPEAT_PASSWORD_MESSAGE);
-  }
-
-  @Test
-  @Ignore
-  public void ignoreTest() {
-    System.out.println("Ignore test");
   }
 }

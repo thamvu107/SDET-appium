@@ -1,12 +1,14 @@
 package driver;
 
+import constants.WaitConstants;
 import entity.ServerConfig;
-import enums.DeviceUnderTestType;
+import enums.DeviceType;
 import enums.PlatformType;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.SessionNotCreatedException;
+import utils.WaitUtils;
 
 import java.net.URL;
 
@@ -16,7 +18,7 @@ public class DriverFactory {
   //  private static AppiumDriver driver;
   private AppiumDriver driver;
 
-  public AppiumDriver getLocalServerDriver(PlatformType platformType, DeviceUnderTestType deviceType, String configureFile) {
+  public AppiumDriver getLocalServerDriver(PlatformType platformType, DeviceType deviceType, String configureFile) {
 
     URL localServerURL = getLocalServerURL();
     return getDriver(localServerURL, platformType, deviceType, configureFile);
@@ -34,7 +36,7 @@ public class DriverFactory {
     }
   }
 
-  private AppiumDriver getDriver(URL serverURL, PlatformType platformType, DeviceUnderTestType deviceType,
+  private AppiumDriver getDriver(URL serverURL, PlatformType platformType, DeviceType deviceType,
                                  String configureFile) {
     if (driver == null) {
 
@@ -65,7 +67,11 @@ public class DriverFactory {
         default:
           throw new PlatformNotSupportException("Not support platform type: " + platformType);
       }
+
+      new WaitUtils(driver).setImplicitWait(WaitConstants.SHORT_IMPLICIT_WAIT);
+
     }
+
     return driver;
   }
 

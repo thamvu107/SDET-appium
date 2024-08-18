@@ -9,6 +9,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.time.Duration;
 import java.util.Map;
@@ -29,9 +30,9 @@ public class SettingScreen extends BaseScreen {
     PlatformType.ANDROID, ISettingApp.APP_PACKAGE,
     PlatformType.IOS, ISettingApp.BUNDLE_ID
   );
-  private final Map<PlatformType, By> settingTitleLocMap = Map.of(
-    PlatformType.ANDROID, IAndroidSettingLocator.settingTitleLoc,
-    PlatformType.IOS, IIOSSettingLocator.settingTitleLoc
+  private final Map<PlatformType, By> settingPageLoc = Map.of(
+    PlatformType.ANDROID, IAndroidSettingLocator.searchSettingBox,
+    PlatformType.IOS, IIOSSettingLocator.settingPageTitle
   );
 
   private String getAppUnderTestId() {
@@ -43,9 +44,9 @@ public class SettingScreen extends BaseScreen {
   }
 
 
-  private By getSettingTitleLoc() {
+  private By settingPageLoc() {
 
-    return elementUtils.getLocator(settingTitleLocMap);
+    return elementUtils.getLocator(settingPageLoc);
 
   }
 
@@ -65,8 +66,9 @@ public class SettingScreen extends BaseScreen {
   }
 
 
-  public boolean showingSettingTitle() {
-    return elementUtils.waitForTextPresentInElement(getSettingTitleLoc(), "Settings");
+  public WebElement seeSettingPage() {
+    WebElement settingPage = elementUtils.waitForElementToBeVisible(settingPageLoc());
+    return settingPage;
   }
 
   public SettingScreen runAppInBackground() {

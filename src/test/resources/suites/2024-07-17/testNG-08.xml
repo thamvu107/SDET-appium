@@ -11,7 +11,7 @@
             <class name="learning.testNG.parameters.dataProvider.testCases.SwipePageTest"/>
         </classes>
     </test> <!-- Pixel_5_API_33 -->
-    <test thread-count="10" parallel="tests" name="192.168.1.14:5555">
+    <test parallel="tests" name="192.168.1.14:5555">
         <parameter name="deviceType" value="realDevice"/>
         <parameter name="configureFile" value="Samsung_Galaxy_S8.properties"/>
         <parameter name="platformType" value="android"/>
@@ -22,7 +22,7 @@
             <class name="learning.testNG.parameters.dataProvider.testCases.SignUpTest"/>
         </classes>
     </test> <!-- 192.168.1.14:5555 -->
-    <test thread-count="10" parallel="tests" name="192.168.1.13:5555">
+    <test parallel="tests" name="192.168.1.13:5555">
         <parameter name="deviceType" value="realDevice"/>
         <parameter name="configureFile" value="physicalMobile.properties"/>
         <parameter name="platformType" value="android"/>
@@ -32,7 +32,7 @@
             <class name="learning.testNG.parameters.dataProvider.testCases.BaseTest"/>
         </classes>
     </test> <!-- 192.168.1.13:5555 -->
-    <test thread-count="10" parallel="tests" name="Pixel_4_API_33">
+    <test parallel="tests" name="Pixel_4_API_33">
         <parameter name="deviceType" value="emulator"/>
         <parameter name="configureFile" value="Pixel_4_API_33.properties"/>
         <parameter name="platformType" value="android"/>

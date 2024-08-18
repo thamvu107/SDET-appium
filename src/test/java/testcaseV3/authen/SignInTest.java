@@ -1,17 +1,14 @@
-package testCaseV2.authentication;
+package testcaseV3.authen;
 
 import annotations.author.Author;
-import base.BaseTestV2;
+import base.BaseTestV3;
 import dataProvider.signIn.LoginCredData;
 import entity.authen.LoginCred;
-import enums.DeviceType;
-import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import testFlows.SignInFlow;
 
@@ -22,34 +19,27 @@ import static constants.SignInScreenConstants.SIGN_IN_ALERT_TITLE;
 import static interfaces.IAuthor.THAM_VU;
 
 @Slf4j
-public class SignInTest extends BaseTestV2 {
+public class SignInTest extends BaseTestV3 {
   private AppiumDriver driver;
 
   private SignInFlow signInFlow;
 
   @BeforeClass(alwaysRun = true)
-  @Parameters({"platformType", "deviceType", "configureFile"})
-  public void beforeClass(String platformType, String deviceType, String configureFile) {
-    baseTestPlatformType = PlatformType.valueOf(platformType);
-    baseTestDeviceType = DeviceType.valueOf(deviceType);
-    baseTestConfigureFile = configureFile;
+  public void beforeClass() {
 
-    System.out.println("platform:  " + baseTestPlatformType);
-    System.out.println("deviceType:  " + baseTestDeviceType);
-    System.out.println("configureFile:  " + baseTestConfigureFile);
+    System.out.println("BeforeClass SignInTest");
 
-    driver = getDriver(baseTestPlatformType, baseTestDeviceType, baseTestConfigureFile);
+    System.out.println("Before Class: driver " + getDriver());
+    log.atInfo().log("Before Class: driver " + getDriver());
 
-    System.out.println("Before Class: driver " + driver);
-    log.atInfo().log("Before Class: driver " + driver);
-    signInFlow = new SignInFlow(driver);
+    signInFlow = new SignInFlow(getDriver());
   }
 
   @AfterClass
   public void afterClass() {
 
     System.out.println("After Class");
-    log.atInfo().log("After Class: driver " + driver);
+    log.atInfo().log("After Class: driver " + getDriver());
 
   }
 
@@ -97,23 +87,4 @@ public class SignInTest extends BaseTestV2 {
       .verifyPasswordIsInvalid(INVALID_PASSWORD_MESSAGE);
   }
 
-  @Test(description = "Test case for purpose to show failure test",
-    dataProvider = "loginCredInvalidEmail",
-    dataProviderClass = LoginCredData.class,
-    groups = {"brokenTests"})
-  public void methodToBeBrokenTest1(LoginCred loginCred) {
-    signInFlow
-      .signInAsValidCred(loginCred)
-      .verifyAlertIsPresent(SIGN_IN_ALERT_TITLE, SIGN_IN_ALERT_MESSAGE);
-  }
-
-  @Test(description = "Test case for purpose to show failure test",
-    dataProvider = "loginCredInvalidEmail",
-    dataProviderClass = LoginCredData.class,
-    groups = {"brokenTests"})
-  public void methodToBeBrokenTest2(LoginCred loginCred) {
-    signInFlow
-      .signInAsValidCred(loginCred)
-      .verifyAlertIsPresent(SIGN_IN_ALERT_TITLE, SIGN_IN_ALERT_MESSAGE);
-  }
 }

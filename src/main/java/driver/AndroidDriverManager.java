@@ -1,7 +1,7 @@
 package driver;
 
 import capabilities.AndroidCapabilitiesManager;
-import enums.DeviceUnderTestType;
+import enums.DeviceType;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
@@ -14,17 +14,15 @@ import java.net.URL;
 @Slf4j
 public class AndroidDriverManager extends AppiumDriverManager {
   @Override
-  public AppiumDriver createDriver(URL serverURL, DeviceUnderTestType deviceType, String configureFile) {
+  public AppiumDriver createDriver(URL serverURL, DeviceType deviceType, String configureFile) {
     PropertiesMap propertiesMap = getPropertiesMap(configureFile);
 
     UiAutomator2Options caps = null;
     switch (deviceType) {
       case EMULATOR:
         caps = AndroidCapabilitiesManager.getEmulatorCaps(propertiesMap);
-        setLogParams(caps.getCapability("deviceName").toString());
         break;
-      case PHYSICAL:
-      case REAL:
+      case REAL_DEVICE:
         caps = AndroidCapabilitiesManager.getRealMobileCaps(propertiesMap);
         setLogParams(caps.getCapability("udid").toString());
         break;

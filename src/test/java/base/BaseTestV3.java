@@ -1,6 +1,6 @@
 package base;
 
-import driver.DriverFactory;
+import driverFactory.DriverFactoryV3;
 import enums.DeviceType;
 import enums.PlatformType;
 import io.appium.java_client.AppiumDriver;
@@ -14,47 +14,46 @@ import org.testng.annotations.Parameters;
 import screens.HomeScreen;
 
 @Slf4j
-public abstract class BaseTestV2 {
+public abstract class BaseTestV3 {
 
-  private AppiumDriver driver; //  none static
-  protected DriverFactory driverFactory;
-  protected HomeScreen homeScreen;
+  //  private static final List<DriverFactoryV3> driverThreadPool = Collections.synchronizedList(new ArrayList<>());
+  private static final ThreadLocal<DriverFactoryV3> driverFactoryThread = new ThreadLocal<>();
+  private static final ThreadLocal<AppiumDriver> driverThread = new ThreadLocal<>();
+
 
   protected PlatformType baseTestPlatformType;
   protected DeviceType baseTestDeviceType;
   protected String baseTestConfigureFile;
 
-  public BaseTestV2() {
-    // NOTE: This version to learn from error the initialization of driver setting in parallel multiple classes
+  protected HomeScreen homeScreen;
 
-    System.out.println("Initializing parent BaseTestV2 class");
+
+  public BaseTestV3() {
+
+    System.out.println("Initializing the BaseTestV3 class");
   }
 
+  protected DriverFactoryV3 getDriverFactory() {
 
-  protected AppiumDriver getDriver(PlatformType platformType, DeviceType deviceType, String configureFile) {
-    if (driver == null) {
-      driverFactory = new DriverFactory();
-      driver = driverFactory.getLocalServerDriver(platformType, deviceType, configureFile);
-      System.out.println("Create new driver: " + driver);
+    return driverFactoryThread.get();
+  }
 
-    } else {
-      System.out.println("Reuse driver: " + driver);
-    }
+  protected AppiumDriver getDriver() {
 
-    return driver;
+    return driverThread.get();
   }
 
   @BeforeSuite
   public void beforeSuite() {
 
     MDC.put("logDir", "logs");
-    log.info("Before Suite");
-    System.out.println("beforeSuite");
+    log.info("Before Suite Print");
   }
 
   @BeforeTest(alwaysRun = true)
   @Parameters({"platformType", "deviceType", "configureFile"})
   public void beforeTest(String platformType, String deviceType, String configureFile) {
+    System.out.println("Before Test");
 
     this.baseTestPlatformType = PlatformType.valueOf(platformType);
     this.baseTestDeviceType = DeviceType.valueOf(deviceType);
@@ -64,15 +63,22 @@ public abstract class BaseTestV2 {
     System.out.println("deviceType:  " + this.baseTestDeviceType);
     System.out.println("configureFile:  " + this.baseTestConfigureFile);
 
+    driverFactoryThread.set(new DriverFactoryV3(baseTestPlatformType, baseTestDeviceType, baseTestConfigureFile));
+    driverThread.set(getDriverFactory().createDriver());
+    System.out.println("Create new driver: " + getDriver());
+
   }
 
 
   @AfterTest(alwaysRun = true)
   public void afterTest() {
-    System.out.println("After Test - Close driver: " + driver);
+    System.out.println("After Test - Close driver: " + getDriver());
 
     MDC.clear(); // Mapped Diagnostic Context
-    driverFactory.closeDriver();
+
+    getDriverFactory().quitDriver();
+    driverThread.remove();
+    driverFactoryThread.remove();
   }
 
   protected void setLogParams(Capabilities capabilities) {

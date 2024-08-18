@@ -1,6 +1,6 @@
 package driver;
 
-import enums.DeviceUnderTestType;
+import enums.DeviceType;
 import io.appium.java_client.AppiumDriver;
 import lombok.extern.slf4j.Slf4j;
 
@@ -8,7 +8,7 @@ import java.net.URL;
 
 @Slf4j
 public abstract class AppiumDriverManager {
-  public abstract AppiumDriver createDriver(URL serverURL, DeviceUnderTestType deviceType, String ConfigureFile);
+  public abstract AppiumDriver createDriver(URL serverURL, DeviceType deviceType, String ConfigureFile);
 
 
 //  public abstract void closeDriver(AppiumDriver driver);

@@ -1,11 +1,8 @@
-package testCases.swipe;
+package testcaseV3.swipe;
 
 import annotations.author.Author;
-import base.BaseTest;
-import driverFactory.CapabilityFactory;
-import driverFactory.DriverProvider;
+import base.BaseTestV3;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.Capabilities;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -17,22 +14,18 @@ import screens.SwipeScreen;
 import static constants.SwipeScreenConstants.MAX_SWIPES;
 import static constants.SwipeScreenConstants.TARGET_CARD_TITLE_SWIPE_LEFT;
 import static constants.SwipeScreenConstants.TARGET_CARD_TITLE_SWIPE_RIGHT;
-import static devices.MobileFactory.getEmulator;
 import static interfaces.IAuthor.ADMIN;
 import static interfaces.IAuthor.DEV;
 import static interfaces.IAuthor.THAM_VU;
 
 @Slf4j
-public class HorizontalSwipeTest extends BaseTest {
+public class HorizontalSwipeTest extends BaseTestV3 {
   private SwipeScreen swipeScreen;
 
   @BeforeClass
   public void setupSwipeTestClass() {
-    driverProvider = new DriverProvider();
-    Capabilities caps = CapabilityFactory.getCaps(getEmulator());
-    driver = driverProvider.getLocalServerDriver(caps);
-    setLogParams(caps);
-    swipeScreen = new HomeScreen(driver).goToSwipeScreen();
+
+    swipeScreen = new HomeScreen(getDriver()).goToSwipeScreen();
   }
 
   @BeforeMethod
@@ -50,7 +43,7 @@ public class HorizontalSwipeTest extends BaseTest {
   public void swipeLeftToTargetCard() {
     boolean isFoundTarget = swipeScreen.swipeLeftToCardTitle(TARGET_CARD_TITLE_SWIPE_LEFT, MAX_SWIPES);
 
-    Assert.assertTrue(isFouncleardTarget, "This is not target card");
+    Assert.assertTrue(isFoundTarget, "This is not target card");
   }
 
   @Author(ADMIN)
