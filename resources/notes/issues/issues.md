@@ -13,7 +13,9 @@
         - install app: `adb -s udid install /path/to/your/app.apk`
 
         - `appium driver run uiautomator2 reset`
-        - Solution: `kill -9 $(lsof -t -i :4723)`
+        - Solution: kill all system port
+            - `kill -9 $(lsof -t -i :systemPort)`
+
 -
 - Issue: `bug: 'appium-uiautomator2-server-v5.12.1.apk' does not exist or is not accessible`
 
