@@ -50,7 +50,7 @@ public class HorizontalSwipeTest extends BaseTest {
   public void swipeLeftToTargetCard() {
     boolean isFoundTarget = swipeScreen.swipeLeftToCardTitle(TARGET_CARD_TITLE_SWIPE_LEFT, MAX_SWIPES);
 
-    Assert.assertTrue(isFouncleardTarget, "This is not target card");
+    Assert.assertTrue(isFoundTarget, "This is not target card");
   }
 
   @Author(ADMIN)

@@ -59,6 +59,8 @@ public abstract class BaseTestV3 {
     this.baseTestConfigureFile = configureFile;
 
     driverFactoryThread.set(new DriverFactoryV3(baseTestPlatformType, baseTestDeviceType, baseTestConfigureFile));
+    driverThread.set(driverFactoryThread.get().createDriver()
+    );
   }
 
   @AfterTest(alwaysRun = true)
