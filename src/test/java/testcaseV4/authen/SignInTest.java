@@ -1,14 +1,13 @@
-package testcaseV3.authen;
+package testcaseV4.authen;
 
 import annotations.author.Author;
-import base.BaseTestV3;
+import base.BaseTestV4;
 import dataProvider.signIn.LoginCredData;
 import entity.authen.LoginCred;
 import io.appium.java_client.AppiumDriver;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import testFlows.SignInFlow;
 
@@ -19,28 +18,27 @@ import static constants.SignInScreenConstants.SIGN_IN_ALERT_TITLE;
 import static interfaces.IAuthor.THAM_VU;
 
 @Slf4j
-public class SignInTest extends BaseTestV3 {
+public class SignInTest extends BaseTestV4 {
   private AppiumDriver driver;
 
   private SignInFlow signInFlow;
 
-  @BeforeClass(alwaysRun = true)
-  public void beforeClass() {
+  @BeforeMethod(alwaysRun = true)
+//  @Parameters({"platformType", "deviceType", "configureFile"})
+  public void beforeMethod() {
 
-    log.atInfo().log("Before Class: driver " + getDriver());
-    signInFlow = new SignInFlow(getDriver());
+    System.out.println("Before method: getConfigureFile " + getDriverFactory().getConfigureFile());
+    System.out.println("Before method: driver " + getDriverFactory().createDriver());
+//    log.atInfo().log("Before method: driver " + getDriverFactory().getDriver());
+    signInFlow = new SignInFlow(getDriverFactory().getDriver());
   }
-
-  @AfterClass
-  public void afterClass() {
-
-    log.atInfo().log("After SignUpTest: driver " + getDriver());
-  }
-
 
   @AfterMethod()
   public void afterMethod() {
     signInFlow.closeAlert();
+
+    getDriverFactory().quitDriver();
+
   }
 
   @Author(THAM_VU)
