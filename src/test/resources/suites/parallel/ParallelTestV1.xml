@@ -4,9 +4,9 @@
 <suite name="Parameters Test Suite" parallel="tests" verbose="2" preserve-order="false">
 
     <test name="Tablet">
-        <parameter name="platform" value="ANDROID"/>
-        <parameter name="deviceType" value="PHYSICAL"/>
-        <parameter name="configureFile" value="deviceCapConfig/android/physicalDevices/physicalTablet.properties"/>
+        <parameter name="platformType" value="ANDROID"/>
+        <parameter name="deviceType" value="EMULATOR"/>
+        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile1.properties"/>
         <groups>
             <run>
                 <exclude name="brokenTests"/>
@@ -18,15 +18,14 @@
                     <include name="signUpWithInvalidUser"/>
                 </methods>
             </class>
-            <class name="testCaseV2.swipe.VerticalSwipeTest"/>
 
         </classes>
     </test>
 
     <test name="Mobile">
-        <parameter name="platform" value="ANDROID"/>
-        <parameter name="deviceType" value="PHYSICAL"/>
-        <parameter name="configureFile" value="deviceCapConfig/android/physicalDevices/physicalMobile.properties"/>
+        <parameter name="platformType" value="ANDROID"/>
+        <parameter name="deviceType" value="EMULATOR"/>
+        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile2.properties"/>
         <groups>
             <run>
                 <exclude name="brokenTests"/>
