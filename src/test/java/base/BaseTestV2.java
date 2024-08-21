@@ -16,6 +16,8 @@ import screens.HomeScreen;
 @Slf4j
 public abstract class BaseTestV2 {
 
+  // Note: This version to learn from error the initialization of driver setting in parallel multiple classes
+
   private AppiumDriver driver; //  none static
   protected DriverFactory driverFactory;
   protected HomeScreen homeScreen;

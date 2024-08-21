@@ -3,10 +3,10 @@
 <!--<suite name="Parameters Test Suite" parallel="tests" thread-count="6" verbose="2" preserve-order="false">-->
 <suite name="Parameters Test Suite" parallel="tests" thread-count="3" verbose="2" preserve-order="false">
 
-    <test name="Pixel_5_API_33_1">
+    <test name="Mobile 1">
         <parameter name="platformType" value="ANDROID"/>
         <parameter name="deviceType" value="EMULATOR"/>
-        <parameter name="configureFile" value="deviceCapConfig/android/emulators/Pixel_5_API_33_1.properties"/>
+        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile1.properties"/>
         <groups>
             <run>
                 <exclude name="brokenTests"/>
@@ -20,10 +20,10 @@
         </classes>
     </test>
 
-    <test name="Tablet">
+    <test name="Mobile 2">
         <parameter name="platformType" value="ANDROID"/>
         <parameter name="deviceType" value="PHYSICAL"/>
-        <parameter name="configureFile" value="deviceCapConfig/android/physicalDevices/physicalTablet.properties"/>
+        <parameter name="configureFile" value="deviceCapConfig/android/physicalDevices/mobile2.properties"/>
         <groups>
             <run>
                 <exclude name="brokenTests"/>
@@ -37,10 +37,10 @@
         </classes>
     </test>
 
-    <test name="Mobile">
+    <test name="Mobile3">
         <parameter name="platformType" value="ANDROID"/>
         <parameter name="deviceType" value="PHYSICAL"/>
-        <parameter name="configureFile" value="deviceCapConfig/android/physicalDevices/physicalMobile.properties"/>
+        <parameter name="configureFile" value="deviceCapConfig/android/physicalDevices/mobile3.properties"/>
         <groups>
             <run>
                 <exclude name="brokenTests"/>
