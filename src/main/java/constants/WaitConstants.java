@@ -5,7 +5,7 @@ public final class WaitConstants {
   // Time constants in milliseconds
   // implicit is global then it should be small value
   public static final long LONG_IMPLICIT_WAIT = 3_000L;
-  public static final long SHORT_IMPLICIT_WAIT = 2_000L;
+  public static final long SHORT_IMPLICIT_WAIT = 10_000L;
 
   public static final long APP_LAUNCHING_WAIT = 60_000L;
   public static final long LONG_EXPLICIT_WAIT = 15_000L;
