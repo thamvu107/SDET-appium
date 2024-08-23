@@ -24,6 +24,23 @@
                     </include>
                 </methods>
             </class>
+
+            <class name="testcaseV8.ReportableTestStatus">
+                <methods>
+                    <include name="skipTest">
+                        <parameter name="platformType" value="ANDROID"/>
+                        <parameter name="deviceType" value="EMULATOR"/>
+                        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile4.properties"/>
+                    </include>
+
+                    <include name="brokenTest">
+                        <parameter name="platformType" value="ANDROID"/>
+                        <parameter name="deviceType" value="EMULATOR"/>
+                        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile5.properties"/>
+                    </include>
+                </methods>
+            </class>
+
             <!--            <class name="testcaseV8.simple.SimpleTest">-->
             <!--                <methods>-->
             <!--                    <include name="oneTest">-->
