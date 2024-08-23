@@ -10,6 +10,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
+import testFlows.SignInFlow;
 
 @Slf4j
 public abstract class BaseTestV8 {
@@ -26,24 +27,18 @@ public abstract class BaseTestV8 {
   @Parameters({"platformType", "deviceType", "configureFile"})
   public void setUp(String platformType, String deviceType, String configureFile) {
 
-//    setLogParams(platformType, deviceType, configureFile);
-    System.out.println("platformType " + platformType);
-    System.out.println("deviceType " + deviceType);
-    System.out.println("configureFile " + configureFile);
 
     driver.set(new DriverFactoryV8(PlatformType.valueOf(platformType), DeviceType.valueOf(deviceType), configureFile).createDriver());
-    System.out.println(driver.get());
   }
 
   @AfterMethod(alwaysRun = true)
   public void tearDown() {
 
     MDC.clear(); // Mapped Diagnostic Context
-//    driver.quit();
-    driver.get().quit();
-    driver.remove();
-
-//    driver.remove();
+    if (driver.get() != null) {
+      driver.get().quit();
+      driver.set(null);
+    }
   }
 
   protected void setLogParams(String platformType, String deviceType, String configureFile) {
@@ -51,9 +46,6 @@ public abstract class BaseTestV8 {
     MDC.put("baseTest PlatformType:: ", deviceType);
     MDC.put("baseTest PlatformType:: ", configureFile);
 
-    System.out.println("platformType " + platformType);
-    System.out.println("deviceType " + deviceType);
-    System.out.println("configureFile " + configureFile);
   }
 
   private static String convertDeviceName(String deviceName) {
@@ -66,6 +58,10 @@ public abstract class BaseTestV8 {
 
   protected AppiumDriver getDriver() {
     return driver.get();
+  }
+
+  protected SignInFlow signInFlow(AppiumDriver driver) {
+    return new SignInFlow(driver);
   }
 
 }
