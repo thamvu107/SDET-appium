@@ -27,6 +27,7 @@
         <allure.version>2.27.0</allure.version>
         <aspectj.version>1.9.20.1</aspectj.version>
         <surefire.version>3.1.2</surefire.version>
+        <allure.maven.version>2.13.0</allure.maven.version>
     </properties>
 
     <dependencies>
@@ -127,12 +128,19 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
-        <!-- Add necessary Allure dependencies to dependencies section -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.qameta.allure/allure-maven &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.qameta.allure</groupId>-->
+        <!--            <artifactId>allure-maven</artifactId>-->
+        <!--            <version>${allure.maven.version}</version>-->
+        <!--        </dependency>-->
+
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-attachments -->
         <!--        <dependency>-->
@@ -196,7 +204,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>${surefire.version}</version>
                 <configuration>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
@@ -210,6 +218,17 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <!--            <plugin>-->
+            <!--                <groupId>io.qameta.allure</groupId>-->
+            <!--                <artifactId>allure-maven</artifactId>-->
+            <!--                <version>${allure.maven.version}</version>-->
+            <!--                <configuration>-->
+            <!--                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>-->
+            <!--                    <reportDirectory>${project.build.directory}/allure-report</reportDirectory>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
+
 
             <!--            <plugin>-->
             <!--                <groupId>org.apache.maven.plugins</groupId>-->
