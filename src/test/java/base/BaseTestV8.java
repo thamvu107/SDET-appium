@@ -84,7 +84,8 @@ public abstract class BaseTestV8 {
       File screenshotBase64Data = getDriver().getScreenshotAs(OutputType.FILE);
       try {
         String screenshotLocation =
-          System.getProperty("user.dir") + "target/screenshots/" + randomScreenshotName;
+          System.getProperty("user.dir") + File.separator + "target" + File.separator + "screenShot" + File.separator +
+            randomScreenshotName;
         FileUtils.copyFile(screenshotBase64Data,
                            new File(screenshotLocation));
         Path screenshotContentPath = Paths.get(screenshotLocation);
