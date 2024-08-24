@@ -27,7 +27,8 @@ import java.util.GregorianCalendar;
 @Slf4j
 public abstract class BaseTestV8 {
   //  private DriverFactoryV8 driverFactory;
-  private final ThreadLocal<AppiumDriver> driver = new ThreadLocal<>();
+//  private final ThreadLocal<AppiumDriver> driver = new ThreadLocal<>();
+  private static final ThreadLocal<AppiumDriver> driver = new ThreadLocal<>();
 
   @BeforeSuite
   public void beforeSuite() {
@@ -45,7 +46,7 @@ public abstract class BaseTestV8 {
 
   @AfterMethod(alwaysRun = true)
   public void tearDown(ITestResult results) {
-    captureScreenShot(results);
+//    captureScreenShot(results);
     MDC.clear(); // Mapped Diagnostic Context
     if (driver.get() != null) {
       driver.get().quit();
@@ -72,6 +73,12 @@ public abstract class BaseTestV8 {
     return driver.get();
   }
 
+  // temp
+  public static AppiumDriver getDriverOut() {
+    return driver.get();
+  }
+
+
   protected SignInFlow signInFlow(AppiumDriver driver) {
     return new SignInFlow(driver);
   }
@@ -84,7 +91,7 @@ public abstract class BaseTestV8 {
       File screenshotBase64Data = getDriver().getScreenshotAs(OutputType.FILE);
       try {
         String screenshotLocation =
-          System.getProperty("user.dir") + File.separator + "target" + File.separator + "screenShot" + File.separator +
+          System.getProperty("user.dir") + File.separator + "screenShot" + File.separator +
             randomScreenshotName;
         FileUtils.copyFile(screenshotBase64Data,
                            new File(screenshotLocation));
@@ -112,5 +119,6 @@ public abstract class BaseTestV8 {
     String takenTime = year + "-" + month + "-" + day + "-" + hr + "-" + min + "-" + sec;
     return methodName + "-" + takenTime + ".png";
   }
+
 
 }

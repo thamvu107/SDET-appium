@@ -17,20 +17,6 @@ import static interfaces.IAuthor.THAM_VU;
 @Slf4j
 public class SignInTest extends BaseTestV7 {
 
-//  @BeforeMethod(alwaysRun = true)
-////  @Parameters({"platformType", "deviceType", "configureFile"})
-//  public void beforeMethod() {
-//    driver = new DriverFactoryV7()driverFactory.createDriver();
-//    signInFlow = new SignInFlow(driver);
-//  }
-//
-//  @AfterMethod()
-//  public void afterMethod() {
-//    signInFlow.closeAlert();
-//
-//    driver.quit();
-//
-//  }
 
   @Author(THAM_VU)
   @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class,

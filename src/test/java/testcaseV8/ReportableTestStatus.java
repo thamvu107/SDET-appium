@@ -5,6 +5,7 @@ import base.BaseTestV8;
 import dataProvider.signIn.LoginCredData;
 import entity.authen.LoginCred;
 import lombok.extern.slf4j.Slf4j;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import testFlows.SignInFlow;
 
@@ -30,6 +31,18 @@ public class ReportableTestStatus extends BaseTestV8 {
     groups = {"brokenTests"})
   public void brokenTest(LoginCred loginCred) {
     SignInFlow signInFlow = signInFlow(getDriver());
+    signInFlow
+      .signInAsValidCred(loginCred)
+      .verifyAlertIsPresent(SIGN_IN_ALERT_TITLE, SIGN_IN_ALERT_MESSAGE);
+  }
+
+  @Test(description = "Test case for purpose to show failure test",
+    dataProvider = "loginCredInvalidEmail",
+    dataProviderClass = LoginCredData.class,
+    groups = {"brokenTests"})
+  public void brokenTest2(LoginCred loginCred) {
+    SignInFlow signInFlow = signInFlow(getDriver());
+    Assert.fail("Test case for purpose to show failure test");
     signInFlow
       .signInAsValidCred(loginCred)
       .verifyAlertIsPresent(SIGN_IN_ALERT_TITLE, SIGN_IN_ALERT_MESSAGE);

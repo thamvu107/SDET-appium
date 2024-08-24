@@ -14,14 +14,7 @@ import org.testng.annotations.Parameters;
 @Slf4j
 public abstract class BaseTestV7 {
 
-  //  protected DriverFactoryV7 driverFactory;
   protected AppiumDriver driver;
-//  protected PlatformType baseTestPlatformType;
-//  protected DeviceType baseTestDeviceType;
-//  protected String baseTestConfigureFile;
-
-//  protected HomeScreen homeScreen;
-
 
   public BaseTestV7() {
 
