@@ -40,9 +40,6 @@ public abstract class BaseTestV6 {
 
     setLogParams(platformType, deviceType, configureFile);
 //
-//    this.baseTestPlatformType = PlatformType.valueOf(platformType);
-//    this.baseTestDeviceType = DeviceType.valueOf(deviceType);
-//    this.baseTestConfigureFile = configureFile;
 
     this.driverFactoryV6 =
       new DriverFactoryV6(PlatformType.valueOf(platformType), DeviceType.valueOf(deviceType), configureFile);

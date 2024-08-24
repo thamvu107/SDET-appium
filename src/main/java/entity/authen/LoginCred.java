@@ -10,14 +10,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginCred {
-    protected String email;
-    protected String password;
+  protected String email;
+  protected String password;
 
-    @Override
-    public String toString() {
-        return "UserCred{" +
-                "username='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+
+  @Override
+  public String toString() {
+    return "UserCred{username='" + email + "', password='[**********]'}";
+  }
 }
