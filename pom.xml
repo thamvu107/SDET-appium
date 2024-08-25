@@ -243,9 +243,10 @@
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <!--                    <release>${java-compiler.version}</release>-->
-                    <source>${java-compiler.version}</source>
-                    <target>${java-compiler.version}</target>
+                    <source>21</source>
+                    <target>21</target>
                     <forceLegacyJavacApi>true</forceLegacyJavacApi>
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
 

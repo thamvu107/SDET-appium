@@ -1,7 +1,7 @@
 package listeners;
 
 
-import base.BaseTestV8;
+import driver.ThreadSafeDriver;
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Allure;
 import org.apache.commons.io.FileUtils;
@@ -31,7 +31,7 @@ public class TestListener implements ITestListener {
   public void captureLocalScreenShot(ITestResult result) {
     boolean testIsFailed = result.getStatus() == ITestResult.FAILURE;
     if (testIsFailed) {
-      final AppiumDriver driver = BaseTestV8.getDriverOut();
+      final AppiumDriver driver = ThreadSafeDriver.getDriver();
 
       String method = result.getMethod().getRealClass().getSimpleName() + "-" + result.getMethod().getMethodName();
       File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
