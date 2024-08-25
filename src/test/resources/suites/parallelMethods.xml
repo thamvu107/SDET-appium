@@ -7,7 +7,7 @@
 
     <test name="SingIn">
         <classes>
-            <class name="testcaseV8.authen.SignInTest">
+            <class name="testcaseV9.authen.SignInTest">
                 <methods>
                     <include name="loginWithCorrectCredential">
                         <parameter name="platformType" value="ANDROID"/>
@@ -27,7 +27,7 @@
                 </methods>
             </class>
 
-            <class name="testcaseV8.ReportableTestStatus">
+            <class name="testcaseV9.ReportableTestStatus">
                 <methods>
                     <include name="skipTest">
                         <parameter name="platformType" value="ANDROID"/>
@@ -42,22 +42,6 @@
                     </include>
                 </methods>
             </class>
-
-            <!--            <class name="testcaseV8.simple.SimpleTest">-->
-            <!--                <methods>-->
-            <!--                    <include name="oneTest">-->
-            <!--                        <parameter name="platformType" value="ANDROID"/>-->
-            <!--                        <parameter name="deviceType" value="EMULATOR"/>-->
-            <!--                        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile4.properties"/>-->
-            <!--                    </include>-->
-            <!--                    <include name="twoTest">-->
-            <!--                        <parameter name="platformType" value="ANDROID"/>-->
-            <!--                        <parameter name="deviceType" value="EMULATOR"/>-->
-            <!--                        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile5.properties"/>-->
-            <!--                    </include>-->
-            <!--                    -->
-            <!--                </methods>-->
-            <!--            </class>-->
         </classes>
     </test>
 </suite>
