@@ -71,3 +71,5 @@ Select Xcode path: `/Applications/Xcode.app/Contents/Developer`
     - `adb shell am broadcast -a io.appium.settings.data_connection --es setstatus enable | disable`
 - Turn on|off bluetooth:
     - `$ adb shell am broadcast -a io.appium.settings.bluetooth --es setstatus enable | disable`
+- get the device's UDID
+    - `xcrun xctrace list devices`

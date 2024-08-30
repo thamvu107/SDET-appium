@@ -27,6 +27,9 @@ public abstract class BaseTestV9 {
   @BeforeMethod(alwaysRun = true)
   @Parameters({"platformType", "deviceType", "configureFile"})
   public void setUp(String platformType, String deviceType, String configureFile) {
+    System.out.println(platformType);
+    System.out.println(deviceType);
+    System.out.println(configureFile);
 
     //driver.set(new DriverFactoryV8(PlatformType.valueOf(platformType), DeviceType.valueOf(deviceType), configureFile).createDriver());
     ThreadSafeDriver.initDriver(PlatformType.valueOf(platformType), DeviceType.valueOf(deviceType), configureFile);

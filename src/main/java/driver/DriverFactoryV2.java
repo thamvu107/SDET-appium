@@ -9,6 +9,7 @@ import org.openqa.selenium.SessionNotCreatedException;
 import utils.ServerURLUtil;
 import utils.WaitUtils;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
 
@@ -31,7 +32,15 @@ public class DriverFactoryV2 {
 
   public AppiumDriver createDriver() {
     if (Objects.isNull(driver)) {
-      this.serverURL = ServerURLUtil.getServerURL();
+
+      // Getting remote env var
+      String remoteInfoViaEnvVar = System.getenv("isRemote");
+      String remoteInfoViaCmdLineArgs = System.getProperty("isRemote");
+      System.out.println("remoteInfoViaEnvVar: " + remoteInfoViaEnvVar);
+      System.out.println("remoteInfoViaCmdLineArgs: " + remoteInfoViaCmdLineArgs);
+      String isRemote = remoteInfoViaEnvVar != null ? remoteInfoViaEnvVar : remoteInfoViaCmdLineArgs;
+
+      configureServerURL(isRemote);
 
       switch (platformType) {
         case ANDROID:
@@ -58,5 +67,36 @@ public class DriverFactoryV2 {
     }
 
     return driver;
+  }
+
+  private void configureServerURL(String isRemote) {
+    if (isRemote == null || !isRemote.equalsIgnoreCase("true")) {
+      System.out.println("Remote configuration is not enabled.");
+      this.serverURL = ServerURLUtil.getServerURL();
+      return;
+    }
+
+    // Fetch hub IP address from environment variables or system properties
+    String hubIpAddress = System.getenv("hub");
+    if (hubIpAddress == null) {
+      System.out.println("Environment variable 'hub' not found. Checking system properties...");
+      hubIpAddress = System.getProperty("hub");
+    }
+
+    // Validate the hub IP address
+    if (hubIpAddress == null || hubIpAddress.trim().isEmpty()) {
+//      throw new RuntimeException("Please provide a valid 'hub' environment variable or system property!");
+      hubIpAddress = "localhost";
+    }
+
+    try {
+      // Construct and assign the server URL
+      this.serverURL = new URL("http://" + hubIpAddress + ":4444");
+    } catch (MalformedURLException e) {
+      throw new RuntimeException("Failed to construct a valid URL with the provided hub IP address: " + hubIpAddress, e);
+    }
+
+    // Log the constructed URL
+    System.out.println("Hub URL: " + this.serverURL);
   }
 }

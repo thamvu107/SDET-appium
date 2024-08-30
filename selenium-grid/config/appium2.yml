@@ -1,0 +1,9 @@
+# appium2.yml
+server:
+  port: 4725
+  use-drivers:
+    - uiautomator2
+  default-capabilities:
+    systemPort: 8500
+    mjpegServerPort: 9100
+    mjpegScreenshotUrl: "http://localhost:9100"

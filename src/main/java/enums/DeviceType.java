@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum DeviceType {
   EMULATOR("emulator"),
-  REAL_DEVICE("realDevice"),
+  REAL("real"),
   SIMULATOR("simulators");
 
   private final String deviceType;
