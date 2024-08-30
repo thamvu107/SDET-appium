@@ -7,6 +7,8 @@
         - `npm install -g appium@2.5.1`
 - Check appium version:
     - `appium -v`
+- Update version:
+    - `npm update -g appium`
 - uninstall appium:
     - remove appium
         - `npm uninstall -g appium`

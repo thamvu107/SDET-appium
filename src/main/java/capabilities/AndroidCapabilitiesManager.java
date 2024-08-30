@@ -43,7 +43,9 @@ public class AndroidCapabilitiesManager {
         .setAndroidInstallTimeout(ofSeconds(deviceProps.getLongProperty("androidInstallTimeout")))
 //      .setIgnoreHiddenApiPolicyError(true)
         .setFullReset(deviceProps.getBooleanProperty("fullReset"))
-        .setNoReset(deviceProps.getBooleanProperty("noReset"));
+        .setNoReset(deviceProps.getBooleanProperty("noReset"))
+        .setMjpegServerPort(deviceProps.getIntProperty("mjpegServerPort"))
+        .setMjpegScreenshotUrl(deviceProps.getProperty("mjpegScreenshotUrl"));
 
       caps.setCapability("clearSystemFiles", true);
       caps.setCapability("clearDeviceLogsOnStart", true);

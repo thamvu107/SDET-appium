@@ -3,59 +3,57 @@ package capabilities;
 import io.appium.java_client.ios.options.XCUITestOptions;
 import utils.propertyReader.PropertiesMap;
 
-import java.time.Duration;
+import java.io.File;
+import java.util.Objects;
+
+import static java.time.Duration.ofSeconds;
 
 public class IOSCapabilitiesManager {
 
   public static XCUITestOptions getSimulatorCaps(PropertiesMap deviceProps) {
 //    PropertiesUtils deviceProps = new PropertiesUtils(deviceCapConfig);
 
-
-    // TODO: handle to read caps value from config file
     XCUITestOptions caps = new XCUITestOptions()
-      .setDeviceName(deviceProps.getProperty("deviceName"))
       .setUdid(deviceProps.getProperty("udid"))
-      .setPlatformVersion(deviceProps.getProperty("platformVersion"))
-//      .setBundleId(deviceProps.getProperty(""))
-//                .setApp(app.getAppPath())
-      .setEnforceAppInstall(true) // default:false
-      .setWdaLaunchTimeout(Duration.ofSeconds(90)) // wdaLaunchTimeout
-      .setFullReset(false)
-      .setNoReset(false)
-      .setUseNewWDA(true)
-//                .setWdaLocalPort(mobile.getWdaLocalPort())
-      .setShowXcodeLog(true)
-      .setPrintPageSourceOnFindFailure(true)
-      .setLaunchWithIdb(true)
+      .setWdaLocalPort(deviceProps.getIntProperty("wdaLocalPort"))
+      .setApp(Objects.requireNonNull(
+          IOSCapabilitiesManager.class.getClassLoader().getResource("apps" + File.separator + deviceProps.getProperty("app")))
+                .getPath())
+      .setBundleId(deviceProps.getProperty("bundleId"))
+      .setFullReset(deviceProps.getBooleanProperty("fullReset"))
+      .setNoReset(deviceProps.getBooleanProperty("noReset"))
+      .setWdaLaunchTimeout(ofSeconds(deviceProps.getIntProperty("wdaLaunchTimeout")))
+//      .setUseNewWDA(deviceProps.getBooleanProperty("useNewWDA"))
+//      .setUsePrebuiltWda(deviceProps.getBooleanProperty("usePrebuiltWda"))
+      .setShowXcodeLog(deviceProps.getBooleanProperty("showXcodeLog"))
+      .setPrintPageSourceOnFindFailure(deviceProps.getBooleanProperty("printPageSourceOnFindFailure"))
+      .setLaunchWithIdb(deviceProps.getBooleanProperty("launchWithIdb"))
+      .setAutoAcceptAlerts(deviceProps.getBooleanProperty("autoAcceptAlerts"))
+      .setAutoDismissAlerts(deviceProps.getBooleanProperty("autoDismissAlerts"))
+      .setIsHeadless(deviceProps.getBooleanProperty("isHeadless"))
       .clearSystemFiles();
-    caps.setCapability("--session-override", true);
     return caps;
   }
 
   public static XCUITestOptions getRealIosMobileCaps(PropertiesMap deviceProps) {
-//    PropertiesUtils deviceProps = new PropertiesUtils(deviceCapConfig);
-
-
-    // TODO: handle to read caps value from config file
     XCUITestOptions caps = new XCUITestOptions()
-      .setDeviceName(deviceProps.getProperty("deviceName"))
       .setUdid(deviceProps.getProperty("udid"))
-      .setPlatformVersion(deviceProps.getProperty("platformVersion"))
-//      .setBundleId(deviceProps.getProperty(""))
-//                .setApp(app.getAppPath())
-      .setEnforceAppInstall(true) // default:false
-      .setWdaLaunchTimeout(Duration.ofSeconds(90)) // wdaLaunchTimeout
-      .setFullReset(false)
-      .setNoReset(false)
-      .setUseNewWDA(true)
-//                .setWdaLocalPort(mobile.getWdaLocalPort())
-      .setShowXcodeLog(true)
-      .setPrintPageSourceOnFindFailure(true)
-      .setLaunchWithIdb(true)
+      .setWdaLocalPort(deviceProps.getIntProperty("wdaLocalPort"))
+      .setApp(Objects.requireNonNull(
+          IOSCapabilitiesManager.class.getClassLoader().getResource("apps" + File.separator + deviceProps.getProperty("app")))
+                .getPath())
+      //.setBundleId(deviceProps.getProperty("bundleId"))
+      .setFullReset(deviceProps.getBooleanProperty("fullReset"))
+      .setNoReset(deviceProps.getBooleanProperty("noReset"))
+      .setWdaLaunchTimeout(ofSeconds(deviceProps.getIntProperty("wdaLaunchTimeout")))
+      .setUseNewWDA(deviceProps.getBooleanProperty("useNewWDA"))
+      .setUsePrebuiltWda(deviceProps.getBooleanProperty("usePrebuiltWDA"))
+      .setShowXcodeLog(deviceProps.getBooleanProperty("showXcodeLog"))
+      .setPrintPageSourceOnFindFailure(deviceProps.getBooleanProperty("printPageSourceOnFindFailure"))
+      .setLaunchWithIdb(deviceProps.getBooleanProperty("launchWithIdb"))
+      .setAutoAcceptAlerts(deviceProps.getBooleanProperty("autoAcceptAlerts"))
+      .setAutoDismissAlerts(deviceProps.getBooleanProperty("autoDismissAlerts"))
       .clearSystemFiles();
-    caps.setCapability("--session-override", true);
-
-
     return caps;
   }
 

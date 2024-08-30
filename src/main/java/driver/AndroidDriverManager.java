@@ -22,7 +22,7 @@ public class AndroidDriverManager extends AppiumDriverManager {
       case EMULATOR:
         caps = AndroidCapabilitiesManager.getEmulatorCaps(propertiesMap);
         break;
-      case REAL_DEVICE:
+      case REAL:
         caps = AndroidCapabilitiesManager.getRealMobileCaps(propertiesMap);
         setLogParams(caps.getCapability("udid").toString());
         break;
@@ -32,6 +32,7 @@ public class AndroidDriverManager extends AppiumDriverManager {
 
     if (caps != null) {
       try {
+        System.out.println("serverURL " + serverURL);
         return new AndroidDriver(serverURL, caps);
       } catch (Exception e) {
         log.error("Failed to create driver: {}", e.getMessage(), e);
