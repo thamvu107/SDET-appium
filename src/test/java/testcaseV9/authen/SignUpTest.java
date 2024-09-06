@@ -1,10 +1,11 @@
 package testcaseV9.authen;
 
 import annotations.author.Author;
-import base.BaseTestV8;
+import base.BaseTestV9;
 import dataProvider.signUp.SignUpCredData;
+import driver.ThreadSafeDriver;
 import entity.authen.SignUpCred;
-import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.testng.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import testFlows.SignUpFlow;
@@ -17,37 +18,50 @@ import static constants.SignUpScreenConstants.SIGN_UP_SUCCESS_TITLE;
 import static interfaces.IAuthor.THAM_VU;
 
 @Slf4j
-public class SignUpTest extends BaseTestV8 {
+public class SignUpTest extends BaseTestV9 {
 
   @Author(THAM_VU)
-  @Test(dataProvider = "signUpCredValidUser", dataProviderClass = SignUpCredData.class,
+  @Test(testName = "Signup with correct credential", dataProvider = "signUpCredValidUser", dataProviderClass = SignUpCredData.class,
     groups = {"Release"})
+  @Tag("SignUp")
   public void signUpWithCorrectCredentials(SignUpCred signupCred) {
-    SignUpFlow signUpFlow = signUpFlow(getDriver());
+
+    SignUpFlow signUpFlow = signUpFlow();
     signUpFlow.signUpAsValidCred(signupCred)
       .verifyAlertIsPresent(SIGN_UP_SUCCESS_TITLE, SIGN_UP_SUCCESS_MESSAGE);
+
+    customizeParametersForAllureReport();
   }
 
   @Author(THAM_VU)
-  @Test(dataProvider = "signUpCredInvalidUser", dataProviderClass = SignUpCredData.class,
+  @Test(testName = "Signup with incorrect credential", dataProvider = "signUpCredInvalidUser", dataProviderClass = SignUpCredData.class,
     groups = {"Release"})
+  @Tag("SignUp")
   public void signUpWithInvalidUser(SignUpCred signUpCred) {
-    SignUpFlow signUpFlow = signUpFlow(getDriver());
+
+
+    SignUpFlow signUpFlow = signUpFlow();
     signUpFlow.signUpAsInvalidCred(signUpCred)
       .verifyCredIsInvalid(INVALID_EMAIL_MESSAGE, INVALID_PASSWORD_MESSAGE, INCORRECT_REPEAT_PASSWORD_MESSAGE);
 
+    customizeParametersForAllureReport();
   }
 
   @Author(THAM_VU)
-  @Test(dataProvider = "signUpCredInvalidRepeatPassword", dataProviderClass = SignUpCredData.class,
+  @Test(testName = "Signup with incorrect repeat password", dataProvider = "signUpCredInvalidRepeatPassword", dataProviderClass = SignUpCredData.class,
     groups = {"Release"})
+  @Tag("SignUp")
   public void signUpWithInvalidRepeatPassWord(SignUpCred signUpCred) {
-    SignUpFlow signUpFlow = signUpFlow(getDriver());
+
+    SignUpFlow signUpFlow = signUpFlow();
     signUpFlow.signUpAsInvalidCred(signUpCred)
       .verifyRepeatPasswordIsInvalid(INCORRECT_REPEAT_PASSWORD_MESSAGE);
+
+    customizeParametersForAllureReport();
   }
 
-  private SignUpFlow signUpFlow(AppiumDriver driver) {
-    return new SignUpFlow(driver);
+  private SignUpFlow signUpFlow() {
+    return new SignUpFlow(ThreadSafeDriver.getDriver());
   }
+
 }

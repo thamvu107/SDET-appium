@@ -16,6 +16,6 @@ public class LoginCred {
 
   @Override
   public String toString() {
-    return "UserCred{username='" + email + "', password='[**********]'}";
+    return "UserCred{username='" + email + "', password='[****]'}";
   }
 }

@@ -1,6 +1,6 @@
-# appium2.yml
+# appium1.yml
 server:
-  port: 4725
+  port: 4731
   keep-alive-timeout: 80
   use-drivers:
     - uiautomator2

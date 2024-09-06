@@ -4,7 +4,14 @@ import annotations.author.Author;
 import base.BaseTestV8;
 import dataProvider.signIn.LoginCredData;
 import entity.authen.LoginCred;
-import io.qameta.allure.*;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.Story;
+import io.qameta.allure.TmsLink;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import testFlows.SignInFlow;
@@ -22,56 +29,52 @@ import static io.qameta.allure.SeverityLevel.NORMAL;
 @Feature("Sign In")
 public class SignInTest extends BaseTestV8 {
 
-    @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class,
-            groups = {"funcTest", "checkInTest"})
-    @Severity(CRITICAL)
-    @Description("Login with correct credential")
-    @Story("As a user, I want to login with correct credential")
-    @Author(THAM_VU)
+  @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class,
+    groups = {"funcTest", "checkInTest"})
+  @Severity(CRITICAL)
+  @Description("Login with correct credential")
+  @Story("As a user, I want to login with correct credential")
+  @Author(THAM_VU)
 
-    public void loginWithCorrectCredential(LoginCred loginCred) {
-        System.out.println("loginWithCorrectCredential " + getDriver());
+  public void loginWithCorrectCredential(LoginCred loginCred) {
+    SignInFlow signInFlow = signInFlow(getDriver());
+    signInFlow.signInAsValidCred(loginCred)
+      .verifyAlertIsPresent(SIGN_IN_ALERT_TITLE, SIGN_IN_ALERT_MESSAGE);
+  }
 
-        SignInFlow signInFlow = signInFlow(getDriver());
-        signInFlow.signInAsValidCred(loginCred)
-                .verifyAlertIsPresent(SIGN_IN_ALERT_TITLE, SIGN_IN_ALERT_MESSAGE);
-    }
+  @Test(dataProvider = "loginCredInvalidEmail", dataProviderClass = LoginCredData.class,
+    groups = {"funcTest", "checkInTest"})
+  @Owner(THAM_VU)
+  @Severity(NORMAL)
+  @Issue("AUTH-123")
+  @TmsLink("TMS-123")
+  @Description("Login with incorrect email")
+  public void loginWithIncorrectEmail(LoginCred loginCred) {
 
-    @Test(dataProvider = "loginCredInvalidEmail", dataProviderClass = LoginCredData.class,
-            groups = {"funcTest", "checkInTest"})
-    @Owner(THAM_VU)
-    @Severity(NORMAL)
-    @Issue("AUTH-123")
-    @TmsLink("TMS-123")
-    @Description("Login with incorrect email")
-    public void loginWithIncorrectEmail(LoginCred loginCred) {
-        System.out.println("loginWithIncorrectEmail " + getDriver());
+    SignInFlow signInFlow = signInFlow(getDriver());
+    signInFlow.signInAsInvalidCred(loginCred)
+      .verifyEmailIsInvalid(INVALID_EMAIL_MESSAGE);
+  }
 
-        SignInFlow signInFlow = signInFlow(getDriver());
-        signInFlow.signInAsInvalidCred(loginCred)
-                .verifyEmailIsInvalid(INVALID_EMAIL_MESSAGE);
-    }
+  @Author(THAM_VU)
+  @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = LoginCredData.class,
+    groups = {"funcTest"})
+  public void loginWithIncorrectCredentials(LoginCred loginCred) {
 
-    @Author(THAM_VU)
-    @Test(dataProvider = "loginCredInvalidUser", dataProviderClass = LoginCredData.class,
-            groups = {"funcTest"})
-    public void loginWithIncorrectCredentials(LoginCred loginCred) {
-        System.out.println("loginWithIncorrectCredentials " + getDriver());
-
-        SignInFlow signInFlow = signInFlow(getDriver());
-        signInFlow.signInAsInvalidCred(loginCred)
-                .verifyCredIsInvalid(INVALID_EMAIL_MESSAGE, INVALID_PASSWORD_MESSAGE);
-    }
+    SignInFlow signInFlow = signInFlow(getDriver());
+    signInFlow.signInAsInvalidCred(loginCred)
+      .verifyCredIsInvalid(INVALID_EMAIL_MESSAGE, INVALID_PASSWORD_MESSAGE);
+  }
 
 
-    @Author(THAM_VU)
-    @Test(dataProvider = "loginCredInvalidPassword", dataProviderClass = LoginCredData.class,
-            groups = {"funcTest"})
-    public void loginWithIncorrectPassword(LoginCred loginCred) {
-        SignInFlow signInFlow = signInFlow(getDriver());
-        signInFlow.signInAsInvalidCred(loginCred)
-                .verifyPasswordIsInvalid(INVALID_PASSWORD_MESSAGE);
-    }
+  @Author(THAM_VU)
+  @Test(dataProvider = "loginCredInvalidPassword", dataProviderClass = LoginCredData.class,
+    groups = {"funcTest"})
+  public void loginWithIncorrectPassword(LoginCred loginCred) {
+    SignInFlow signInFlow = signInFlow(getDriver());
+    signInFlow.signInAsInvalidCred(loginCred)
+      .verifyPasswordIsInvalid(INVALID_PASSWORD_MESSAGE);
+  }
 
 
 }

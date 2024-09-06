@@ -1,0 +1,2 @@
+- Mac:
+    - `ipconfig getifaddr en0`

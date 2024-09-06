@@ -17,27 +17,6 @@ import static interfaces.IAuthor.THAM_VU;
 
 @Slf4j
 public class SignUpTest extends BaseTestV7 {
-//  protected AppiumDriver driver;
-
-
-//
-//  @BeforeMethod(alwaysRun = true)
-//  public void beforeMethod() {
-//
-//    driver = driverFactory.createDriver();
-//
-//
-//  }
-
-//  @AfterMethod
-//  public void afterMethod() {
-//
-//    log.atInfo().log("Quit driver " + driver);
-//    signUpFlow.closeAlert();
-//    driverFactory.quitDriver();
-//
-//
-
 
   @Author(THAM_VU)
   @Test(dataProvider = "signUpCredValidUser", dataProviderClass = SignUpCredData.class,

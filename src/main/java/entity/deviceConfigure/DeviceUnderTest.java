@@ -17,4 +17,14 @@ public class DeviceUnderTest {
   private final String deviceType;
   @NonNull
   private final String configureFile;
+
+  @Override
+  public String toString() {
+    return "DeviceUnderTest{"
+      + "id='" + id + '\''
+      + ", platformType='" + platformType + '\''
+      + ", deviceType='" + deviceType + '\''
+      + ", configureFile='" + configureFile + '\''
+      + '}';
+  }
 }

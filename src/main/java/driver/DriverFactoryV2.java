@@ -33,15 +33,8 @@ public class DriverFactoryV2 {
   public AppiumDriver createDriver() {
     if (Objects.isNull(driver)) {
 
-      // Getting remote env var
-      String remoteInfoViaEnvVar = System.getenv("isRemote");
-      String remoteInfoViaCmdLineArgs = System.getProperty("isRemote");
-      System.out.println("remoteInfoViaEnvVar: " + remoteInfoViaEnvVar);
-      System.out.println("remoteInfoViaCmdLineArgs: " + remoteInfoViaCmdLineArgs);
-      String isRemote = remoteInfoViaEnvVar != null ? remoteInfoViaEnvVar : remoteInfoViaCmdLineArgs;
-
-      configureServerURL(isRemote);
-
+      this.serverURL = ServerURLUtil.getServerURL(); //configureServerURL(isRemote);
+      //System.out.println("this.serverURL " + this.serverURL);
       switch (platformType) {
         case ANDROID:
           try {
@@ -77,10 +70,10 @@ public class DriverFactoryV2 {
     }
 
     // Fetch hub IP address from environment variables or system properties
-    String hubIpAddress = System.getenv("hub");
+    String hubIpAddress = System.getenv("hubIpAddress");
     if (hubIpAddress == null) {
-      System.out.println("Environment variable 'hub' not found. Checking system properties...");
-      hubIpAddress = System.getProperty("hub");
+      System.out.println("Environment variable 'hubIpAddress' not found. Checking system properties...");
+      hubIpAddress = System.getProperty("hubIpAddress");
     }
 
     // Validate the hub IP address

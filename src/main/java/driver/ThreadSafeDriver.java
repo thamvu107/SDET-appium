@@ -33,6 +33,17 @@ public class ThreadSafeDriver {
   }
 
 
+  public static void getDriver(PlatformType platformType, DeviceType deviceType, String configureFile) {
+
+    if (Objects.isNull(getDriver())) {
+      AppiumDriver driver = new DriverFactoryV2(platformType, deviceType, configureFile).createDriver();
+
+      setDriver(driver);
+    } else {
+      getDriver();
+    }
+  }
+
   private static void setDriver(AppiumDriver driver) {
     if (Objects.nonNull(driver)) {
       threadDriver.set(driver);

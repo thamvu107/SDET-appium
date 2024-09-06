@@ -3,20 +3,29 @@ package base;
 import driver.ThreadSafeDriver;
 import enums.DeviceType;
 import enums.PlatformType;
+import io.qameta.allure.Allure;
+import io.qameta.allure.AllureLifecycle;
+import io.qameta.allure.model.Parameter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import testFlows.SignInFlow;
 
+import static io.qameta.allure.model.Parameter.Mode.DEFAULT;
+import static io.qameta.allure.model.Parameter.Mode.HIDDEN;
+
 @Slf4j
 public abstract class BaseTestV9 {
-  //  private DriverFactoryV8 driverFactory;
-//  private final ThreadLocal<AppiumDriver> driver = new ThreadLocal<>();
-//  private static final ThreadLocal<AppiumDriver> driver = new ThreadLocal<>();
+
+  protected String getDeviceUdid() {
+    return ThreadSafeDriver.getDriver().getCapabilities().getCapability("udid").toString();
+  }
 
   @BeforeSuite
   public void beforeSuite() {
@@ -24,26 +33,28 @@ public abstract class BaseTestV9 {
     MDC.put("logDir", "logs");
   }
 
+  @BeforeTest
+  @Parameters({"platformType", "deviceType", "configureFile"})
+  public void beforeTest(String platformType, String deviceType, String configureFile, ITestContext context) {
+
+    ThreadSafeDriver.getDriver(PlatformType.valueOf(platformType), DeviceType.valueOf(deviceType), configureFile);
+
+    context.getCurrentXmlTest().setName(
+      context.getCurrentXmlTest().getName().concat(" - ").concat(platformType).concat(" - ").concat(deviceType).concat(" - ")
+        .concat(getDeviceUdid()));
+  }
+
   @BeforeMethod(alwaysRun = true)
   @Parameters({"platformType", "deviceType", "configureFile"})
   public void setUp(String platformType, String deviceType, String configureFile) {
-    System.out.println(platformType);
-    System.out.println(deviceType);
-    System.out.println(configureFile);
 
-    //driver.set(new DriverFactoryV8(PlatformType.valueOf(platformType), DeviceType.valueOf(deviceType), configureFile).createDriver());
-    ThreadSafeDriver.initDriver(PlatformType.valueOf(platformType), DeviceType.valueOf(deviceType), configureFile);
+    ThreadSafeDriver.getDriver(PlatformType.valueOf(platformType), DeviceType.valueOf(deviceType), configureFile);
   }
 
   @AfterMethod(alwaysRun = true)
   public void tearDown(ITestResult results) {
-//    captureScreenShot(results);
     MDC.clear(); // Mapped Diagnostic Context
-
-//    if (driver.get() != null) {
-//      driver.get().quit();
-//      driver.set(null);
-//    }
+//    customizeParametersForAllureReport();
 
     ThreadSafeDriver.closeDriver();
   }
@@ -65,5 +76,27 @@ public abstract class BaseTestV9 {
 
   protected SignInFlow signInFlow() {
     return new SignInFlow(ThreadSafeDriver.getDriver());
+  }
+
+  protected void customizeParametersForAllureReport() {
+    AllureLifecycle lifecycle = Allure.getLifecycle();
+
+    // Update the test case in Allure
+    lifecycle.updateTestCase(testResult -> {
+
+      for (Parameter parameter : testResult.getParameters()) {
+        if (parameter.getName().equals("platformType") || parameter.getName().equals("deviceType")) {
+          parameter.setMode(DEFAULT);
+        } else {
+          parameter.setMode(HIDDEN);
+        }
+      }
+
+      // Add the device Udid parameter
+      String deviceUdid = getDeviceUdid();
+      if (deviceUdid != null && !deviceUdid.isEmpty()) {
+        Allure.parameter("Udid", deviceUdid);
+      }
+    });
   }
 }

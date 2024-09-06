@@ -1,53 +1,42 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="Parallel test" parallel="tests" verbose="2" preserve-order="false" thread-count="2">
+<suite name="Parallel test" parallel="tests" verbose="2" preserve-order="false" thread-count="4">
     <parameter name="platformType" value="ANDROID"/>
     <parameter name="deviceType" value="EMULATOR"/>
-    <test name="Mobile 1">
+    <test name="Sign Up Suite">
         <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile1.properties"/>
         <classes>
-            <class name="testcaseV7.authen.SignUpTest"/>
-            <class name="testcaseV7.authen.SignInTest"/>
+            <class name="testcaseV9.authen.SignUpTest"/>
         </classes>
     </test>
 
-    <test name="Mobile 2">
-
-        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile2.properties"/>
-        <classes>
-            <class name="testcaseV7.authen.SignUpTest"/>
-            <class name="testcaseV7.authen.SignInTest"/>
-        </classes>
-    </test>
-
-    <test name="Mobile 3">
-        <!--        <parameter name="platformType" value="ANDROID"/>-->
-        <!--        <parameter name="deviceType" value="EMULATOR"/>-->
+    <test name="Sign In Suite">
         <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile3.properties"/>
         <classes>
-            <class name="testcaseV7.authen.SignUpTest"/>
-            <class name="testcaseV7.authen.SignInTest"/>
+            <class name="testcaseV9.authen.SignInTest"/>
         </classes>
     </test>
 
-    <test name="Mobile 4">
-        <!--        <parameter name="platformType" value="ANDROID"/>-->
-        <!--        <parameter name="deviceType" value="EMULATOR"/>-->
-        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile4.properties"/>
-        <classes>
-            <class name="testcaseV7.authen.SignUpTest"/>
-            <class name="testcaseV7.authen.SignInTest"/>
-        </classes>
-    </test>
+    <!--    <test name="Mobile 2">-->
+    <!--        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile2.properties"/>-->
+    <!--        <classes>-->
+    <!--            &lt;!&ndash;            <class name="testcaseV9.ReportableTestStatus"/>&ndash;&gt;-->
+    <!--            <class name="testcaseV9.authen.SignUpTest"/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
 
-    <test name="Mobile 5">
-        <!--        <parameter name="platformType" value="ANDROID"/>-->
-        <!--        <parameter name="deviceType" value="EMULATOR"/>-->
-        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile5.properties"/>
-        <classes>
-            <class name="testcaseV7.authen.SignUpTest"/>
-            <class name="testcaseV7.authen.SignInTest"/>
-        </classes>
-    </test>
+    <!--    <test name="Mobile 4">-->
+    <!--        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile4.properties"/>-->
+    <!--        <classes>-->
+    <!--            <class name="testcaseV9.authen.SignInTest"/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
+
+    <!--    <test name="Mobile 5">-->
+    <!--        <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile5.properties"/>-->
+    <!--        <classes>-->
+    <!--            <class name="testcaseV9.authen.SignInTest"/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
 
 </suite>

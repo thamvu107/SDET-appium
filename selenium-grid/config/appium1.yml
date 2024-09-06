@@ -1,9 +1,6 @@
 # appium1.yml
 server:
   port: 4723
+  keep-alive-timeout: 80
   use-drivers:
     - uiautomator2
-  default-capabilities:
-    systemPort: 8400
-    mjpegServerPort: 9100
-    mjpegScreenshotUrl: "http://localhost:9100"

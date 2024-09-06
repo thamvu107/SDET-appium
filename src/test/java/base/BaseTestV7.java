@@ -16,11 +16,6 @@ public abstract class BaseTestV7 {
 
   protected AppiumDriver driver;
 
-  public BaseTestV7() {
-
-    System.out.println("Initializing the BaseTestV3 class");
-  }
-
   @BeforeSuite
   public void beforeSuite() {
 
