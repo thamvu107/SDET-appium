@@ -5,7 +5,6 @@ import enums.PlatformType;
 import exceptions.PlatformNotSupportException;
 import io.appium.java_client.AppiumDriver;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.SessionNotCreatedException;
 import utils.ServerURLUtil;
 import utils.WaitUtils;
 
@@ -34,21 +33,13 @@ public class DriverFactoryV2 {
     if (Objects.isNull(driver)) {
 
       this.serverURL = ServerURLUtil.getServerURL(); //configureServerURL(isRemote);
-      //System.out.println("this.serverURL " + this.serverURL);
+//      System.out.println("this.serverURL " + this.serverURL);
+
       switch (platformType) {
         case ANDROID:
-          try {
-            driver = new AndroidDriverManager().createDriver(serverURL, deviceType, configureFile);
-            break;
-          } catch (SessionNotCreatedException ex) {
-            if ((DeviceType.EMULATOR).equals(deviceType) &&
-              ex.getMessage().contains("Appium Settings app is not running after 30000ms")) {
-              driver = new AndroidDriverManager().createDriver(serverURL, deviceType, configureFile);
-              break;
-            }
-          } catch (Exception e) {
-            throw new RuntimeException(e);
-          }
+          driver = new AndroidDriverManager().createDriver(serverURL, deviceType, configureFile);
+          break;
+
         case IOS:
           driver = new IOSDriverManager().createDriver(serverURL, deviceType, configureFile);
           break;
@@ -90,6 +81,6 @@ public class DriverFactoryV2 {
     }
 
     // Log the constructed URL
-    System.out.println("Hub URL: " + this.serverURL);
+    //System.out.println("Hub URL: " + this.serverURL);
   }
 }

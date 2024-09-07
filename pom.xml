@@ -30,9 +30,11 @@
         <commons.io.version>2.16.1</commons.io.version>
         <allure.version>2.27.0</allure.version>
         <allure-maven.version>2.12.0</allure-maven.version>
-        <methodsSuite>parallelMethods</methodsSuite>
-        <classesSuite>parallelClasses</classesSuite>
-        <testsSuite>parallelTests</testsSuite>
+        <parallelMethodsOnSeleniumGrid>parallelMethodsOnSeleniumGrid</parallelMethodsOnSeleniumGrid>
+        <parallelClassesOnSeleniumGrid>parallelClassesOnSeleniumGrid</parallelClassesOnSeleniumGrid>
+        <parallelTestsOnSeleniumGrid.xml>parallelMethodsOnLocalServer</parallelTestsOnSeleniumGrid.xml>
+        <parallelMethodsOnLocalServer>parallelMethodsOnLocalServer</parallelMethodsOnLocalServer>
+        <sequenceTestOnLocalServer>sequenceTestOnLocalServer</sequenceTestOnLocalServer>
     </properties>
 
     <!--    <dependencyManagement>-->
@@ -183,7 +185,7 @@
     <!-- This profile execute the TestNG suite inside the suites folder on test/resources -->
     <profiles>
         <profile>
-            <id>parallel-methods</id>
+            <id>parallel-methods-on-selenium-grid</id>
             <build>
                 <plugins>
                     <plugin>
@@ -192,7 +194,8 @@
                         <version>${maven-surefire-plugin.version}</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/suites/${methodsSuite}.xml</suiteXmlFile>
+                                <suiteXmlFile>src/test/resources/suites/remote/${parallelMethodsOnSeleniumGrid}.xml
+                                </suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                         <!--                        <executions>-->
@@ -208,7 +211,7 @@
             </build>
         </profile>
         <profile>
-            <id>parallel-classes</id>
+            <id>parallel-classes-on-selenium-grid</id>
             <build>
                 <plugins>
                     <plugin>
@@ -217,7 +220,8 @@
                         <version>${maven-surefire-plugin.version}</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/suites/${classesSuite}.xml</suiteXmlFile>
+                                <suiteXmlFile>src/test/resources/suites/remote/${parallelClassesOnSeleniumGrid}.xml
+                                </suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                         <executions>
@@ -234,7 +238,7 @@
         </profile>
 
         <profile>
-            <id>parallel-tests</id>
+            <id>parallel-tests-on-selenium-grid</id>
             <build>
                 <plugins>
                     <plugin>
@@ -243,7 +247,62 @@
                         <version>${maven-surefire-plugin.version}</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/suites/${testsSuite}.xml</suiteXmlFile>
+                                <suiteXmlFile>src/test/resources/suites/remote/${parallelTestsOnSeleniumGrid}.xml
+                                </suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>parallel-methods-on-local-server</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>src/test/resources/suites/local/${parallelMethodsOnLocalServer}.xml
+                                </suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>sequence-test-on-local-server</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>src/test/resources/suites/local/${sequenceTestOnLocalServer}.xml
+                                </suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                         <executions>
@@ -274,7 +333,7 @@
                     </argLine>
 
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/suites/${testsSuite}.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/suites/${parallelMethodsOnLocalServer}.xml</suiteXmlFile>
                     </suiteXmlFiles>
 
                     <testFailureIgnore>false</testFailureIgnore>
