@@ -11,9 +11,9 @@ import org.slf4j.MDC;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import testFlows.SignInFlow;
 
@@ -32,17 +32,15 @@ public abstract class BaseTestV10 {
     MDC.put("logDir", "logs");
   }
 
-  @BeforeClass
+  @BeforeTest
   @Parameters({"platformType", "deviceType", "configureFile"})
-  public void beforeClass(String platformType, String deviceType, String configureFile, ITestContext context) {
+  public void beforeTest(String platformType, String deviceType, String configureFile, ITestContext context) {
 
     ThreadSafeDriver.getDriver(PlatformType.valueOf(platformType), DeviceType.valueOf(deviceType), configureFile);
 
-//    context.getCurrentXmlTest().setName(
-//      context.getCurrentXmlTest().getName().concat(" - ").concat(platformType).concat(" - ").concat(deviceType).concat(" - ")
-//        .concat(getDeviceUdid()));
-
-
+    context.getCurrentXmlTest().setName(
+      context.getCurrentXmlTest().getName().concat(" - ").concat(platformType).concat(" - ").concat(deviceType).concat(" - ")
+        .concat(getDeviceUdid()));
   }
 
   @BeforeMethod(alwaysRun = true)
