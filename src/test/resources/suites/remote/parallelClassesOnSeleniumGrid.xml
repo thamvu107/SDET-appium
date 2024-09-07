@@ -6,23 +6,23 @@
         <parameter name="deviceType" value="EMULATOR"/>
         <classes>
             <class name="testcaseV9.authen.SignUpTest">
-                <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile1.properties"/>
+                <parameter name="configureFile" value="deviceCapConfig/devicesOnRemote/android/mobile1.properties"/>
             </class>
 
             <class name="testcaseV9.authen.SignInTest">
-                <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile2.properties"/>
+                <parameter name="configureFile" value="deviceCapConfig/devicesOnRemote/android/mobile2.properties"/>
             </class>
 
             <class name="testcaseV9.authen.SignUpTest">
-                <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile3.properties"/>
+                <parameter name="configureFile" value="deviceCapConfig/devicesOnRemote/android/mobile3.properties"/>
             </class>
 
             <class name="testcaseV9.authen.SignInTest">
-                <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile4.properties"/>
+                <parameter name="configureFile" value="deviceCapConfig/devicesOnRemote/android/mobile4.properties"/>
             </class>
 
             <class name="testcaseV9.authen.SignInTest">
-                <parameter name="configureFile" value="deviceCapConfig/android/emulators/mobile5.properties"/>
+                <parameter name="configureFile" value="deviceCapConfig/devicesOnRemote/android/mobile5.properties"/>
             </class>
         </classes>
     </test>
