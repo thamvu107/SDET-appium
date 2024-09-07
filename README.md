@@ -41,10 +41,41 @@ Learn Appium with Java
 
 #### Prerequisite env
 
-- Selenium Grid setup:
+- [Selenium Grid setup](https://appium.io/docs/en/2.0/guides/grid/):
+    - Run Appium Server with configure ( appium1.yml file)
+        ```
+      # appium1.yml
+      server:
+      address: "2402:800:6341:fc8f:7136:edae:748a:86db"
+      port: 4723
+      keep-alive-timeout: 80
+      use-drivers:
+        - uiautomator2
+        ```
     - Register Nodes
-    - Run Hub.
-    - <img src="resources/images/seleniumGrid.png" width="300" /> 
+        - Example:(node1.toml file)
+            ```
+              #node1.toml
+              [server]
+              port = 5555
+              
+              [node]
+              detect-drivers = false
+              
+              [relay]
+              url = "http://[2402:800:6341:fc8f:7136:edae:748a:86db]:4723"
+              status-endpoint = "/status"
+              protocol-version = "HTTP/1.1"
+              configs = [
+              '1', '{"platformName": "android",  "appium:udid": "192.168.1.10:5555", "appium:automationName": "uiautomator2"}'
+              ]
+             ```           
+
+              - Register node: java -jar "$FILE_PATH"/selenium-server-4.24.0.jar node --config "
+                $CONFIG_FILE_PATH/node1.toml"
+    - [Run Hub](https://appium.io/docs/en/2.0/guides/grid/):
+        - `java -jar $FILE_PATH/selenium-server-4.24.0.jar hub --host [2402:800:6341:fc8f:7136:edae:748a:86db] --port 4444`
+            - <img src="resources/images/seleniumGrid.png" width="300" /> 
 
 - Run parallel methods `parallelMethodsOnSeleniumGrid.xml` suite ( total time: `28s 163ms`:
     - `mvn test -Pparallel-methods-on-selenium-grid -DisRemote=true`
