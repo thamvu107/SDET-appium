@@ -1,7 +1,7 @@
-package testcaseV9.authen;
+package testcaseV10.authen;
 
 import annotations.author.Author;
-import base.BaseTestV9;
+import base.BaseTestV10;
 import dataProvider.signIn.LoginCredData;
 import entity.authen.LoginCred;
 import io.qameta.allure.Allure;
@@ -29,7 +29,7 @@ import static io.qameta.allure.SeverityLevel.NORMAL;
 @Slf4j
 @Epic("Authentication")
 @Feature("Sign In")
-public class SignInTest extends BaseTestV9 {
+public class SignInTest extends BaseTestV10 {
 
   @Test(dataProvider = "loginCredValidUser", dataProviderClass = LoginCredData.class,
     groups = {"funcTest", "checkInTest"})
@@ -45,7 +45,7 @@ public class SignInTest extends BaseTestV9 {
       .verifyAlertIsPresent(SIGN_IN_ALERT_TITLE, SIGN_IN_ALERT_MESSAGE);
 
     Allure.getLifecycle().updateTestCase(testCase -> testCase.setName("Login with correct credential"));
-    customizeParametersForAllureReport();
+    hideParametersForTestCasesInAllureReport();
   }
 
   @Test(dataProvider = "loginCredInvalidEmail", dataProviderClass = LoginCredData.class,
@@ -63,7 +63,7 @@ public class SignInTest extends BaseTestV9 {
       .verifyEmailIsInvalid(INVALID_EMAIL_MESSAGE);
 
     Allure.getLifecycle().updateTestCase(testCase -> testCase.setName("Login with incorrect email"));
-    customizeParametersForAllureReport();
+    hideParametersForTestCasesInAllureReport();
   }
 
   @Author(THAM_VU)
@@ -77,7 +77,7 @@ public class SignInTest extends BaseTestV9 {
       .verifyCredIsInvalid(INVALID_EMAIL_MESSAGE, INVALID_PASSWORD_MESSAGE);
 
     Allure.getLifecycle().updateTestCase(testCase -> testCase.setName("Login with incorrect credentials"));
-    customizeParametersForAllureReport();
+    hideParametersForTestCasesInAllureReport();
   }
 
   @Author(THAM_VU)
@@ -91,6 +91,6 @@ public class SignInTest extends BaseTestV9 {
       .verifyPasswordIsInvalid(INVALID_PASSWORD_MESSAGE);
 
     Allure.getLifecycle().updateTestCase(testCase -> testCase.setName("Login with incorrect password"));
-    customizeParametersForAllureReport();
+    hideParametersForTestCasesInAllureReport();
   }
 }

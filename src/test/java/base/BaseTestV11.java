@@ -8,18 +8,19 @@ import io.qameta.allure.AllureLifecycle;
 import io.qameta.allure.model.Parameter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import testFlows.SignInFlow;
 
-import static io.qameta.allure.model.Parameter.Mode.DEFAULT;
 import static io.qameta.allure.model.Parameter.Mode.HIDDEN;
 
 @Slf4j
-public abstract class BaseTestV9 {
+public abstract class BaseTestV11 {
 
   protected String getDeviceUdid() {
     return ThreadSafeDriver.getDriver().getCapabilities().getCapability("udid").toString();
@@ -31,16 +32,16 @@ public abstract class BaseTestV9 {
     MDC.put("logDir", "logs");
   }
 
-//  @BeforeTest
-//  @Parameters({"platformType", "deviceType", "configureFile"})
-//  public void beforeTest(String platformType, String deviceType, String configureFile, ITestContext context) {
-//
-//    ThreadSafeDriver.getDriver(PlatformType.valueOf(platformType), DeviceType.valueOf(deviceType), configureFile);
-//
-//    context.getCurrentXmlTest().setName(
-//      context.getCurrentXmlTest().getName().concat(" - ").concat(platformType).concat(" - ").concat(deviceType).concat(" - ")
-//        .concat(getDeviceUdid()));
-//  }
+  @BeforeTest
+  @Parameters({"platformType", "deviceType", "configureFile"})
+  public void beforeTest(String platformType, String deviceType, String configureFile, ITestContext context) {
+
+    ThreadSafeDriver.getDriver(PlatformType.valueOf(platformType), DeviceType.valueOf(deviceType), configureFile);
+
+    context.getCurrentXmlTest().setName(
+      context.getCurrentXmlTest().getName().concat(" - ").concat(platformType).concat(" - ").concat(deviceType).concat(" - ")
+        .concat(getDeviceUdid()));
+  }
 
   @BeforeMethod(alwaysRun = true)
   @Parameters({"platformType", "deviceType", "configureFile"})
@@ -76,24 +77,14 @@ public abstract class BaseTestV9 {
     return new SignInFlow(ThreadSafeDriver.getDriver());
   }
 
-  protected void customizeParametersForAllureReport() {
+  protected void hideParametersForTestCasesInAllureReport() {
     AllureLifecycle lifecycle = Allure.getLifecycle();
 
     // Update the test case in Allure
     lifecycle.updateTestCase(testResult -> {
 
       for (Parameter parameter : testResult.getParameters()) {
-        if (parameter.getName().equals("platformType") || parameter.getName().equals("deviceType")) {
-          parameter.setMode(DEFAULT);
-        } else {
-          parameter.setMode(HIDDEN);
-        }
-      }
-
-      // Add the device Udid parameter
-      String deviceUdid = getDeviceUdid();
-      if (deviceUdid != null && !deviceUdid.isEmpty()) {
-        Allure.parameter("Udid", deviceUdid);
+        parameter.setMode(HIDDEN);
       }
     });
   }

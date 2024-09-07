@@ -9,3 +9,6 @@ allure generate target/allure-results/ --clean -o target/allure-report
 allure open target/allure-report
 
 option+ commanf + L => view json file
+
+allure serve target/allure-results --name "Parrallel Methods"
+

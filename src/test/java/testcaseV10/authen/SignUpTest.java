@@ -1,7 +1,7 @@
-package testcaseV9.authen;
+package testcaseV10.authen;
 
 import annotations.author.Author;
-import base.BaseTestV9;
+import base.BaseTestV10;
 import dataProvider.signUp.SignUpCredData;
 import driver.ThreadSafeDriver;
 import entity.authen.SignUpCred;
@@ -19,7 +19,7 @@ import static constants.SignUpScreenConstants.SIGN_UP_SUCCESS_TITLE;
 import static interfaces.IAuthor.THAM_VU;
 
 @Slf4j
-public class SignUpTest extends BaseTestV9 {
+public class SignUpTest extends BaseTestV10 {
 
   @Author(THAM_VU)
   @Test(dataProvider = "signUpCredValidUser", dataProviderClass = SignUpCredData.class,
@@ -32,7 +32,7 @@ public class SignUpTest extends BaseTestV9 {
       .verifyAlertIsPresent(SIGN_UP_SUCCESS_TITLE, SIGN_UP_SUCCESS_MESSAGE);
 
     Allure.getLifecycle().updateTestCase(testCase -> testCase.setName("Signup with correct credentials"));
-    customizeParametersForAllureReport();
+    hideParametersForTestCasesInAllureReport();
   }
 
   @Author(THAM_VU)
@@ -47,7 +47,7 @@ public class SignUpTest extends BaseTestV9 {
       .verifyCredIsInvalid(INVALID_EMAIL_MESSAGE, INVALID_PASSWORD_MESSAGE, INCORRECT_REPEAT_PASSWORD_MESSAGE);
 
     Allure.getLifecycle().updateTestCase(testCase -> testCase.setName("Signup with invalid credentials"));
-    customizeParametersForAllureReport();
+    hideParametersForTestCasesInAllureReport();
   }
 
   @Author(THAM_VU)
@@ -61,7 +61,7 @@ public class SignUpTest extends BaseTestV9 {
       .verifyRepeatPasswordIsInvalid(INCORRECT_REPEAT_PASSWORD_MESSAGE);
 
     Allure.getLifecycle().updateTestCase(testCase -> testCase.setName("Signup with incorrect repeat password"));
-    customizeParametersForAllureReport();
+    hideParametersForTestCasesInAllureReport();
   }
 
   private SignUpFlow signUpFlow() {

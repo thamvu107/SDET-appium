@@ -6,7 +6,7 @@ port = 5588
 detect-drivers = false
 
 [relay]
-url = "http://192.168.1.6:4729"
+url = "http://[2402:800:6341:fc8f:7136:edae:748a:86db]:4729"
 #url = "http://localhost:4729"
 status-endpoint = "/status"
 configs = [
