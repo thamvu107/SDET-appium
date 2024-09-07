@@ -1,4 +1,3 @@
-#!/usr/bin/env fish
 echo "Hello Appium"
 
 # Stop any running Appium servers
@@ -47,22 +46,16 @@ end tell" &
 echo "Waiting for Appium servers to start..."
 sleep 15
 
-# Start the Selenium Grid nodes
-# # echo "Start Selenium node 1 . . ."
-# java -jar "$FILE_PATH"/selenium-server-4.24.0.jar node --config "$CONFIG_FILE_PATH/node1.toml" &
-#
-# # echo "Start Selenium node 2"
-# java -jar "$FILE_PATH"/selenium-server-4.24.0.jar node --config "$CONFIG_FILE_PATH/node2.toml" &
 
+# Start the Selenium Grid nodes
+# echo "Start Selenium node 1 . . ."
+java -jar "$FILE_PATH"/selenium-server-4.24.0.jar node  --hub http://[2402:800:6341:fc8f:7136:edae:748a:86db]:4444 --config "$CONFIG_FILE_PATH/node3.toml"  &
+
+# echo "Start Selenium node 2"
+java -jar "$FILE_PATH"/selenium-server-4.24.0.jar node --hub http://[2402:800:6341:fc8f:7136:edae:748a:86db]:4444  --config "$CONFIG_FILE_PATH/node4.toml" &
 
 # echo "Start Selenium node 3"
-java -jar "$FILE_PATH"/selenium-server-4.24.0.jar node --config "$CONFIG_FILE_PATH/node3.toml" &
-
-# echo "Start Selenium node 4"
-java -jar "$FILE_PATH"/selenium-server-4.24.0.jar node --config "$CONFIG_FILE_PATH/node4.toml" &
-
-# echo "Start Selenium node 5"
-java -jar "$FILE_PATH"/selenium-server-4.24.0.jar node --config "$CONFIG_FILE_PATH/node5.toml" &
+java -jar "$FILE_PATH"/selenium-server-4.24.0.jar node --hub http://[2402:800:6341:fc8f:7136:edae:748a:86db]:4444  --config "$CONFIG_FILE_PATH/node5.toml"
 
 # Wait for a few seconds to ensure all processes are up and running
 echo "Waiting for Selenium nodes to start..."

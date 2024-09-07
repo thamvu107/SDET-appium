@@ -10,14 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignUpCred extends LoginCred {
-    private String repeatPassword;
+  private String repeatPassword;
 
-    @Override
-    public String toString() {
-        return "UserCred{" +
-                "username='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", repeatPassword='" + repeatPassword + '\'' +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "UserCred{username='" + email + "', password='[****]'" + ", repeatPassword='[****]'" + "}";
+  }
+
 }

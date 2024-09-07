@@ -32,7 +32,7 @@ public class AndroidDriverManager extends AppiumDriverManager {
 
     if (caps != null) {
       try {
-        System.out.println("serverURL " + serverURL);
+        //System.out.println("serverURL " + serverURL);
         return new AndroidDriver(serverURL, caps);
       } catch (Exception e) {
         log.error("Failed to create driver: {}", e.getMessage(), e);

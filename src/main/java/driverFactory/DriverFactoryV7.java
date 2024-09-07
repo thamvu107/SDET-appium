@@ -38,6 +38,7 @@ public class DriverFactoryV7 {
     if (Objects.isNull(getDriver())) {
       this.serverURL = ServerURLUtil.getServerURL();
 
+
       switch (platformType) {
         case ANDROID:
           try {

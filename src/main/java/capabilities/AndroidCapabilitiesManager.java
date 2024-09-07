@@ -1,5 +1,6 @@
 package capabilities;
 
+
 import io.appium.java_client.android.options.UiAutomator2Options;
 import utils.propertyReader.PropertiesMap;
 
@@ -28,9 +29,9 @@ public class AndroidCapabilitiesManager {
         .setUdid(deviceProps.getProperty("udid"))
         .setNewCommandTimeout(ofSeconds(deviceProps.getLongProperty("newCommandTimeout")))
         .setSuppressKillServer(true)
-        .setApp(Objects.requireNonNull(
-            AndroidCapabilitiesManager.class.getClassLoader().getResource("apps" + File.separator + deviceProps.getProperty("app")))
-                  .getPath())
+//        .setApp(Objects.requireNonNull(
+//            AndroidCapabilitiesManager.class.getClassLoader().getResource("apps" + File.separator + deviceProps.getProperty("app")))
+//                  .getPath())
 //      .setEnforceAppInstall(true)
         .setAppPackage(deviceProps.getProperty("appPackage"))
         .setAppWaitPackage(deviceProps.getProperty("appWaitPackage"))
@@ -66,9 +67,10 @@ public class AndroidCapabilitiesManager {
         .setAvdLaunchTimeout(Duration.ofSeconds(deviceProps.getIntProperty("avdLaunchTimeout")))
         .setAvdReadyTimeout(Duration.ofSeconds(deviceProps.getIntProperty("avdReadyTimeout")))
         .setIsHeadless(deviceProps.getBooleanProperty("isHeadless"))
-        .setApp(Objects.requireNonNull(
-            AndroidCapabilitiesManager.class.getClassLoader().getResource("apps" + File.separator + deviceProps.getProperty("app")))
-                  .getPath())
+//        .setApp(Objects.requireNonNull(
+//            AndroidCapabilitiesManager.class.getClassLoader().getResource("apps" + File.separator + deviceProps.getProperty("app")))
+//                  .getPath())
+//        .setApp(deviceProps.getProperty("app"))
 //      .setEnforceAppInstall(true)
         .setAppPackage(deviceProps.getProperty("appPackage"))
         .setAppWaitPackage(deviceProps.getProperty("appWaitPackage"))
